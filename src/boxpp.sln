@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boxpp-rt", "boxpp-rt\boxpp-rt.vcxproj", "{2AC37ACF-49BA-411C-83D1-037A43D9AEFB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boxpp", "boxpp\boxpp.vcxproj", "{58B187AF-52F3-4421-94C8-342A5846F64D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{93B4715F-4CF3-484E-A449-48BA97CFFCE9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{58B187AF-52F3-4421-94C8-342A5846F64D} = {58B187AF-52F3-4421-94C8-342A5846F64D}
+		{2AC37ACF-49BA-411C-83D1-037A43D9AEFB} = {2AC37ACF-49BA-411C-83D1-037A43D9AEFB}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test-w32", "test-w32\test-w32.vcxproj", "{6AEEFE2D-E61B-4023-A2BE-399BC245C111}"
+	ProjectSection(ProjectDependencies) = postProject
+		{58B187AF-52F3-4421-94C8-342A5846F64D} = {58B187AF-52F3-4421-94C8-342A5846F64D}
+		{2AC37ACF-49BA-411C-83D1-037A43D9AEFB} = {2AC37ACF-49BA-411C-83D1-037A43D9AEFB}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2AC37ACF-49BA-411C-83D1-037A43D9AEFB}.Debug|x64.ActiveCfg = Debug|x64
+		{2AC37ACF-49BA-411C-83D1-037A43D9AEFB}.Debug|x64.Build.0 = Debug|x64
+		{2AC37ACF-49BA-411C-83D1-037A43D9AEFB}.Debug|x86.ActiveCfg = Debug|Win32
+		{2AC37ACF-49BA-411C-83D1-037A43D9AEFB}.Debug|x86.Build.0 = Debug|Win32
+		{2AC37ACF-49BA-411C-83D1-037A43D9AEFB}.Release|x64.ActiveCfg = Release|x64
+		{2AC37ACF-49BA-411C-83D1-037A43D9AEFB}.Release|x64.Build.0 = Release|x64
+		{2AC37ACF-49BA-411C-83D1-037A43D9AEFB}.Release|x86.ActiveCfg = Release|Win32
+		{2AC37ACF-49BA-411C-83D1-037A43D9AEFB}.Release|x86.Build.0 = Release|Win32
+		{58B187AF-52F3-4421-94C8-342A5846F64D}.Debug|x64.ActiveCfg = Debug|x64
+		{58B187AF-52F3-4421-94C8-342A5846F64D}.Debug|x64.Build.0 = Debug|x64
+		{58B187AF-52F3-4421-94C8-342A5846F64D}.Debug|x86.ActiveCfg = Debug|Win32
+		{58B187AF-52F3-4421-94C8-342A5846F64D}.Debug|x86.Build.0 = Debug|Win32
+		{58B187AF-52F3-4421-94C8-342A5846F64D}.Release|x64.ActiveCfg = Release|x64
+		{58B187AF-52F3-4421-94C8-342A5846F64D}.Release|x64.Build.0 = Release|x64
+		{58B187AF-52F3-4421-94C8-342A5846F64D}.Release|x86.ActiveCfg = Release|Win32
+		{58B187AF-52F3-4421-94C8-342A5846F64D}.Release|x86.Build.0 = Release|Win32
+		{93B4715F-4CF3-484E-A449-48BA97CFFCE9}.Debug|x64.ActiveCfg = Debug|x64
+		{93B4715F-4CF3-484E-A449-48BA97CFFCE9}.Debug|x64.Build.0 = Debug|x64
+		{93B4715F-4CF3-484E-A449-48BA97CFFCE9}.Debug|x86.ActiveCfg = Debug|Win32
+		{93B4715F-4CF3-484E-A449-48BA97CFFCE9}.Debug|x86.Build.0 = Debug|Win32
+		{93B4715F-4CF3-484E-A449-48BA97CFFCE9}.Release|x64.ActiveCfg = Release|x64
+		{93B4715F-4CF3-484E-A449-48BA97CFFCE9}.Release|x64.Build.0 = Release|x64
+		{93B4715F-4CF3-484E-A449-48BA97CFFCE9}.Release|x86.ActiveCfg = Release|Win32
+		{93B4715F-4CF3-484E-A449-48BA97CFFCE9}.Release|x86.Build.0 = Release|Win32
+		{6AEEFE2D-E61B-4023-A2BE-399BC245C111}.Debug|x64.ActiveCfg = Debug|x64
+		{6AEEFE2D-E61B-4023-A2BE-399BC245C111}.Debug|x64.Build.0 = Debug|x64
+		{6AEEFE2D-E61B-4023-A2BE-399BC245C111}.Debug|x86.ActiveCfg = Debug|Win32
+		{6AEEFE2D-E61B-4023-A2BE-399BC245C111}.Debug|x86.Build.0 = Debug|Win32
+		{6AEEFE2D-E61B-4023-A2BE-399BC245C111}.Release|x64.ActiveCfg = Release|x64
+		{6AEEFE2D-E61B-4023-A2BE-399BC245C111}.Release|x64.Build.0 = Release|x64
+		{6AEEFE2D-E61B-4023-A2BE-399BC245C111}.Release|x86.ActiveCfg = Release|Win32
+		{6AEEFE2D-E61B-4023-A2BE-399BC245C111}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5848749-2102-457E-BEA8-0A5E3DE8E562}
+	EndGlobalSection
+EndGlobal

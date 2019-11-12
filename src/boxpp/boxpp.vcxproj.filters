@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="boxpp">
+      <UniqueIdentifier>{0d8f6045-e367-44d2-a2f1-18802d41e598}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\internal">
+      <UniqueIdentifier>{3bb38817-b5a1-4836-9d85-0db1f47f66fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\async">
+      <UniqueIdentifier>{e39f9210-6ff5-4d9a-ae1b-cefb7af394f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="impls">
+      <UniqueIdentifier>{79d3e16a-cdc2-4959-ab44-c13097268a53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\hints">
+      <UniqueIdentifier>{040ff7fb-c05a-40ee-a572-af15d90dae4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="impls\utils">
+      <UniqueIdentifier>{7ca982a7-3cde-4432-9906-5ebdcb920249}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\utils">
+      <UniqueIdentifier>{d403972a-c7c8-4bec-ac24-ce996490335b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="boxpp\Base.hpp">
+      <Filter>boxpp</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp.hpp" />
+    <ClInclude Include="boxpp\Base.Normalize.hpp">
+      <Filter>boxpp</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\internal\IBoxRuntime.hpp">
+      <Filter>boxpp\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\Version.hpp">
+      <Filter>boxpp</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\async\IRunnable.hpp">
+      <Filter>boxpp\async</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\IBox.hpp">
+      <Filter>boxpp</Filter>
+    </ClInclude>
+    <ClInclude Include="impls\Box.hpp">
+      <Filter>impls</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\async\Barrior.hpp">
+      <Filter>boxpp\async</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\hints\pthread.hpp">
+      <Filter>boxpp\hints</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\hints\windows.hpp">
+      <Filter>boxpp\hints</Filter>
+    </ClInclude>
+    <ClInclude Include="impls\BoxSuper.hpp">
+      <Filter>impls</Filter>
+    </ClInclude>
+    <ClInclude Include="impls\utils\PureArray.hpp">
+      <Filter>impls\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\utils\Movable.hpp">
+      <Filter>boxpp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\utils\Comparator.hpp">
+      <Filter>boxpp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\utils\TypeCompares.hpp">
+      <Filter>boxpp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\utils\Forward.hpp">
+      <Filter>boxpp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\utils\Functionality.hpp">
+      <Filter>boxpp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\async\Event.hpp">
+      <Filter>boxpp\async</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="boxpp\boxpp-rt.cpp" />
+    <ClCompile Include="boxpp\internal\IBoxRuntime.cpp">
+      <Filter>boxpp\internal</Filter>
+    </ClCompile>
+    <ClCompile Include="impls\Box.cpp">
+      <Filter>impls</Filter>
+    </ClCompile>
+    <ClCompile Include="impls\BoxSuper.cpp">
+      <Filter>impls</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+  </ItemGroup>
+</Project>
