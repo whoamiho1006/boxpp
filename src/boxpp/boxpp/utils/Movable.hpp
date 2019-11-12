@@ -12,6 +12,10 @@ namespace boxpp
 	template<typename T>
 	constexpr bool IsMoveConstructible = __is_constructible(T, T);
 
+	/* Determines given type is copy-constructible or not. (Simple wrapper for compiler routine) */
+	template<typename T>
+	constexpr bool IsCopyConstructible = __is_constructible(T, const T&);
+
 	/*	Make movable reference if possible. If given type has no move-constructor,
 		This returns const-reference for making it to be copied. */
 	template<typename T, bool IsMovable = IsMoveConstructible<T>>
@@ -32,5 +36,11 @@ namespace boxpp
 		}
 	};
 
+	template<typename T>
+	FASTINLINE static T& Swap(T& Left, T& Right) {
+		T Temp(TMovable<T>::Movable(Left));
+		Left = TMovable<T>::Movable(Right);
+		Right = TMovable<T>::Movable(Temp);
+	}
 }
 #endif // !__BOXPP_UTILS_MOVABLE_HPP__

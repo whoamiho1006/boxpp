@@ -22,6 +22,12 @@
     <Filter Include="boxpp\utils">
       <UniqueIdentifier>{d403972a-c7c8-4bec-ac24-ce996490335b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="impls\async">
+      <UniqueIdentifier>{ce068a45-6506-4602-96cf-682eef9a8582}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\sharedptr">
+      <UniqueIdentifier>{03ba8f77-e34f-43ee-b98e-de1bd922d5a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\Base.hpp">
@@ -78,6 +84,21 @@
     </ClInclude>
     <ClInclude Include="boxpp\async\Event.hpp">
       <Filter>boxpp\async</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\async\Thread.hpp">
+      <Filter>boxpp\async</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\utils\Instrusive.hpp">
+      <Filter>boxpp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\sharedptr\SharedCount.hpp">
+      <Filter>boxpp\sharedptr</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\sharedptr\SharedHolder.hpp">
+      <Filter>boxpp\sharedptr</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\sharedptr\SharedPtr.hpp">
+      <Filter>boxpp\sharedptr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

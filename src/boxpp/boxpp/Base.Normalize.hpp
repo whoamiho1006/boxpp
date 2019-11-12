@@ -148,7 +148,7 @@
 #	define PLATFORM_NATIVE_WCHAR	0
 #	if PLATFORM_UNICODE
 #		undef PLATFORM_UNICODE
-#		define PLATFORM_UNICODE
+#		define PLATFORM_UNICODE		0
 #	endif
 #endif
 

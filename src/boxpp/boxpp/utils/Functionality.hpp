@@ -20,11 +20,23 @@ namespace boxpp
 		{
 			using Type = B;
 		};
+
+		template<bool Condition, typename Type>
+		struct EnableIfImpl { };
+
+		template<typename _Type>
+		struct EnableIfImpl<true, _Type>
+		{
+			using Type = _Type;
+		};
 	}
 
 	/* Pick type A or B.*/
 	template<bool PickA, typename A, typename B>
 	using PickType = typename _::PickTypeImpl<PickA, A, B>::Type;
+
+	template<bool Condition, typename Type = void>
+	using EnableIf = typename _::EnableIfImpl<Condition, Type>::Type;
 
 	namespace _ {
 		template<typename Type, typename ReturnType, typename ... ArgumentTypes>
