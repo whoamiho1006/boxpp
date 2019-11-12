@@ -46,6 +46,11 @@ namespace boxpp {
 #if PLATFORM_WINDOWS
 			w32_compat::WaitForSingleObject(__EVENT__, w32_compat::COMPAT_Infinite);
 #endif
+#if PLATFORM_POSIX
+			pthread_mutex_lock(&__MUTEX__);
+			pthread_cond_wait(&__COND__, &__MUTEX__);
+			pthread_mutex_unlock(&__MUTEX__);
+#endif
 		}
 
 		FASTINLINE bool Wait(s32 Miliseconds) const {
