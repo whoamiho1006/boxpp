@@ -31,6 +31,12 @@
     <Filter Include="impls\memory">
       <UniqueIdentifier>{57f67e17-b6fe-48ee-b445-40dbd6101a77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\containers">
+      <UniqueIdentifier>{59a012e8-f884-44ef-b7c3-ed917ff66018}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\containers\algorithms">
+      <UniqueIdentifier>{d2bc6882-3d2b-47f5-93fb-b06dacd03603}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\Base.hpp">
@@ -117,6 +123,24 @@
     </ClInclude>
     <ClInclude Include="boxpp\utils\PureTimer.hpp">
       <Filter>boxpp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\async\Async.hpp">
+      <Filter>boxpp\async</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\async\Worker.hpp">
+      <Filter>boxpp\async</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\containers\Array.hpp">
+      <Filter>boxpp\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\containers\Iterator.hpp">
+      <Filter>boxpp\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\containers\algorithms\HeapSort.hpp">
+      <Filter>boxpp\containers\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\containers\algorithms\BinarySearch.hpp">
+      <Filter>boxpp\containers\algorithms</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

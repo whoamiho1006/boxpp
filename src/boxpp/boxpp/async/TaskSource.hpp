@@ -66,59 +66,58 @@ namespace boxpp {
 				return false;
 			}
 		};
+	}
 
-		template<typename ReturnType>
-		FASTINLINE bool TTask<ReturnType>::IsCompleted() const {
-			return TaskSource && TaskSource->TaskState != ETaskState::None;
-		}
+	template<typename ReturnType>
+	FASTINLINE bool TTask<ReturnType>::IsCompleted() const {
+		return TaskSource && TaskSource->TaskState != ETaskState::None;
+	}
 
-		template<typename ReturnType>
-		inline FASTINLINE bool TTask<ReturnType>::WasSuccessful() const
-		{
-			return TaskSource && TaskSource->TaskState == ETaskState::Success;
-		}
+	template<typename ReturnType>
+	inline FASTINLINE bool TTask<ReturnType>::WasSuccessful() const
+	{
+		return TaskSource && TaskSource->TaskState == ETaskState::Success;
+	}
 
-		template<typename ReturnType>
-		FASTINLINE bool TTask<ReturnType>::Wait(s32 Timeout) const {
-			FPureTimer Timer;
+	template<typename ReturnType>
+	FASTINLINE bool TTask<ReturnType>::Wait(s32 Timeout) const {
+		FPureTimer Timer;
 
-			while (TaskSource) {
-				if (TaskSource->StateNotifier.Wait(Timeout) &&
-					TaskSource->TaskState != ETaskState::None)
-				{
-					return true;
-				}
-
-				s32 Milliseconds = Timer.GetMilliseconds();
-				if (Timeout >= 0)
-				{
-					if (Milliseconds >= Timeout)
-						break;
-
-					if (Milliseconds) {
-						Timeout -= Milliseconds;
-						if (Timeout < 0)
-							Timeout = 0;
-
-						Timer.Reset();
-					}
-				}
-			}
-			
-			return false;
-		}
-
-		template<typename ReturnType>
-		FASTINLINE bool TTask<ReturnType>::GetResult(ReturnType & OutResult) const
-		{
-			if (IsCompleted() && TaskSource->TaskState == ETaskState::Success) {
-				OutResult = *TaskSource->ResultValue;
+		while (TaskSource) {
+			if (TaskSource->StateNotifier.Wait(Timeout) &&
+				TaskSource->TaskState != ETaskState::None)
+			{
 				return true;
 			}
 
-			return false;
+			s32 Milliseconds = Timer.GetMilliseconds();
+			if (Timeout >= 0)
+			{
+				if (Milliseconds >= Timeout)
+					break;
+
+				if (Milliseconds) {
+					Timeout -= Milliseconds;
+					if (Timeout < 0)
+						Timeout = 0;
+
+					Timer.Reset();
+				}
+			}
+		}
+			
+		return false;
+	}
+
+	template<typename ReturnType>
+	FASTINLINE bool TTask<ReturnType>::GetResult(ReturnType & OutResult) const
+	{
+		if (IsCompleted() && TaskSource->TaskState == ETaskState::Success) {
+			OutResult = *TaskSource->ResultValue;
+			return true;
 		}
 
+		return false;
 	}
 }
 

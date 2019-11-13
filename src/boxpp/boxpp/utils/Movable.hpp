@@ -41,6 +41,7 @@ namespace boxpp
 		T Temp(TMovable<T>::Movable(Left));
 		Left = TMovable<T>::Movable(Right);
 		Right = TMovable<T>::Movable(Temp);
+		return Left;
 	}
 }
 #endif // !__BOXPP_UTILS_MOVABLE_HPP__

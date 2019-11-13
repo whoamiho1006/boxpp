@@ -56,8 +56,8 @@ namespace boxpp {
 			FASTINLINE ObjectType& operator *() const { return *GetRaw(); }
 
 		public:
-			FASTINLINE bool operator ==(const SelfType& Other) const { return Object == Other.Object; }
-			FASTINLINE bool operator !=(const SelfType& Other) const { return Object != Other.Object; }
+			FASTINLINE bool operator ==(const SelfType& Other) const { return Holder.GetRaw() == Other.Holder.GetRaw(); }
+			FASTINLINE bool operator !=(const SelfType& Other) const { return Holder.GetRaw() != Other.Holder.GetRaw(); }
 
 		public:
 			FASTINLINE SelfType& operator =(nullptr_t) { Holder = nullptr; return *this; }

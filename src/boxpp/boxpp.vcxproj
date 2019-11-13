@@ -20,15 +20,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp.hpp" />
+    <ClInclude Include="boxpp\async\Async.hpp" />
     <ClInclude Include="boxpp\async\Barrior.hpp" />
     <ClInclude Include="boxpp\async\Event.hpp" />
     <ClInclude Include="boxpp\async\IRunnable.hpp" />
     <ClInclude Include="boxpp\async\Task.hpp" />
     <ClInclude Include="boxpp\async\TaskSource.hpp" />
     <ClInclude Include="boxpp\async\Thread.hpp" />
+    <ClInclude Include="boxpp\async\Worker.hpp" />
     <ClInclude Include="boxpp\Base.hpp" />
     <ClInclude Include="boxpp\Base.Normalize.hpp" />
     <ClInclude Include="boxpp\Boilerplate.hpp" />
+    <ClInclude Include="boxpp\containers\algorithms\BinarySearch.hpp" />
+    <ClInclude Include="boxpp\containers\algorithms\HeapSort.hpp" />
+    <ClInclude Include="boxpp\containers\Array.hpp" />
+    <ClInclude Include="boxpp\containers\Iterator.hpp" />
     <ClInclude Include="boxpp\hints\pthread.hpp" />
     <ClInclude Include="boxpp\hints\windows.hpp" />
     <ClInclude Include="boxpp\IBox.hpp" />
