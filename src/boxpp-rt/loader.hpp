@@ -2,8 +2,8 @@
 #include <boxpp.hpp>
 #include <boxpp/internal/IBoxRuntime.hpp>
 
+/*
 namespace boxpp_rt {
-	/* Opacity handle for boxpp library. (shared) */
 	typedef struct { void* unused; } *OBoxLibrary;
 
 	struct SBoxInterface {
@@ -16,7 +16,7 @@ namespace boxpp_rt {
 		FAR_bxExecRuntime	Exec;
 	};
 
-	/* Interface loaders. */
 	bool bxLoadInterface(SBoxInterface& Interface);
 	void bxUnloadInterface(SBoxInterface& Interface);
 }
+*/

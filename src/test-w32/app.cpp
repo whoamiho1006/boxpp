@@ -1,4 +1,5 @@
 #include <boxpp.hpp>
+#pragma comment(lib, "boxpp.lib")
 #pragma comment(lib, "boxpp-rt.lib")
 
 class test {

@@ -19,9 +19,27 @@ public:
 int main(int argc, char** argv)
 {
 	FBoxRuntimeExe Runtime(argc, (const boxpp::c8**) argv);
-	SBoxInterface Box;
+	//SBoxInterface Box;
 	int RetVal = 0;
 
+	if (bxEnterRuntime(&Runtime))
+	{
+		bxExecRuntime(&Runtime);
+
+		if (bxLeaveRuntime(&Runtime))
+			RetVal = Runtime.ExitCode;
+
+		else {
+			fprintf(stderr, "Box couldn't be finalized correctly.\n");
+			RetVal = -1;
+		}
+	}
+	else {
+		fprintf(stderr, "Box couldn't be loaded.\n");
+		RetVal = -1;
+	}
+
+	/*
 	if (bxLoadInterface(Box)) {
 		if (Box.Enter(&Runtime)) {
 			Box.Exec && !Box.Exec(&Runtime);
@@ -47,6 +65,7 @@ int main(int argc, char** argv)
 		fprintf(stderr, "Box couldn't be loaded.\n");
 		RetVal = -1;
 	}
+	*/
 
 	return RetVal;
 }

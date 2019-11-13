@@ -1,22 +1,24 @@
 #include "loader.hpp"
 
+/*
 #if PLATFORM_WINDOWS
 #include <Windows.h>
 #endif
-
+*/
 #if PLATFORM_POSIX
 /*	Auto-completion block for Visual-studio. 
 	Auto-completion blocks will not be really compiled. */
-#	if BOX_NOT_COMPILED
+/*#	if BOX_NOT_COMPILED
 		extern void* dlopen(const char *filename, int flag);
 		extern void* dlsym(void *handle, const char *symbol);
 		extern int dlclose(void *handle);
 #		define RTLD_NOW		0
 #	else
 #		include <dlfcn.h>
-#	endif
+#	endif*/
 #endif
 
+/*
 namespace boxpp_rt {
 	template<typename FAR_Type>
 	FASTINLINE FAR_Type FindBoxProc(const SBoxInterface& Interface, const boxpp::c8* Symbol) {
@@ -102,4 +104,4 @@ namespace boxpp_rt {
 
 		::memset(&Interface, 0, sizeof(Interface));
 	}
-}
+}*/

@@ -18,16 +18,31 @@ public:
 	virtual ERuntimeType GetType() const override { return ERuntimeType::ExeW32; }
 };
 
-extern boxpp_rt::IBoxRuntime* REF_Runtime;
-
 int APIENTRY WinMain(
 	HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpszCmdParam, int nCmdShow)
 {
 	FBoxRuntimeExeW32 Runtime(hInstance);
-	SBoxInterface Box;
+	//SBoxInterface Box;
 	int RetVal = 0;
 
+	if (bxEnterRuntime(&Runtime))
+	{
+		bxExecRuntime(&Runtime);
+
+		if (bxLeaveRuntime(&Runtime))
+			RetVal = Runtime.ExitCode;
+
+		else {
+			MessageBoxA(NULL, "Box couldn't be finalized correctly.", "Box", 0);
+			RetVal = -1;
+		}
+	}
+	else {
+		MessageBoxA(NULL, "Box couldn't be initialized correctly.", "Box", 0);
+		RetVal = -1;
+	}
+	/*
 	if (bxLoadInterface(Box)) {
 		if (Box.Enter(&Runtime)) {
 			Box.Exec && !Box.Exec(&Runtime);
@@ -50,7 +65,7 @@ int APIENTRY WinMain(
 		MessageBoxA(NULL, "Box couldn't be loaded.", "Box", 0);
 		RetVal = -1;
 	}
-
+	*/
 	return RetVal;
 }
 #endif
