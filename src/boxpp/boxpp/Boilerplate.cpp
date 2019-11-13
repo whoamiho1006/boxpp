@@ -1,6 +1,8 @@
 #include "Boilerplate.hpp"
 #include <malloc.h>
 
+BOXPP_DECLARE_BOILERPLATE();
+
 namespace boxpp {
 	namespace boilerplates {
 		IBoilerplate* FBoilerplate::Plate = nullptr;
@@ -11,9 +13,6 @@ namespace boxpp {
 		};
 
 		IBoilerplate* FBoilerplate::Get() { return Plate; }
-
-		/* Internal use only! */
-
 		void FBoilerplate::Set(IBoilerplate * Boilerplate) { Plate = Boilerplate; }
 
 		/*
@@ -54,20 +53,4 @@ namespace boxpp {
 			else ::free(Block);
 		}
 	}
-}
-
-void* operator new (boxpp::size_t Size) {
-	return boxpp::boilerplates::FBoilerplate::Alloc(Size);
-}
-
-void* operator new[] (boxpp::size_t Size) {
-	return boxpp::boilerplates::FBoilerplate::Alloc(Size);
-}
-
-void operator delete(void* Block) {
-	boxpp::boilerplates::FBoilerplate::Free(Block);
-}
-
-void operator delete[] (void* Block) {
-	boxpp::boilerplates::FBoilerplate::Free(Block);
 }

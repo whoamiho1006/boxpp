@@ -36,6 +36,13 @@ namespace boxpp {
 			static void* Realloc(void* Block, size_t NewSize);
 			static void Free(void* Block);
 		};
+
+#define BOXPP_DECLARE_BOILERPLATE() \
+	void* operator new (boxpp::size_t Size) { return boxpp::boilerplates::FBoilerplate::Alloc(Size); } \
+	void* operator new[] (boxpp::size_t Size) { return boxpp::boilerplates::FBoilerplate::Alloc(Size); } \
+	void operator delete(void* Block) { boxpp::boilerplates::FBoilerplate::Free(Block); } \
+	void operator delete[](void* Block) { boxpp::boilerplates::FBoilerplate::Free(Block); }
+
 	}
 }
 #endif // !__BOXPP_BOILERPLATE_HPP__

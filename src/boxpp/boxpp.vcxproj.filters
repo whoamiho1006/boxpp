@@ -109,6 +109,15 @@
     <ClInclude Include="boxpp\Boilerplate.hpp">
       <Filter>boxpp</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\async\TaskSource.hpp">
+      <Filter>boxpp\async</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\async\Task.hpp">
+      <Filter>boxpp\async</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\utils\PureTimer.hpp">
+      <Filter>boxpp\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\boxpp-rt.cpp" />

@@ -3,6 +3,8 @@
 
 #pragma comment(lib, "boxpp.lib")
 
+BOXPP_DECLARE_BOILERPLATE();
+
 FBoxBoilerplate* FBoxBoilerplate::Get()
 {
 	static FBoxBoilerplate __PLATE__;

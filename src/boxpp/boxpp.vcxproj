@@ -23,6 +23,8 @@
     <ClInclude Include="boxpp\async\Barrior.hpp" />
     <ClInclude Include="boxpp\async\Event.hpp" />
     <ClInclude Include="boxpp\async\IRunnable.hpp" />
+    <ClInclude Include="boxpp\async\Task.hpp" />
+    <ClInclude Include="boxpp\async\TaskSource.hpp" />
     <ClInclude Include="boxpp\async\Thread.hpp" />
     <ClInclude Include="boxpp\Base.hpp" />
     <ClInclude Include="boxpp\Base.Normalize.hpp" />
@@ -40,6 +42,7 @@
     <ClInclude Include="boxpp\utils\Instrusive.hpp" />
     <ClInclude Include="boxpp\utils\Movable.hpp" />
     <ClInclude Include="boxpp\utils\Functionality.hpp" />
+    <ClInclude Include="boxpp\utils\PureTimer.hpp" />
     <ClInclude Include="boxpp\utils\TypeCompares.hpp" />
     <ClInclude Include="boxpp\Version.hpp" />
     <ClInclude Include="impls\Box.hpp" />
