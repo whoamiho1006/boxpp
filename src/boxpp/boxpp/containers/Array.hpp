@@ -154,7 +154,7 @@ namespace boxpp {
 				Swap(this->Capacity, Capacity);
 				Swap(this->Length, Length);
 
-				for (u32 i = 0; i < GetSize; i++) {
+				for (u32 i = 0; i < Length; i++) {
 					Storage[i].~ElemType();
 				}
 
