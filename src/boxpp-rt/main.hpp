@@ -29,5 +29,7 @@ public:
 
 public:
 	/* Run this runtime if required. */
-	virtual void Run() override { ExitCode = run(GetBox()); };
+	virtual void Run() override { 
+		ExitCode = run(GetBox()); 
+	};
 };

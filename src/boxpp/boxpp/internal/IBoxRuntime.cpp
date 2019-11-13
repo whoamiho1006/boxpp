@@ -83,8 +83,8 @@ namespace boxpp_rt
 		if ((Index = Runtimes.Add(RT)) >= 0) {
 			Barrior.Leave();
 
-			if (boxpp::FBox* Box = new boxpp::FBox(BoxSuper)) {
-				BoxSuper->Register(Box);
+			if (boxpp::FBox* Box = new boxpp::FBox(BoxSuper->ToWeak())) {
+				BoxSuper->Register(Box->ToWeak());
 				IBoxRuntime::Deployer::Deploy(RT, Box);
 				return true;
 			}
@@ -109,7 +109,7 @@ namespace boxpp_rt
 
 			if (boxpp::IBox* Box = RT->GetBox()) {
 				IBoxRuntime::Deployer::Deploy(RT, nullptr);
-				BoxSuper->Unregister(Box);
+				BoxSuper->Unregister(Box->ToWeak());
 				delete Box;
 			}
 

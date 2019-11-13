@@ -10,7 +10,7 @@ namespace boxpp
 	{
 	}
 
-	void FBoxSuper::Register(IBox* ChildBox) {
+	void FBoxSuper::Register(const TWeakPtr<IBox, ESharedMode::Safe>& ChildBox) {
 		BOX_BARRIOR_SCOPED(Barrior);
 
 		if (ChildBox) {
@@ -18,7 +18,7 @@ namespace boxpp
 		}
 	}
 
-	void FBoxSuper::Unregister(IBox* ChildBox) {
+	void FBoxSuper::Unregister(const TWeakPtr<IBox, ESharedMode::Safe>& ChildBox) {
 		BOX_BARRIOR_SCOPED(Barrior);
 
 		if (ChildBox) {

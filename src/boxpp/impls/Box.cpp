@@ -2,8 +2,8 @@
 
 namespace boxpp 
 {
-	FBox::FBox(IBox* Upper)
-		: Upper(Upper)
+	FBox::FBox(const TWeakPtr<IBox, ESharedMode::Safe>& Upper)
+		: Upper(Upper), Allocator(Upper)
 	{
 	}
 

@@ -12,15 +12,21 @@
 /* Loads hints/pthread.hpp. */
 #include <boxpp/hints/pthread.hpp>
 
+#ifndef __BOXPP_SHAREDPTR_BORADCASTED_HPP__
+#include <boxpp/sharedptr/BroadcastedObject.hpp>
+#endif
+
 #include <boxpp/async/IRunnable.hpp>
 #include <boxpp/utils/Instrusive.hpp>
+
+#include <boxpp/async/Barrior.hpp>
 #include <boxpp/async/Event.hpp>
 
 namespace boxpp {
 	namespace async {
 
 		/* Thread. */
-		class FThread
+		class FThread : public IBroadcastedObject<FThread, ESharedMode::Safe>
 		{
 		private:
 #if PLATFORM_WINDOWS
@@ -42,7 +48,7 @@ namespace boxpp {
 			{
 			}
 
-			FASTINLINE FThread(IRunnable* Runnable, bool bImmediate = true)
+			FASTINLINE FThread(const TSharedPtr<IRunnable>& Runnable, bool bImmediate = true)
 				: Runnable(Runnable), bRunning(false)
 			{
 				if (bImmediate && Runnable) {
@@ -74,10 +80,12 @@ namespace boxpp {
 					Event->Reset();
 
 #if PLATFORM_WINDOWS
+					Barrior.Enter();
 					hThread = w32_compat::CreateThread(nullptr,
 						2048 * 10, ThreadProxy_W32, this, 0, NULL);
 
 					bRunning = hThread != nullptr;
+					Barrior.Leave();
 #endif
 #if PLATFORM_POSIX
 					bRunning = !pthread_create(&Thread, nullptr, ThreadProxy_POSIX, this);
@@ -90,7 +98,7 @@ namespace boxpp {
 			}
 
 			/* Run thread. */
-			FASTINLINE bool Run(IRunnable* Runnable) {
+			FASTINLINE bool Run(const TSharedPtr<IRunnable>& Runnable) {
 				if (!bRunning) {
 					this->Runnable = Runnable;
 					return Run();
@@ -133,11 +141,17 @@ namespace boxpp {
 					Runnable->Run();
 				}
 
+				Barrior.Enter();
 				bRunning = false;
+				Barrior.Leave();
 			}
 
+		public:
+			FASTINLINE FBarrior& GetBarrior() { return Barrior; }
+			FASTINLINE const FBarrior& GetBarrior() const { return Barrior; }
+
 		private:
-			IRunnable* Runnable;
+			TSharedPtr<IRunnable, ESharedMode::Safe> Runnable;
 			bool bRunning;
 
 #if PLATFORM_WINDOWS
@@ -148,7 +162,7 @@ namespace boxpp {
 #endif
 
 			TInstrusive<FEvent> Event;
-
+			FBarrior Barrior;
 		};
 
 	}

@@ -18,6 +18,8 @@ public:
 	virtual ERuntimeType GetType() const override { return ERuntimeType::ExeW32; }
 };
 
+extern boxpp_rt::IBoxRuntime* REF_Runtime;
+
 int APIENTRY WinMain(
 	HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpszCmdParam, int nCmdShow)
@@ -26,6 +28,7 @@ int APIENTRY WinMain(
 	SBoxInterface Box;
 	int RetVal = 0;
 
+	REF_Runtime = &Runtime;
 	if (bxLoadInterface(Box)) {
 		if (Box.Enter(&Runtime)) {
 			Box.Exec && !Box.Exec(&Runtime);
@@ -49,6 +52,7 @@ int APIENTRY WinMain(
 		RetVal = -1;
 	}
 
+	REF_Runtime = nullptr;
 	return RetVal;
 }
 #endif

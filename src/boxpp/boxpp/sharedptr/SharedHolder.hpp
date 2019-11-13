@@ -16,6 +16,15 @@
 
 namespace boxpp {
 	namespace sharedptr {
+		enum class EHolderPolicy
+		{
+			/* Default object policy. */
+			Default = 0,
+
+			/* Broadcasted objects are self-shared. so, always weak. */
+			Broadcasts
+		};
+
 		template<ESharedMode Mode, bool bHoldStrong>
 		class FSharedHolder
 		{
@@ -50,8 +59,8 @@ namespace boxpp {
 			~FSharedHolder() { Reset(); }
 
 		public:
-			FASTINLINE operator bool() const { return Counter && Counter->Strongs > 0; }
-			FASTINLINE bool operator !() const { return !Counter || Counter->Strongs <= 0; }
+			FASTINLINE operator bool() const { return Counter && Counter->Validity; }
+			FASTINLINE bool operator !() const { return !Counter || !Counter->Validity; }
 
 			/* Get raw pointer. */
 			FASTINLINE ISharedCount* GetRaw() const { return Counter; }

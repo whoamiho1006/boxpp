@@ -16,12 +16,15 @@ public:
 	virtual ERuntimeType GetType() const override { return ERuntimeType::Exe; }
 };
 
+extern boxpp_rt::IBoxRuntime* REF_Runtime;
+
 int main(int argc, char** argv)
 {
 	FBoxRuntimeExe Runtime(argc, (const boxpp::c8**) argv);
 	SBoxInterface Box;
 	int RetVal = 0;
 
+	REF_Runtime = &Runtime;
 	if (bxLoadInterface(Box)) {
 		if (Box.Enter(&Runtime)) {
 			Box.Exec && !Box.Exec(&Runtime);
@@ -48,5 +51,6 @@ int main(int argc, char** argv)
 		RetVal = -1;
 	}
 
+	REF_Runtime = nullptr;
 	return RetVal;
 }

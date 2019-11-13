@@ -23,12 +23,12 @@ namespace boxpp {
 		public:
 			template<typename, ESharedMode, bool> friend class TSmartPtr;
 			typedef TSmartPtr<ObjectType, Mode, bHoldStrong> SelfType;
-			typedef FSharedHolder<Mode, true> HolderType;
+			typedef FSharedHolder<Mode, bHoldStrong> HolderType;
 
 		public:
 			TSmartPtr(nullptr_t = nullptr) { }
 			TSmartPtr(const SelfType& Other) : Holder(Other.Holder) { }
-			TSmartPtr(SelfType&& Other) : Holder(TMovable<HolderType>::Movable(Other)) { }
+			TSmartPtr(SelfType&& Other) : Holder(TMovable<HolderType>::Movable(Other.Holder)) { }
 
 			/* up-casting supports */
 			template<typename OtherType, ESharedMode OtherMode, bool OtherHolds, 
@@ -88,7 +88,15 @@ namespace boxpp {
 				return *this;
 			}
 
-		private:
+			/* up-casting supports */
+			template<typename OtherType, typename = EnableIf<IsDerivedType<ObjectType, OtherType>>>
+			FASTINLINE SelfType& operator =(const TSmartProxy<OtherType>& Other) {
+				Holder = Other.Counter;
+				Object = Other.Object;
+				return *this;
+			}
+
+		protected:
 			HolderType Holder;
 			ObjectType* Object;
 		};
