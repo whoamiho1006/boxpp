@@ -44,8 +44,8 @@ namespace boxpp {
 		/*
 			Initialize an array with initial Capacity.
 		*/
-		TArray(u32 GetCapacity = 0)
-			: TArray(init_default, GetCapacity)
+		TArray(u32 InitialCapacity = 0)
+			: TArray(init_default, InitialCapacity)
 		{
 
 		}
@@ -147,12 +147,12 @@ namespace boxpp {
 		FASTINLINE void Clear() {
 			if (Storage) {
 				ElemType* Storage = nullptr;
-				u32 GetCapacity = 0;
-				u32 GetSize = 0;
+				u32 Capacity = 0;
+				u32 Length = 0;
 
 				Swap(this->Storage, Storage);
-				Swap(Capacity, GetCapacity);
-				Swap(Length, GetSize);
+				Swap(this->Capacity, Capacity);
+				Swap(this->Length, Length);
 
 				for (u32 i = 0; i < GetSize; i++) {
 					Storage[i].~ElemType();
