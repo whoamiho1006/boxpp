@@ -30,7 +30,6 @@
     <ClInclude Include="boxpp\hints\windows.hpp" />
     <ClInclude Include="boxpp\IBox.hpp" />
     <ClInclude Include="boxpp\internal\IBoxRuntime.hpp" />
-    <ClInclude Include="boxpp\memory\Allocator.hpp" />
     <ClInclude Include="boxpp\sharedptr\BroadcastedObject.hpp" />
     <ClInclude Include="boxpp\sharedptr\SharedCount.hpp" />
     <ClInclude Include="boxpp\sharedptr\SharedHolder.hpp" />
@@ -44,7 +43,6 @@
     <ClInclude Include="boxpp\Version.hpp" />
     <ClInclude Include="impls\Box.hpp" />
     <ClInclude Include="impls\BoxSuper.hpp" />
-    <ClInclude Include="impls\memory\Allocator.hpp" />
     <ClInclude Include="impls\memory\Boilerplate.hpp" />
     <ClInclude Include="impls\utils\PureArray.hpp" />
   </ItemGroup>
@@ -53,7 +51,6 @@
     <ClCompile Include="boxpp\internal\IBoxRuntime.cpp" />
     <ClCompile Include="impls\Box.cpp" />
     <ClCompile Include="impls\BoxSuper.cpp" />
-    <ClCompile Include="impls\memory\Allocator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

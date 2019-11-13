@@ -12,8 +12,6 @@
 
 namespace boxpp
 {
-	class IAllocator;
-
 	/*
 		IBox interface.
 
@@ -25,9 +23,6 @@ namespace boxpp
 	public:
 		virtual ~IBox() { }
 
-	public:
-		/* Memory allocator for this box. */
-		virtual IAllocator* GetAllocator() = 0;
 	};
 
 }

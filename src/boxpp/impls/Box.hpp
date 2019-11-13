@@ -1,7 +1,6 @@
 #pragma once
 #include <boxpp/IBox.hpp>
 #include <boxpp/async/Barrior.hpp>
-#include <impls/memory/Allocator.hpp>
 
 namespace boxpp
 {
@@ -16,11 +15,7 @@ namespace boxpp
 
 	private:
 		FBarrior Barrior;
-		FAllocator Allocator;
 		TWeakPtr<IBox, ESharedMode::Safe> Upper;
 
-	public:
-		/* Memory allocator for this box. */
-		virtual IAllocator* GetAllocator() override { return &Allocator; }
 	};
 }

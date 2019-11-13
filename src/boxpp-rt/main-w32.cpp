@@ -28,7 +28,6 @@ int APIENTRY WinMain(
 	SBoxInterface Box;
 	int RetVal = 0;
 
-	REF_Runtime = &Runtime;
 	if (bxLoadInterface(Box)) {
 		if (Box.Enter(&Runtime)) {
 			Box.Exec && !Box.Exec(&Runtime);
@@ -52,7 +51,6 @@ int APIENTRY WinMain(
 		RetVal = -1;
 	}
 
-	REF_Runtime = nullptr;
 	return RetVal;
 }
 #endif

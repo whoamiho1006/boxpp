@@ -2,7 +2,6 @@
 #include <boxpp/IBox.hpp>
 #include <boxpp/async/Barrior.hpp>
 #include <impls/utils/PureArray.hpp>
-#include <impls/memory/Allocator.hpp>
 
 namespace boxpp
 {
@@ -18,7 +17,6 @@ namespace boxpp
 
 	private:
 		FBarrior Barrior;
-		FAllocator Allocator;
 		TPureArray<TWeakPtr<IBox, ESharedMode::Safe>> Children;
 
 	public:
@@ -28,8 +26,5 @@ namespace boxpp
 		/* Unregisters the child box.*/
 		void Unregister(const TWeakPtr<IBox, ESharedMode::Safe>& ChildBox);
 
-	public:
-		/* Memory allocator for this box. */
-		virtual IAllocator* GetAllocator() override { return &Allocator; }
 	};
 }

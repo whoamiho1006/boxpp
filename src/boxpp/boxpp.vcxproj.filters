@@ -28,9 +28,6 @@
     <Filter Include="boxpp\sharedptr">
       <UniqueIdentifier>{03ba8f77-e34f-43ee-b98e-de1bd922d5a0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="boxpp\memory">
-      <UniqueIdentifier>{142214e3-a20a-42f7-9c44-d1b1915d25cb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="impls\memory">
       <UniqueIdentifier>{57f67e17-b6fe-48ee-b445-40dbd6101a77}</UniqueIdentifier>
     </Filter>
@@ -109,12 +106,6 @@
     <ClInclude Include="boxpp\sharedptr\BroadcastedObject.hpp">
       <Filter>boxpp\sharedptr</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\memory\Allocator.hpp">
-      <Filter>boxpp\memory</Filter>
-    </ClInclude>
-    <ClInclude Include="impls\memory\Allocator.hpp">
-      <Filter>impls\memory</Filter>
-    </ClInclude>
     <ClInclude Include="impls\memory\Boilerplate.hpp">
       <Filter>boxpp</Filter>
     </ClInclude>
@@ -129,9 +120,6 @@
     </ClCompile>
     <ClCompile Include="impls\BoxSuper.cpp">
       <Filter>impls</Filter>
-    </ClCompile>
-    <ClCompile Include="impls\memory\Allocator.cpp">
-      <Filter>impls\memory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

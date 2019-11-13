@@ -4,8 +4,6 @@
 #include <boxpp/Base.hpp>
 #include <boxpp/Version.hpp>
 
-#include <boxpp/memory/Allocator.hpp>
-
 /* -- Shared pointers. -- */
 #include <boxpp/sharedptr/SharedPtr.hpp>
 #include <boxpp/sharedptr/BroadcastedObject.hpp>

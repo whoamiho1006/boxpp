@@ -166,7 +166,6 @@
     <ClCompile Include="loader.cpp" />
     <ClCompile Include="main-w32.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="new.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="loader.hpp" />
