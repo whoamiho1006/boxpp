@@ -26,6 +26,7 @@
     <ClInclude Include="boxpp\async\Thread.hpp" />
     <ClInclude Include="boxpp\Base.hpp" />
     <ClInclude Include="boxpp\Base.Normalize.hpp" />
+    <ClInclude Include="boxpp\Boilerplate.hpp" />
     <ClInclude Include="boxpp\hints\pthread.hpp" />
     <ClInclude Include="boxpp\hints\windows.hpp" />
     <ClInclude Include="boxpp\IBox.hpp" />
@@ -43,10 +44,10 @@
     <ClInclude Include="boxpp\Version.hpp" />
     <ClInclude Include="impls\Box.hpp" />
     <ClInclude Include="impls\BoxSuper.hpp" />
-    <ClInclude Include="impls\memory\Boilerplate.hpp" />
     <ClInclude Include="impls\utils\PureArray.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="boxpp\Boilerplate.cpp" />
     <ClCompile Include="boxpp\boxpp-rt.cpp" />
     <ClCompile Include="boxpp\internal\IBoxRuntime.cpp" />
     <ClCompile Include="impls\Box.cpp" />

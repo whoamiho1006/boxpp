@@ -106,7 +106,7 @@
     <ClInclude Include="boxpp\sharedptr\BroadcastedObject.hpp">
       <Filter>boxpp\sharedptr</Filter>
     </ClInclude>
-    <ClInclude Include="impls\memory\Boilerplate.hpp">
+    <ClInclude Include="boxpp\Boilerplate.hpp">
       <Filter>boxpp</Filter>
     </ClInclude>
   </ItemGroup>
@@ -120,6 +120,9 @@
     </ClCompile>
     <ClCompile Include="impls\BoxSuper.cpp">
       <Filter>impls</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\Boilerplate.cpp">
+      <Filter>boxpp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -3,10 +3,9 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main-w32.cpp" />
-    <ClCompile Include="loader.cpp" />
+    <ClCompile Include="boilerplate.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="loader.hpp" />
-    <ClInclude Include="main.hpp" />
+    <ClInclude Include="boilerplate.hpp" />
   </ItemGroup>
 </Project>

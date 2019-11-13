@@ -163,13 +163,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="loader.cpp" />
+    <ClCompile Include="boilerplate.cpp" />
     <ClCompile Include="main-w32.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="loader.hpp" />
-    <ClInclude Include="main.hpp" />
+    <ClInclude Include="boilerplate.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

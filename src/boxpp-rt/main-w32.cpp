@@ -1,9 +1,10 @@
-#include "main.hpp"
+#include "boilerplate.hpp"
 
 #if PLATFORM_WINDOWS
 #include <Windows.h>
 
 using namespace boxpp_rt;
+using namespace boxpp::boilerplates;
 
 /* box runtime class for CLI */
 class FBoxRuntimeExeW32 : public FBoxRuntimeCommon
@@ -23,13 +24,14 @@ int APIENTRY WinMain(
 	LPSTR lpszCmdParam, int nCmdShow)
 {
 	FBoxRuntimeExeW32 Runtime(hInstance);
-	//SBoxInterface Box;
 	int RetVal = 0;
 
 	if (bxEnterRuntime(&Runtime))
 	{
+		FBoilerplate::Set(FBoxBoilerplate::Get());
 		bxExecRuntime(&Runtime);
 
+		FBoilerplate::Set(nullptr);
 		if (bxLeaveRuntime(&Runtime))
 			RetVal = Runtime.ExitCode;
 
@@ -42,30 +44,7 @@ int APIENTRY WinMain(
 		MessageBoxA(NULL, "Box couldn't be initialized correctly.", "Box", 0);
 		RetVal = -1;
 	}
-	/*
-	if (bxLoadInterface(Box)) {
-		if (Box.Enter(&Runtime)) {
-			Box.Exec && !Box.Exec(&Runtime);
 
-			if (!Box.Leave(&Runtime)) {
-				MessageBoxA(NULL, "Box couldn't be finalized correctly.", "Box", 0);
-				RetVal = -1;
-			}
-		}
-
-		else {
-			MessageBoxA(NULL, "Box couldn't be initialized correctly.", "Box", 0);
-			RetVal = -1;
-		}
-
-		bxUnloadInterface(Box);
-	}
-
-	else {
-		MessageBoxA(NULL, "Box couldn't be loaded.", "Box", 0);
-		RetVal = -1;
-	}
-	*/
 	return RetVal;
 }
 #endif

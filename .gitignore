@@ -152,3 +152,7 @@ src/immediates/x64-Debug/boxpp/boxpp.Build.CppClean.log
 src/immediates/x64-Debug/test-w32/test-w32.Build.CppClean.log
 src/immediates/x64-Debug/test/test.Build.CppClean.log
 *.ipch
+*.lib
+*.exp
+*.obj
+*.tlog
