@@ -186,8 +186,12 @@ typedef __WCHAR_TYPE__	wchar_t;
 #else
 #	ifdef _SIZE_T_DEFINED
 #		define __SIZE_TYPE__		::size_t
-#		define PLATFORM_SIZE_TYPE	__SIZE_TYPE__
 #	endif
+#endif
+
+#ifndef _SIZE_T_DEFINED
+#	define _SIZE_T_DEFINED 1
+typedef PLATFORM_SIZE_TYPE size_t;
 #endif
 
 // ---------------------- fastinline
@@ -258,15 +262,17 @@ typedef __WCHAR_TYPE__	wchar_t;
 #	define BOXPP			BOXIMPORT
 #endif
 
-// --------------------- boxalign(x)
+// --------------------- boxalign(x), NO_PADDING
 #ifdef _MSC_VER
 #	if _MSC_VER < 1900
 #		define __boxpp_alignas(x) __declspec( align( x ) )
 #	else
 #		define __boxpp_alignas(x) alignas(x)
 #	endif
+#	define NO_PADDING(...) __pragma(pack(push, 1)) __VA_ARGS__ __pragma(pack(pop))
 #else
 #	define __boxpp_alignas(x)	__attribute__ ((aligned (x)))
+#	define NO_PADDING(...)	__VA_ARGS__ __attribute__ ((aligned (x)))
 #endif
 
 #define BOXALIGN(x) __boxpp_alignas(x)
@@ -318,5 +324,4 @@ typedef __WCHAR_TYPE__	wchar_t;
 #define __attribute__(...)
 #endif
 
-#include <new>
 #endif // !__BOXPP_BASE_NORMALIZE_HPP__

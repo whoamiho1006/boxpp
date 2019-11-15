@@ -156,3 +156,12 @@ src/immediates/x64-Debug/test/test.Build.CppClean.log
 *.exp
 *.obj
 *.tlog
+src/immediates/Win32-Debug/boxpp-drt/boxpp-drt.idb
+src/immediates/Win32-Debug/boxpp-drt/boxpp-drt.log
+src/immediates/Win32-Debug/boxpp-drt/boxpp-drt.pdb
+src/immediates/Win32-Debug/boxpp-iconv/boxpp-iconv.idb
+src/immediates/Win32-Debug/boxpp-iconv/boxpp-iconv.log
+src/immediates/Win32-Debug/boxpp-iconv/boxpp-iconv.pdb
+src/Debug/boxpp-iconv.pdb
+src/binaries/Win32-Debug/boxpp-iconv.pdb
+src/binaries/Win32-Debug/boxpp-drt.pdb

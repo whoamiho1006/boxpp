@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="README" />
+    <ClInclude Include="ported-headers\iconv.h">
+      <Filter>ported-headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ported-headers\config.h">
+      <Filter>ported-headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ported-headers\localcharset.h">
+      <Filter>ported-headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="iconv\lib\iconv.c">
+      <Filter>iconv</Filter>
+    </ClCompile>
+    <ClCompile Include="iconv\libcharset\lib\localcharset.c">
+      <Filter>iconv</Filter>
+    </ClCompile>
+    <ClCompile Include="iconv\lib\relocatable.c">
+      <Filter>iconv</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="iconv">
+      <UniqueIdentifier>{54fb64b4-d0a4-4256-877f-035f48dacbbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ported-headers">
+      <UniqueIdentifier>{842c4c60-5826-46df-bcad-fd8906e35ad5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

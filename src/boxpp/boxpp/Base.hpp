@@ -10,6 +10,7 @@
 #define __BOXPP_VERSION_MACRO_ONLY
 #include <boxpp/Version.hpp>
 
+#include <new>
 namespace boxpp
 {
 	typedef decltype(nullptr)	nullptr_t;
@@ -25,6 +26,9 @@ namespace boxpp
 	typedef unsigned long		u32;
 	typedef unsigned long long	u64;
 
+	typedef int					s32i;
+	typedef unsigned int		u32i;
+
 	typedef float				f32;
 	typedef double				f64;
 
@@ -38,28 +42,70 @@ namespace boxpp
 
 		template<s8 size> using SignedInt = typename TSizedInt<size>::Signed;
 		template<s8 size> using UnignedInt = typename TSizedInt<size>::Unsigned;
+
+		template<typename Type>
+		struct TNumberLimits
+		{
+			static constexpr Type Min = 0;
+			static constexpr Type Max = 0;
+			static constexpr Type Tolerant = 0;
+			static constexpr Type Epsilon = 0;
+		};
+
+#define BOXPP_TYPEDB_NUMBER_LIMIT(Type, MinVal, MaxVal, TolerantVal, EpsilonVal) \
+		template<> struct TNumberLimits<Type> { \
+			static constexpr Type Min = MinVal; \
+			static constexpr Type Max = MaxVal; \
+			static constexpr Type Tolerant = TolerantVal; \
+			static constexpr Type Epsilon = EpsilonVal; \
+		}
+
+		BOXPP_TYPEDB_NUMBER_LIMIT(s8, -127, 127, 0, 1);
+		BOXPP_TYPEDB_NUMBER_LIMIT(s16, -32768, 32767, 0, 1);
+		BOXPP_TYPEDB_NUMBER_LIMIT(s32, -2147483647 - 1, 2147483647, 0, 1);
+		BOXPP_TYPEDB_NUMBER_LIMIT(s64, -9223372036854775807 - 1, 9223372036854775807, 0, 1);
+
+		BOXPP_TYPEDB_NUMBER_LIMIT(u8, 0, 0xffu, 0, 1);
+		BOXPP_TYPEDB_NUMBER_LIMIT(u16, 0, 0xffffu, 0, 1);
+		BOXPP_TYPEDB_NUMBER_LIMIT(u32, 0, 0xffffffffu, 0, 1);
+		BOXPP_TYPEDB_NUMBER_LIMIT(u64, 0, 0xfffffffffffffffful, 0, 1);
+
+		BOXPP_TYPEDB_NUMBER_LIMIT(s32i, -2147483647 - 1, 2147483647, 0, 1);
+		BOXPP_TYPEDB_NUMBER_LIMIT(u32i, 0, 0xffffffffu, 0, 1);
+		
+		BOXPP_TYPEDB_NUMBER_LIMIT(f32, 1.175494351e-38F, 3.402823466e+38F, 0.001f, 1.192092896e-07F);
+		BOXPP_TYPEDB_NUMBER_LIMIT(f64, 2.2250738585072014e-308, 1.7976931348623158e+308, 0.0000001, 2.2204460492503131e-016);
+
 	}
 
 	typedef s8 c8;
 #if PLATFORM_NATIVE_WCHAR
 	/* internal implementation for... */
 	namespace __unicode_supports__ {
-		template<s8 size = sizeof(wchar_t)> struct TUtfType;
-		template<> struct TUtfType<2> {
-			using UTF32 = s32;
-			using UTF16 = wchar_t;
+		typedef wchar_t wide_t;
+
+		template<s8 size = sizeof(wchar_t)> struct TCharType;
+		template<> struct TCharType<2> {
+			using Char32 = s32;
+			using Char16 = wide_t;
 		};
-		template<> struct TUtfType<4> {
-			using UTF32 = wchar_t;
-			using UTF16 = s16;
+		template<> struct TCharType<4> {
+			using Char32 = wide_t;
+			using Char16 = s16;
 		};
 	}
 
-	typedef __unicode_supports__::TUtfType<>::UTF16 c16;
-	typedef __unicode_supports__::TUtfType<>::UTF32 c32;
+	using wide_t = __unicode_supports__::wide_t;
+	typedef __unicode_supports__::TCharType<>::Char16 c16;
+	typedef __unicode_supports__::TCharType<>::Char32 c32;
 
-	namespace __unicode_supports__ {
-		typedef wchar_t wide_t;
+	namespace type_db {
+		BOXPP_TYPEDB_NUMBER_LIMIT(wide_t,
+			TNumberLimits<typename TSizedInt<sizeof(wide_t)>::Signed>::Min,
+			TNumberLimits<typename TSizedInt<sizeof(wide_t)>::Signed>::Max,
+			TNumberLimits<typename TSizedInt<sizeof(wide_t)>::Signed>::Tolerant,
+			TNumberLimits<typename TSizedInt<sizeof(wide_t)>::Signed>::Epsilon
+		);
 	}
 #else
 	typedef s16 c16;
@@ -72,6 +118,40 @@ namespace boxpp
 	typedef char	char_t;
 #	endif
 
+	/* 
+		utf8_t, utf16_t, utf32_t meta structures.
+		these are defined for ploting character types 
+		between COMPILER supported one and CONCEPTIONAL one.
+	*/
+	NO_PADDING(struct utf8_t { c8 _; });
+	NO_PADDING(struct utf16_t { c16 _; });
+	NO_PADDING(struct utf32_t { c32 _; });
+
+	/* Defines compatibility operators between utf*_t and c* series... */
+#define BOXPP_UTF_COMPAT_OPERATORS(utfn_t, cn_t) \
+	constexpr bool operator ==(cn_t _, const utfn_t& v) { return _ == v._; } \
+	constexpr bool operator ==(const utfn_t& v, cn_t _) { return _ == v._; } \
+	constexpr bool operator !=(cn_t _, const utfn_t& v) { return _ != v._; } \
+	constexpr bool operator !=(const utfn_t& v, cn_t _) { return _ != v._; } \
+	constexpr bool operator <=(cn_t _, const utfn_t& v) { return _ <= v._; } \
+	constexpr bool operator <=(const utfn_t& v, cn_t _) { return v._ <= _; } \
+	constexpr bool operator >=(cn_t _, const utfn_t& v) { return _ >= v._; } \
+	constexpr bool operator >=(const utfn_t& v, cn_t _) { return v._ >= _; } \
+	constexpr bool operator < (cn_t _, const utfn_t& v) { return _ < v._; } \
+	constexpr bool operator < (const utfn_t& v, cn_t _) { return v._ < _; } \
+	constexpr bool operator > (cn_t _, const utfn_t& v) { return _ > v._; } \
+	constexpr bool operator > (const utfn_t& v, cn_t _) { return v._ > _; } \
+	constexpr utfn_t operator -(const utfn_t& Left, const utfn_t& Right) { return { (cn_t)(Left._ - Right._) }; } \
+	constexpr utfn_t operator +(const utfn_t& Left, const utfn_t& Right) { return { (cn_t)(Left._ + Right._) }; } \
+	constexpr utfn_t operator -(const utfn_t& Left, const cn_t Right) { return { (cn_t)(Left._ - Right) }; } \
+	constexpr utfn_t operator +(const utfn_t& Left, const cn_t Right) { return { (cn_t)(Left._ + Right) }; }
+
+	BOXPP_UTF_COMPAT_OPERATORS(utf8_t, c8);
+	BOXPP_UTF_COMPAT_OPERATORS(utf16_t, c16);
+	BOXPP_UTF_COMPAT_OPERATORS(utf32_t, c32);
+
+#undef BOXPP_UTF_COMPAT_OPERATORS
+	
 	/* size_t type. */
 #ifdef PLATFORM_SIZE_TYPE
 	typedef PLATFORM_SIZE_TYPE size_t;

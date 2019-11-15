@@ -33,6 +33,8 @@ namespace boxpp {
 
 		BOX_COMPAT_WIN32_TYPE(WCHAR, boxpp::__unicode_supports__::wide_t);
 
+		typedef DWORD UINT, *LPUINT;
+
 		typedef LPCHAR			LPSTR;
 		typedef const LPCHAR	LPCSTR;
 
@@ -55,7 +57,7 @@ namespace boxpp {
 
 		typedef UINT_PTR WPARAM;
 		typedef LONG_PTR LPARAM, LRESULT;
-		typedef int HFILE, BOOL;
+		typedef int HFILE, BOOL, * LPBOOL;
 
 		typedef ULONG_PTR SIZE_T, *PSIZE_T;
 		typedef LONG_PTR SSIZE_T, *PSSIZE_T;
@@ -97,6 +99,13 @@ namespace boxpp {
 		NO_MANGLED BOXIMPORT HANDLE BOX_STDCALL	CreateThread(LPSECURITY_ATTRIBUTES, SIZE_T, LPTHREAD_START_ROUTINE, LPVOID, DWORD, LPDWORD);
 		NO_MANGLED BOXIMPORT BOOL BOX_STDCALL	TerminateThread(HANDLE, DWORD);
 		NO_MANGLED BOXIMPORT void BOX_STDCALL	ExitThread(DWORD);
+
+		/* -- Windows String Conversion API -- */
+		static constexpr UINT COMPAT_CP_ACP = 0;
+		static constexpr UINT COMPAT_CP_UTF8 = 0;
+
+		NO_MANGLED BOXIMPORT INT MultiByteToWideChar(UINT, DWORD, LPCSTR, INT, LPWSTR, INT);
+		NO_MANGLED BOXIMPORT INT WideCharToMultiByte(UINT, DWORD, LPWSTR, INT, LPSTR, INT, LPCSTR, LPBOOL);
 	}
 }
 #endif

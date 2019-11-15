@@ -37,6 +37,12 @@
     <Filter Include="boxpp\containers\algorithms">
       <UniqueIdentifier>{d2bc6882-3d2b-47f5-93fb-b06dacd03603}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\module">
+      <UniqueIdentifier>{d9f8b63e-62be-4088-bf75-a9ec31d676f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\core">
+      <UniqueIdentifier>{7a348f04-b377-4251-9d62-3463a12fd253}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\Base.hpp">
@@ -142,6 +148,15 @@
     <ClInclude Include="boxpp\containers\algorithms\BinarySearch.hpp">
       <Filter>boxpp\containers\algorithms</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\module\ModuleInterface.hpp">
+      <Filter>boxpp\module</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\core\Name.h">
+      <Filter>boxpp\core</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\utils\NativeStrings.hpp">
+      <Filter>boxpp\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\boxpp-rt.cpp" />
@@ -156,6 +171,9 @@
     </ClCompile>
     <ClCompile Include="boxpp\Boilerplate.cpp">
       <Filter>boxpp</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\utils\NativeStrings.cpp">
+      <Filter>boxpp\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

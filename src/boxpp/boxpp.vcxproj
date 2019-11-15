@@ -35,10 +35,12 @@
     <ClInclude Include="boxpp\containers\algorithms\HeapSort.hpp" />
     <ClInclude Include="boxpp\containers\Array.hpp" />
     <ClInclude Include="boxpp\containers\Iterator.hpp" />
+    <ClInclude Include="boxpp\core\Name.h" />
     <ClInclude Include="boxpp\hints\pthread.hpp" />
     <ClInclude Include="boxpp\hints\windows.hpp" />
     <ClInclude Include="boxpp\IBox.hpp" />
     <ClInclude Include="boxpp\internal\IBoxRuntime.hpp" />
+    <ClInclude Include="boxpp\module\ModuleInterface.hpp" />
     <ClInclude Include="boxpp\sharedptr\BroadcastedObject.hpp" />
     <ClInclude Include="boxpp\sharedptr\SharedCount.hpp" />
     <ClInclude Include="boxpp\sharedptr\SharedHolder.hpp" />
@@ -48,6 +50,7 @@
     <ClInclude Include="boxpp\utils\Instrusive.hpp" />
     <ClInclude Include="boxpp\utils\Movable.hpp" />
     <ClInclude Include="boxpp\utils\Functionality.hpp" />
+    <ClInclude Include="boxpp\utils\NativeStrings.hpp" />
     <ClInclude Include="boxpp\utils\PureTimer.hpp" />
     <ClInclude Include="boxpp\utils\TypeCompares.hpp" />
     <ClInclude Include="boxpp\Version.hpp" />
@@ -59,6 +62,7 @@
     <ClCompile Include="boxpp\Boilerplate.cpp" />
     <ClCompile Include="boxpp\boxpp-rt.cpp" />
     <ClCompile Include="boxpp\internal\IBoxRuntime.cpp" />
+    <ClCompile Include="boxpp\utils\NativeStrings.cpp" />
     <ClCompile Include="impls\Box.cpp" />
     <ClCompile Include="impls\BoxSuper.cpp" />
   </ItemGroup>
@@ -122,24 +126,28 @@
     <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
     <IncludePath>$(SolutionDir)boxpp;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)boxpp-iconv;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
     <IncludePath>$(SolutionDir)boxpp;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)boxpp-iconv;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
     <IncludePath>$(SolutionDir)boxpp;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)boxpp-iconv;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
     <IncludePath>$(SolutionDir)boxpp;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)boxpp-iconv;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
