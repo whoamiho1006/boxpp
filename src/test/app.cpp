@@ -1,4 +1,5 @@
 #include <boxpp.hpp>
+#include <Windows.h>
 #pragma comment(lib, "boxpp.lib")
 #pragma comment(lib, "boxpp-rt.lib")
 
@@ -22,5 +23,9 @@ boxpp::s32 run(boxpp::IBox* Box)
 	}
 
 	printf("%d\n", Array.Search(141));
+
+	boxpp::TStringConvert<boxpp::utf8_t, wchar_t> Test(L"한글을 변환");
+	boxpp::TStringConvert<wchar_t, boxpp::utf8_t> Test2(Test.GetConvertedString());
+
 	return 0;
 }

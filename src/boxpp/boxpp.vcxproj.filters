@@ -43,6 +43,9 @@
     <Filter Include="boxpp\core">
       <UniqueIdentifier>{7a348f04-b377-4251-9d62-3463a12fd253}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\utf">
+      <UniqueIdentifier>{59fe6038-36e8-49b7-9619-81a182d94d54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\Base.hpp">
@@ -155,6 +158,12 @@
       <Filter>boxpp\core</Filter>
     </ClInclude>
     <ClInclude Include="boxpp\utils\NativeStrings.hpp">
+      <Filter>boxpp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\utf\UtfCommon.hpp">
+      <Filter>boxpp\utf</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\utils\StringConvert.hpp">
       <Filter>boxpp\utils</Filter>
     </ClInclude>
   </ItemGroup>

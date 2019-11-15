@@ -1,5 +1,6 @@
 #ifndef __BOXPP_BASE_HPP__
 #define __BOXPP_BASE_HPP__
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <boxpp/Base.Normalize.hpp>
 
@@ -78,7 +79,8 @@ namespace boxpp
 
 	}
 
-	typedef s8 c8;
+	typedef s8 c8, ansi_t;
+
 #if PLATFORM_NATIVE_WCHAR
 	/* internal implementation for... */
 	namespace __unicode_supports__ {
@@ -118,40 +120,7 @@ namespace boxpp
 	typedef char	char_t;
 #	endif
 
-	/* 
-		utf8_t, utf16_t, utf32_t meta structures.
-		these are defined for ploting character types 
-		between COMPILER supported one and CONCEPTIONAL one.
-	*/
-	NO_PADDING(struct utf8_t { c8 _; });
-	NO_PADDING(struct utf16_t { c16 _; });
-	NO_PADDING(struct utf32_t { c32 _; });
 
-	/* Defines compatibility operators between utf*_t and c* series... */
-#define BOXPP_UTF_COMPAT_OPERATORS(utfn_t, cn_t) \
-	constexpr bool operator ==(cn_t _, const utfn_t& v) { return _ == v._; } \
-	constexpr bool operator ==(const utfn_t& v, cn_t _) { return _ == v._; } \
-	constexpr bool operator !=(cn_t _, const utfn_t& v) { return _ != v._; } \
-	constexpr bool operator !=(const utfn_t& v, cn_t _) { return _ != v._; } \
-	constexpr bool operator <=(cn_t _, const utfn_t& v) { return _ <= v._; } \
-	constexpr bool operator <=(const utfn_t& v, cn_t _) { return v._ <= _; } \
-	constexpr bool operator >=(cn_t _, const utfn_t& v) { return _ >= v._; } \
-	constexpr bool operator >=(const utfn_t& v, cn_t _) { return v._ >= _; } \
-	constexpr bool operator < (cn_t _, const utfn_t& v) { return _ < v._; } \
-	constexpr bool operator < (const utfn_t& v, cn_t _) { return v._ < _; } \
-	constexpr bool operator > (cn_t _, const utfn_t& v) { return _ > v._; } \
-	constexpr bool operator > (const utfn_t& v, cn_t _) { return v._ > _; } \
-	constexpr utfn_t operator -(const utfn_t& Left, const utfn_t& Right) { return { (cn_t)(Left._ - Right._) }; } \
-	constexpr utfn_t operator +(const utfn_t& Left, const utfn_t& Right) { return { (cn_t)(Left._ + Right._) }; } \
-	constexpr utfn_t operator -(const utfn_t& Left, const cn_t Right) { return { (cn_t)(Left._ - Right) }; } \
-	constexpr utfn_t operator +(const utfn_t& Left, const cn_t Right) { return { (cn_t)(Left._ + Right) }; }
-
-	BOXPP_UTF_COMPAT_OPERATORS(utf8_t, c8);
-	BOXPP_UTF_COMPAT_OPERATORS(utf16_t, c16);
-	BOXPP_UTF_COMPAT_OPERATORS(utf32_t, c32);
-
-#undef BOXPP_UTF_COMPAT_OPERATORS
-	
 	/* size_t type. */
 #ifdef PLATFORM_SIZE_TYPE
 	typedef PLATFORM_SIZE_TYPE size_t;
