@@ -197,6 +197,41 @@ namespace boxpp
 
 			return false;
 		}
+
+
+		/*
+			Find item index using predicate.
+		*/
+		template<typename PredicateType>
+		FASTINLINE s32 RemoveLike(PredicateType&& Predicate, u32 Offset = 0, bool bOptimize = true) {
+			u32 Count = 0;
+			u32 i = Offset;
+
+			while (i < Length) {
+				if (Predicate(Storage[i]))
+					RemoveAt(i, 1, false);
+
+				else ++i;
+			}
+
+			if (bOptimize)
+				Optimize();
+
+			return Count;
+		}
+
+		/*
+			Find item index using predicate.
+		*/
+		template<typename PredicateType>
+		FASTINLINE s32 Find(PredicateType&& Predicate, u32 Offset = 0) const {
+			for (u32 i = Offset; i < Length; i++) {
+				if (Predicate(Storage[i]))
+					return s32(i);
+			}
+
+			return -1;
+		}
 	};
 
 	template<typename ElemType>

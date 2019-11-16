@@ -301,6 +301,37 @@ namespace boxpp
 			return Items;
 		}
 
+		/*
+			Remove an item from this array.
+		*/
+		FASTINLINE bool Remove(const ElemType& Item, bool bOptimize = true) {
+			s32 Offset = IndexOf(Item);
+
+			if (Offset >= 0) {
+				return this->RemoveAt(Offset, 1, bOptimize);
+			}
+
+			return false;
+		}
+
+		/*
+			Remove all item (or items) from this array.
+		*/
+		FASTINLINE s32 RemoveAll(const ElemType& Item, bool bOptimize = true) {
+			u32 Count = 0;
+			s32 Offset = IndexOf(Item);
+
+			while (Offset >= 0) {
+				Count += this->RemoveAt(Offset, 1, false) ? 1 : 0;
+				Offset = IndexOf(Item, u32(Offset));
+			}
+
+			if (bOptimize)
+				this->Optimize();
+
+			return Count;
+		}
+
 	public:
 		/*
 			Find the index of given item.

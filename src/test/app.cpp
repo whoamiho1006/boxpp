@@ -20,6 +20,10 @@ boxpp::s32 run(boxpp::IBox* Box)
 
 	//Array.RemoveAt(0);
 
+	Array2.RemoveLike([&](boxpp::s32 Item) {
+		return Item < 140;
+	});
+
 	boxpp::s32 i = 0;
 	Array = Array2;
 

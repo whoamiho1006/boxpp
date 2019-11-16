@@ -345,9 +345,12 @@ namespace boxpp {
 			s32 Offset = IndexOf(Item);
 
 			while (Offset >= 0) {
-				Count += this->RemoveAt(Offset, 1, bOptimize) ? 1 : 0;
+				Count += this->RemoveAt(Offset, 1, false) ? 1 : 0;
 				Offset = IndexOf(Item, u32(Offset));
 			}
+
+			if (bOptimize)
+				this->Optimize();
 
 			return Count;
 		}
