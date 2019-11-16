@@ -6,6 +6,7 @@
 
 #include <boxpp/Version.hpp>
 #include <boxpp/containers/Array.hpp>
+#include <boxpp/containers/SortedArray.hpp>
 
 #include <boxpp/utils/NativeStrings.hpp>
 #include <boxpp/utils/StringConvert.hpp>

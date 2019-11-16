@@ -208,6 +208,15 @@ namespace boxpp
 		-------------------------------------------------
 			TODO: conversion between utf series
 		-------------------------------------------------
+							2 bytes wchar_t		4 bytes wchar_t
+		utf-8 to utf-16		OK
+		utf-8 to utf-32							OK
+
+		utf-16 to utf-8		OK
+		utf-16 to utf-32
+
+		utf-32 to utf-8							OK
+		utf-32 to utf-16
 		*/
 
 #define BOXPP_STRINGCONVERT_FORWARD_TO(DestType, SrcType, FwdDest, FwdSrc) \
@@ -217,10 +226,16 @@ namespace boxpp
 	}
 
 #if __SIZEOF_WCHAR_T__ == 2
+		BOXPP_STRINGCONVERT_FORWARD_TO(utf8_t, utf16_t, utf8_t, wide_t);
+		BOXPP_STRINGCONVERT_FORWARD_TO(utf16_t, utf8_t, wide_t, utf8_t);
+
 		BOXPP_STRINGCONVERT_FORWARD_TO(c32, c8, utf32_t, utf8_t);
 		BOXPP_STRINGCONVERT_FORWARD_TO(c8, c32, utf8_t, utf32_t);
 #endif
 #if __SIZEOF_WCHAR_T__ == 4
+		BOXPP_STRINGCONVERT_FORWARD_TO(utf8_t, utf32_t, utf8_t, wide_t);
+		BOXPP_STRINGCONVERT_FORWARD_TO(utf32_t, utf8_t, wide_t, utf8_t);
+
 		BOXPP_STRINGCONVERT_FORWARD_TO(c16, c8, utf32_t, utf8_t);
 		BOXPP_STRINGCONVERT_FORWARD_TO(c8, c16, utf8_t, utf32_t);
 #endif

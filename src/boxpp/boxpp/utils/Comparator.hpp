@@ -236,6 +236,18 @@ namespace boxpp
 			return TBigger<T>::Compare(Item, Left) && TSmaller<T>::Compare(Item, Right);
 		}
 	};
+
+	/*
+		Determines an item is ranged between left and right.
+		NOTE: Left == item and Right == item is not ranged.
+	*/
+	template<typename T>
+	struct TInvertedRange
+	{
+		FASTINLINE static bool Ranged(const T& Item, const T& Left, const T& Right) {
+			return TSmaller<T>::Compare(Item, Left) && TBigger<T>::Compare(Item, Right);
+		}
+	};
 }
 
 #endif // !__BOXPP_UTILS_COMPARATOR_HPP__

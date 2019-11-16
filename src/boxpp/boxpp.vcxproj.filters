@@ -166,6 +166,21 @@
     <ClInclude Include="boxpp\utils\StringConvert.hpp">
       <Filter>boxpp\utils</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\utf\Utf8.hpp">
+      <Filter>boxpp\utf</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\utf\Utf16.hpp">
+      <Filter>boxpp\utf</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\utf\Utf32.hpp">
+      <Filter>boxpp\utf</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\containers\SortedArray.hpp">
+      <Filter>boxpp\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\containers\ArrayBase.hpp">
+      <Filter>boxpp\containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\boxpp-rt.cpp" />
