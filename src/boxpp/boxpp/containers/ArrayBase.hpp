@@ -26,8 +26,11 @@ namespace boxpp
 		template<typename, bool> friend class TSortedArray;
 
 	public:
-		typedef TIterator<TArrayBase<ElemType>, s32> Iterator;
-		typedef TIterator<const TArrayBase<ElemType>, s32> ConstIterator;
+		typedef s32 OffsetType;
+		typedef TIterator<TArrayBase<ElemType>> Iterator;
+		typedef TIterator<const TArrayBase<ElemType>> ConstIterator;
+		typedef TReverseIterator<TArrayBase<ElemType>> ReverseIterator;
+		typedef TReverseIterator<const TArrayBase<ElemType>> ConstReverseIterator;
 
 	protected:
 		TArrayBase(u32 InitialCapacity = 0)
@@ -70,6 +73,10 @@ namespace boxpp
 		FASTINLINE ElemType& operator[](s32 Offset) { return Storage[Offset]; }
 		FASTINLINE const ElemType& operator[](s32 Offset) const { return Storage[Offset]; }
 		FASTINLINE bool IsValid(s32 Offset) const { return Offset >= 0 && Offset < s32(Length); }
+
+	public:
+		FASTINLINE Iterator Begin() const { return Iterator(*this, 0); }
+		FASTINLINE Iterator End() const { return Iterator(*this, Length); }
 
 	protected:
 		/*
@@ -235,27 +242,63 @@ namespace boxpp
 	};
 
 	template<typename ElemType>
-	FASTINLINE typename TArrayBase<ElemType>::Iterator begin(TArrayBase<ElemType>& InArray)
+	using TArrayIterator = typename TArrayBase<ElemType>::Iterator;
+
+	template<typename ElemType>
+	using TArrayConstIterator = typename TArrayBase<ElemType>::ConstIterator;
+
+	template<typename ElemType>
+	using TArrayReverseIterator = typename TArrayBase<ElemType>::ReverseIterator;
+
+	template<typename ElemType>
+	using TArrayConstReverseIterator = typename TArrayBase<ElemType>::ConstReverseIterator;
+
+	template<typename ElemType>
+	FASTINLINE TArrayIterator<ElemType> begin(TArrayBase<ElemType>& InArray)
 	{
-		return typename TArrayBase<ElemType>::Iterator(InArray, 0);
+		return TArrayIterator<ElemType>(InArray, 0);
 	}
 
 	template<typename ElemType>
-	FASTINLINE typename TArrayBase<ElemType>::Iterator end(TArrayBase<ElemType>& InArray)
+	FASTINLINE TArrayIterator<ElemType> end(TArrayBase<ElemType>& InArray)
 	{
-		return typename TArrayBase<ElemType>::Iterator(InArray, InArray.GetSize());
+		return TArrayIterator<ElemType>(InArray, InArray.GetSize());
 	}
 
 	template<typename ElemType>
-	FASTINLINE typename TArrayBase<ElemType>::ConstIterator begin(const TArrayBase<ElemType>& InArray)
+	FASTINLINE TArrayConstIterator<ElemType> begin(const TArrayBase<ElemType>& InArray)
 	{
-		return typename TArrayBase<ElemType>::ConstIterator(InArray, 0);
+		return TArrayConstIterator<ElemType>(InArray, 0);
 	}
 
 	template<typename ElemType>
-	FASTINLINE typename TArrayBase<ElemType>::ConstIterator end(const TArrayBase<ElemType>& InArray)
+	FASTINLINE TArrayConstIterator<ElemType> end(const TArrayBase<ElemType>& InArray)
 	{
-		return typename TArrayBase<ElemType>::ConstIterator(InArray, InArray.GetSize());
+		return TArrayConstIterator<ElemType>(InArray, InArray.GetSize());
+	}
+
+	template<typename ElemType>
+	FASTINLINE TArrayReverseIterator<ElemType> rbegin(TArrayBase<ElemType>& InArray)
+	{
+		return TArrayIterator<ElemType>(InArray, InArray.GetSize() - 1);
+	}
+
+	template<typename ElemType>
+	FASTINLINE TArrayReverseIterator<ElemType> rend(TArrayBase<ElemType>& InArray)
+	{
+		return TArrayIterator<ElemType>(InArray, -1);
+	}
+
+	template<typename ElemType>
+	FASTINLINE TArrayConstReverseIterator<ElemType> rbegin(const TArrayBase<ElemType>& InArray)
+	{
+		return TArrayConstIterator<ElemType>(InArray, InArray.GetSize() - 1);
+	}
+
+	template<typename ElemType>
+	FASTINLINE TArrayConstReverseIterator<ElemType> rend(const TArrayBase<ElemType>& InArray)
+	{
+		return TArrayConstIterator<ElemType>(InArray, -1);
 	}
 }
 

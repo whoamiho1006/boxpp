@@ -119,7 +119,7 @@ namespace boxpp {
 		*/
 		FASTINLINE s32 AddUnique(const ElemType& Item) {
 			if (!Contains(Item)) {
-				return Add(Item);
+				return Emplace(Item);
 			}
 
 			return -1;
@@ -130,7 +130,7 @@ namespace boxpp {
 		*/
 		FASTINLINE s32 AddUnique(ElemType&& Item) {
 			if (!Contains(Item)) {
-				return Add(Item);
+				return Emplace(Item);
 			}
 
 			return -1;
@@ -229,7 +229,7 @@ namespace boxpp {
 		/*
 			Insert an item into this array and returns its offset.
 		*/
-		FASTINLINE s32 Insert(s32 Offset, const ElemType& Item, u32 Count = 1) {
+		FASTINLINE s32 Emplace(s32 Offset, const ElemType& Item, u32 Count = 1) {
 			if (Offset >= 0 && this->Requires(Count)) {
 				if (IsTypePOD<ElemType>) {
 					::memmove(this->Storage + Offset + Count, this->Storage + Offset,
@@ -258,7 +258,7 @@ namespace boxpp {
 		/*
 			Insert an item into this array and returns its offset.
 		*/
-		FASTINLINE s32 Insert(s32 Offset, const ElemType* Items, u32 Count) {
+		FASTINLINE s32 Emplace(s32 Offset, const ElemType* Items, u32 Count) {
 			if (Offset >= 0 && this->Requires(Count)) {
 				if (IsTypePOD<ElemType>) {
 					::memmove(this->Storage + Offset + Count, this->Storage + Offset,
@@ -289,9 +289,9 @@ namespace boxpp {
 		/*
 			Insert an item into this array and returns its offset.
 		*/
-		FASTINLINE s32 Insert(s32 Offset, const TArrayBase<ElemType>& InArray) {
+		FASTINLINE s32 Emplace(s32 Offset, const TArrayBase<ElemType>& InArray) {
 			if (Offset >= 0 && InArray.GetSize()) {
-				return Insert(Offset, InArray.GetRaw(), InArray.GetSize());
+				return Emplace(Offset, InArray.GetRaw(), InArray.GetSize());
 			}
 
 			return -1;
@@ -300,7 +300,7 @@ namespace boxpp {
 		/*
 			Insert an item into this array and returns its offset.
 		*/
-		FASTINLINE s32 Insert(s32 Offset, ElemType&& Item) {
+		FASTINLINE s32 Emplace(s32 Offset, ElemType&& Item) {
 			if (Offset >= 0 && this->Requires(1)) {
 				if (IsTypePOD<ElemType>) {
 					::memmove(this->Storage + Offset + 1, this->Storage + Offset,

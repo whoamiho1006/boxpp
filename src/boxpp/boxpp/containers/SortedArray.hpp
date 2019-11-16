@@ -82,7 +82,7 @@ namespace boxpp
 		/*
 			Insert an item into this array and returns its offset.
 		*/
-		FASTINLINE s32 Insert(s32 Offset, const ElemType& Item, u32 Count = 1) {
+		FASTINLINE s32 Add(s32 Offset, const ElemType& Item, u32 Count = 1) {
 			if (Offset >= 0 && this->Requires(Count)) {
 				if (IsTypePOD<ElemType>) {
 					::memmove(this->Storage + Offset + Count, this->Storage + Offset,
@@ -111,7 +111,7 @@ namespace boxpp
 		/*
 			Insert an item into this array and returns its offset.
 		*/
-		FASTINLINE s32 Insert(s32 Offset, ElemType&& Item) {
+		FASTINLINE s32 Add(s32 Offset, ElemType&& Item) {
 			if (Offset >= 0 && this->Requires(1)) {
 				if (IsTypePOD<ElemType>) {
 					::memmove(this->Storage + Offset + 1, this->Storage + Offset,
@@ -145,7 +145,7 @@ namespace boxpp
 					s32 Offset = TBinarySearch<ElemType, bAscend>::SearchNear(Item, this->Storage, this->Length);
 
 					if (Offset >= 0) {
-						return Insert(Offset, Item, Count);
+						return Add(Offset, Item, Count);
 					}
 				}
 
@@ -169,7 +169,7 @@ namespace boxpp
 					s32 Offset = TBinarySearch<ElemType, bAscend>::SearchNear(Item, this->Storage, this->Length);
 
 					if (Offset >= 0) {
-						return Insert(Offset, Forward<ElemType>(Item));
+						return Add(Offset, Forward<ElemType>(Item));
 					}
 				}
 
@@ -185,7 +185,7 @@ namespace boxpp
 		*/
 		FASTINLINE s32 AddUnique(const ElemType& Item) {
 			if (!Contains(Item)) {
-				return Add(Item);
+				return Emplace(Item);
 			}
 
 			return -1;
@@ -196,7 +196,7 @@ namespace boxpp
 		*/
 		FASTINLINE s32 AddUnique(ElemType&& Item) {
 			if (!Contains(Item)) {
-				return Add(Forward<ElemType>(Item));
+				return Emplace(Forward<ElemType>(Item));
 			}
 
 			return -1;
@@ -265,7 +265,7 @@ namespace boxpp
 			s32 Items = 0;
 
 			for (s32 i = Offset; i < Count; i++) {
-				if (Add(InArray[i]) >= 0)
+				if (Emplace(InArray[i]) >= 0)
 					Items++;
 			}
 
@@ -293,7 +293,7 @@ namespace boxpp
 			s32 Items = 0;
 
 			for (s32 i = 0; i < InArray.GetSize(); i++) {
-				if (Add(TMovable<ElemType>::Movable(InArray[i])) >= 0)
+				if (Emplace(TMovable<ElemType>::Movable(InArray[i])) >= 0)
 					Items++;
 			}
 

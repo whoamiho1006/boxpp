@@ -181,6 +181,15 @@
     <ClInclude Include="boxpp\containers\ArrayBase.hpp">
       <Filter>boxpp\containers</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\containers\Node.hpp">
+      <Filter>boxpp\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\containers\EdgeBase.hpp">
+      <Filter>boxpp\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\containers\TLinkedList.hpp">
+      <Filter>boxpp\containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\boxpp-rt.cpp" />

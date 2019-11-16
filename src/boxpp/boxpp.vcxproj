@@ -36,7 +36,10 @@
     <ClInclude Include="boxpp\containers\Array.hpp" />
     <ClInclude Include="boxpp\containers\ArrayBase.hpp" />
     <ClInclude Include="boxpp\containers\Iterator.hpp" />
+    <ClInclude Include="boxpp\containers\Node.hpp" />
+    <ClInclude Include="boxpp\containers\EdgeBase.hpp" />
     <ClInclude Include="boxpp\containers\SortedArray.hpp" />
+    <ClInclude Include="boxpp\containers\TLinkedList.hpp" />
     <ClInclude Include="boxpp\core\Name.h" />
     <ClInclude Include="boxpp\hints\pthread.hpp" />
     <ClInclude Include="boxpp\hints\windows.hpp" />
