@@ -65,6 +65,7 @@ namespace boxpp {
 			if (Size) {
 				size_t Left = 0;
 				size_t Right = Size - 1;
+				size_t RetVal = 0;
 
 				if (TEquals<T>::Compare(Item, Items[Left]))
 					return ssize_t(Left);
@@ -87,8 +88,10 @@ namespace boxpp {
 					else if (Left != Mid &&
 						RangeType::Ranged(Item, Items[Left], Items[Mid]))
 					{
-						if (Right == Mid)
+						if (Right == Mid) {
+							RetVal = Right;
 							break;
+						}
 
 						Right = Mid;
 					}
@@ -96,8 +99,10 @@ namespace boxpp {
 					else if (Mid != Right &&
 						RangeType::Ranged(Item, Items[Mid], Items[Right]))
 					{
-						if (Left == Mid)
+						if (Left == Mid) {
+							RetVal = Mid + 1;
 							break;
+						}
 
 						Left = Mid;
 					}
@@ -105,7 +110,7 @@ namespace boxpp {
 					else break;
 				}
 
-				return (Left + Right) / 2 + (bAscend ? 0 : 1);
+				return RetVal;
 			}
 
 			return -1;

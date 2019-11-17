@@ -5,6 +5,7 @@
 
 boxpp::s32 run(boxpp::IBox* Box)
 {
+	boxpp::TSortedArray<boxpp::FName> Names;
 	boxpp::TArray<boxpp::s32> Array;
 	boxpp::TSortedArray<boxpp::s32,false> Array2;
 
@@ -15,6 +16,16 @@ boxpp::s32 run(boxpp::IBox* Box)
 	Array2.Add(146);
 	Array2.Add(100);
 	Array2.Add(170);
+
+	Names.Add(L"Good1");
+	Names.Add("Test2");
+	Names.Add("Test1");
+	Names.Add(L"Good2");
+	Names.AddUnique("Test23");
+
+	for (const boxpp::FName& Name : Names) {
+		printf("%S\n", Name.GetRaw());
+	}
 
 	//Array.Sort(true);
 

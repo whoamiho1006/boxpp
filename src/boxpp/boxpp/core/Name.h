@@ -17,7 +17,6 @@ namespace boxpp
 	{
 	private:
 		struct NameData {
-			char_t* Value;
 			u32 Length;
 			s32 References;
 		};
@@ -46,7 +45,6 @@ namespace boxpp
 	public:
 		FASTINLINE FName& operator =(nullptr_t) { Destruct(); return *this; }
 		FASTINLINE FName& operator =(UNNAMED) { Destruct(); return *this; }
-
 		FASTINLINE FName& operator =(const FName& Other) {
 			if (this != &Other) {
 				Destruct();
@@ -57,6 +55,7 @@ namespace boxpp
 
 			return *this;
 		}
+
 		FASTINLINE FName& operator =(FName&& Other) {
 			if (this != &Other) {
 				Destruct();
@@ -72,7 +71,7 @@ namespace boxpp
 
 	public:
 		FASTINLINE u32 GetSize() const { return Name ? Name->Length : 0; }
-		FASTINLINE const char_t* GetRaw() const { return Name ? Name->Value : nullptr; }
+		FASTINLINE const char_t* GetRaw() const { return Name ? (const char_t*)(Name + 1) : nullptr; }
 
 	public:
 		FASTINLINE bool operator ==(const FName& Other) const { return !Compare(Other); }
@@ -89,7 +88,6 @@ namespace boxpp
 		FASTINLINE bool operator >=(const ansi_t* Other) const { return Compare(Other) >= 0; }
 		FASTINLINE bool operator < (const ansi_t* Other) const { return Compare(Other) < 0; }
 		FASTINLINE bool operator > (const ansi_t* Other) const { return Compare(Other) > 0; }
-
 		FASTINLINE bool operator ==(const wide_t* Other) const { return !Compare(Other); }
 		FASTINLINE bool operator !=(const wide_t* Other) const { return Compare(Other); }
 		FASTINLINE bool operator <=(const wide_t* Other) const { return Compare(Other) <= 0; }
@@ -101,10 +99,8 @@ namespace boxpp
 		FASTINLINE s32 Compare(const FName& Other) const {
 			if (Name != Other.Name)
 			{
-				if (Name && Other.Name)
-				{
-					return TNativeStrings<char_t>::Strcmp(
-						Name->Value, Other.Name->Value);
+				if (Name && Other.Name) {
+					return TNativeStrings<char_t>::Strcmp(GetRaw(), Other.GetRaw());
 				}
 
 				return Name && !Other.Name ? -1 : 1;
@@ -121,12 +117,12 @@ namespace boxpp
 			}
 
 			else if (IsSameType<CharType, char_t>)
-				return TNativeStrings<CharType>::Strcmp((const CharType*)Name->Value, String);
+				return TNativeStrings<CharType>::Strcmp((const CharType*)(Name + 1), String);
 
 			else {
 				TStringConvert<char_t, CharType> Converted(String);
 				return TNativeStrings<char_t>::Strcmp(
-					Name->Value, Converted.GetConvertedString());
+					(const char_t*)(Name + 1), Converted.GetConvertedString());
 			}
 		}
 
@@ -140,14 +136,16 @@ namespace boxpp
 					Name = nullptr;
 
 				else {
-					(Name = new NameData())
+					size_t Length = TNativeStrings<CharType>::Strlen(InString);
+					u8* Intergrated = new u8[sizeof(NameData) + (Length + 1) * sizeof(char_t)];
+
+					(Name = (NameData*)Intergrated)
 						->References = 1;
 
-					Name->Length = TNativeStrings<CharType>::Strlen(InString);
-					Name->Value = new char_t[Name->Length + 1];
+					Name->Length = Length;
 
-					::memcpy(Name->Value, InString, Name->Length);
-					Name->Value[Name->Length] = 0;
+					::memcpy(Name + 1, InString, Length * sizeof(char_t));
+					*((char_t*)(Name + 1) + Length) = 0;
 				}
 			}
 			else {
@@ -158,14 +156,16 @@ namespace boxpp
 					Name = nullptr;
 
 				else {
-					(Name = new NameData())
+					u8* Intergrated = new u8[sizeof(NameData) + 
+						(Converter.GetConvertedLength() + 1) * sizeof(char_t)];
+
+					(Name = (NameData*)Intergrated)
 						->References = 1;
 
-					Name->Value = new char_t[Converter.GetConvertedLength() + 1];
 					Name->Length = Converter.GetConvertedLength();
-
-					::memcpy(Name->Value, Converter.GetConvertedString(),
-						Converter.GetConvertedLength() + 1 /* including termination character. */);
+					::memcpy(Name + 1, Converter.GetConvertedString(),
+						(Converter.GetConvertedLength() + 1) * sizeof(char_t) 
+						/* including termination character. */);
 				}
 			}
 		}
@@ -173,10 +173,7 @@ namespace boxpp
 		FASTINLINE void Destruct() {
 			if (Name && !--Name->References)
 			{
-				if (Name->Value)
-					delete[](Name->Value);
-
-				delete Name;
+				delete[] ((u8*) Name);
 			}
 
 			Name = nullptr;

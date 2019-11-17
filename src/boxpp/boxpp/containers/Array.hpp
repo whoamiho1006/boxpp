@@ -361,7 +361,7 @@ namespace boxpp {
 		*/
 		FASTINLINE s32 IndexOf(const ElemType& Item, u32 Offset = 0) const {
 			for (u32 i = Offset; i < this->Length; i++) {
-				if (TEquals<ElemType>::Equals(Item, this->Storage[i]))
+				if (!Compare(Item, this->Storage[i]))
 					return s32(i);
 			}
 
