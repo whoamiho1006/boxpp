@@ -32,8 +32,8 @@ namespace boxpp {
 		{
 		}
 
-		TIterator(ContainerType& Container, const OffsetType& Offset)
-			: Current(Offset), Container(&Container)
+		TIterator(const ContainerType& Container, const OffsetType& Offset)
+			: Current(Offset), Container(const_cast<ContainerType*>(&Container))
 		{
 		}
 

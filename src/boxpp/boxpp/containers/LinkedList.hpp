@@ -7,6 +7,7 @@
 #endif
 
 #include <boxpp/containers/Node.hpp>
+#include <boxpp/containers/Iterator.hpp>
 
 namespace boxpp
 {
@@ -18,8 +19,8 @@ namespace boxpp
 		typedef typename TNode<ElemType>::OffsetType OffsetType;
 		typedef typename TNode<ElemType>::ReverseOffsetType ReverseOffsetType;
 
-		typedef TIterator<TLinkedList<ElemType>> Iterator;
-		typedef TIterator<const TLinkedList<ElemType>> ConstIterator;
+		typedef TIterator<TLinkedList<ElemType>, false> Iterator;
+		typedef TIterator<const TLinkedList<ElemType>, false> ConstIterator;
 
 	public:
 		TLinkedList()
@@ -62,12 +63,16 @@ namespace boxpp
 		FASTINLINE NodeType* GetRaw() const { return First; }
 
 	public:
+		FASTINLINE ElemType& operator[](const OffsetType& Offset) { return *Offset->GetRaw(); }
+		FASTINLINE const ElemType& operator[](const OffsetType& Offset) const { return *Offset->GetRaw(); }
+
+	public:
 		FASTINLINE bool IsValid(const OffsetType& Offset) const { return *Offset != nullptr; }
 		FASTINLINE bool IsValid(const ReverseOffsetType& Offset) const { return *Offset != nullptr; }
 
 	public:
 		FASTINLINE Iterator Begin() const { return Iterator(*this, First); }
-		FASTINLINE Iterator End() const { return Iterator(*this, nullptr); }
+		FASTINLINE Iterator End() const { return Iterator(*this, OffsetType(nullptr)); }
 
 	public:
 		FASTINLINE TLinkedList<ElemType>& operator =(const TLinkedList<ElemType>& Other) {
@@ -377,7 +382,7 @@ namespace boxpp
 
 		/* Sort this linked list. (bubble sort. so, slow) */
 		FASTINLINE void Sort(bool bDescend = false) {
-			NodeType* Outer = First, Inner = nullptr;
+			NodeType* Outer = First,* Inner = nullptr;
 
 			while (Outer)
 			{
@@ -391,8 +396,8 @@ namespace boxpp
 						{
 							s32 R = Compare(*Outer->GetRaw(), *Inner->GetRaw());
 
-							if ((R > 0 && !bDescend) || 
-								(R < 0 && bDescend)) 
+							if ((R < 0 && !bDescend) || 
+								(R > 0 && bDescend)) 
 							{
 								Swap(*Outer->GetRaw(), *Inner->GetRaw());
 							}
@@ -406,6 +411,36 @@ namespace boxpp
 			}
 		}
 	};
+
+	template<typename ElemType>
+	using TLinkedListIterator = typename TLinkedList<ElemType>::Iterator;
+
+	template<typename ElemType>
+	using TLinkedListConstIterator = typename TLinkedList<ElemType>::ConstIterator;
+
+	template<typename ElemType>
+	FASTINLINE TLinkedListIterator<ElemType> begin(TLinkedList<ElemType>& InList)
+	{
+		return InList.Begin();
+	}
+
+	template<typename ElemType>
+	FASTINLINE TLinkedListIterator<ElemType> end(TLinkedList<ElemType>& InList)
+	{
+		return InList.End();
+	}
+
+	template<typename ElemType>
+	FASTINLINE TLinkedListConstIterator<ElemType> begin(const TLinkedList<ElemType>& InList)
+	{
+		return InList.Begin();
+	}
+
+	template<typename ElemType>
+	FASTINLINE TLinkedListConstIterator<ElemType> end(const TLinkedList<ElemType>& InList)
+	{
+		return InList.End();
+	}
 
 }
 

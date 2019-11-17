@@ -34,7 +34,7 @@ namespace boxpp
 	public:
 		/* Get first edge. WARNING: This method is slow! */
 		FASTINLINE TNode<ElemType>* GetFirstEdge() const {
-			TNode<ElemType>* Edge = this;
+			TNode<ElemType>* Edge = const_cast<TNode<ElemType>*>(this);
 
 			while (Edge->Previous) 
 				Edge = Edge->Previous;
@@ -44,7 +44,7 @@ namespace boxpp
 
 		/* Get last edge. WARNING: This method is slow! */
 		FASTINLINE TNode<ElemType>* GetLastEdge() const {
-			TNode<ElemType>* Edge = this;
+			TNode<ElemType>* Edge = const_cast<TNode<ElemType>*>(this);
 
 			while (Edge->Next)
 				Edge = Edge->Next;
@@ -54,7 +54,7 @@ namespace boxpp
 
 		/* Determines given edge is compositing edge or not. (SLOW!) */
 		FASTINLINE bool IsCompositingEdge(TNode<ElemType>* Edge) const {
-			TNode<ElemType>* Current = this;
+			TNode<ElemType>* Current = const_cast<TNode<ElemType>*>(this);
 
 			while (Current && Current != Edge) {
 				Current = Current->Next;
@@ -78,7 +78,8 @@ namespace boxpp
 
 		/* Determines this edge-list has loop or not. (SLOW) */
 		FASTINLINE TNode<ElemType>* DetectLoop(bool bForward = true) const {
-			TNode<ElemType>* Alpha = this, *Beta = this;
+			TNode<ElemType>* Alpha = const_cast<TNode<ElemType>*>(this), 
+				*Beta = const_cast<TNode<ElemType>*>(this);
 
 			if (bForward) {
 				while (Alpha && Beta && Beta->Next) {
