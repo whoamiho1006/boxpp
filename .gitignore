@@ -165,3 +165,5 @@ src/immediates/Win32-Debug/boxpp-iconv/boxpp-iconv.pdb
 src/Debug/boxpp-iconv.pdb
 src/binaries/Win32-Debug/boxpp-iconv.pdb
 src/binaries/Win32-Debug/boxpp-drt.pdb
+src/immediates/Win32-Debug/boxpp-iconv/boxpp-iconv.Build.CppClean.log
+src/immediates/Win32-Debug/boxpp-drt/boxpp-drt.Build.CppClean.log
