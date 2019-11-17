@@ -34,9 +34,11 @@ namespace boxpp
 		}
 
 		TLinkedList(TLinkedList<ElemType>&& Other)
-			: First(Other.First), Last(Other.Last)
+			: First(Other.First), Last(Other.Last),
+			CachedLength(Other.CachedLength)
 		{
 			Other.First = Other.Last = nullptr;
+			Other.CachedLength = 0;
 		}
 
 		~TLinkedList()
@@ -46,17 +48,17 @@ namespace boxpp
 
 	private:
 		NodeType* First, *Last;
-		u32 Length;
+		u32 CachedLength;
 
 	public:
 		FASTINLINE operator bool() const { return First && Last; }
 		FASTINLINE bool operator !() const { return !First || !Last; }
 
-		FASTINLINE bool operator ==(const TArrayBase<ElemType>& Other) const { return this == &Other; }
-		FASTINLINE bool operator !=(const TArrayBase<ElemType>& Other) const { return this != &Other; }
+		FASTINLINE bool operator ==(const TLinkedList<ElemType>& Other) const { return this == &Other; }
+		FASTINLINE bool operator !=(const TLinkedList<ElemType>& Other) const { return this != &Other; }
 
 	public:
-		FASTINLINE u32 GetSize() const { return Length; }
+		FASTINLINE u32 GetSize() const { return CachedLength; }
 		FASTINLINE NodeType* GetRaw() const { return First; }
 
 	public:
@@ -81,7 +83,7 @@ namespace boxpp
 			if (*this != Other) {
 				Swap(this->First, Other.First);
 				Swap(this->Last, Other.Last);
-				Swap(this->Length, Other.Length);
+				Swap(this->CachedLength, Other.CachedLength);
 			}
 
 			return *this;
@@ -97,7 +99,7 @@ namespace boxpp
 						* Temp = nullptr;
 
 				First = Last = nullptr;
-				Length = 0;
+				CachedLength = 0;
 
 				while (Current)
 				{
@@ -123,12 +125,12 @@ namespace boxpp
 						Checkpoint = new NodeType(Item);
 
 					--Count;
-					++Length;
+					++CachedLength;
 				}
 
 				while (Count) {
 					--Count;
-					++Length;
+					++CachedLength;
 
 					Last = Last->Emplace(Item);
 				}
@@ -147,12 +149,12 @@ namespace boxpp
 				First = Last =
 					Checkpoint = new NodeType(Item);
 
-				++Length;
+				++CachedLength;
 			}
 
 			else {
 				Last = Last->Emplace(Item);
-				++Length;
+				++CachedLength;
 			}
 
 			return Checkpoint;
@@ -168,9 +170,9 @@ namespace boxpp
 			{
 				if (ElemType* ValuePtr = Current->GetRaw()) {
 					if (!Checkpoint)
-						Checkpoint = Add(*CurrentValuePtr);
+						Checkpoint = Add(*ValuePtr);
 
-					else Add(*CurrentValuePtr);
+					else Add(*ValuePtr);
 				}
 
 				Current = Current->GetNext();
@@ -191,7 +193,7 @@ namespace boxpp
 			{
 				Swap(First, InList.First);
 				Swap(Last, InList.Last);
-				Swap(Length, InList.Length);
+				Swap(CachedLength, InList.CachedLength);
 			}
 
 			else
@@ -199,10 +201,10 @@ namespace boxpp
 				Last->SetNext(InList.First);
 				Last = InList.Last;
 
-				Length += InList.Length;
+				CachedLength += InList.CachedLength;
 
 				InList.First = InList.Last = nullptr;
-				InList.Length = 0;
+				InList.CachedLength = 0;
 			}
 
 			return Checkpoint;
@@ -243,12 +245,12 @@ namespace boxpp
 						Checkpoint = Edge->Emplace(Elem, true);
 
 					--Count;
-					++Length;
+					++CachedLength;
 				}
 
 				while (Edge && Count) {
 					--Count;
-					++Length;
+					++CachedLength;
 
 					Edge = Edge->Emplace(Elem, true);
 					if (!Checkpoint) {
@@ -273,24 +275,13 @@ namespace boxpp
 					First = Edge = Checkpoint = 
 						Edge->Emplace(TMovable<ElemType>::Movable(Elem), true);
 
-					--Count;
-					++Length;
-				}
-
-				while (Edge && Count) {
-					--Count;
-					++Length;
-
-					Edge = Edge->Emplace(TMovable<ElemType>::Movable(Elem), true);
-					if (!Checkpoint) {
-						Checkpoint = Edge;
-					}
+					++CachedLength;
 				}
 
 				return Checkpoint;
 			}
 
-			return Add(Elem, Count);
+			return Add(Elem);
 		}
 
 		/*
@@ -336,7 +327,7 @@ namespace boxpp
 				while (Count && Edge)
 				{
 					--Count;
-					--Length;
+					--CachedLength;
 
 					if (Edge == First) {
 						First = Edge->GetNext();

@@ -190,6 +190,12 @@
     <ClInclude Include="boxpp\containers\LinkedList.hpp">
       <Filter>boxpp\containers</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\containers\Queue.hpp">
+      <Filter>boxpp\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\containers\SingleNode.hpp">
+      <Filter>boxpp\containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\boxpp-rt.cpp" />

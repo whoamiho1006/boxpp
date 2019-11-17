@@ -38,6 +38,8 @@
     <ClInclude Include="boxpp\containers\Iterator.hpp" />
     <ClInclude Include="boxpp\containers\Node.hpp" />
     <ClInclude Include="boxpp\containers\EdgeBase.hpp" />
+    <ClInclude Include="boxpp\containers\Queue.hpp" />
+    <ClInclude Include="boxpp\containers\SingleNode.hpp" />
     <ClInclude Include="boxpp\containers\SortedArray.hpp" />
     <ClInclude Include="boxpp\containers\LinkedList.hpp" />
     <ClInclude Include="boxpp\core\Name.h" />

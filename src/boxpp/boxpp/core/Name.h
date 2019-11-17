@@ -5,18 +5,185 @@
 #include <boxpp.hpp>
 #endif
 
+#include <boxpp/utils/NativeStrings.hpp>
+#include <boxpp/utils/StringConvert.hpp>
+
 namespace boxpp
 {
-
-	class BOXPP FName
+	/*
+		Name for identifying modules, objects...
+	*/
+	class FName
 	{
-	public:
-		FName(const char* Name) {
+	private:
+		struct NameData {
+			char_t* Value;
+			u32 Length;
+			s32 References;
+		};
 
+	public:
+		struct UNNAMED { };
+
+	public:
+		constexpr FName() : Name(nullptr) { }
+		constexpr FName(nullptr_t) : Name(nullptr) { }
+		constexpr FName(UNNAMED) : Name(nullptr) { }
+
+		FName(const ansi_t* Name) { Construct(Name); }
+		FName(const wide_t* Name) { Construct(Name); }
+		FName(const FName& Other) : Name(Other.Name) { if (Name) ++Name->References; }
+		FName(FName&& Other) : Name(Other.Name) { Other.Name = nullptr; }
+		~FName() { Destruct(); }
+
+	public:
+		static constexpr const UNNAMED Unnamed = { };
+
+	public:
+		FASTINLINE operator bool() const { return Name; }
+		FASTINLINE bool operator !() const { return !Name; }
+
+	public:
+		FASTINLINE FName& operator =(nullptr_t) { Destruct(); return *this; }
+		FASTINLINE FName& operator =(UNNAMED) { Destruct(); return *this; }
+
+		FASTINLINE FName& operator =(const FName& Other) {
+			if (this != &Other) {
+				Destruct();
+
+				if ((Name = Other.Name) != nullptr)
+					++Name->References;
+			}
+
+			return *this;
+		}
+		FASTINLINE FName& operator =(FName&& Other) {
+			if (this != &Other) {
+				Destruct();
+				Swap(Name, Other.Name);
+			}
+
+			return *this;
+		}
+
+		/* -- Below overloads are for preventing overheads. -- */
+		FASTINLINE FName& operator =(const ansi_t* Name) { Destruct(); Construct(Name); return *this; }
+		FASTINLINE FName& operator =(const wide_t* Name) { Destruct(); Construct(Name); return *this; }
+
+	public:
+		FASTINLINE u32 GetSize() const { return Name ? Name->Length : 0; }
+		FASTINLINE const char_t* GetRaw() const { return Name ? Name->Value : nullptr; }
+
+	public:
+		FASTINLINE bool operator ==(const FName& Other) const { return !Compare(Other); }
+		FASTINLINE bool operator !=(const FName& Other) const { return Compare(Other); }
+		FASTINLINE bool operator <=(const FName& Other) const { return Compare(Other) <= 0; }
+		FASTINLINE bool operator >=(const FName& Other) const { return Compare(Other) >= 0; }
+		FASTINLINE bool operator < (const FName& Other) const { return Compare(Other) < 0; }
+		FASTINLINE bool operator > (const FName& Other) const { return Compare(Other) > 0; }
+
+		/* -- Below overloads are for preventing overheads. -- */
+		FASTINLINE bool operator ==(const ansi_t* Other) const { return !Compare(Other); }
+		FASTINLINE bool operator !=(const ansi_t* Other) const { return Compare(Other); }
+		FASTINLINE bool operator <=(const ansi_t* Other) const { return Compare(Other) <= 0; }
+		FASTINLINE bool operator >=(const ansi_t* Other) const { return Compare(Other) >= 0; }
+		FASTINLINE bool operator < (const ansi_t* Other) const { return Compare(Other) < 0; }
+		FASTINLINE bool operator > (const ansi_t* Other) const { return Compare(Other) > 0; }
+
+		FASTINLINE bool operator ==(const wide_t* Other) const { return !Compare(Other); }
+		FASTINLINE bool operator !=(const wide_t* Other) const { return Compare(Other); }
+		FASTINLINE bool operator <=(const wide_t* Other) const { return Compare(Other) <= 0; }
+		FASTINLINE bool operator >=(const wide_t* Other) const { return Compare(Other) >= 0; }
+		FASTINLINE bool operator < (const wide_t* Other) const { return Compare(Other) < 0; }
+		FASTINLINE bool operator > (const wide_t* Other) const { return Compare(Other) > 0; }
+
+	public:
+		FASTINLINE s32 Compare(const FName& Other) const {
+			if (Name != Other.Name)
+			{
+				if (Name && Other.Name)
+				{
+					return TNativeStrings<char_t>::Strcmp(
+						Name->Value, Other.Name->Value);
+				}
+
+				return Name && !Other.Name ? -1 : 1;
+			}
+
+			return 0;
+		}
+
+		template<typename CharType>
+		FASTINLINE s32 Compare(const CharType* String) const {
+			if (!Name) return String ? 1 : 0;
+			else if (Name && !String) {
+				return -1;
+			}
+
+			else if (IsSameType<CharType, char_t>)
+				return TNativeStrings<CharType>::Strcmp((const CharType*)Name->Value, String);
+
+			else {
+				TStringConvert<char_t, CharType> Converted(String);
+				return TNativeStrings<char_t>::Strcmp(
+					Name->Value, Converted.GetConvertedString());
+			}
 		}
 
 	private:
+		template<typename CharType>
+		FASTINLINE void Construct(const CharType* InString)
+		{
+			if (IsSameType<char_t, CharType>)
+			{
+				if (!InString)
+					Name = nullptr;
 
+				else {
+					(Name = new NameData())
+						->References = 1;
+
+					Name->Length = TNativeStrings<CharType>::Strlen(InString);
+					Name->Value = new char_t[Name->Length + 1];
+
+					::memcpy(Name->Value, InString, Name->Length);
+					Name->Value[Name->Length] = 0;
+				}
+			}
+			else {
+				TStringConvert<char_t, CharType> Converter(InString);
+
+				if (!Converter.GetConvertedString() ||
+					Converter.GetConvertedLength() <= 0)
+					Name = nullptr;
+
+				else {
+					(Name = new NameData())
+						->References = 1;
+
+					Name->Value = new char_t[Converter.GetConvertedLength() + 1];
+					Name->Length = Converter.GetConvertedLength();
+
+					::memcpy(Name->Value, Converter.GetConvertedString(),
+						Converter.GetConvertedLength() + 1 /* including termination character. */);
+				}
+			}
+		}
+
+		FASTINLINE void Destruct() {
+			if (Name && !--Name->References)
+			{
+				if (Name->Value)
+					delete[](Name->Value);
+
+				delete Name;
+			}
+
+			Name = nullptr;
+		}
+
+	private:
+		NameData* Name;
 	};
 
 }
