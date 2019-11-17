@@ -270,8 +270,8 @@ namespace boxpp
 				NodeType* Checkpoint = nullptr;
 
 				if (Edge == First) {
-					First = Edge =
-						Checkpoint = Edge->Emplace(TMovable<ElemType>::Movable(Elem), true);
+					First = Edge = Checkpoint = 
+						Edge->Emplace(TMovable<ElemType>::Movable(Elem), true);
 
 					--Count;
 					++Length;
@@ -293,9 +293,43 @@ namespace boxpp
 			return Add(Elem, Count);
 		}
 
+		/*
+			Remove an item from this array.
+		*/
+		FASTINLINE bool Remove(const ElemType& Item, bool bOptimize = true) {
+			OffsetType Offset = IndexOf(Item);
+
+			if (Offset) {
+				return this->RemoveAt(Offset, 1, bOptimize);
+			}
+
+			return false;
+		}
+
+		/*
+			Remove all item (or items) from this array.
+		*/
+		FASTINLINE s32 RemoveAll(const ElemType& Item, bool bOptimize = true) {
+			NodeType* Current = First, *Temp = nullptr;
+
+			while (Current)
+			{
+				Current = (Temp = Current)->GetNext();
+
+				if (Temp->GetRaw() &&
+					!Compare(*Temp->GetRaw(), Item))
+				{
+					RemoveAt(Temp);
+				}
+			}
+
+			return nullptr;
+		}
+
 		/* Remove items from given offset. */
 		FASTINLINE bool RemoveAt(const OffsetType& Offset, u32 Count = 1) {
-			if (Offset) {
+			if (Offset) 
+			{
 				NodeType* Edge = *Offset, 
 						 *Temp = nullptr;
 
@@ -322,7 +356,64 @@ namespace boxpp
 			return false;
 		}
 
-		
+	public:
+		/*
+			Find the index of given item.
+		*/
+		FASTINLINE OffsetType IndexOf(const ElemType& Item, const NodeType& Offset = nullptr) const {
+			NodeType* Current = Offset ? *Offset : First;
+
+			while (Current)
+			{
+				if (Current->GetRaw() && 
+					!Compare(*Current->GetRaw(), Item)) 
+				{
+					return Current;
+				}
+
+				Current = Current->GetNext();
+			}
+
+			return nullptr;
+		}
+
+		/*
+			Determines this array contains given item or not.
+		*/
+		FASTINLINE bool Contains(const ElemType& Item) const {
+			return IndexOf(Item);
+		}
+
+		/* Sort this linked list. (bubble sort. so, slow) */
+		FASTINLINE void Sort(bool bDescend = false) {
+			NodeType* Outer = First, Inner = nullptr;
+
+			while (Outer)
+			{
+				Inner = First;
+
+				if (Outer->GetRaw()) {
+
+					while (Inner)
+					{
+						if (Inner->GetRaw())
+						{
+							s32 R = Compare(*Outer->GetRaw(), *Inner->GetRaw());
+
+							if ((R > 0 && !bDescend) || 
+								(R < 0 && bDescend)) 
+							{
+								Swap(*Outer->GetRaw(), *Inner->GetRaw());
+							}
+						}
+
+						Inner = Inner->GetNext();
+					}
+				}
+
+				Outer = Outer->GetNext();
+			}
+		}
 	};
 
 }

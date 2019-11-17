@@ -80,7 +80,7 @@ namespace boxpp_rt
 			return false;
 		}
 
-		if ((Index = Runtimes.Emplace(RT)) >= 0) {
+		if ((Index = Runtimes.Add(RT)) >= 0) {
 			Barrior.Leave();
 
 			if (boxpp::FBox* Box = new boxpp::FBox(BoxSuper->ToWeak())) {

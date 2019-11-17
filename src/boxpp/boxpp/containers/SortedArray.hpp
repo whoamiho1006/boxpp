@@ -185,7 +185,7 @@ namespace boxpp
 		*/
 		FASTINLINE s32 AddUnique(const ElemType& Item) {
 			if (!Contains(Item)) {
-				return Emplace(Item);
+				return Add(Item);
 			}
 
 			return -1;
@@ -196,7 +196,7 @@ namespace boxpp
 		*/
 		FASTINLINE s32 AddUnique(ElemType&& Item) {
 			if (!Contains(Item)) {
-				return Emplace(Forward<ElemType>(Item));
+				return Add(Forward<ElemType>(Item));
 			}
 
 			return -1;
