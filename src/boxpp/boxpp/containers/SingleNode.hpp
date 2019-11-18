@@ -23,7 +23,7 @@ namespace boxpp
 		TSingleNode<ElemType>* Next;
 
 	public:
-		FASTINLINE TNode<ElemType>* GetNext() const { return Next; }
+		FASTINLINE TSingleNode<ElemType>* GetNext() const { return Next; }
 
 	public:
 		FASTINLINE bool IsLastEdge() const { return !Next; }
@@ -31,7 +31,7 @@ namespace boxpp
 	public:
 		/* Get last edge. WARNING: This method is slow! */
 		FASTINLINE TSingleNode<ElemType>* GetLastEdge() const {
-			TSingleNode<ElemType>* Edge = this;
+			TSingleNode<ElemType>* Edge = const_cast<TSingleNode<ElemType>*>(this);
 
 			while (Edge->Next)
 				Edge = Edge->Next;
@@ -41,7 +41,7 @@ namespace boxpp
 
 		/* Determines given edge is compositing edge or not. (SLOW!) */
 		FASTINLINE bool IsCompositingEdge(TSingleNode<ElemType>* Edge) const {
-			TSingleNode<ElemType>* Current = this;
+			TSingleNode<ElemType>* Current = const_cast<TSingleNode<ElemType>*>(this);
 
 			while (Current && Current != Edge) {
 				Current = Current->Next;

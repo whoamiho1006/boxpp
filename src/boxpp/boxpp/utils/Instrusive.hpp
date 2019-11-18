@@ -35,19 +35,18 @@ namespace boxpp
 		FASTINLINE Type& operator *() const { return *GetRaw(); }
 
 	public:
-		FASTINLINE TSharedPtr<Type> MakeShared() const {
+		FASTINLINE const TSharedPtr<Type> MakeShared() const {
+			sharedptr::TSmartProxy<Type> Proxy = { 0, };
+
 			if (*this) {
-				sharedptr::TSmartProxy<Type> Proxy;
 
 				Proxy.Counter = new sharedptr::TSharedCount<Type,
 					sharedptr::TEmptyDeleter<Type>>(GetRaw());
 
 				Proxy.Object = GetRaw();
-
-				return Proxy;
 			}
 
-			return nullptr;
+			return Proxy;
 		}
 
 	public:

@@ -1,6 +1,10 @@
 #ifndef __BOXPP_BASE_NORMALIZE_HPP__
 #define __BOXPP_BASE_NORMALIZE_HPP__
 
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #ifdef PLATFORM_WINDOWS
 #undef PLATFORM_WINDOWS
 #endif
@@ -322,6 +326,10 @@ typedef PLATFORM_SIZE_TYPE size_t;
 
 /* skip parsing __attribute__ specifiers for gcc on VisualStudio. */
 #define __attribute__(...)
+#endif
+
+#ifdef _MSC_VER
+#pragma warning(disable: 4251)
 #endif
 
 #endif // !__BOXPP_BASE_NORMALIZE_HPP__

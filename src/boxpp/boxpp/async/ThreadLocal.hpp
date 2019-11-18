@@ -6,7 +6,7 @@
 #include <boxpp.hpp>
 #endif
 
-#include <boxpp/containers/SortedArray.hpp>
+#include <boxpp/containers/Map.hpp>
 #include <atomic>
 
 namespace boxpp {
@@ -28,6 +28,7 @@ namespace boxpp {
 
 		private:
 			std::atomic_flag Atomic;
+			TMap<void*, void*> Values;
 			
 
 		};

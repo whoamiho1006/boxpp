@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include "boilerplate.hpp"
+#include <stdio.h>
 
 using namespace boxpp_rt;
 using namespace boxpp::boilerplates;

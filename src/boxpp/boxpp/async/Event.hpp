@@ -15,7 +15,7 @@
 namespace boxpp {
 	/*	Event is for guarding specific blocks.
 		Note: FEvent will not be compiled into shared library. */
-	class FEvent
+	class BOXPP FEvent
 	{
 	public:
 		FASTINLINE FEvent(bool bManual = true, bool bInitState = false) {

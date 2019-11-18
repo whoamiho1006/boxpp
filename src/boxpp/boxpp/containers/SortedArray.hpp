@@ -264,8 +264,8 @@ namespace boxpp
 		FASTINLINE s32 Append(const TArrayBase<ElemType>& InArray, s32 Offset, u32 Count) {
 			s32 Items = 0;
 
-			for (s32 i = Offset; i < Count; i++) {
-				if (Emplace(InArray[i]) >= 0)
+			for (s32 i = Offset; i < s32(Count); i++) {
+				if (Add(InArray[i]) >= 0)
 					Items++;
 			}
 

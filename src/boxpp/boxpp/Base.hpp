@@ -1,6 +1,5 @@
 #ifndef __BOXPP_BASE_HPP__
 #define __BOXPP_BASE_HPP__
-#define _CRT_SECURE_NO_WARNINGS
 
 #include <boxpp/Base.Normalize.hpp>
 

@@ -27,6 +27,7 @@
     <ClInclude Include="boxpp\async\Task.hpp" />
     <ClInclude Include="boxpp\async\TaskSource.hpp" />
     <ClInclude Include="boxpp\async\Thread.hpp" />
+    <ClInclude Include="boxpp\async\ThreadLocal.hpp" />
     <ClInclude Include="boxpp\async\Worker.hpp" />
     <ClInclude Include="boxpp\Base.hpp" />
     <ClInclude Include="boxpp\Base.Normalize.hpp" />
@@ -42,6 +43,8 @@
     <ClInclude Include="boxpp\containers\SingleNode.hpp" />
     <ClInclude Include="boxpp\containers\SortedArray.hpp" />
     <ClInclude Include="boxpp\containers\LinkedList.hpp" />
+    <ClInclude Include="boxpp\containers\Stack.hpp" />
+    <ClInclude Include="boxpp\containers\Map.hpp" />
     <ClInclude Include="boxpp\core\Name.h" />
     <ClInclude Include="boxpp\hints\pthread.hpp" />
     <ClInclude Include="boxpp\hints\windows.hpp" />
@@ -71,6 +74,7 @@
     <ClInclude Include="impls\utils\PureArray.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="boxpp\async\Worker.cpp" />
     <ClCompile Include="boxpp\Boilerplate.cpp" />
     <ClCompile Include="boxpp\boxpp-rt.cpp" />
     <ClCompile Include="boxpp\internal\IBoxRuntime.cpp" />

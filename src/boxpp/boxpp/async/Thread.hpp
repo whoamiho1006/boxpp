@@ -161,6 +161,12 @@ namespace boxpp {
 			{
 				if (Event) {
 					Event->Set();
+
+					/*
+						Yield once for giving initialization
+						chances of extra implementations.
+					*/
+					YieldOnce();
 				}
 
 				if (Runnable) {
@@ -175,7 +181,7 @@ namespace boxpp {
 		public:
 			FASTINLINE FBarrior& GetBarrior() { return Barrior; }
 			FASTINLINE const FBarrior& GetBarrior() const { return Barrior; }
-
+			
 		private:
 			TSharedPtr<IRunnable, ESharedMode::Safe> Runnable;
 			bool bRunning;

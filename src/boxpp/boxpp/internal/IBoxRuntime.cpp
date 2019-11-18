@@ -1,4 +1,5 @@
 #include <boxpp.hpp>
+#include <boxpp/async/Worker.hpp>
 #include <boxpp/internal/IBoxRuntime.hpp>
 
 #include <impls/Box.hpp>
@@ -49,7 +50,28 @@ namespace boxpp_rt
 			if (Get().Executable != RT)
 				return Get().Remove(RT);
 
-			// Wait.
+
+			boxpp::TSortedArray<boxpp::async::FWorker*> Workers;
+
+			while (true) {
+				if (true) {
+					boxpp::FBarriorScope Guard(Get().Barrior);
+
+					if (!Get().Workers) {
+						break;
+					}
+
+					Workers.Append(Get().Workers);
+				}
+
+				// Wait completion of all workers.
+				for (boxpp::async::FWorker* Worker : Workers) {
+					Worker->WaitExit();
+				}
+
+				Workers.Clear();
+			}
+
 			Get().Executable = nullptr;
 		}
 		

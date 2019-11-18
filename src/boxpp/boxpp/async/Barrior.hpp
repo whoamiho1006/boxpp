@@ -15,7 +15,7 @@
 namespace boxpp {
 	/*	Barrior is for guarding specific blocks. 
 		Note: FBarror will not be compiled into shared library. */
-	class FBarrior
+	class BOXPP FBarrior
 	{
 	public:
 		FASTINLINE FBarrior() {

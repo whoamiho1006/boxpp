@@ -196,6 +196,15 @@
     <ClInclude Include="boxpp\containers\SingleNode.hpp">
       <Filter>boxpp\containers</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\containers\Stack.hpp">
+      <Filter>boxpp\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\async\ThreadLocal.hpp">
+      <Filter>boxpp\async</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\containers\Map.hpp">
+      <Filter>boxpp\containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\boxpp-rt.cpp" />
@@ -213,6 +222,9 @@
     </ClCompile>
     <ClCompile Include="boxpp\utils\NativeStrings.cpp">
       <Filter>boxpp\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\async\Worker.cpp">
+      <Filter>boxpp\async</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

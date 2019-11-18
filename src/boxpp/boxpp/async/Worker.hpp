@@ -13,28 +13,37 @@
 #include <boxpp/async/TaskSource.hpp>
 #include <boxpp/async/Thread.hpp>
 
+#if BOX_COMPILE_BODY
+namespace boxpp_rt {
+	class FBoxRuntime;
+}
+#endif
+
 namespace boxpp {
 	namespace async {
 		class IRunnable;
 
+
 		class BOXPP FWorker
 		{
+#if BOX_COMPILE_BODY
+		protected:
+			friend class boxpp_rt::FBoxRuntime;
+#endif
 		public:
-			FWorker(bool bKeepRunning = false)
-				: bKeepRunning(bKeepRunning) { }
-
+			FWorker(bool bKeepRunning = false);
 			~FWorker();
 
 		private:
 			class FThreadProxy : public IRunnable {
 			public:
-				FThreadProxy(FWorker& Worker);
+				FThreadProxy(FWorker* Worker);
 
 			public:
 				virtual void Run();
 
 			private:
-				FWorker& Worker;
+				FWorker* Worker;
 			};
 
 			struct FWorkerLocal {
@@ -56,13 +65,22 @@ namespace boxpp {
 
 		private:
 			FBarrior Barrior;
-			FThread Thread;
-			bool bKeepRunning;
-
-			TArray<FWorkerLocal> WorkerLocals;
+			TSharedPtr<FThread, ESharedMode::Safe> Thread;
+			bool bKeepRunning, bExitLoop;
 
 			TInstrusive<FThreadProxy> Proxy;
 			TQueue<TSharedPtr<IRunnable, ESharedMode::Safe>> Queue;
+			
+		protected:
+			FASTINLINE void WaitExit() {
+				TSharedPtr<FThread, ESharedMode::Safe> Thread = this->Thread;
+				FBarriorScope Guard(Barrior);
+				bExitLoop = true;
+
+				if (Thread && Thread->IsRunning()) {
+					Thread->Wait();
+				}
+			}
 		};
 
 	}

@@ -34,12 +34,19 @@ namespace boxpp {
 			template<typename OtherType, ESharedMode OtherMode, bool OtherHolds, 
 				typename = EnableIf<IsDerivedType<ObjectType, OtherType>>>
 			TSmartPtr(const TSmartPtr<OtherType, OtherMode, OtherHolds>& Other)
-				: Holder(Other.GetRaw()), Object(dynamic_cast<ObjectType*>(Other.Object))
+				: Holder(Other.Holder.GetRaw()), Object(dynamic_cast<ObjectType*>(Other.Object))
 			{
 			}
 
 		public:
 			TSmartPtr(const TSmartProxy<ObjectType>& Proxy)
+				: Holder(Proxy.Counter), Object(Proxy.Object)
+			{
+			}
+
+			/* up-casting supports */
+			template<typename OtherType, typename = EnableIf<IsDerivedType<ObjectType, OtherType>>>
+			TSmartPtr(const TSmartProxy<OtherType>& Proxy)
 				: Holder(Proxy.Counter), Object(Proxy.Object)
 			{
 			}

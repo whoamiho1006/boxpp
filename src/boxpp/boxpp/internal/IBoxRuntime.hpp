@@ -13,9 +13,15 @@
 #if BOX_COMPILE_BODY
 #include <impls/utils/PureArray.hpp>
 #include <boxpp/async/Barrior.hpp>
+#include <boxpp/containers/SortedArray.hpp>
 
 namespace boxpp {
 	class FBoxSuper;
+#if BOX_COMPILE_BODY
+	namespace async {
+		class FWorker;
+	}
+#endif
 }
 #endif
 
@@ -86,6 +92,8 @@ namespace boxpp_rt
 
 #if BOX_COMPILE_BODY /* FBoxRuntime is only valid for boxpp.dll. */
 	class FBoxRuntime {
+		friend class boxpp::async::FWorker;
+
 	public:
 		static FBoxRuntime& Get();
 
@@ -98,6 +106,7 @@ namespace boxpp_rt
 		boxpp::FBarrior Barrior;
 		boxpp::FBoxSuper* BoxSuper;
 		boxpp::TPureArray<IBoxRuntime*> Runtimes;
+		boxpp::TSortedArray<boxpp::async::FWorker*> Workers;
 
 	private:
 		bool bExecRan;
@@ -112,6 +121,17 @@ namespace boxpp_rt
 	private:
 		bool Add(IBoxRuntime* RT);
 		bool Remove(IBoxRuntime* RT);
+
+	protected:
+		FASTINLINE void RegisterWorker(boxpp::async::FWorker* Worker) {
+			boxpp::FBarriorScope Guard(Barrior);
+			Workers.AddUnique(Worker);
+		}
+
+		FASTINLINE void UnregisterWorker(boxpp::async::FWorker* Worker) {
+			boxpp::FBarriorScope Guard(Barrior);
+			Workers.Remove(Worker);
+		}
 	};
 #endif
 

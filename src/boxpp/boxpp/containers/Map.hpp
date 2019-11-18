@@ -97,6 +97,16 @@ namespace boxpp
 		FASTINLINE bool operator ==(const <KeyType, ValueType>& Other) { return this == &Other; }
 		FASTINLINE bool operator !=(const <KeyType, ValueType>& Other) { return this != &Other; }
 
+		FASTINLINE ValueType& operator [](const KeyType& Key) {
+			SortablePair HalfPair(Key);
+			return *(Pairs[Pairs.Search(HalfPair)].Value->GetRaw());
+		}
+
+		FASTINLINE const ValueType& operator [](const KeyType& Key) const {
+			SortablePair HalfPair(Key);
+			return *(Pairs[Pairs.Search(HalfPair)].Value->GetRaw());
+		}
+
 	public:
 		FASTINLINE TMap<KeyType, ValueType>& operator =(const TMap<KeyType, ValueType>& Other) {
 			Pairs = Other.Pairs;
@@ -106,6 +116,37 @@ namespace boxpp
 		FASTINLINE TMap<KeyType, ValueType>& operator =(TMap<KeyType, ValueType>&& Other) {
 			Pairs = Forward<TSortedArray<SortablePair>>(Other.Pairs);
 			return *this;
+		}
+
+	public:
+		FASTINLINE bool ContainsKey(const KeyType& Key) const {
+			SortablePair HalfPair(Key);
+			return Pairs.Search(HalfPair) >= 0;
+		}
+
+		FASTINLINE bool ContainsValue(const ValueType& Value) const {
+			for (const SortablePair& Each : Pairs) {
+				if (Each.Value && 
+					!Compare(*Each.Value->GetRaw(), Value))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+	public:
+		FASTINLINE void GetKeys(TArray<KeyType>& Keys) const {
+			for (const SortablePair& Each : Pairs) {
+				Keys.Add(Each.Key);
+			}
+		}
+
+	public:
+		FASTINLINE bool Remove(const KeyType& Key) const {
+			SortablePair HalfPair(Key);
+			return Pairs.Remove(HalfPair);
 		}
 
 	public:
