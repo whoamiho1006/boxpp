@@ -48,7 +48,7 @@ namespace boxpp {
 			{
 			}
 
-			FASTINLINE FThread(const TSharedPtr<IRunnable>& Runnable, bool bImmediate = true)
+			FASTINLINE FThread(const TSharedPtr<IRunnable, ESharedMode::Safe>& Runnable, bool bImmediate = true)
 				: Runnable(Runnable), bRunning(false)
 			{
 				if (bImmediate && Runnable) {
@@ -68,6 +68,32 @@ namespace boxpp {
 		public:
 			/* Determines this thread is running or not. */
 			FASTINLINE bool IsRunning() const { return bRunning && Runnable; }
+
+		public:
+			FASTINLINE static void Sleep(u32 Timeout = 0) {
+#if PLATFORM_WINDOWS
+				w32_compat::Sleep(Timeout);
+#endif
+#if PLATFORM_POSIX
+				if (!Timeout)
+					pthread_yield();
+
+				else {
+					usleep((Timeout % 1000) * 1000);
+					sleep(Timeout / 1000);
+				}
+#endif
+			}
+
+			FASTINLINE static void YieldOnce() {
+#if PLATFORM_WINDOWS
+				w32_compat::Sleep(0);
+#endif
+
+#if PLATFORM_POSIX
+				pthread_yield();
+#endif
+			}
 
 		public:
 			/* Run thread. */
@@ -98,7 +124,7 @@ namespace boxpp {
 			}
 
 			/* Run thread. */
-			FASTINLINE bool Run(const TSharedPtr<IRunnable>& Runnable) {
+			FASTINLINE bool Run(const TSharedPtr<IRunnable, ESharedMode::Safe>& Runnable) {
 				if (!bRunning) {
 					this->Runnable = Runnable;
 					return Run();
@@ -163,6 +189,73 @@ namespace boxpp {
 
 			TInstrusive<FEvent> Event;
 			FBarrior Barrior;
+		};
+
+		class FSharedThread
+		{
+		public:
+			FSharedThread(nullptr_t = nullptr) { }
+
+			FASTINLINE FSharedThread(const TSharedPtr<IRunnable, ESharedMode::Safe>& Runnable, bool bImmediate = true)
+				: Thread(MakeShared(new FThread(Runnable, bImmediate)))
+			{
+			}
+
+			FASTINLINE FSharedThread(const FSharedThread& Other)
+				: Thread(Other.Thread)
+			{
+			}
+
+			FASTINLINE FSharedThread(FSharedThread&& Other)
+				: Thread(Forward<TSharedPtr<FThread, ESharedMode::Safe>>(Other.Thread))
+			{
+			}
+
+			FASTINLINE ~FSharedThread()
+			{
+			}
+
+		public:
+			FASTINLINE operator bool() const { return Thread && Thread->IsRunning(); }
+			FASTINLINE bool operator !() const { return !Thread || !Thread->IsRunning(); }
+
+			/* Determines this thread is running or not. */
+			FASTINLINE bool IsRunning() const { return Thread && Thread->IsRunning(); }
+
+			FASTINLINE bool operator ==(const FSharedThread& Other) const { return Thread == Other.Thread; }
+			FASTINLINE bool operator !=(const FSharedThread& Other) const { return Thread != Other.Thread; }
+
+		public:
+			FASTINLINE FSharedThread& operator =(nullptr_t) { Thread = nullptr; return *this; }
+			FASTINLINE FSharedThread& operator =(const FSharedThread& Other) { Thread = Other.Thread; return *this; }
+			FASTINLINE FSharedThread& operator =(FSharedThread&& Other) {
+				Thread = Forward<TSharedPtr<FThread, ESharedMode::Safe>>(Other.Thread);
+				return *this;
+			}
+
+		public:
+			/* Run thread. */
+			FASTINLINE bool Run() {
+				return Thread && Thread->Run();
+			}
+
+			/* Run thread. */
+			FASTINLINE bool Run(const TSharedPtr<IRunnable, ESharedMode::Safe>& Runnable) {
+				if (!Thread) {
+					Thread = MakeShared(new FThread(Runnable, false));
+				}
+
+				return Run();
+			}
+
+			/* Wait thread completion. */
+			FASTINLINE bool Wait() {
+				return Thread && Thread->Wait();
+			}
+
+		private:
+			TSharedPtr<FThread, ESharedMode::Safe> Thread;
+
 		};
 
 	}

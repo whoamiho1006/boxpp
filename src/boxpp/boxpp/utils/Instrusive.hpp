@@ -9,6 +9,7 @@
 #include <boxpp/utils/Movable.hpp>
 #include <boxpp/utils/Forward.hpp>
 #include <boxpp/utils/Functionality.hpp>
+#include <boxpp/sharedptr/SharedPtr.hpp>
 
 namespace boxpp
 {
@@ -32,6 +33,22 @@ namespace boxpp
 
 		FASTINLINE Type* operator ->() const { return GetRaw(); }
 		FASTINLINE Type& operator *() const { return *GetRaw(); }
+
+	public:
+		FASTINLINE TSharedPtr<Type> MakeShared() const {
+			if (*this) {
+				sharedptr::TSmartProxy<Type> Proxy;
+
+				Proxy.Counter = new sharedptr::TSharedCount<Type,
+					sharedptr::TEmptyDeleter<Type>>(GetRaw());
+
+				Proxy.Object = GetRaw();
+
+				return Proxy;
+			}
+
+			return nullptr;
+		}
 
 	public:
 		template<typename = EnableIf<IsCopyConstructible<Type>>>

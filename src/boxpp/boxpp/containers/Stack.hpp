@@ -1,5 +1,5 @@
-#ifndef __BOXPP_CONTAINERS_QUEUE_HPP__
-#define __BOXPP_CONTAINERS_QUEUE_HPP__
+#ifndef __BOXPP_CONTAINERS_STACK_HPP__
+#define __BOXPP_CONTAINERS_STACK_HPP__
 
 /* Loads boxpp.hpp header if not loaded. */
 #ifndef __BOXPP_HPP__
@@ -11,46 +11,58 @@
 namespace boxpp
 {
 	template<typename ElemType>
-	class TQueue
+	class TStack
 	{
 	public:
 		typedef TSingleNode<ElemType> NodeType;
 
 	public:
-		TQueue()
-			: First(nullptr), CachedLast(nullptr), CachedLength(0)
+		TStack()
+			: First(nullptr), CachedLength(0)
 		{
 		}
 
-		TQueue(const TQueue<ElemType>& Other)
-			: First(nullptr), CachedLast(nullptr)
+		TStack(const TStack<ElemType>& Other)
+			: First(nullptr), CachedLength(0)
 		{
 			NodeType* Current = const_cast<NodeType*>(Other.First);
+			NodeType* Cursor = nullptr;
 
 			while (Current)
 			{
 				if (Current->GetRaw())
-					Enqueue(*Current->GetRaw());
+				{
+					if (Cursor)
+					{
+						Cursor->SetNext(new NodeType(*Current->GetRaw());
+						Cursor = Cursor->GetNext();
+					}
+
+					else
+					{
+						First = Cursor 
+							= new NodeType(*Current->GetRaw());
+					}
+				}
 
 				Current = Current->GetNext();
 			}
 		}
 
-		TQueue(TQueue<ElemType>&& Other)
-			: First(Other.First), CachedLast(Other.CachedLast),
-			CachedLength(Other.CachedLength)
+		TStack(TStack<ElemType>&& Other)
+			: First(Other.First), CachedLength(Other.CachedLength)
 		{
-			Other.First = Other.CachedLast = nullptr;
+			Other.First = nullptr;
 			Other.CachedLength = 0;
 		}
 
-		~TQueue()
+		~TStack()
 		{
 			Clear();
 		}
 
 	private:
-		NodeType* First, *CachedLast;
+		NodeType* First;
 		u32 CachedLength;
 
 	public:
@@ -59,8 +71,8 @@ namespace boxpp
 
 		FASTINLINE bool IsEmpty() const { return !First; }
 
-		FASTINLINE bool operator ==(const TQueue<ElemType>& Other) const { return this == &Other; }
-		FASTINLINE bool operator !=(const TQueue<ElemType>& Other) const { return this != &Other; }
+		FASTINLINE bool operator ==(const TStack<ElemType>& Other) const { return this == &Other; }
+		FASTINLINE bool operator !=(const TStack<ElemType>& Other) const { return this != &Other; }
 
 	public:
 		FASTINLINE u32 GetSize() const { return CachedLength; }
@@ -72,11 +84,24 @@ namespace boxpp
 				this->Clear();
 
 				NodeType* Current = const_cast<NodeType*>(Other.First);
+				NodeType* Cursor = nullptr;
 
 				while (Current)
 				{
 					if (Current->GetRaw())
-						Enqueue(*Current->GetRaw());
+					{
+						if (Cursor)
+						{
+							Cursor->SetNext(new NodeType(*Current->GetRaw());
+							Cursor = Cursor->GetNext();
+						}
+
+						else
+						{
+							First = Cursor
+								= new NodeType(*Current->GetRaw());
+						}
+					}
 
 					Current = Current->GetNext();
 				}
@@ -88,13 +113,11 @@ namespace boxpp
 		FASTINLINE TQueue<ElemType>& operator =(TQueue<ElemType>&& Other) {
 			if (*this != Other) {
 				Swap(this->First, Other.First);
-				Swap(this->CachedLast, Other.CachedLast);
 				Swap(this->CachedLength, Other.CachedLength);
 			}
 
 			return *this;
 		}
-
 	public:
 		/* Clear this linked list and release all memory. */
 		FASTINLINE void Clear()
@@ -102,9 +125,9 @@ namespace boxpp
 			if (First)
 			{
 				NodeType* Current = First,
-						* Temp = nullptr;
+					*Temp = nullptr;
 
-				First = CachedLast = nullptr;
+				First = nullptr;
 				CachedLength = 0;
 
 				while (Current)
@@ -115,51 +138,66 @@ namespace boxpp
 			}
 		}
 
-		FASTINLINE void Enqueue(const ElemType& Item)
+		FASTINLINE void Push(const ElemType& Item)
 		{
-			if (!First || !CachedLast)
-				First = CachedLast = new NodeType(Item);
+			if (!First)
+				First = new NodeType(Item);
 
-			else if (CachedLast)
+			else
 			{
-				CachedLast->SetNext(new NodeType(Item));
-				CachedLast = CachedLast->GetLastEdge();
+				NodeType* New = new NodeType(Item);
+
+				New->SetNext(First);
+				First = New;
 			}
 
 			++CachedLength;
 		}
 
-		FASTINLINE bool Dequeue(ElemType& OutItem)
+		FASTINLINE void Push(ElemType&& Item)
+		{
+			if (!First)
+				First = new NodeType(TMovable<ElemType>::Movable(Item));
+
+			else
+			{
+				NodeType* New = new NodeType(
+					TMovable<ElemType>::Movable(Item));
+
+				New->SetNext(First);
+				First = New;
+			}
+
+			++CachedLength;
+		}
+
+		FASTINLINE bool Pop(ElemType& Item)
 		{
 			if (First)
 			{
 				NodeType* Temp = First;
 				First = First->GetNext();
+
 				--CachedLength;
 
-				if (CachedLast == Temp)
-					CachedLast = First;
-
-
 				if (Temp->GetRaw()) {
-					Swap(*Temp->GetRaw(), OutItem);
-
+					Item = TMovable<ElemType>::Movable(*Temp->GetRaw());
 					delete Temp;
 					return true;
 				}
 
 				delete Temp;
-				return false;
 			}
 
 			return false;
 		}
 
-		FASTINLINE ElemType* Peek() const 
+		FASTINLINE ElemType* Peek() const
 		{
 			return First ? First->GetRaw() : nullptr;
 		}
 	};
+
 }
 
-#endif // !__BOXPP_CONTAINERS_QUEUE_HPP__
+#endif // !__BOXPP_CONTAINERS_STACK_HPP__

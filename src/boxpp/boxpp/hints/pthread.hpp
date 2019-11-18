@@ -38,6 +38,10 @@ boxpp::s32 pthread_cond_destroy(pthread_cond_t *cond);
 boxpp::s32 pthread_create(pthread_t* thread, const pthread_attr_t *attr, void *(*start_routine) (void *), void *arg);
 boxpp::s32 pthread_join(pthread_t thread, void **retval);
 pthread_t pthread_self(void);
+boxpp::s32 pthread_yield(void);
+
+void sleep(boxpp::u32 useconds);
+void usleep(boxpp::u32 useconds);
 
 #	endif
 #endif

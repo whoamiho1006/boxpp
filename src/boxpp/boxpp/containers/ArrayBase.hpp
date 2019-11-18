@@ -57,6 +57,8 @@ namespace boxpp
 		FASTINLINE operator bool() const { return Length; }
 		FASTINLINE bool operator !() const { return !Length; }
 
+		FASTINLINE bool IsEmpty() const { return !Length; }
+
 		FASTINLINE bool operator ==(const TArrayBase<ElemType>& Other) const { return this == &Other; }
 		FASTINLINE bool operator !=(const TArrayBase<ElemType>& Other) const { return this != &Other; }
 

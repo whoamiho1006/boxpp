@@ -124,7 +124,7 @@ namespace boxpp {
 	{
 		sharedptr::TSmartProxy<ObjectType> Proxy;
 
-		Proxy.Counter = new sharedptr::TSharedCount<ObjectType>(Object, Deleter);
+		Proxy.Counter = new sharedptr::TSharedCount<ObjectType>(Object, Forward<DeleterType>(Deleter));
 		Proxy.Object = Object;
 
 		return Proxy;

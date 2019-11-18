@@ -55,6 +55,8 @@ namespace boxpp
 		FASTINLINE operator bool() const { return First && Last; }
 		FASTINLINE bool operator !() const { return !First || !Last; }
 
+		FASTINLINE bool IsEmpty() const { return !First || !Last; }
+
 		FASTINLINE bool operator ==(const TLinkedList<ElemType>& Other) const { return this == &Other; }
 		FASTINLINE bool operator !=(const TLinkedList<ElemType>& Other) const { return this != &Other; }
 
