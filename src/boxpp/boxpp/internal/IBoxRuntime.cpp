@@ -51,7 +51,7 @@ namespace boxpp_rt
 				return Get().Remove(RT);
 
 
-			boxpp::TSortedArray<boxpp::async::FWorker*> Workers;
+			boxpp::TArray<boxpp::async::FWorker*> Workers;
 
 			while (true) {
 				if (true) {
