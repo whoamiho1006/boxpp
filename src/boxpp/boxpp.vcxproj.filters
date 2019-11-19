@@ -205,6 +205,9 @@
     <ClInclude Include="boxpp\containers\Map.hpp">
       <Filter>boxpp\containers</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\utils\Function.hpp">
+      <Filter>boxpp\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\boxpp-rt.cpp" />
@@ -226,6 +229,10 @@
     <ClCompile Include="boxpp\async\Worker.cpp">
       <Filter>boxpp\async</Filter>
     </ClCompile>
+    <ClCompile Include="boxpp\async\ThreadLocal.cpp">
+      <Filter>boxpp\async</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\async\Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

@@ -61,6 +61,7 @@
     <ClInclude Include="boxpp\utf\UtfCommon.hpp" />
     <ClInclude Include="boxpp\utils\Comparator.hpp" />
     <ClInclude Include="boxpp\utils\Forward.hpp" />
+    <ClInclude Include="boxpp\utils\Function.hpp" />
     <ClInclude Include="boxpp\utils\Instrusive.hpp" />
     <ClInclude Include="boxpp\utils\Movable.hpp" />
     <ClInclude Include="boxpp\utils\Functionality.hpp" />
@@ -74,6 +75,8 @@
     <ClInclude Include="impls\utils\PureArray.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="boxpp\async\Thread.cpp" />
+    <ClCompile Include="boxpp\async\ThreadLocal.cpp" />
     <ClCompile Include="boxpp\async\Worker.cpp" />
     <ClCompile Include="boxpp\Boilerplate.cpp" />
     <ClCompile Include="boxpp\boxpp-rt.cpp" />

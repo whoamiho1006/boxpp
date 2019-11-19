@@ -12,6 +12,7 @@
 #include <boxpp/async/Task.hpp>
 #include <boxpp/async/TaskSource.hpp>
 #include <boxpp/async/Thread.hpp>
+#include <boxpp/async/ThreadLocal.hpp>
 
 #if BOX_COMPILE_BODY
 namespace boxpp_rt {
@@ -30,6 +31,7 @@ namespace boxpp {
 		protected:
 			friend class boxpp_rt::FBoxRuntime;
 #endif
+
 		public:
 			FWorker(bool bKeepRunning = false);
 			~FWorker();
@@ -44,11 +46,6 @@ namespace boxpp {
 
 			private:
 				FWorker* Worker;
-			};
-
-			struct FWorkerLocal {
-				void* Value;
-				void(*Cleanup)(void*);
 			};
 
 		public:

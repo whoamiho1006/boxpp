@@ -26,7 +26,7 @@ namespace boxpp {
 	namespace async {
 
 		/* Thread. */
-		class FThread : public IBroadcastedObject<FThread, ESharedMode::Safe>
+		class BOXPP FThread : public IBroadcastedObject<FThread, ESharedMode::Safe>
 		{
 		private:
 #if PLATFORM_WINDOWS
@@ -41,6 +41,21 @@ namespace boxpp {
 				return nullptr;
 			}
 #endif
+
+		public:
+			/* Get native thread handle of current running thread. */
+			static void* Self() {
+				void* Current = nullptr;
+
+#if PLATFORM_WINDOWS
+				Current = w32_compat::GetCurrentThread();
+#endif
+#if PLATFORM_POSIX
+				Current = pthread_self();
+#endif
+
+				return Current;
+			}
 
 		public:
 			FASTINLINE FThread()
@@ -68,6 +83,11 @@ namespace boxpp {
 		public:
 			/* Determines this thread is running or not. */
 			FASTINLINE bool IsRunning() const { return bRunning && Runnable; }
+			FASTINLINE void* GetRaw() const { return bRunning ? NativeSelf : nullptr; }
+
+		public:
+			FASTINLINE FBarrior& GetBarrior() { return Barrior; }
+			FASTINLINE const FBarrior& GetBarrior() const { return Barrior; }
 
 		public:
 			FASTINLINE static void Sleep(u32 Timeout = 0) {
@@ -116,7 +136,6 @@ namespace boxpp {
 #if PLATFORM_POSIX
 					bRunning = !pthread_create(&Thread, nullptr, ThreadProxy_POSIX, this);
 #endif
-
 					Event->Wait();
 					return true;
 				}
@@ -159,6 +178,8 @@ namespace boxpp {
 		private:
 			FASTINLINE void OnRun()
 			{
+				NativeSelf = Self();
+
 				if (Event) {
 					Event->Set();
 
@@ -176,12 +197,10 @@ namespace boxpp {
 				Barrior.Enter();
 				bRunning = false;
 				Barrior.Leave();
+
+				OnThreadShutdown();
 			}
 
-		public:
-			FASTINLINE FBarrior& GetBarrior() { return Barrior; }
-			FASTINLINE const FBarrior& GetBarrior() const { return Barrior; }
-			
 		private:
 			TSharedPtr<IRunnable, ESharedMode::Safe> Runnable;
 			bool bRunning;
@@ -195,6 +214,11 @@ namespace boxpp {
 
 			TInstrusive<FEvent> Event;
 			FBarrior Barrior;
+
+			void* NativeSelf;
+
+		private:
+			void OnThreadShutdown();
 		};
 
 		class FSharedThread
@@ -227,6 +251,7 @@ namespace boxpp {
 
 			/* Determines this thread is running or not. */
 			FASTINLINE bool IsRunning() const { return Thread && Thread->IsRunning(); }
+			FASTINLINE void* GetRaw() const { return Thread ? Thread->GetRaw() : nullptr; }
 
 			FASTINLINE bool operator ==(const FSharedThread& Other) const { return Thread == Other.Thread; }
 			FASTINLINE bool operator !=(const FSharedThread& Other) const { return Thread != Other.Thread; }
@@ -261,7 +286,6 @@ namespace boxpp {
 
 		private:
 			TSharedPtr<FThread, ESharedMode::Safe> Thread;
-
 		};
 
 	}

@@ -1,7 +1,20 @@
 #include <boxpp.hpp>
+#include <boxpp/utils/Function.hpp>
 #include <Windows.h>
+
 #pragma comment(lib, "boxpp.lib")
 #pragma comment(lib, "boxpp-rt.lib")
+
+void hello2() {
+	printf("hello2!\n");
+}
+class Test
+{
+public:
+	void Hello() {
+		printf("hello by class!\n");
+	}
+};
 
 boxpp::s32 run(boxpp::IBox* Box)
 {
@@ -28,6 +41,17 @@ boxpp::s32 run(boxpp::IBox* Box)
 	Names.Add("Test1");
 	Names.Add(L"Good2");
 	Names.AddUnique("Test23");
+
+	Test g;
+
+	boxpp::TFunction<void()> F(&g, &Test::Hello);
+
+	//F = hello2;
+
+	F();
+
+
+
 
 	for (boxpp::s32 a : d) {
 		printf("%d\n", a);

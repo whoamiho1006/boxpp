@@ -94,8 +94,8 @@ namespace boxpp
 		TSortedArray<SortablePair> Pairs;
 
 	public:
-		FASTINLINE bool operator ==(const <KeyType, ValueType>& Other) { return this == &Other; }
-		FASTINLINE bool operator !=(const <KeyType, ValueType>& Other) { return this != &Other; }
+		FASTINLINE bool operator ==(const TMap<KeyType, ValueType>& Other) { return this == &Other; }
+		FASTINLINE bool operator !=(const TMap<KeyType, ValueType>& Other) { return this != &Other; }
 
 		FASTINLINE ValueType& operator [](const KeyType& Key) {
 			SortablePair HalfPair(Key);
@@ -119,6 +119,10 @@ namespace boxpp
 		}
 
 	public:
+		FASTINLINE void Clear() {
+			Pairs.Clear();
+		}
+
 		FASTINLINE bool ContainsKey(const KeyType& Key) const {
 			SortablePair HalfPair(Key);
 			return Pairs.Search(HalfPair) >= 0;
@@ -126,7 +130,7 @@ namespace boxpp
 
 		FASTINLINE bool ContainsValue(const ValueType& Value) const {
 			for (const SortablePair& Each : Pairs) {
-				if (Each.Value && 
+				if (Each.Value->GetRaw() &&
 					!Compare(*Each.Value->GetRaw(), Value))
 				{
 					return true;

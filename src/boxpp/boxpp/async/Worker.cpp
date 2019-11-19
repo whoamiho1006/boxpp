@@ -28,17 +28,7 @@ namespace boxpp {
 
 		FWorker::~FWorker()
 		{
-			TSharedPtr<FThread, ESharedMode::Safe> Thread = this->Thread;
-
-			Barrior.Enter();
-			if (Thread && Thread->IsRunning()) {
-				Barrior.Leave();
-				Thread->Wait();
-				return;
-			}
-
-			Barrior.Leave();
-
+			WaitExit();
 			boxpp_rt::FBoxRuntime::Get()
 				.UnregisterWorker(this);
 		}
