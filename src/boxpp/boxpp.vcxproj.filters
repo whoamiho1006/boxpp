@@ -82,9 +82,6 @@
     <ClInclude Include="impls\BoxSuper.hpp">
       <Filter>impls</Filter>
     </ClInclude>
-    <ClInclude Include="impls\utils\PureArray.hpp">
-      <Filter>impls\utils</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\utils\Movable.hpp">
       <Filter>boxpp\utils</Filter>
     </ClInclude>

@@ -6,12 +6,12 @@
 #include <boxpp/Base.hpp>
 #endif
 
+
 #if BOX_COMPILE_RUNTIME || BOX_COMPILE_BODY
 #ifndef __BOXPP_INTERNAL_IBOXRUNTIME_HPP__
 #define __BOXPP_INTERNAL_IBOXRUNTIME_HPP__
 
 #if BOX_COMPILE_BODY
-#include <impls/utils/PureArray.hpp>
 #include <boxpp/async/Barrior.hpp>
 #include <boxpp/containers/SortedArray.hpp>
 
@@ -24,6 +24,9 @@ namespace boxpp {
 #endif
 }
 #endif
+
+#include <boxpp/async/Thread.hpp>
+#include <boxpp/async/Worker.hpp>
 
 namespace boxpp_rt 
 {
@@ -55,6 +58,7 @@ namespace boxpp_rt
 		boxpp::IBox* Box;
 		const boxpp::c8** Arguments;
 		boxpp::s32 ArgumentCount;
+		void* RunningThread;
 
 #if BOX_COMPILE_BODY
 	protected:
@@ -67,12 +71,19 @@ namespace boxpp_rt
 				IBoxRuntime* Runtime, boxpp::IBox* Box) 
 			{
 				Runtime->Box = Box;
+				Runtime->RunningThread = boxpp::async::FThread::Self();
 			}
 		};
 #endif
 	public:
 		/* Get type of this runtime. */
 		virtual ERuntimeType GetType() const = 0;
+
+		/* Get worker if implemented. */
+		virtual boxpp::async::IWorker* GetWorker() const { return nullptr; }
+
+		/* Get running thread's native handle. */
+		FASTINLINE void* GetRunningThread() const { return RunningThread; }
 
 		/* Get box for this runtime. */
 		FASTINLINE boxpp::IBox* GetBox() const { return Box; }
@@ -88,6 +99,7 @@ namespace boxpp_rt
 	public:
 		/* Run this runtime if required. */
 		virtual void Run() { };
+
 	};
 
 #if BOX_COMPILE_BODY /* FBoxRuntime is only valid for boxpp.dll. */
@@ -105,7 +117,7 @@ namespace boxpp_rt
 		IBoxRuntime* Executable;
 		boxpp::FBarrior Barrior;
 		boxpp::FBoxSuper* BoxSuper;
-		boxpp::TPureArray<IBoxRuntime*> Runtimes;
+		boxpp::TSortedArray<IBoxRuntime*> Runtimes;
 		boxpp::TSortedArray<boxpp::async::FWorker*> Workers;
 
 	private:

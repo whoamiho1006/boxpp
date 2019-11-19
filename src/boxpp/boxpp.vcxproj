@@ -72,7 +72,6 @@
     <ClInclude Include="boxpp\Version.hpp" />
     <ClInclude Include="impls\Box.hpp" />
     <ClInclude Include="impls\BoxSuper.hpp" />
-    <ClInclude Include="impls\utils\PureArray.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\async\Thread.cpp" />

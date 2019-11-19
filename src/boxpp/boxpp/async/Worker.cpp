@@ -33,6 +33,14 @@ namespace boxpp {
 				.UnregisterWorker(this);
 		}
 
+		void FWorker::Enqueue(const TSharedPtr<IRunnable, ESharedMode::Safe>& Runnable)
+		{
+			FBarriorScope Guard(Barrior);
+
+			Queue.Enqueue(Runnable);
+			ExecWorkThread();
+		}
+
 		void FWorker::ExecWorkThread()
 		{
 			FBarriorScope Guard(Barrior);

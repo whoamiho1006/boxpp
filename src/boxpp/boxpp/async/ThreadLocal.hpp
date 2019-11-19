@@ -11,6 +11,12 @@
 #include <boxpp/utils/Function.hpp>
 #include <atomic>
 
+#if BOX_COMPILE_BODY
+namespace boxpp_rt {
+	class FBoxRuntime;
+}
+#endif
+
 namespace boxpp {
 	namespace async {
 		class FThread;
@@ -44,6 +50,10 @@ namespace boxpp {
 				friend class TThreadLocal;
 				friend class FThread;
 
+#if BOX_COMPILE_BODY
+				friend class boxpp_rt::FBoxRuntime;
+#endif
+
 			private:
 				FThreadLocalServer() { }
 				~FThreadLocalServer() { }
@@ -62,6 +72,7 @@ namespace boxpp {
 
 			protected:
 				bool Shutdown(FThread* Thread);
+				bool ShutdownNative(void* NativeThread);
 			};
 		}
 

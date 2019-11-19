@@ -1,5 +1,6 @@
 #include <boxpp.hpp>
 #include <boxpp/async/Worker.hpp>
+#include <boxpp/async/ThreadLocal.hpp>
 #include <boxpp/internal/IBoxRuntime.hpp>
 
 #include <impls/Box.hpp>
@@ -44,13 +45,12 @@ namespace boxpp_rt
 
 	bool FBoxRuntime::Leave(IBoxRuntime* RT)
 	{
-		if (RT->GetType() == ERuntimeType::Exe ||
-			RT->GetType() == ERuntimeType::ExeW32)
+		bool bUnsetExecutable = false;
+
+		if ((RT->GetType() == ERuntimeType::Exe ||
+			RT->GetType() == ERuntimeType::ExeW32) &&
+			Get().Executable == RT)
 		{
-			if (Get().Executable != RT)
-				return Get().Remove(RT);
-
-
 			boxpp::TArray<boxpp::async::FWorker*> Workers;
 
 			while (true) {
@@ -72,9 +72,18 @@ namespace boxpp_rt
 				Workers.Clear();
 			}
 
+			bUnsetExecutable = true;
+		}
+
+		if (void* Thread = RT->GetRunningThread()) {
+			boxpp::async::_::FThreadLocalServer::Get()
+				.ShutdownNative(Thread);
+		}
+
+		if (bUnsetExecutable) {
 			Get().Executable = nullptr;
 		}
-		
+
 		return Get().Remove(RT);
 	}
 
@@ -95,7 +104,7 @@ namespace boxpp_rt
 		boxpp::ssize_t Index = 0;
 
 		Barrior.Enter();
-		if (Runtimes.Find(RT) >= 0) {
+		if (Runtimes.IndexOf(RT) >= 0) {
 			Barrior.Leave();
 
 			/* ALREADY LOADED. */
@@ -124,7 +133,7 @@ namespace boxpp_rt
 		boxpp::ssize_t Index = 0;
 
 		Barrior.Enter();
-		if ((Index = Runtimes.Find(RT)) >= 0 && 
+		if ((Index = Runtimes.IndexOf(RT)) >= 0 &&
 			Runtimes.RemoveAt(Index))
 		{
 			Barrior.Leave();

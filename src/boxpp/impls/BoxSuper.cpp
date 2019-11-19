@@ -22,7 +22,7 @@ namespace boxpp
 		BOX_BARRIOR_SCOPED(Barrior);
 
 		if (ChildBox) {
-			ssize_t Index = Children.Find(ChildBox);
+			ssize_t Index = Children.IndexOf(ChildBox);
 
 			if (Index >= 0) {
 				Children.RemoveAt(Index);

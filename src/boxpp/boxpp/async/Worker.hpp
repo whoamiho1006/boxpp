@@ -24,8 +24,16 @@ namespace boxpp {
 	namespace async {
 		class IRunnable;
 
+		class IWorker
+		{
+		public:
+			virtual ~IWorker() { }
 
-		class BOXPP FWorker
+		public:
+			virtual void Enqueue(const TSharedPtr<IRunnable, ESharedMode::Safe>& Runnable) = 0;
+		};
+
+		class BOXPP FWorker : public IWorker
 		{
 #if BOX_COMPILE_BODY
 		protected:
@@ -49,12 +57,7 @@ namespace boxpp {
 			};
 
 		public:
-			FASTINLINE void Enqueue(const TSharedPtr<IRunnable, ESharedMode::Safe>& Runnable) {
-				FBarriorScope Guard(Barrior);
-
-				Queue.Enqueue(Runnable);
-				ExecWorkThread();
-			}
+			virtual void Enqueue(const TSharedPtr<IRunnable, ESharedMode::Safe>& Runnable) override;
 
 		private:
 			void ExecWorkThread();

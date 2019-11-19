@@ -6,6 +6,23 @@
 /* Entry point. */
 BOXEXTERN boxpp::s32 run(boxpp::IBox* Box);
 
+
+class FBoxRuntimeWorker : public boxpp::async::IWorker
+{
+public:
+	virtual void Enqueue(const boxpp::TSharedPtr<
+		boxpp::async::IRunnable, boxpp::ESharedMode::Safe>& Runnable) override
+	{
+		boxpp::FBarriorScope Guard(Barrior);
+		Queue.Enqueue(Runnable);
+	}
+
+public:
+	boxpp::FBarrior Barrior;
+	boxpp::TQueue<boxpp::TSharedPtr<
+		boxpp::async::IRunnable, boxpp::ESharedMode::Safe>> Queue;
+};
+
 /*
 	Runtime class base.
 */
@@ -28,6 +45,11 @@ public:
 
 public:
 	boxpp::s32 ExitCode;
+	mutable FBoxRuntimeWorker Worker;
+
+public:
+	/* Get worker if implemented. */
+	virtual boxpp::async::IWorker* GetWorker() const override { return &Worker; }
 
 public:
 	/* Run this runtime if required. */

@@ -330,6 +330,7 @@ typedef PLATFORM_SIZE_TYPE size_t;
 
 #ifdef _MSC_VER
 #pragma warning(disable: 4251)
+#pragma warning(disable: 4275)
 #endif
 
 #endif // !__BOXPP_BASE_NORMALIZE_HPP__

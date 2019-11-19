@@ -1,7 +1,7 @@
 #pragma once
 #include <boxpp/IBox.hpp>
 #include <boxpp/async/Barrior.hpp>
-#include <impls/utils/PureArray.hpp>
+#include <boxpp/containers/SortedArray.hpp>
 
 namespace boxpp
 {
@@ -17,7 +17,7 @@ namespace boxpp
 
 	private:
 		FBarrior Barrior;
-		TPureArray<TWeakPtr<IBox, ESharedMode::Safe>> Children;
+		TSortedArray<TWeakPtr<IBox, ESharedMode::Safe>> Children;
 
 	public:
 		/* Registers the child box. */

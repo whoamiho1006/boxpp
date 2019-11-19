@@ -22,16 +22,21 @@ namespace boxpp {
 			}
 
 			bool FThreadLocalServer::Shutdown(FThread* Thread) {
-				bool bRetVal = false;
-
 				if (void* NativeHandle = Thread->GetRaw()) {
-					FBarriorScope Guard(Barrior);
-
-					for (IThreadLocal* TLS : ThreadLocals)
-						TLS->OnThreadShutdown(NativeHandle);
+					return ShutdownNative(NativeHandle);
 				}
 
-				return bRetVal;
+				return false;
+			}
+
+			bool FThreadLocalServer::ShutdownNative(void* NativeThread)
+			{
+				FBarriorScope Guard(Barrior);
+
+				for (IThreadLocal* TLS : ThreadLocals)
+					TLS->OnThreadShutdown(NativeThread);
+
+				return true;
 			}
 
 		}
