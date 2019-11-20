@@ -63,6 +63,9 @@ namespace boxpp {
 		public:
 			virtual void Enqueue(const TSharedPtr<IRunnable, ESharedMode::Safe>& Runnable) override;
 
+		public:
+			FASTINLINE float GetDelayRate() const { return DelayRate; }
+
 		private:
 			void ExecWorkThread();
 			void OnRunWork();
@@ -78,6 +81,7 @@ namespace boxpp {
 			TQueue<TSharedPtr<IRunnable, ESharedMode::Safe>> Queue;
 
 			TFunction<void(FWorker*)> Require;
+			float DelayRate;
 			
 		protected:
 			FASTINLINE void WaitExit() {

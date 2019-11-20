@@ -29,6 +29,7 @@
     <ClInclude Include="boxpp\async\Thread.hpp" />
     <ClInclude Include="boxpp\async\ThreadLocal.hpp" />
     <ClInclude Include="boxpp\async\Worker.hpp" />
+    <ClInclude Include="boxpp\async\WorkerGroup.hpp" />
     <ClInclude Include="boxpp\Base.hpp" />
     <ClInclude Include="boxpp\Base.Normalize.hpp" />
     <ClInclude Include="boxpp\Boilerplate.hpp" />
@@ -77,6 +78,7 @@
     <ClCompile Include="boxpp\async\Thread.cpp" />
     <ClCompile Include="boxpp\async\ThreadLocal.cpp" />
     <ClCompile Include="boxpp\async\Worker.cpp" />
+    <ClCompile Include="boxpp\async\WorkerGroup.cpp" />
     <ClCompile Include="boxpp\Boilerplate.cpp" />
     <ClCompile Include="boxpp\boxpp-rt.cpp" />
     <ClCompile Include="boxpp\internal\IBoxRuntime.cpp" />

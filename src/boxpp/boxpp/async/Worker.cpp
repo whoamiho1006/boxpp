@@ -1,6 +1,7 @@
 #include "Worker.hpp"
 #include <boxpp/internal/IBoxRuntime.hpp>
 #include <boxpp/async/WorkerGroup.hpp>
+#include <boxpp/utils/PureTimer.hpp>
 
 namespace boxpp {
 	namespace async {
@@ -21,7 +22,7 @@ namespace boxpp {
 		};
 
 		FWorker::FWorker(bool bKeepRunning)
-			: bKeepRunning(bKeepRunning), bExitLoop(false)
+			: bKeepRunning(bKeepRunning), bExitLoop(false), DelayRate(false)
 		{
 			boxpp_rt::FBoxRuntime::Get()
 				.RegisterWorker(this);
@@ -71,11 +72,14 @@ namespace boxpp {
 		{
 			/* Keep FThread object during completion. */
 			TSharedPtr<FThread, ESharedMode::Safe> Thread = this->Thread;
+			FPureTimer Timer;
 			bool Retried = false;
 
 			while (true)
 			{
 				TSharedPtr<IRunnable, ESharedMode::Safe> Current;
+
+				Timer.Reset();
 				Barrior.Enter();
 
 				while (true) {
@@ -105,15 +109,21 @@ namespace boxpp {
 				if (!Current) {
 					// Give panalty (10 ms)
 					FThread::Sleep(10);
+					DelayRate = 0.0f;
 				}
 
 				else {
 					Current->Run();
 
+					/* Update delay rate. (current work-time is more weightful) */
+					DelayRate = Timer.GetMilliseconds() * 0.75f + DelayRate * 0.25f;
+
 					// Yield flow once.
 					FThread::YieldOnce();
+
 				}
 			}
+
 		}
 	}
 }

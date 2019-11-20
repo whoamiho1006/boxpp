@@ -205,6 +205,9 @@
     <ClInclude Include="boxpp\utils\Function.hpp">
       <Filter>boxpp\utils</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\async\WorkerGroup.hpp">
+      <Filter>boxpp\async</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\boxpp-rt.cpp" />
@@ -230,6 +233,9 @@
       <Filter>boxpp\async</Filter>
     </ClCompile>
     <ClCompile Include="boxpp\async\Thread.cpp">
+      <Filter>boxpp\async</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\async\WorkerGroup.cpp">
       <Filter>boxpp\async</Filter>
     </ClCompile>
   </ItemGroup>
