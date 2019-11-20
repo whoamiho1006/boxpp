@@ -161,7 +161,7 @@ namespace boxpp {
 			typedef RetType(*CallType)(void* InLambda, ArgTypes ...);
 
 		public:
-			FASTINLINE TFunctionBase()
+			FASTINLINE TFunctionBase(nullptr_t = nullptr)
 				: Lambda(nullptr), Clone(nullptr), Cleanup(nullptr), Call(nullptr)
 			{
 			}

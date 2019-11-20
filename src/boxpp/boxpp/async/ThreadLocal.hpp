@@ -112,10 +112,14 @@ namespace boxpp {
 					.Unregister(this);
 			}
 
-		private:
-			mutable std::atomic_flag Atomic;
-			TMap<void*, Type*> Values;
-			TFunction<void(Type*)> Cleanup;
+		public:
+			FASTINLINE void SetPrepare(TFunction<Type*()> Functor) {
+				Prepare = Forward<TFunction<Type*()>>(Functor);
+			}
+
+			FASTINLINE void SetCleanup(TFunction<void(Type*)> Functor) {
+				Cleanup = Forward<TFunction<void(Type*)>>(Functor);
+			}
 
 		private:
 			FASTINLINE void Lock() const {
@@ -130,7 +134,7 @@ namespace boxpp {
 			/* Set TLS Value. */
 			FASTINLINE Type* Set(Type* Value)
 			{
-				void* NativeHandle = FThread::Self();
+				void* NativeHandle = FThread::SelfNative();
 				Type* Previous = nullptr;
 
 				Lock();
@@ -151,14 +155,20 @@ namespace boxpp {
 			/* Get TLS Value. */
 			FASTINLINE Type* Get() const
 			{
-				void* NativeHandle = FThread::Self();
+				void* NativeHandle = FThread::SelfNative();
 				Type* Value = nullptr;
 
 				Lock();
 				if (Values.ContainsKey(NativeHandle)) {
 					Value = Values[NativeHandle];
 				}
+
+				if (!Value && Prepare) {
+					Values.Emplace(NativeHandle, Value = Prepare());
+				}
+
 				Unlock();
+
 
 				return Value;
 			}
@@ -179,7 +189,12 @@ namespace boxpp {
 				}
 			}
 
-		public:
+		private:
+			mutable std::atomic_flag Atomic;
+			mutable TMap<void*, Type*> Values;
+			TFunction<Type*()> Prepare;
+			TFunction<void(Type*)> Cleanup;
+
 		};
 
 	}

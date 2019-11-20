@@ -1,5 +1,6 @@
 #include "Worker.hpp"
 #include <boxpp/internal/IBoxRuntime.hpp>
+#include <boxpp/async/WorkerGroup.hpp>
 
 namespace boxpp {
 	namespace async {
@@ -29,6 +30,12 @@ namespace boxpp {
 		FWorker::~FWorker()
 		{
 			WaitExit();
+
+			if (Group) {
+				Group->Unregister(this);
+				Group = nullptr;
+			}
+
 			boxpp_rt::FBoxRuntime::Get()
 				.UnregisterWorker(this);
 		}
@@ -64,19 +71,33 @@ namespace boxpp {
 		{
 			/* Keep FThread object during completion. */
 			TSharedPtr<FThread, ESharedMode::Safe> Thread = this->Thread;
+			bool Retried = false;
 
 			while (true)
 			{
 				TSharedPtr<IRunnable, ESharedMode::Safe> Current;
-
 				Barrior.Enter();
 
-				if (!Queue.Dequeue(Current)) {
-					if (!bExitLoop || !bKeepRunning) {
-						Thread = nullptr;
-						Barrior.Leave();
-						break;
+				while (true) {
+					if (!Queue.Dequeue(Current)) {
+						if (Require && !Retried) {
+							Retried = true;
+							Barrior.Leave();
+							
+							Require(this);
+
+							Barrior.Enter();
+							continue;
+						}
+
+						if (!bExitLoop || !bKeepRunning) {
+							Thread = nullptr;
+							Barrior.Leave();
+							break;
+						}
 					}
+
+					break;
 				}
 
 				Barrior.Leave();

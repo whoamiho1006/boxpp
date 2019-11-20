@@ -229,7 +229,9 @@
     <ClCompile Include="boxpp\async\ThreadLocal.cpp">
       <Filter>boxpp\async</Filter>
     </ClCompile>
-    <ClCompile Include="boxpp\async\Thread.cpp" />
+    <ClCompile Include="boxpp\async\Thread.cpp">
+      <Filter>boxpp\async</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

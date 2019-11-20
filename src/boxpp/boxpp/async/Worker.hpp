@@ -9,6 +9,8 @@
 #include <boxpp/async/Barrior.hpp>
 #include <boxpp/containers/Queue.hpp>
 
+#include <boxpp/core/Name.h>
+
 #include <boxpp/async/Task.hpp>
 #include <boxpp/async/TaskSource.hpp>
 #include <boxpp/async/Thread.hpp>
@@ -23,6 +25,7 @@ namespace boxpp_rt {
 namespace boxpp {
 	namespace async {
 		class IRunnable;
+		class FWorkerGroup;
 
 		class IWorker
 		{
@@ -35,8 +38,9 @@ namespace boxpp {
 
 		class BOXPP FWorker : public IWorker
 		{
-#if BOX_COMPILE_BODY
 		protected:
+			friend class FWorkerGroup;
+#if BOX_COMPILE_BODY
 			friend class boxpp_rt::FBoxRuntime;
 #endif
 
@@ -65,11 +69,15 @@ namespace boxpp {
 
 		private:
 			FBarrior Barrior;
+			FWorkerGroup* Group;
+
 			TSharedPtr<FThread, ESharedMode::Safe> Thread;
 			bool bKeepRunning, bExitLoop;
 
 			TInstrusive<FThreadProxy> Proxy;
 			TQueue<TSharedPtr<IRunnable, ESharedMode::Safe>> Queue;
+
+			TFunction<void(FWorker*)> Require;
 			
 		protected:
 			FASTINLINE void WaitExit() {
@@ -80,6 +88,17 @@ namespace boxpp {
 				if (Thread && Thread->IsRunning()) {
 					Thread->Wait();
 				}
+			}
+
+			FASTINLINE void SetRequire(TFunction<void(FWorker*)> Requires) {
+				FBarriorScope Guard(Barrior);
+				this->Require = Forward<TFunction<void(FWorker*)>>(Requires);
+			}
+
+			FASTINLINE void SetGroup(FWorkerGroup* WorkerGroup)
+			{
+				FBarriorScope Guard(Barrior);
+				this->Group = WorkerGroup;
 			}
 		};
 

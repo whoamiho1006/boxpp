@@ -71,16 +71,13 @@ namespace boxpp_rt
 				IBoxRuntime* Runtime, boxpp::IBox* Box) 
 			{
 				Runtime->Box = Box;
-				Runtime->RunningThread = boxpp::async::FThread::Self();
+				Runtime->RunningThread = boxpp::async::FThread::SelfNative();
 			}
 		};
 #endif
 	public:
 		/* Get type of this runtime. */
 		virtual ERuntimeType GetType() const = 0;
-
-		/* Get worker if implemented. */
-		virtual boxpp::async::IWorker* GetWorker() const { return nullptr; }
 
 		/* Get running thread's native handle. */
 		FASTINLINE void* GetRunningThread() const { return RunningThread; }
@@ -129,6 +126,14 @@ namespace boxpp_rt
 
 	public:
 		static bool Exec(IBoxRuntime* RT);
+
+	public:
+		FASTINLINE static void* GetExeThread() {
+			if (IBoxRuntime* Runtime = Get().Executable)
+				return Runtime->GetRunningThread();
+
+			return nullptr;
+		}
 
 	private:
 		bool Add(IBoxRuntime* RT);

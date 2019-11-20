@@ -31,7 +31,7 @@ namespace boxpp
 			}
 
 			SortablePair(KeyType&& Key, ValueType&& InValue)
-				: Key(TMovable<ValueType>::Movable(Key))
+				: Key(TMovable<KeyType>::Movable(Key))
 			{
 				Value.ConstructFrom(Forward<ValueType>(InValue));
 			}
@@ -42,17 +42,17 @@ namespace boxpp
 				if (Other.Value)
 				{
 					Value.ConstructFrom(
-						*Other.Value->GetRaw());
+						*Other.Value.GetRaw());
 				}
 			}
 
 			SortablePair(SortablePair&& Other)
-				: Key(TMovable<ValueType>::Movable(Other.Key))
+				: Key(TMovable<KeyType>::Movable(Other.Key))
 			{
 				if (Other.Value)
 				{
 					Value.ConstructFrom(TMovable<ValueType>
-						::Movable(*Other.Value->GetRaw()));
+						::Movable(*Other.Value.GetRaw()));
 				}
 			}
 
@@ -61,12 +61,12 @@ namespace boxpp
 			TInstrusive<ValueType> Value;
 
 		public:
-			FASTINLINE bool operator ==(const SortablePair& Other) { return !Compare(Key, Other.Key); }
-			FASTINLINE bool operator !=(const SortablePair& Other) { return Compare(Key, Other.Key); }
-			FASTINLINE bool operator <=(const SortablePair& Other) { return Compare(Key, Other.Key) <= 0; }
-			FASTINLINE bool operator >=(const SortablePair& Other) { return Compare(Key, Other.Key) >= 0; }
-			FASTINLINE bool operator < (const SortablePair& Other) { return Compare(Key, Other.Key) < 0; }
-			FASTINLINE bool operator > (const SortablePair& Other) { return Compare(Key, Other.Key) > 0; }
+			FASTINLINE bool operator ==(const SortablePair& Other) const { return !Compare(Key, Other.Key); }
+			FASTINLINE bool operator !=(const SortablePair& Other) const { return Compare(Key, Other.Key); }
+			FASTINLINE bool operator <=(const SortablePair& Other) const { return Compare(Key, Other.Key) <= 0; }
+			FASTINLINE bool operator >=(const SortablePair& Other) const { return Compare(Key, Other.Key) >= 0; }
+			FASTINLINE bool operator < (const SortablePair& Other) const { return Compare(Key, Other.Key) < 0; }
+			FASTINLINE bool operator > (const SortablePair& Other) const { return Compare(Key, Other.Key) > 0; }
 		};
 
 	public:
@@ -99,12 +99,16 @@ namespace boxpp
 
 		FASTINLINE ValueType& operator [](const KeyType& Key) {
 			SortablePair HalfPair(Key);
-			return *(Pairs[Pairs.Search(HalfPair)].Value->GetRaw());
+			const SortablePair& FoundPair = Pairs[Pairs.Search(HalfPair)];
+
+			return *(FoundPair.Value.GetRaw());
 		}
 
 		FASTINLINE const ValueType& operator [](const KeyType& Key) const {
 			SortablePair HalfPair(Key);
-			return *(Pairs[Pairs.Search(HalfPair)].Value->GetRaw());
+			const SortablePair& FoundPair = Pairs[Pairs.Search(HalfPair)];
+
+			return *(FoundPair.Value.GetRaw());
 		}
 
 	public:
@@ -148,7 +152,7 @@ namespace boxpp
 		}
 
 	public:
-		FASTINLINE bool Remove(const KeyType& Key) const {
+		FASTINLINE bool Remove(const KeyType& Key) {
 			SortablePair HalfPair(Key);
 			return Pairs.Remove(HalfPair);
 		}
