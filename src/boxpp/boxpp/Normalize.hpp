@@ -1,5 +1,4 @@
-#ifndef __BOXPP_BASE_NORMALIZE_HPP__
-#define __BOXPP_BASE_NORMALIZE_HPP__
+#pragma once
 
 #ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
@@ -332,5 +331,3 @@ typedef PLATFORM_SIZE_TYPE size_t;
 #pragma warning(disable: 4251)
 #pragma warning(disable: 4275)
 #endif
-
-#endif // !__BOXPP_BASE_NORMALIZE_HPP__

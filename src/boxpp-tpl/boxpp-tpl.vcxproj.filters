@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="boxpp">
+      <UniqueIdentifier>{ef0937d6-c2b0-417c-a15e-b2fad537b547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\traits">
+      <UniqueIdentifier>{16887d85-cecf-4048-9253-b11c898d4802}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="boxpp\traits\IsSameType.hpp">
+      <Filter>boxpp\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\BaseTraits.hpp">
+      <Filter>boxpp</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\Traits.hpp">
+      <Filter>boxpp</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\traits\IsDerivedType.hpp">
+      <Filter>boxpp\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\traits\IsConvertibleType.hpp">
+      <Filter>boxpp\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\traits\IsConstructibleType.hpp">
+      <Filter>boxpp\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\traits\IsPodType.hpp">
+      <Filter>boxpp\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\traits\PickType.hpp">
+      <Filter>boxpp\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\traits\EnableIf.hpp">
+      <Filter>boxpp\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\traits\IsCallableType.hpp">
+      <Filter>boxpp\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\traits\Forward.hpp">
+      <Filter>boxpp\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\traits\IsReferenceType.hpp">
+      <Filter>boxpp\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\traits\DecayRef.hpp">
+      <Filter>boxpp\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\traits\DecayConst.hpp">
+      <Filter>boxpp\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\traits\Movable.hpp">
+      <Filter>boxpp\traits</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

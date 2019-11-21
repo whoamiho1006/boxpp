@@ -1,7 +1,4 @@
-#ifndef __BOXPP_BASE_HPP__
-#pragma error "DON'T USE boxpp/internal/IBoxRuntime.hpp"
-#endif
-
+#pragma once
 #if BOX_NOT_COMPILED
 #include <boxpp/Base.hpp>
 #endif

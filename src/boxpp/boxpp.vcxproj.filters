@@ -46,15 +46,15 @@
     <Filter Include="boxpp\utf">
       <UniqueIdentifier>{59fe6038-36e8-49b7-9619-81a182d94d54}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\templates">
+      <UniqueIdentifier>{07633c85-2550-46b7-a889-d68513d1589c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\Base.hpp">
       <Filter>boxpp</Filter>
     </ClInclude>
     <ClInclude Include="boxpp.hpp" />
-    <ClInclude Include="boxpp\Base.Normalize.hpp">
-      <Filter>boxpp</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\internal\IBoxRuntime.hpp">
       <Filter>boxpp\internal</Filter>
     </ClInclude>
@@ -201,6 +201,12 @@
     </ClInclude>
     <ClInclude Include="boxpp\utils\Function.hpp">
       <Filter>boxpp\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\Normalize.hpp">
+      <Filter>boxpp</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\BaseTypes.hpp">
+      <Filter>boxpp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -17,7 +17,7 @@
 
    /* When installed, this file is called "iconv.h". */
 
-#include <boxpp/Base.Normalize.hpp>
+#include <boxpp/Normalize.hpp>
 
 #ifndef _LIBICONV_H
 #define _LIBICONV_H

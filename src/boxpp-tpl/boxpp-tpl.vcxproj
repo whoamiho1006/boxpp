@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -18,103 +18,35 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="boxpp.hpp" />
-    <ClInclude Include="boxpp\async\Async.hpp" />
-    <ClInclude Include="boxpp\async\Barrior.hpp" />
-    <ClInclude Include="boxpp\async\Event.hpp" />
-    <ClInclude Include="boxpp\async\IRunnable.hpp" />
-    <ClInclude Include="boxpp\async\Task.hpp" />
-    <ClInclude Include="boxpp\async\TaskSource.hpp" />
-    <ClInclude Include="boxpp\async\Thread.hpp" />
-    <ClInclude Include="boxpp\async\ThreadLocal.hpp" />
-    <ClInclude Include="boxpp\Base.hpp" />
-    <ClInclude Include="boxpp\BaseTypes.hpp" />
-    <ClInclude Include="boxpp\Normalize.hpp" />
-    <ClInclude Include="boxpp\Boilerplate.hpp" />
-    <ClInclude Include="boxpp\containers\algorithms\BinarySearch.hpp" />
-    <ClInclude Include="boxpp\containers\algorithms\HeapSort.hpp" />
-    <ClInclude Include="boxpp\containers\Array.hpp" />
-    <ClInclude Include="boxpp\containers\ArrayBase.hpp" />
-    <ClInclude Include="boxpp\containers\Iterator.hpp" />
-    <ClInclude Include="boxpp\containers\Node.hpp" />
-    <ClInclude Include="boxpp\containers\EdgeBase.hpp" />
-    <ClInclude Include="boxpp\containers\Queue.hpp" />
-    <ClInclude Include="boxpp\containers\SingleNode.hpp" />
-    <ClInclude Include="boxpp\containers\SortedArray.hpp" />
-    <ClInclude Include="boxpp\containers\LinkedList.hpp" />
-    <ClInclude Include="boxpp\containers\Stack.hpp" />
-    <ClInclude Include="boxpp\containers\Map.hpp" />
-    <ClInclude Include="boxpp\core\Name.h" />
-    <ClInclude Include="boxpp\hints\pthread.hpp" />
-    <ClInclude Include="boxpp\hints\windows.hpp" />
-    <ClInclude Include="boxpp\IBox.hpp" />
-    <ClInclude Include="boxpp\internal\IBoxRuntime.hpp" />
-    <ClInclude Include="boxpp\module\ModuleInterface.hpp" />
-    <ClInclude Include="boxpp\sharedptr\BroadcastedObject.hpp" />
-    <ClInclude Include="boxpp\sharedptr\SharedCount.hpp" />
-    <ClInclude Include="boxpp\sharedptr\SharedHolder.hpp" />
-    <ClInclude Include="boxpp\sharedptr\SharedPtr.hpp" />
-    <ClInclude Include="boxpp\utf\Utf16.hpp" />
-    <ClInclude Include="boxpp\utf\Utf32.hpp" />
-    <ClInclude Include="boxpp\utf\Utf8.hpp" />
-    <ClInclude Include="boxpp\utf\UtfCommon.hpp" />
-    <ClInclude Include="boxpp\utils\Comparator.hpp" />
-    <ClInclude Include="boxpp\utils\Forward.hpp" />
-    <ClInclude Include="boxpp\utils\Function.hpp" />
-    <ClInclude Include="boxpp\utils\Instrusive.hpp" />
-    <ClInclude Include="boxpp\utils\Movable.hpp" />
-    <ClInclude Include="boxpp\utils\Functionality.hpp" />
-    <ClInclude Include="boxpp\utils\NativeStrings.hpp" />
-    <ClInclude Include="boxpp\utils\PureTimer.hpp" />
-    <ClInclude Include="boxpp\utils\StringConvert.hpp" />
-    <ClInclude Include="boxpp\utils\TypeCompares.hpp" />
-    <ClInclude Include="boxpp\Version.hpp" />
-    <ClInclude Include="impls\Box.hpp" />
-    <ClInclude Include="impls\BoxSuper.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="boxpp\async\Thread.cpp" />
-    <ClCompile Include="boxpp\async\ThreadLocal.cpp" />
-    <ClCompile Include="boxpp\Boilerplate.cpp" />
-    <ClCompile Include="boxpp\boxpp-rt.cpp" />
-    <ClCompile Include="boxpp\internal\IBoxRuntime.cpp" />
-    <ClCompile Include="boxpp\utils\NativeStrings.cpp" />
-    <ClCompile Include="impls\Box.cpp" />
-    <ClCompile Include="impls\BoxSuper.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cpp.hint" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{58B187AF-52F3-4421-94C8-342A5846F64D}</ProjectGuid>
+    <ProjectGuid>{66B478BC-FC7B-45DC-9865-7477B4A11247}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>boxpp</RootNamespace>
+    <RootNamespace>boxpptpl</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -140,88 +72,112 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)boxpp;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)boxpp;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)boxpp;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)boxpp;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)boxpp;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)boxpp;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)boxpp;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)boxpp;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>__BOX_BODY__;WIN32;_DEBUG;BOXPP_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>__BOX_BODY__;_DEBUG;BOXPP_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>__BOX_BODY__;WIN32;NDEBUG;BOXPP_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>__BOX_BODY__;NDEBUG;BOXPP_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="boxpp\BaseTraits.hpp" />
+    <ClInclude Include="boxpp\Traits.hpp" />
+    <ClInclude Include="boxpp\traits\DecayConst.hpp" />
+    <ClInclude Include="boxpp\traits\DecayRef.hpp" />
+    <ClInclude Include="boxpp\traits\EnableIf.hpp" />
+    <ClInclude Include="boxpp\traits\IsCallableType.hpp" />
+    <ClInclude Include="boxpp\traits\IsConstructibleType.hpp" />
+    <ClInclude Include="boxpp\traits\IsConvertibleType.hpp" />
+    <ClInclude Include="boxpp\traits\IsDerivedType.hpp" />
+    <ClInclude Include="boxpp\traits\IsReferenceType.hpp" />
+    <ClInclude Include="boxpp\traits\IsPodType.hpp" />
+    <ClInclude Include="boxpp\traits\IsSameType.hpp" />
+    <ClInclude Include="boxpp\traits\Forward.hpp" />
+    <ClInclude Include="boxpp\traits\Movable.hpp" />
+    <ClInclude Include="boxpp\traits\PickType.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="README.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
