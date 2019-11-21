@@ -133,9 +133,6 @@
     <ClInclude Include="boxpp\async\Async.hpp">
       <Filter>boxpp\async</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\async\Worker.hpp">
-      <Filter>boxpp\async</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\containers\Array.hpp">
       <Filter>boxpp\containers</Filter>
     </ClInclude>
@@ -205,9 +202,6 @@
     <ClInclude Include="boxpp\utils\Function.hpp">
       <Filter>boxpp\utils</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\async\WorkerGroup.hpp">
-      <Filter>boxpp\async</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\boxpp-rt.cpp" />
@@ -226,16 +220,10 @@
     <ClCompile Include="boxpp\utils\NativeStrings.cpp">
       <Filter>boxpp\utils</Filter>
     </ClCompile>
-    <ClCompile Include="boxpp\async\Worker.cpp">
-      <Filter>boxpp\async</Filter>
-    </ClCompile>
     <ClCompile Include="boxpp\async\ThreadLocal.cpp">
       <Filter>boxpp\async</Filter>
     </ClCompile>
     <ClCompile Include="boxpp\async\Thread.cpp">
-      <Filter>boxpp\async</Filter>
-    </ClCompile>
-    <ClCompile Include="boxpp\async\WorkerGroup.cpp">
       <Filter>boxpp\async</Filter>
     </ClCompile>
   </ItemGroup>

@@ -26,7 +26,6 @@ namespace boxpp {
 #endif
 
 #include <boxpp/async/Thread.hpp>
-#include <boxpp/async/Worker.hpp>
 
 namespace boxpp_rt 
 {

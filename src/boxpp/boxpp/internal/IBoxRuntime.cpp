@@ -1,5 +1,4 @@
 #include <boxpp.hpp>
-#include <boxpp/async/Worker.hpp>
 #include <boxpp/async/ThreadLocal.hpp>
 #include <boxpp/internal/IBoxRuntime.hpp>
 
@@ -51,27 +50,6 @@ namespace boxpp_rt
 			RT->GetType() == ERuntimeType::ExeW32) &&
 			Get().Executable == RT)
 		{
-			boxpp::TArray<boxpp::async::FWorker*> Workers;
-
-			while (true) {
-				if (true) {
-					boxpp::FBarriorScope Guard(Get().Barrior);
-
-					if (!Get().Workers) {
-						break;
-					}
-
-					Workers.Append(Get().Workers);
-				}
-
-				// Wait completion of all workers.
-				for (boxpp::async::FWorker* Worker : Workers) {
-					Worker->WaitExit();
-				}
-
-				Workers.Clear();
-			}
-
 			bUnsetExecutable = true;
 		}
 
