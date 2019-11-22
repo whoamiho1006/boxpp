@@ -12,8 +12,7 @@ namespace boxpp
 
 	template<typename Type>
 	constexpr Type&& Forward(DecayRef<Type>&& Ref) noexcept {
-		static_assert(!IsLeftReferenceType<Type>,
-			"Error: boxpp::Forward(REF) method requires LValue reference!");
+		//static_assert(!IsLeftReferenceType<Type>, "Error: boxpp::Forward(REF) method requires LValue reference!");
 
 		return static_cast<Type&&>(Ref);
 	}

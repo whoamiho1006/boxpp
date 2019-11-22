@@ -3,11 +3,11 @@
 #include <boxpp/BaseTypes.hpp>
 
 #include <boxpp/traits/EnableIf.hpp>
-
 #include <boxpp/traits/Movable.hpp>
 #include <boxpp/traits/Forward.hpp>
 
 #include <boxpp/traits/IsCallableType.hpp>
+#include <boxpp/traits/IsConstructibleType.hpp>
 #include <boxpp/traits/AbstractedOperators.hpp>
 
 namespace boxpp
@@ -34,7 +34,6 @@ namespace boxpp
 		FASTINLINE Type& operator *() const { return *GetRaw(); }
 
 	public:
-		template<typename = EnableIf<IsCopyConstructibleType<Type>>>
 		FASTINLINE bool ConstructFrom(const Type& Object)
 		{
 			if (!Valid) {
@@ -45,7 +44,6 @@ namespace boxpp
 			return false;
 		}
 
-		template<typename = EnableIf<IsMoveConstructibleType<Type>>>
 		FASTINLINE bool ConstructFrom(Type&& Object)
 		{
 			if (!Valid) {

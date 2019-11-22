@@ -1,9 +1,7 @@
-#ifndef __BOXPP_SHAREDPTR_BORADCASTED_HPP__
-#define __BOXPP_SHAREDPTR_BORADCASTED_HPP__
-
-#ifndef __BOXPP_SHAREDPTR_SHAREDPTR_HPP__
-#include <boxpp/sharedptr/SharedPtr.hpp>
-#endif
+#pragma once
+#include <boxpp/sharedptrs/SharedCount.hpp>
+#include <boxpp/sharedptrs/SharedHolder.hpp>
+#include <boxpp/sharedptrs/SharedPtr.hpp>
 
 namespace boxpp {
 	/*
@@ -41,5 +39,3 @@ namespace boxpp {
 		}
 	};
 }
-
-#endif // !__BOXPP_SHAREDPTR_BORADCASTED_HPP__

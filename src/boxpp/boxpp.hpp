@@ -7,4 +7,4 @@
 #include <boxpp/String.hpp>
 #include <boxpp/SharedPtr.hpp>
 
-#include <boxpp/core/Name.h>
+#include <boxpp/core/Name.hpp>

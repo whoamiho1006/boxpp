@@ -2,7 +2,8 @@
 #include <boxpp/Base.hpp>
 #include <boxpp/BaseTypes.hpp>
 
-#include <boxpp/utils/TypeCompares.hpp>
+#include <boxpp/traits/Movable.hpp>
+#include <boxpp/containers/Instrusive.hpp>
 #include <boxpp/containers/SortedArray.hpp>
 
 namespace boxpp

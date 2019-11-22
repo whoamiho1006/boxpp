@@ -4,10 +4,10 @@
 namespace boxpp
 {
 	/* Determines the given type is POD or not. */
-	template<typename CallableType>
-	struct TIsPodType : TTraitBoolConstant<__is_pod(CallableType)> { };
+	template<typename Type>
+	struct TIsPodType : TTraitBoolConstant<__is_pod(Type)> { };
 
 	/* Determines the given type is POD or not. */
-	template<typename CallableType>
-	constexpr bool IsPodType = TIsPodType<CallableType>::Value;
+	template<typename Type>
+	constexpr bool IsPodType = TIsPodType<Type>::Value;
 }

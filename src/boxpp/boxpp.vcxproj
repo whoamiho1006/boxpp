@@ -26,18 +26,20 @@
     <ClInclude Include="boxpp\core\RawEvent.hpp" />
     <ClInclude Include="boxpp\core\Threaded.hpp" />
     <ClInclude Include="boxpp\core\Threading.hpp" />
+    <ClInclude Include="boxpp\module\ModuleManager.hpp" />
     <ClInclude Include="boxpp\Normalize.hpp" />
     <ClInclude Include="boxpp\Boilerplate.hpp" />
-    <ClInclude Include="boxpp\core\Name.h" />
+    <ClInclude Include="boxpp\core\Name.hpp" />
     <ClInclude Include="boxpp\hints\pthread.hpp" />
     <ClInclude Include="boxpp\hints\windows.hpp" />
-    <ClInclude Include="boxpp\module\ModuleInterface.hpp" />
+    <ClInclude Include="boxpp\module\Module.hpp" />
     <ClInclude Include="boxpp\Version.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\Boilerplate.cpp" />
     <ClCompile Include="boxpp\core\Threaded.cpp" />
     <ClCompile Include="boxpp\core\Threading.cpp" />
+    <ClCompile Include="boxpp\module\ModuleManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

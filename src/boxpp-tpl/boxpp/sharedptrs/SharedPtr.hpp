@@ -32,9 +32,9 @@ namespace boxpp {
 			TSmartPtr(const SelfType& Other) : Holder(Other.Holder) { }
 			TSmartPtr(SelfType&& Other) : Holder(TMovable<HolderType>::Movable(Other.Holder)) { }
 
-			/* up-casting supports */
+			/* up/down casting supports */
 			template<typename OtherType, ESharedMode OtherMode, bool OtherHolds,
-				typename = EnableIf<IsDerivedType<ObjectType, OtherType>>>
+				typename = EnableIf<IsDerivedType<ObjectType, OtherType> || IsDerivedType<OtherType, ObjectType>>>
 				TSmartPtr(const TSmartPtr<OtherType, OtherMode, OtherHolds>& Other)
 				: Holder(Other.Holder.GetRaw()), Object(dynamic_cast<ObjectType*>(Other.Object))
 			{
@@ -46,8 +46,10 @@ namespace boxpp {
 			{
 			}
 
-			/* up-casting supports */
-			template<typename OtherType, typename = EnableIf<IsDerivedType<ObjectType, OtherType>>>
+			/* up/down casting supports */
+			template<typename OtherType, typename = EnableIf<
+				IsDerivedType<ObjectType, OtherType> || 
+				IsDerivedType<OtherType, ObjectType>>>
 			TSmartPtr(const TSmartProxy<OtherType>& Proxy)
 				: Holder(Proxy.Counter), Object(Proxy.Object)
 			{
@@ -88,17 +90,19 @@ namespace boxpp {
 				return *this;
 			}
 
-			/* up-casting supports */
+			/* up/down casting supports */
 			template<typename OtherType, ESharedMode OtherMode, bool OtherHolds,
-				typename = EnableIf<IsDerivedType<ObjectType, OtherType>>>
-				FASTINLINE SelfType& operator =(const TSmartPtr<OtherType, OtherMode, OtherHolds>& Other) {
+				typename = EnableIf<IsDerivedType<ObjectType, OtherType> || IsDerivedType<OtherType, ObjectType>>>
+			FASTINLINE SelfType& operator =(const TSmartPtr<OtherType, OtherMode, OtherHolds>& Other) {
 				Holder = Other.Holder.GetRaw();
 				Object = Other.Object;
 				return *this;
 			}
 
-			/* up-casting supports */
-			template<typename OtherType, typename = EnableIf<IsDerivedType<ObjectType, OtherType>>>
+			/* up/down casting supports */
+			template<typename OtherType, typename = EnableIf<
+				IsDerivedType<ObjectType, OtherType> || 
+				IsDerivedType<OtherType, ObjectType>>>
 			FASTINLINE SelfType& operator =(const TSmartProxy<OtherType>& Other) {
 				Holder = Other.Counter;
 				Object = Other.Object;

@@ -4,7 +4,7 @@
 
 /* Entry point. */
 //BOXEXTERN boxpp::s32 run(boxpp::IBox* Box);
-
+NO_MANGLED BOXEXTERN void* BOX_ExeRun();
 
 class FBoxBoilerplate : public boxpp::boilerplates::IBoilerplate
 {

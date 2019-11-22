@@ -9,8 +9,8 @@ namespace boxpp
 	template<typename A, typename B>
 	struct TIsSameType : TTraitBoolConstant<false> { };
 
-	template<typename CallableType>
-	struct TIsSameType<CallableType, CallableType> : TTraitBoolConstant<true> { };
+	template<typename Type>
+	struct TIsSameType<Type, Type> : TTraitBoolConstant<true> { };
 
 	/*
 		Constexpr Value version of TIsSameType.

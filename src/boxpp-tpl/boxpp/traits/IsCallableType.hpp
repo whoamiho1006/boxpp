@@ -30,7 +30,7 @@ namespace boxpp
 	constexpr bool IsCallableType = TIsCallableType<Type, ArgumentTypes ...>::Value;
 
 	/* Determines the callable type is expected one or not. */
-	template<typename CallableType, typename ReturnType, typename ... ArgumentTypes>
+	template<typename Type, typename ReturnType, typename ... ArgumentTypes>
 	struct TIsExpectedCallableType : FTraitTesterBase
 	{
 		template<typename, typename ...>
@@ -43,8 +43,8 @@ namespace boxpp
 			Yes, No> Test(s32);
 
 		static constexpr bool Value =
-			IsCallableType<CallableType, ArgumentTypes ...> &&
-			IsSameType<Yes, decltype(Test<CallableType, ArgumentTypes ...>(0))>;
+			IsCallableType<Type, ArgumentTypes ...> &&
+			IsSameType<Yes, decltype(Test<Type, ArgumentTypes ...>(0))>;
 	};
 
 	/* Determines the callable type is expected one or not. */
