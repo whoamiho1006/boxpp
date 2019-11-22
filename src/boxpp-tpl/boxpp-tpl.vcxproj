@@ -160,10 +160,32 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\BaseTraits.hpp" />
+    <ClInclude Include="boxpp\containers\algorithms\BinarySearch.hpp" />
+    <ClInclude Include="boxpp\containers\algorithms\HeapSort.hpp" />
+    <ClInclude Include="boxpp\containers\Array.hpp" />
+    <ClInclude Include="boxpp\containers\ArrayBase.hpp" />
+    <ClInclude Include="boxpp\containers\Comparator.hpp" />
+    <ClInclude Include="boxpp\containers\Containers.hpp" />
+    <ClInclude Include="boxpp\containers\EdgeBase.hpp" />
+    <ClInclude Include="boxpp\containers\Instrusive.hpp" />
+    <ClInclude Include="boxpp\containers\Iterator.hpp" />
+    <ClInclude Include="boxpp\containers\LinkedList.hpp" />
+    <ClInclude Include="boxpp\containers\Map.hpp" />
+    <ClInclude Include="boxpp\containers\Node.hpp" />
+    <ClInclude Include="boxpp\containers\Queue.hpp" />
+    <ClInclude Include="boxpp\containers\SingleNode.hpp" />
+    <ClInclude Include="boxpp\containers\SortedArray.hpp" />
+    <ClInclude Include="boxpp\containers\Stack.hpp" />
+    <ClInclude Include="boxpp\String.hpp" />
+    <ClInclude Include="boxpp\strings\Constants.hpp" />
+    <ClInclude Include="boxpp\strings\Converter.hpp" />
+    <ClInclude Include="boxpp\strings\Operations.hpp" />
+    <ClInclude Include="boxpp\strings\UtfTypes.hpp" />
     <ClInclude Include="boxpp\Traits.hpp" />
     <ClInclude Include="boxpp\traits\DecayConst.hpp" />
     <ClInclude Include="boxpp\traits\DecayRef.hpp" />
     <ClInclude Include="boxpp\traits\EnableIf.hpp" />
+    <ClInclude Include="boxpp\traits\AbstractedOperators.hpp" />
     <ClInclude Include="boxpp\traits\IsCallableType.hpp" />
     <ClInclude Include="boxpp\traits\IsConstructibleType.hpp" />
     <ClInclude Include="boxpp\traits\IsConvertibleType.hpp" />

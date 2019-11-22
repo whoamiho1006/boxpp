@@ -32,19 +32,6 @@
     <ClInclude Include="boxpp\BaseTypes.hpp" />
     <ClInclude Include="boxpp\Normalize.hpp" />
     <ClInclude Include="boxpp\Boilerplate.hpp" />
-    <ClInclude Include="boxpp\containers\algorithms\BinarySearch.hpp" />
-    <ClInclude Include="boxpp\containers\algorithms\HeapSort.hpp" />
-    <ClInclude Include="boxpp\containers\Array.hpp" />
-    <ClInclude Include="boxpp\containers\ArrayBase.hpp" />
-    <ClInclude Include="boxpp\containers\Iterator.hpp" />
-    <ClInclude Include="boxpp\containers\Node.hpp" />
-    <ClInclude Include="boxpp\containers\EdgeBase.hpp" />
-    <ClInclude Include="boxpp\containers\Queue.hpp" />
-    <ClInclude Include="boxpp\containers\SingleNode.hpp" />
-    <ClInclude Include="boxpp\containers\SortedArray.hpp" />
-    <ClInclude Include="boxpp\containers\LinkedList.hpp" />
-    <ClInclude Include="boxpp\containers\Stack.hpp" />
-    <ClInclude Include="boxpp\containers\Map.hpp" />
     <ClInclude Include="boxpp\core\Name.h" />
     <ClInclude Include="boxpp\hints\pthread.hpp" />
     <ClInclude Include="boxpp\hints\windows.hpp" />
@@ -55,20 +42,10 @@
     <ClInclude Include="boxpp\sharedptr\SharedCount.hpp" />
     <ClInclude Include="boxpp\sharedptr\SharedHolder.hpp" />
     <ClInclude Include="boxpp\sharedptr\SharedPtr.hpp" />
-    <ClInclude Include="boxpp\utf\Utf16.hpp" />
-    <ClInclude Include="boxpp\utf\Utf32.hpp" />
-    <ClInclude Include="boxpp\utf\Utf8.hpp" />
-    <ClInclude Include="boxpp\utf\UtfCommon.hpp" />
-    <ClInclude Include="boxpp\utils\Comparator.hpp" />
-    <ClInclude Include="boxpp\utils\Forward.hpp" />
     <ClInclude Include="boxpp\utils\Function.hpp" />
-    <ClInclude Include="boxpp\utils\Instrusive.hpp" />
-    <ClInclude Include="boxpp\utils\Movable.hpp" />
-    <ClInclude Include="boxpp\utils\Functionality.hpp" />
     <ClInclude Include="boxpp\utils\NativeStrings.hpp" />
     <ClInclude Include="boxpp\utils\PureTimer.hpp" />
     <ClInclude Include="boxpp\utils\StringConvert.hpp" />
-    <ClInclude Include="boxpp\utils\TypeCompares.hpp" />
     <ClInclude Include="boxpp\Version.hpp" />
     <ClInclude Include="impls\Box.hpp" />
     <ClInclude Include="impls\BoxSuper.hpp" />
@@ -142,7 +119,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)boxpp;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -156,7 +133,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)boxpp;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

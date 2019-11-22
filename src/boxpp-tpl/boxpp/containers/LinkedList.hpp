@@ -1,10 +1,6 @@
-#ifndef __BOXPP_CONTAINERS_LINKEDLIST_HPP__
-#define __BOXPP_CONTAINERS_LINKEDLIST_HPP__
-
-/* Loads boxpp.hpp header if not loaded. */
-#ifndef __BOXPP_HPP__
-#include <boxpp.hpp>
-#endif
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
 #include <boxpp/containers/Node.hpp>
 #include <boxpp/containers/Iterator.hpp>
@@ -445,5 +441,3 @@ namespace boxpp
 	}
 
 }
-
-#endif

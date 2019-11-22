@@ -1,13 +1,9 @@
-#ifndef __BOXPP_CONTAINERS_ALGORITHMS_BINARYSEARCH_HPP__
-#define __BOXPP_CONTAINERS_ALGORITHMS_BINARYSEARCH_HPP__
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
-/* Loads boxpp.hpp header if not loaded. */
-#ifndef __BOXPP_HPP__
-#include <boxpp.hpp>
-#endif
-
-#include <boxpp/utils/Movable.hpp>
-#include <boxpp/utils/Comparator.hpp>
+#include <boxpp/traits/Movable.hpp>
+#include <boxpp/containers/Comparator.hpp>
 
 namespace boxpp {
 	template<typename T, bool bAscend = true>
@@ -117,5 +113,3 @@ namespace boxpp {
 		}
 	};
 }
-
-#endif // !__BOXPP_CONTAINERS_ALGORITHMS_BINARYSEARCH_HPP__

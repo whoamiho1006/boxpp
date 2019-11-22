@@ -1,10 +1,6 @@
-#ifndef __BOXPP_CONTAINERS_SORTEDARRAY_HPP__
-#define __BOXPP_CONTAINERS_SORTEDARRAY_HPP__
-
-/* Loads boxpp.hpp header if not loaded. */
-#ifndef __BOXPP_HPP__
-#include <boxpp.hpp>
-#endif
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
 #include <boxpp/containers/ArrayBase.hpp>
 #include <boxpp/containers/algorithms/BinarySearch.hpp>
@@ -357,5 +353,3 @@ namespace boxpp
 		}
 	};
 }
-
-#endif // !__BOXPP_CONTAINERS_SORTEDARRAY_HPP__

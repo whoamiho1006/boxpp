@@ -1,12 +1,8 @@
-#ifndef __BOXPP_CONTAINERS_ITERATOR_HPP__
-#define __BOXPP_CONTAINERS_ITERATOR_HPP__
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
-/* Loads boxpp.hpp header if not loaded. */
-#ifndef __BOXPP_HPP__
-#include <boxpp.hpp>
-#endif
-
-#include <boxpp/utils/Movable.hpp>
+#include <boxpp/traits/Movable.hpp>
 #include <boxpp/utils/Comparator.hpp>
 
 namespace boxpp {
@@ -333,5 +329,3 @@ namespace boxpp {
 	template<typename ContainerType>
 	using TReverseIterator = TIterator<ContainerType, true>;
 }
-
-#endif // !__BOXPP_CONTAINERS_ITERATOR_HPP__

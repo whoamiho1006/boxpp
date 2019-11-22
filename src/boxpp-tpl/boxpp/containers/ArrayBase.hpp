@@ -1,12 +1,8 @@
-#ifndef __BOXPP_CONTAINERS_ARRAYBASE_HPP__
-#define __BOXPP_CONTAINERS_ARRAYBASE_HPP__
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
-/* Loads boxpp.hpp header if not loaded. */
-#ifndef __BOXPP_HPP__
-#include <boxpp.hpp>
-#endif
-
-#include <boxpp/utils/Movable.hpp>
+#include <boxpp/traits/Movable.hpp>
 #include <boxpp/containers/Iterator.hpp>
 
 namespace boxpp
@@ -303,5 +299,3 @@ namespace boxpp
 		return TArrayConstIterator<ElemType>(InArray, -1);
 	}
 }
-
-#endif // __BOXPP_CONTAINERS_ARRAYBASE_HPP__

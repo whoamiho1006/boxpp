@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)boxpp;$(ProjectDir)iconv\include;$(ProjectDir)ported-headers;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(ProjectDir)iconv\include;$(ProjectDir)ported-headers;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
@@ -84,7 +84,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)boxpp;$(ProjectDir)iconv\include;$(ProjectDir)ported-headers;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(ProjectDir)iconv\include;$(ProjectDir)ported-headers;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>

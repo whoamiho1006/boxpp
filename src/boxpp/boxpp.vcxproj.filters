@@ -34,9 +34,6 @@
     <Filter Include="boxpp\containers">
       <UniqueIdentifier>{59a012e8-f884-44ef-b7c3-ed917ff66018}</UniqueIdentifier>
     </Filter>
-    <Filter Include="boxpp\containers\algorithms">
-      <UniqueIdentifier>{d2bc6882-3d2b-47f5-93fb-b06dacd03603}</UniqueIdentifier>
-    </Filter>
     <Filter Include="boxpp\module">
       <UniqueIdentifier>{d9f8b63e-62be-4088-bf75-a9ec31d676f3}</UniqueIdentifier>
     </Filter>
@@ -82,29 +79,11 @@
     <ClInclude Include="impls\BoxSuper.hpp">
       <Filter>impls</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\utils\Movable.hpp">
-      <Filter>boxpp\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\utils\Comparator.hpp">
-      <Filter>boxpp\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\utils\TypeCompares.hpp">
-      <Filter>boxpp\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\utils\Forward.hpp">
-      <Filter>boxpp\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\utils\Functionality.hpp">
-      <Filter>boxpp\utils</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\async\Event.hpp">
       <Filter>boxpp\async</Filter>
     </ClInclude>
     <ClInclude Include="boxpp\async\Thread.hpp">
       <Filter>boxpp\async</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\utils\Instrusive.hpp">
-      <Filter>boxpp\utils</Filter>
     </ClInclude>
     <ClInclude Include="boxpp\sharedptr\SharedCount.hpp">
       <Filter>boxpp\sharedptr</Filter>
@@ -133,18 +112,6 @@
     <ClInclude Include="boxpp\async\Async.hpp">
       <Filter>boxpp\async</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\containers\Array.hpp">
-      <Filter>boxpp\containers</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\containers\Iterator.hpp">
-      <Filter>boxpp\containers</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\containers\algorithms\HeapSort.hpp">
-      <Filter>boxpp\containers\algorithms</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\containers\algorithms\BinarySearch.hpp">
-      <Filter>boxpp\containers\algorithms</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\module\ModuleInterface.hpp">
       <Filter>boxpp\module</Filter>
     </ClInclude>
@@ -154,50 +121,11 @@
     <ClInclude Include="boxpp\utils\NativeStrings.hpp">
       <Filter>boxpp\utils</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\utf\UtfCommon.hpp">
-      <Filter>boxpp\utf</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\utils\StringConvert.hpp">
       <Filter>boxpp\utils</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\utf\Utf8.hpp">
-      <Filter>boxpp\utf</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\utf\Utf16.hpp">
-      <Filter>boxpp\utf</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\utf\Utf32.hpp">
-      <Filter>boxpp\utf</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\containers\SortedArray.hpp">
-      <Filter>boxpp\containers</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\containers\ArrayBase.hpp">
-      <Filter>boxpp\containers</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\containers\Node.hpp">
-      <Filter>boxpp\containers</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\containers\EdgeBase.hpp">
-      <Filter>boxpp\containers</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\containers\LinkedList.hpp">
-      <Filter>boxpp\containers</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\containers\Queue.hpp">
-      <Filter>boxpp\containers</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\containers\SingleNode.hpp">
-      <Filter>boxpp\containers</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\containers\Stack.hpp">
-      <Filter>boxpp\containers</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\async\ThreadLocal.hpp">
       <Filter>boxpp\async</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\containers\Map.hpp">
-      <Filter>boxpp\containers</Filter>
     </ClInclude>
     <ClInclude Include="boxpp\utils\Function.hpp">
       <Filter>boxpp\utils</Filter>

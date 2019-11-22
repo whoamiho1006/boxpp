@@ -75,7 +75,7 @@
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration);$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)boxpp;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -89,7 +89,7 @@
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration);$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)boxpp;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>

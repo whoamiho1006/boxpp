@@ -1,11 +1,8 @@
-#ifndef __BOXPP_UTFCOMMON_HPP__
-#define __BOXPP_UTFCOMMON_HPP__
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
-#ifndef __BOXPP_HPP__
-#include <boxpp.hpp>
-#endif
-
-#include <boxpp/utils/TypeCompares.hpp>
+#include <boxpp/traits/IsSameType.hpp>
 
 namespace boxpp
 {
@@ -43,7 +40,7 @@ namespace boxpp
 	constexpr utfn_t operator +(const utfn_t& Left, const utfn_t& Right) { return { (cn_t)(Left._ + Right._) }; } \
 	constexpr utfn_t operator -(const utfn_t& Left, const cn_t Right) { return { (cn_t)(Left._ - Right) }; } \
 	constexpr utfn_t operator +(const utfn_t& Left, const cn_t Right) { return { (cn_t)(Left._ + Right) }; }
-	
+
 	BOXPP_UTF_COMPAT_OPERATORS(utf8_t, c8);
 	BOXPP_UTF_COMPAT_OPERATORS(utf16_t, c16);
 	BOXPP_UTF_COMPAT_OPERATORS(utf32_t, c32);
@@ -54,5 +51,3 @@ namespace boxpp
 	constexpr bool IsUtfType = IsSameType<Type, utf8_t> || IsSameType<Type, utf16_t> || IsSameType<Type, utf32_t>;
 
 }
-
-#endif // !__BOXPP_UTFCOMMON_HPP__

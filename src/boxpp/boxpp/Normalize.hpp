@@ -135,6 +135,11 @@
 #	define PLATFORM_UNICODE		0
 #endif
 
+// ---------------------- PLATFORM_USE_STRING_BY_CRT
+#ifndef PLATFORM_USE_STRING_BY_CRT
+#define PLATFORM_USE_STRING_BY_CRT 1
+#endif
+
 // ---------------------- PLATFORM_NATIVE_WCHAR
 
 #if defined(_NATIVE_WCHAR_T_DEFINED) || defined(_WCHAR_T_DEFINED) || \

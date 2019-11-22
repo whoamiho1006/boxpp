@@ -1,10 +1,10 @@
-#ifndef __BOXPP_UTILS_COMPARATOR_HPP__
-#define __BOXPP_UTILS_COMPARATOR_HPP__
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
-#ifndef __BOXPP_UTILS_FUNCTIONALITY_HPP__
-/* Loads Functionality.hpp header if not loaded. */
-#include <boxpp/utils/Functionality.hpp>
-#endif
+#include <boxpp/traits/PickType.hpp>
+#include <boxpp/traits/IsCallableType.hpp>
+#include <boxpp/traits/AbstractedOperators.hpp>
 
 #include <string.h>
 
@@ -13,8 +13,8 @@ namespace boxpp
 	namespace _ {
 		/* Equal operation (forward impl) */
 		template< typename Type,
-			bool CanEqual = HasExpectedOperatorInType<ops::Equal<>, bool, Type, Type>,
-			bool CanNotEqual = HasExpectedOperatorInType<ops::NotEqual<>, bool, Type, Type>
+			bool CanEqual = IsExpectedCallableType<ops::Equal<>, bool, Type, Type>,
+			bool CanNotEqual = IsExpectedCallableType<ops::NotEqual<>, bool, Type, Type>
 		> struct EqualsImpl {
 			static constexpr bool UseMemcmp = false;
 			FASTINLINE static bool Compare(const Type& Left, const Type& Right) {
@@ -40,8 +40,8 @@ namespace boxpp
 
 		/* Not equal operation (forward impl) */
 		template< typename Type,
-			bool CanNotEqual = HasExpectedOperatorInType<ops::NotEqual<>, bool, Type, Type>,
-			bool CanEqual = HasExpectedOperatorInType<ops::Equal<>, bool, Type, Type>
+			bool CanNotEqual = IsExpectedCallableType<ops::NotEqual<>, bool, Type, Type>,
+			bool CanEqual = IsExpectedCallableType<ops::Equal<>, bool, Type, Type>
 		> struct NotEqualsImpl {
 			static constexpr bool UseMemcmp = false;
 			FASTINLINE static bool Compare(const Type& Left, const Type& Right) {
@@ -67,8 +67,8 @@ namespace boxpp
 
 		/* Greater operation (forward impl) */
 		template< typename Type,
-			bool CanGreater = HasExpectedOperatorInType<ops::Greater<>, bool, Type, Type>,
-			bool CanLessEqaul = HasExpectedOperatorInType<ops::LessEqual<>, bool, Type, Type>
+			bool CanGreater = IsExpectedCallableType<ops::Greater<>, bool, Type, Type>,
+			bool CanLessEqaul = IsExpectedCallableType<ops::LessEqual<>, bool, Type, Type>
 		> struct GreaterImpl {
 			static constexpr bool UseMemcmp = false;
 			FASTINLINE static bool Compare(const Type& Left, const Type& Right) {
@@ -94,8 +94,8 @@ namespace boxpp
 
 		/* Greater-equal operation (forward impl) */
 		template< typename Type,
-			bool CanGreaterEqual = HasExpectedOperatorInType<ops::GreaterEqual<>, bool, Type, Type>,
-			bool CanLess = HasExpectedOperatorInType<ops::Less<>, bool, Type, Type>
+			bool CanGreaterEqual = IsExpectedCallableType<ops::GreaterEqual<>, bool, Type, Type>,
+			bool CanLess = IsExpectedCallableType<ops::Less<>, bool, Type, Type>
 		> struct GreaterEqualImpl {
 			static constexpr bool UseMemcmp = false;
 			FASTINLINE static bool Compare(const Type& Left, const Type& Right) {
@@ -121,8 +121,8 @@ namespace boxpp
 
 		/* Less operation (forward impl) */
 		template< typename Type,
-			bool CanLess = HasExpectedOperatorInType<ops::Less<>, bool, Type, Type>,
-			bool CanGreaterEqaul = HasExpectedOperatorInType<ops::GreaterEqual<>, bool, Type, Type>
+			bool CanLess = IsExpectedCallableType<ops::Less<>, bool, Type, Type>,
+			bool CanGreaterEqaul = IsExpectedCallableType<ops::GreaterEqual<>, bool, Type, Type>
 		> struct LessImpl {
 			static constexpr bool UseMemcmp = false;
 			FASTINLINE static bool Compare(const Type& Left, const Type& Right) {
@@ -148,8 +148,8 @@ namespace boxpp
 
 		/* Less-equal operation (forward impl) */
 		template< typename Type,
-			bool CanLessEqual = HasExpectedOperatorInType<ops::LessEqual<>, bool, Type, Type>,
-			bool CanGreater = HasExpectedOperatorInType<ops::Greater<>, bool, Type, Type>
+			bool CanLessEqual = IsExpectedCallableType<ops::LessEqual<>, bool, Type, Type>,
+			bool CanGreater = IsExpectedCallableType<ops::Greater<>, bool, Type, Type>
 		> struct LessEqualImpl {
 			static constexpr bool UseMemcmp = false;
 			FASTINLINE static bool Compare(const Type& Left, const Type& Right) {
@@ -248,6 +248,5 @@ namespace boxpp
 			return TSmaller<T>::Compare(Item, Left) && TBigger<T>::Compare(Item, Right);
 		}
 	};
-}
 
-#endif // !__BOXPP_UTILS_COMPARATOR_HPP__
+}

@@ -1,15 +1,14 @@
-#ifndef __BOXPP_UTILS_INSTRUSIVE_HPP__
-#define __BOXPP_UTILS_INSTRUSIVE_HPP__
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
-/* Loads boxpp.hpp header if not loaded. */
-#ifndef __BOXPP_HPP__
-#include <boxpp.hpp>
-#endif
+#include <boxpp/traits/EnableIf.hpp>
 
-#include <boxpp/utils/Movable.hpp>
-#include <boxpp/utils/Forward.hpp>
-#include <boxpp/utils/Functionality.hpp>
-#include <boxpp/sharedptr/SharedPtr.hpp>
+#include <boxpp/traits/Movable.hpp>
+#include <boxpp/traits/Forward.hpp>
+
+#include <boxpp/traits/IsCallableType.hpp>
+#include <boxpp/traits/AbstractedOperators.hpp>
 
 namespace boxpp
 {
@@ -23,7 +22,7 @@ namespace boxpp
 
 	private:
 		bool Valid;
-		u8 Storage [sizeof(Type)];
+		u8 Storage[sizeof(Type)];
 
 	public:
 		FASTINLINE operator bool() const { return Valid; }
@@ -35,22 +34,7 @@ namespace boxpp
 		FASTINLINE Type& operator *() const { return *GetRaw(); }
 
 	public:
-		FASTINLINE const TSharedPtr<Type> MakeShared() const {
-			sharedptr::TSmartProxy<Type> Proxy = { 0, };
-
-			if (*this) {
-
-				Proxy.Counter = new sharedptr::TSharedCount<Type,
-					sharedptr::TEmptyDeleter<Type>>(GetRaw());
-
-				Proxy.Object = GetRaw();
-			}
-
-			return Proxy;
-		}
-
-	public:
-		template<typename = EnableIf<IsCopyConstructible<Type>>>
+		template<typename = EnableIf<IsCopyConstructibleType<Type>>>
 		FASTINLINE bool ConstructFrom(const Type& Object)
 		{
 			if (!Valid) {
@@ -61,7 +45,7 @@ namespace boxpp
 			return false;
 		}
 
-		template<typename = EnableIf<IsMoveConstructible<Type>>>
+		template<typename = EnableIf<IsMoveConstructibleType<Type>>>
 		FASTINLINE bool ConstructFrom(Type&& Object)
 		{
 			if (!Valid) {
@@ -95,5 +79,3 @@ namespace boxpp
 		}
 	};
 }
-
-#endif // !__BOXPP_UTILS_INSTRUSIVE_HPP__

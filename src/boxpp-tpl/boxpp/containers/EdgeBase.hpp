@@ -1,12 +1,8 @@
-#ifndef __BOXPP_CONTAINERS_NODEBASE_HPP__
-#define __BOXPP_CONTAINERS_NODEBASE_HPP__
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
-/* Loads boxpp.hpp header if not loaded. */
-#ifndef __BOXPP_HPP__
-#include <boxpp.hpp>
-#endif
-
-#include <boxpp/utils/Movable.hpp>
+#include <boxpp/traits/Movable.hpp>
 #include <boxpp/utils/Instrusive.hpp>
 
 namespace boxpp
@@ -63,5 +59,3 @@ namespace boxpp
 	};
 
 }
-
-#endif // !__BOXPP_CONTAINERS_NODEBASE_HPP__
