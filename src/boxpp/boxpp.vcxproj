@@ -38,14 +38,7 @@
     <ClInclude Include="boxpp\IBox.hpp" />
     <ClInclude Include="boxpp\internal\IBoxRuntime.hpp" />
     <ClInclude Include="boxpp\module\ModuleInterface.hpp" />
-    <ClInclude Include="boxpp\sharedptr\BroadcastedObject.hpp" />
-    <ClInclude Include="boxpp\sharedptr\SharedCount.hpp" />
-    <ClInclude Include="boxpp\sharedptr\SharedHolder.hpp" />
-    <ClInclude Include="boxpp\sharedptr\SharedPtr.hpp" />
-    <ClInclude Include="boxpp\utils\Function.hpp" />
-    <ClInclude Include="boxpp\utils\NativeStrings.hpp" />
     <ClInclude Include="boxpp\utils\PureTimer.hpp" />
-    <ClInclude Include="boxpp\utils\StringConvert.hpp" />
     <ClInclude Include="boxpp\Version.hpp" />
     <ClInclude Include="impls\Box.hpp" />
     <ClInclude Include="impls\BoxSuper.hpp" />
@@ -56,7 +49,6 @@
     <ClCompile Include="boxpp\Boilerplate.cpp" />
     <ClCompile Include="boxpp\boxpp-rt.cpp" />
     <ClCompile Include="boxpp\internal\IBoxRuntime.cpp" />
-    <ClCompile Include="boxpp\utils\NativeStrings.cpp" />
     <ClCompile Include="impls\Box.cpp" />
     <ClCompile Include="impls\BoxSuper.cpp" />
   </ItemGroup>

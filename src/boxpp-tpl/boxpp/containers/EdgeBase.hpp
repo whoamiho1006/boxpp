@@ -3,7 +3,7 @@
 #include <boxpp/BaseTypes.hpp>
 
 #include <boxpp/traits/Movable.hpp>
-#include <boxpp/utils/Instrusive.hpp>
+#include <boxpp/containers/Instrusive.hpp>
 
 namespace boxpp
 {

@@ -25,9 +25,6 @@
     <Filter Include="impls\async">
       <UniqueIdentifier>{ce068a45-6506-4602-96cf-682eef9a8582}</UniqueIdentifier>
     </Filter>
-    <Filter Include="boxpp\sharedptr">
-      <UniqueIdentifier>{03ba8f77-e34f-43ee-b98e-de1bd922d5a0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="impls\memory">
       <UniqueIdentifier>{57f67e17-b6fe-48ee-b445-40dbd6101a77}</UniqueIdentifier>
     </Filter>
@@ -85,18 +82,6 @@
     <ClInclude Include="boxpp\async\Thread.hpp">
       <Filter>boxpp\async</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\sharedptr\SharedCount.hpp">
-      <Filter>boxpp\sharedptr</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\sharedptr\SharedHolder.hpp">
-      <Filter>boxpp\sharedptr</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\sharedptr\SharedPtr.hpp">
-      <Filter>boxpp\sharedptr</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\sharedptr\BroadcastedObject.hpp">
-      <Filter>boxpp\sharedptr</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\Boilerplate.hpp">
       <Filter>boxpp</Filter>
     </ClInclude>
@@ -118,17 +103,8 @@
     <ClInclude Include="boxpp\core\Name.h">
       <Filter>boxpp\core</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\utils\NativeStrings.hpp">
-      <Filter>boxpp\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\utils\StringConvert.hpp">
-      <Filter>boxpp\utils</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\async\ThreadLocal.hpp">
       <Filter>boxpp\async</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\utils\Function.hpp">
-      <Filter>boxpp\utils</Filter>
     </ClInclude>
     <ClInclude Include="boxpp\Normalize.hpp">
       <Filter>boxpp</Filter>
@@ -150,9 +126,6 @@
     </ClCompile>
     <ClCompile Include="boxpp\Boilerplate.cpp">
       <Filter>boxpp</Filter>
-    </ClCompile>
-    <ClCompile Include="boxpp\utils\NativeStrings.cpp">
-      <Filter>boxpp\utils</Filter>
     </ClCompile>
     <ClCompile Include="boxpp\async\ThreadLocal.cpp">
       <Filter>boxpp\async</Filter>

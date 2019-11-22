@@ -1,18 +1,10 @@
-#ifndef __BOXPP_SHAREDPTR_SHAREDHOLDER_HPP__
-#define __BOXPP_SHAREDPTR_SHAREDHOLDER_HPP__
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
-/* Loads boxpp.hpp header if not loaded. */
-#ifndef __BOXPP_HPP__
-#include <boxpp.hpp>
-#endif
+#include <boxpp/traits/Movable.hpp>
 
-#ifndef __BOXPP_SHAREDPTR_SHAREDBASE_HPP__
-#include <boxpp/sharedptr/SharedCount.hpp>
-#endif
-
-#ifndef __BOXPP_UTILS_MOVABLE_HPP__
-#include <boxpp/utils/Movable.hpp>
-#endif
+#include <boxpp/sharedptrs/SharedCount.hpp>
 
 namespace boxpp {
 	namespace sharedptr {
@@ -131,5 +123,3 @@ namespace boxpp {
 		};
 	}
 }
-
-#endif // !__BOXPP_SHAREDPTR_SHAREDHOLDER_HPP__

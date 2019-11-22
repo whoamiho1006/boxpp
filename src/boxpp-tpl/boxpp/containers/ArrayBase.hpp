@@ -2,6 +2,7 @@
 #include <boxpp/Base.hpp>
 #include <boxpp/BaseTypes.hpp>
 
+#include <boxpp/traits/IsPodType.hpp>
 #include <boxpp/traits/Movable.hpp>
 #include <boxpp/containers/Iterator.hpp>
 
@@ -90,7 +91,7 @@ namespace boxpp
 					return false;
 				}
 
-				if (IsTypePOD<ElemType>) {
+				if (IsPodType<ElemType>) {
 					::memcpy(Storage, this->Storage, sizeof(ElemType) * Length);
 				}
 
@@ -126,7 +127,7 @@ namespace boxpp
 					return;
 				}
 
-				if (IsTypePOD<ElemType>) {
+				if (IsPodType<ElemType>) {
 					::memcpy(Storage, this->Storage, sizeof(ElemType) * Length);
 				}
 				else {
@@ -173,7 +174,7 @@ namespace boxpp
 			if (Offset >= 0 && Offset < s32(Length)) {
 				u32 FinalLength = u32(Length < Count ? 0 : Length - Count);
 
-				if (IsTypePOD<ElemType>) {
+				if (IsPodType<ElemType>) {
 					::memmove(Storage + Offset, Storage + Offset + Count,
 						sizeof(ElemType) * (Length - (Offset + Count)));
 				}

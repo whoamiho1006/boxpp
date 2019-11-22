@@ -1,14 +1,16 @@
-#ifndef __BOXPP_SHAREDPTR_SHAREDPTR_HPP__
-#define __BOXPP_SHAREDPTR_SHAREDPTR_HPP__
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
-#include <boxpp/sharedptr/SharedCount.hpp>
-#include <boxpp/sharedptr/SharedHolder.hpp>
+#include <boxpp/traits/Movable.hpp>
+#include <boxpp/traits/EnableIf.hpp>
+#include <boxpp/traits/IsDerivedType.hpp>
 
-#include <boxpp/utils/TypeCompares.hpp>
-#include <boxpp/utils/Functionality.hpp>
+#include <boxpp/sharedptrs/SharedCount.hpp>
+#include <boxpp/sharedptrs/SharedHolder.hpp>
 
 namespace boxpp {
-	
+
 	namespace sharedptr {
 		template<typename ObjectType>
 		struct TSmartProxy
@@ -31,9 +33,9 @@ namespace boxpp {
 			TSmartPtr(SelfType&& Other) : Holder(TMovable<HolderType>::Movable(Other.Holder)) { }
 
 			/* up-casting supports */
-			template<typename OtherType, ESharedMode OtherMode, bool OtherHolds, 
+			template<typename OtherType, ESharedMode OtherMode, bool OtherHolds,
 				typename = EnableIf<IsDerivedType<ObjectType, OtherType>>>
-			TSmartPtr(const TSmartPtr<OtherType, OtherMode, OtherHolds>& Other)
+				TSmartPtr(const TSmartPtr<OtherType, OtherMode, OtherHolds>& Other)
 				: Holder(Other.Holder.GetRaw()), Object(dynamic_cast<ObjectType*>(Other.Object))
 			{
 			}
@@ -57,7 +59,7 @@ namespace boxpp {
 
 			/* Get raw pointer. */
 			FASTINLINE ObjectType* GetRaw() const { return Holder ? Object : nullptr; }
-			
+
 		public:
 			FASTINLINE ObjectType* operator ->() const { return GetRaw(); }
 			FASTINLINE ObjectType& operator *() const { return *GetRaw(); }
@@ -89,7 +91,7 @@ namespace boxpp {
 			/* up-casting supports */
 			template<typename OtherType, ESharedMode OtherMode, bool OtherHolds,
 				typename = EnableIf<IsDerivedType<ObjectType, OtherType>>>
-			FASTINLINE SelfType& operator =(const TSmartPtr<OtherType, OtherMode, OtherHolds>& Other) {
+				FASTINLINE SelfType& operator =(const TSmartPtr<OtherType, OtherMode, OtherHolds>& Other) {
 				Holder = Other.Holder.GetRaw();
 				Object = Other.Object;
 				return *this;
@@ -136,7 +138,4 @@ namespace boxpp {
 
 		return Proxy;
 	}
-
 }
-
-#endif

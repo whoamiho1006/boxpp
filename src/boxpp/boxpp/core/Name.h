@@ -1,12 +1,8 @@
-#ifndef __BOXPP_CORE_NAME_HPP__
-#define __BOXPP_CORE_NAME_HPP__
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
-#ifndef __BOXPP_HPP__
-#include <boxpp.hpp>
-#endif
-
-#include <boxpp/utils/NativeStrings.hpp>
-#include <boxpp/utils/StringConvert.hpp>
+#include <boxpp/String.hpp>
 
 namespace boxpp
 {
@@ -100,7 +96,7 @@ namespace boxpp
 			if (Name != Other.Name)
 			{
 				if (Name && Other.Name) {
-					return TNativeStrings<char_t>::Strcmp(GetRaw(), Other.GetRaw());
+					return TNativeString<char_t>::Strcmp(GetRaw(), Other.GetRaw());
 				}
 
 				return Name && !Other.Name ? -1 : 1;
@@ -117,11 +113,11 @@ namespace boxpp
 			}
 
 			else if (IsSameType<CharType, char_t>)
-				return TNativeStrings<CharType>::Strcmp((const CharType*)(Name + 1), String);
+				return TNativeString<CharType>::Strcmp((const CharType*)(Name + 1), String);
 
 			else {
-				TStringConvert<char_t, CharType> Converted(String);
-				return TNativeStrings<char_t>::Strcmp(
+				TStringConverter<char_t, CharType> Converted(String);
+				return TNativeString<char_t>::Strcmp(
 					(const char_t*)(Name + 1), Converted.GetConvertedString());
 			}
 		}
@@ -136,7 +132,7 @@ namespace boxpp
 					Name = nullptr;
 
 				else {
-					size_t Length = TNativeStrings<CharType>::Strlen(InString);
+					size_t Length = TNativeString<CharType>::Strlen(InString);
 					u8* Intergrated = new u8[sizeof(NameData) + (Length + 1) * sizeof(char_t)];
 
 					(Name = (NameData*)Intergrated)
@@ -149,7 +145,7 @@ namespace boxpp
 				}
 			}
 			else {
-				TStringConvert<char_t, CharType> Converter(InString);
+				TStringConverter<char_t, CharType> Converter(InString);
 
 				if (!Converter.GetConvertedString() ||
 					Converter.GetConvertedLength() <= 0)
@@ -184,5 +180,3 @@ namespace boxpp
 	};
 
 }
-
-#endif // !__BOXPP_CORE_NAME_HPP__

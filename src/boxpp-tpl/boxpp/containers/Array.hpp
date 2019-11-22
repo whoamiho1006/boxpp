@@ -53,7 +53,7 @@ namespace boxpp {
 				this->Requires(Other.GetSize());
 				this->Length = Other.GetSize();
 
-				if (IsTypePOD<ElemType>) {
+				if (IsPodType<ElemType>) {
 					::memcpy(this->Storage, Other.Storage, sizeof(ElemType) * Other.GetSize());
 				}
 
@@ -147,7 +147,7 @@ namespace boxpp {
 					return -1;
 				}
 
-				if (IsTypePOD<ElemType>) {
+				if (IsPodType<ElemType>) {
 					::memcpy(this->Storage + this->Length, Items, sizeof(ElemType) * Count);
 				}
 				else {
@@ -179,7 +179,7 @@ namespace boxpp {
 					return -1;
 				}
 
-				if (IsTypePOD<ElemType>) {
+				if (IsPodType<ElemType>) {
 					::memcpy(this->Storage + this->Length, InArray.GetRaw() + Offset, sizeof(ElemType) * Count);
 				}
 				else {
@@ -202,7 +202,7 @@ namespace boxpp {
 			if (InArray.GetSize() && Requires(InArray.GetSize())) {
 				s32 Offset = s32(this->Length);
 
-				if (IsTypePOD<ElemType>) {
+				if (IsPodType<ElemType>) {
 					::memcpy(this->Storage + this->Length, InArray.GetRaw(), sizeof(ElemType) * InArray.GetSize());
 				}
 				else {
@@ -226,7 +226,7 @@ namespace boxpp {
 		*/
 		FASTINLINE s32 Insert(s32 Offset, const ElemType& Item, u32 Count = 1) {
 			if (Offset >= 0 && this->Requires(Count)) {
-				if (IsTypePOD<ElemType>) {
+				if (IsPodType<ElemType>) {
 					::memmove(this->Storage + Offset + Count, this->Storage + Offset,
 						sizeof(ElemType) * (this->Length - Offset));
 				}
@@ -255,7 +255,7 @@ namespace boxpp {
 		*/
 		FASTINLINE s32 Insert(s32 Offset, const ElemType* Items, u32 Count) {
 			if (Offset >= 0 && this->Requires(Count)) {
-				if (IsTypePOD<ElemType>) {
+				if (IsPodType<ElemType>) {
 					::memmove(this->Storage + Offset + Count, this->Storage + Offset,
 						sizeof(ElemType) * (this->Length - Offset));
 
@@ -297,7 +297,7 @@ namespace boxpp {
 		*/
 		FASTINLINE s32 Insert(s32 Offset, ElemType&& Item) {
 			if (Offset >= 0 && this->Requires(1)) {
-				if (IsTypePOD<ElemType>) {
+				if (IsPodType<ElemType>) {
 					::memmove(this->Storage + Offset + 1, this->Storage + Offset,
 						sizeof(ElemType) * (this->Length - Offset));
 				}

@@ -1,12 +1,8 @@
-#ifndef __BOXPP_UTILS_FUNCTION_HPP__
-#define __BOXPP_UTILS_FUNCTION_HPP__
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
-/* Loads boxpp.hpp header if not loaded. */
-#ifndef __BOXPP_HPP__
-#include <boxpp.hpp>
-#endif
-
-#include <boxpp/utils/Forward.hpp>
+#include <boxpp/traits/Forward.hpp>
 
 namespace boxpp {
 
@@ -16,7 +12,7 @@ namespace boxpp {
 	namespace _ {
 		template<typename FuncType>
 		class TFunctionBase;
-		
+
 		template<typename RetType, typename LambdaType, typename ...ArgTypes>
 		using CallType = RetType(*)(void*, ArgTypes...);
 
@@ -304,7 +300,7 @@ namespace boxpp {
 			: BaseType(Object, Callback) { }
 
 		FASTINLINE ~TFunction() { }
-		
+
 	public:
 		FASTINLINE operator bool() const { return this->Lambda && this->Call; }
 		FASTINLINE bool operator !() const { return this->Lambda && this->Call; }
@@ -432,5 +428,3 @@ namespace boxpp {
 	};
 
 }
-
-#endif // !__BOXPP_UTILS_FUNCTION_HPP__

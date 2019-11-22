@@ -20,5 +20,5 @@ namespace boxpp
 		Constexpr Value version of TIsDerivedType.
 	*/
 	template<typename Super, typename Child>
-	constexpr bool IsDerivedType = TIsDerivedType<A, B>::Value;
+	constexpr bool IsDerivedType = TIsDerivedType<Super, Child>::Value;
 }

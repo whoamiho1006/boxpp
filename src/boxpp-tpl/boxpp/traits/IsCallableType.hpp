@@ -1,6 +1,7 @@
 #pragma once
 #include <boxpp/BaseTraits.hpp>
 #include <boxpp/traits/IsSameType.hpp>
+#include <boxpp/traits/IsConvertibleType.hpp>
 #include <boxpp/traits/IsConstructibleType.hpp>
 
 namespace boxpp
@@ -37,13 +38,13 @@ namespace boxpp
 
 		template<typename _Type, typename ... _ArgumentTypes>
 		static PickType<
-			IsSameType<QueryReturnTypeOf<_Type, _ArgumentTypes...>, ReturnType> ||
-			IsConvertibleType<ReturnType, QueryReturnTypeOf<_Type, _ArgumentTypes...>>,
+			IsSameType<QueryReturnType<_Type, _ArgumentTypes...>, ReturnType> ||
+			IsConvertibleType<ReturnType, QueryReturnType<_Type, _ArgumentTypes...>>,
 			Yes, No> Test(s32);
 
 		static constexpr bool Value =
 			IsCallableType<CallableType, ArgumentTypes ...> &&
-			IsSameType<Yes, decltype(Test<Type, ArgumentTypes ...>(0))>;
+			IsSameType<Yes, decltype(Test<CallableType, ArgumentTypes ...>(0))>;
 	};
 
 	/* Determines the callable type is expected one or not. */

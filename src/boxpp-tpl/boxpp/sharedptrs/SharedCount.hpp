@@ -1,10 +1,6 @@
-#ifndef __BOXPP_SHAREDPTR_SHAREDBASE_HPP__
-#define __BOXPP_SHAREDPTR_SHAREDBASE_HPP__
-
-/* Loads boxpp.hpp header if not loaded. */
-#ifndef __BOXPP_HPP__
-#include <boxpp.hpp>
-#endif
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
 #include <atomic>
 
@@ -140,5 +136,3 @@ namespace boxpp {
 		
 	}
 }
-
-#endif

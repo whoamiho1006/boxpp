@@ -2,6 +2,8 @@
 #include <boxpp/Base.hpp>
 #include <boxpp/BaseTypes.hpp>
 
+#include <boxpp/traits/IsPodType.hpp>
+
 #include <boxpp/containers/ArrayBase.hpp>
 #include <boxpp/containers/algorithms/BinarySearch.hpp>
 
@@ -49,7 +51,7 @@ namespace boxpp
 				this->Requires(Other.GetSize());
 				this->Length = Other.GetSize();
 
-				if (IsTypePOD<ElemType>) {
+				if (IsPodType<ElemType>) {
 					::memcpy(this->Storage, Other.Storage, sizeof(ElemType) * Other.GetSize());
 				}
 
@@ -80,7 +82,7 @@ namespace boxpp
 		*/
 		FASTINLINE s32 Add(s32 Offset, const ElemType& Item, u32 Count = 1) {
 			if (Offset >= 0 && this->Requires(Count)) {
-				if (IsTypePOD<ElemType>) {
+				if (IsPodType<ElemType>) {
 					::memmove(this->Storage + Offset + Count, this->Storage + Offset,
 						sizeof(ElemType) * (this->Length - Offset));
 				}
@@ -109,7 +111,7 @@ namespace boxpp
 		*/
 		FASTINLINE s32 Add(s32 Offset, ElemType&& Item) {
 			if (Offset >= 0 && this->Requires(1)) {
-				if (IsTypePOD<ElemType>) {
+				if (IsPodType<ElemType>) {
 					::memmove(this->Storage + Offset + 1, this->Storage + Offset,
 						sizeof(ElemType) * (this->Length - Offset));
 				}

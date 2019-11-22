@@ -3,7 +3,7 @@
 #include <boxpp/BaseTypes.hpp>
 
 #include <boxpp/traits/Movable.hpp>
-#include <boxpp/utils/Comparator.hpp>
+#include <boxpp/containers/Comparator.hpp>
 
 namespace boxpp {
 
