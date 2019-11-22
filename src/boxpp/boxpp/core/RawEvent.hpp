@@ -1,24 +1,18 @@
-#ifndef __BOXPP_ASYNC_EVENT_HPP__
-#define __BOXPP_ASYNC_EVENT_HPP__
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
-/* Loads boxpp.hpp header if not loaded. */
-#ifndef __BOXPP_HPP__
-#include <boxpp.hpp>
-#endif
 
-/* Loads hints/windows.hpp. */
 #include <boxpp/hints/windows.hpp>
-
-/* Loads hints/pthread.hpp. */
 #include <boxpp/hints/pthread.hpp>
 
 namespace boxpp {
 	/*	Event is for guarding specific blocks.
 		Note: FEvent will not be compiled into shared library. */
-	class BOXPP FEvent
+	class FRawEvent
 	{
 	public:
-		FASTINLINE FEvent(bool bManual = true, bool bInitState = false) {
+		FASTINLINE FRawEvent(bool bManual = true, bool bInitState = false) {
 #if PLATFORM_WINDOWS
 			__EVENT__ = w32_compat::CreateEventA(0, bManual, bInitState, 0);
 #endif
@@ -31,7 +25,7 @@ namespace boxpp {
 #endif
 		}
 
-		FASTINLINE ~FEvent() {
+		FASTINLINE ~FRawEvent() {
 #if PLATFORM_WINDOWS
 			w32_compat::CloseHandle(__EVENT__);
 #endif
@@ -143,5 +137,3 @@ namespace boxpp {
 #endif
 	};
 }
-
-#endif // !__BOXPP_ASYNC_EVENT_HPP__

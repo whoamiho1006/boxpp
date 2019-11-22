@@ -19,6 +19,9 @@
     <Filter Include="boxpp\sharedptrs">
       <UniqueIdentifier>{03cb9577-19bd-45f3-862e-900852a3939e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\memory">
+      <UniqueIdentifier>{375792bf-7f34-4de5-b9ab-6e09e816655d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt" />
@@ -152,6 +155,12 @@
     </ClInclude>
     <ClInclude Include="boxpp\SharedPtr.hpp">
       <Filter>boxpp</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\memory\MemoryPool.hpp">
+      <Filter>boxpp\memory</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\memory\PooledObject.hpp">
+      <Filter>boxpp\memory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

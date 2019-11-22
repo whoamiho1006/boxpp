@@ -20,37 +20,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp.hpp" />
-    <ClInclude Include="boxpp\async\Async.hpp" />
-    <ClInclude Include="boxpp\async\Barrior.hpp" />
-    <ClInclude Include="boxpp\async\Event.hpp" />
-    <ClInclude Include="boxpp\async\IRunnable.hpp" />
-    <ClInclude Include="boxpp\async\Task.hpp" />
-    <ClInclude Include="boxpp\async\TaskSource.hpp" />
-    <ClInclude Include="boxpp\async\Thread.hpp" />
-    <ClInclude Include="boxpp\async\ThreadLocal.hpp" />
     <ClInclude Include="boxpp\Base.hpp" />
     <ClInclude Include="boxpp\BaseTypes.hpp" />
+    <ClInclude Include="boxpp\core\Barrior.hpp" />
+    <ClInclude Include="boxpp\core\RawEvent.hpp" />
+    <ClInclude Include="boxpp\core\Threaded.hpp" />
+    <ClInclude Include="boxpp\core\Threading.hpp" />
     <ClInclude Include="boxpp\Normalize.hpp" />
     <ClInclude Include="boxpp\Boilerplate.hpp" />
     <ClInclude Include="boxpp\core\Name.h" />
     <ClInclude Include="boxpp\hints\pthread.hpp" />
     <ClInclude Include="boxpp\hints\windows.hpp" />
-    <ClInclude Include="boxpp\IBox.hpp" />
-    <ClInclude Include="boxpp\internal\IBoxRuntime.hpp" />
     <ClInclude Include="boxpp\module\ModuleInterface.hpp" />
-    <ClInclude Include="boxpp\utils\PureTimer.hpp" />
     <ClInclude Include="boxpp\Version.hpp" />
-    <ClInclude Include="impls\Box.hpp" />
-    <ClInclude Include="impls\BoxSuper.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="boxpp\async\Thread.cpp" />
-    <ClCompile Include="boxpp\async\ThreadLocal.cpp" />
     <ClCompile Include="boxpp\Boilerplate.cpp" />
-    <ClCompile Include="boxpp\boxpp-rt.cpp" />
-    <ClCompile Include="boxpp\internal\IBoxRuntime.cpp" />
-    <ClCompile Include="impls\Box.cpp" />
-    <ClCompile Include="impls\BoxSuper.cpp" />
+    <ClCompile Include="boxpp\core\Threaded.cpp" />
+    <ClCompile Include="boxpp\core\Threading.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

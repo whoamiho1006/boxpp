@@ -4,32 +4,8 @@
     <Filter Include="boxpp">
       <UniqueIdentifier>{0d8f6045-e367-44d2-a2f1-18802d41e598}</UniqueIdentifier>
     </Filter>
-    <Filter Include="boxpp\internal">
-      <UniqueIdentifier>{3bb38817-b5a1-4836-9d85-0db1f47f66fd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="boxpp\async">
-      <UniqueIdentifier>{e39f9210-6ff5-4d9a-ae1b-cefb7af394f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="impls">
-      <UniqueIdentifier>{79d3e16a-cdc2-4959-ab44-c13097268a53}</UniqueIdentifier>
-    </Filter>
     <Filter Include="boxpp\hints">
       <UniqueIdentifier>{040ff7fb-c05a-40ee-a572-af15d90dae4f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="impls\utils">
-      <UniqueIdentifier>{7ca982a7-3cde-4432-9906-5ebdcb920249}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="boxpp\utils">
-      <UniqueIdentifier>{d403972a-c7c8-4bec-ac24-ce996490335b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="impls\async">
-      <UniqueIdentifier>{ce068a45-6506-4602-96cf-682eef9a8582}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="impls\memory">
-      <UniqueIdentifier>{57f67e17-b6fe-48ee-b445-40dbd6101a77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="boxpp\containers">
-      <UniqueIdentifier>{59a012e8-f884-44ef-b7c3-ed917ff66018}</UniqueIdentifier>
     </Filter>
     <Filter Include="boxpp\module">
       <UniqueIdentifier>{d9f8b63e-62be-4088-bf75-a9ec31d676f3}</UniqueIdentifier>
@@ -37,35 +13,14 @@
     <Filter Include="boxpp\core">
       <UniqueIdentifier>{7a348f04-b377-4251-9d62-3463a12fd253}</UniqueIdentifier>
     </Filter>
-    <Filter Include="boxpp\utf">
-      <UniqueIdentifier>{59fe6038-36e8-49b7-9619-81a182d94d54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="boxpp\templates">
-      <UniqueIdentifier>{07633c85-2550-46b7-a889-d68513d1589c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\Base.hpp">
       <Filter>boxpp</Filter>
     </ClInclude>
     <ClInclude Include="boxpp.hpp" />
-    <ClInclude Include="boxpp\internal\IBoxRuntime.hpp">
-      <Filter>boxpp\internal</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\Version.hpp">
       <Filter>boxpp</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\async\IRunnable.hpp">
-      <Filter>boxpp\async</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\IBox.hpp">
-      <Filter>boxpp</Filter>
-    </ClInclude>
-    <ClInclude Include="impls\Box.hpp">
-      <Filter>impls</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\async\Barrior.hpp">
-      <Filter>boxpp\async</Filter>
     </ClInclude>
     <ClInclude Include="boxpp\hints\pthread.hpp">
       <Filter>boxpp\hints</Filter>
@@ -73,29 +28,8 @@
     <ClInclude Include="boxpp\hints\windows.hpp">
       <Filter>boxpp\hints</Filter>
     </ClInclude>
-    <ClInclude Include="impls\BoxSuper.hpp">
-      <Filter>impls</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\async\Event.hpp">
-      <Filter>boxpp\async</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\async\Thread.hpp">
-      <Filter>boxpp\async</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\Boilerplate.hpp">
       <Filter>boxpp</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\async\TaskSource.hpp">
-      <Filter>boxpp\async</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\async\Task.hpp">
-      <Filter>boxpp\async</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\utils\PureTimer.hpp">
-      <Filter>boxpp\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="boxpp\async\Async.hpp">
-      <Filter>boxpp\async</Filter>
     </ClInclude>
     <ClInclude Include="boxpp\module\ModuleInterface.hpp">
       <Filter>boxpp\module</Filter>
@@ -103,35 +37,34 @@
     <ClInclude Include="boxpp\core\Name.h">
       <Filter>boxpp\core</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\async\ThreadLocal.hpp">
-      <Filter>boxpp\async</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\Normalize.hpp">
       <Filter>boxpp</Filter>
     </ClInclude>
     <ClInclude Include="boxpp\BaseTypes.hpp">
       <Filter>boxpp</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\core\Threading.hpp">
+      <Filter>boxpp\core</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\core\Threaded.hpp">
+      <Filter>boxpp\core</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\core\Barrior.hpp">
+      <Filter>boxpp\core</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\core\RawEvent.hpp">
+      <Filter>boxpp\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="boxpp\boxpp-rt.cpp" />
-    <ClCompile Include="boxpp\internal\IBoxRuntime.cpp">
-      <Filter>boxpp\internal</Filter>
-    </ClCompile>
-    <ClCompile Include="impls\Box.cpp">
-      <Filter>impls</Filter>
-    </ClCompile>
-    <ClCompile Include="impls\BoxSuper.cpp">
-      <Filter>impls</Filter>
-    </ClCompile>
     <ClCompile Include="boxpp\Boilerplate.cpp">
       <Filter>boxpp</Filter>
     </ClCompile>
-    <ClCompile Include="boxpp\async\ThreadLocal.cpp">
-      <Filter>boxpp\async</Filter>
+    <ClCompile Include="boxpp\core\Threading.cpp">
+      <Filter>boxpp\core</Filter>
     </ClCompile>
-    <ClCompile Include="boxpp\async\Thread.cpp">
-      <Filter>boxpp\async</Filter>
+    <ClCompile Include="boxpp\core\Threaded.cpp">
+      <Filter>boxpp\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

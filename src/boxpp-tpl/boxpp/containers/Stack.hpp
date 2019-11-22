@@ -30,7 +30,7 @@ namespace boxpp
 				{
 					if (Cursor)
 					{
-						Cursor->SetNext(new NodeType(*Current->GetRaw());
+						Cursor->SetNext(new NodeType(*Current->GetRaw()));
 						Cursor = Cursor->GetNext();
 					}
 
@@ -88,7 +88,7 @@ namespace boxpp
 					{
 						if (Cursor)
 						{
-							Cursor->SetNext(new NodeType(*Current->GetRaw());
+							Cursor->SetNext(new NodeType(*Current->GetRaw()));
 							Cursor = Cursor->GetNext();
 						}
 

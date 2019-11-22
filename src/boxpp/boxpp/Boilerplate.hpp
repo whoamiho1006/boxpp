@@ -1,7 +1,6 @@
-#ifndef __BOXPP_BOILERPLATE_HPP__
-#define __BOXPP_BOILERPLATE_HPP__
-
-#include <boxpp/IBox.hpp>
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
 namespace boxpp {
 	namespace boilerplates {
@@ -45,4 +44,3 @@ namespace boxpp {
 
 	}
 }
-#endif // !__BOXPP_BOILERPLATE_HPP__

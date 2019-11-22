@@ -1,20 +1,12 @@
-#ifndef __BOXPP_BARRIOR_HPP__
-#define __BOXPP_BARRIOR_HPP__
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
-/* Loads boxpp.hpp header if not loaded. */
-#ifndef __BOXPP_HPP__
-#include <boxpp.hpp>
-#endif
-
-/* Loads hints/windows.hpp. */
 #include <boxpp/hints/windows.hpp>
-
-/* Loads hints/pthread.hpp. */
 #include <boxpp/hints/pthread.hpp>
 
 namespace boxpp {
-	/*	Barrior is for guarding specific blocks. 
-		Note: FBarror will not be compiled into shared library. */
+	/*	Barrior is for guarding specific blocks. */
 	class BOXPP FBarrior
 	{
 	public:
@@ -112,4 +104,3 @@ namespace boxpp {
 #define BOX_DO_WITH_BARRIOR(BarriorInstance, ...) \
 	if (true) { BOX_BARRIOR_SCOPED(BarriorInstance); __VA_ARGS__ }
 }
-#endif

@@ -18,7 +18,7 @@ namespace boxpp
 		template<typename CharType, bool IsUtfSeries = IsUtfType<CharType>>
 		struct TOperations
 		{
-			using Consts = TNativeStringConstants<CharType>;
+			using Consts = TConstants<CharType>;
 
 			FASTINLINE static size_t Strlen(const CharType* String) {
 				size_t Length = 0; while (String[Length]) Length++;

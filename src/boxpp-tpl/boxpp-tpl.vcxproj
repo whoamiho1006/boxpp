@@ -177,6 +177,8 @@
     <ClInclude Include="boxpp\containers\SingleNode.hpp" />
     <ClInclude Include="boxpp\containers\SortedArray.hpp" />
     <ClInclude Include="boxpp\containers\Stack.hpp" />
+    <ClInclude Include="boxpp\memory\MemoryPool.hpp" />
+    <ClInclude Include="boxpp\memory\PooledObject.hpp" />
     <ClInclude Include="boxpp\SharedPtr.hpp" />
     <ClInclude Include="boxpp\sharedptrs\BroadcastedObject.hpp" />
     <ClInclude Include="boxpp\sharedptrs\SharedCount.hpp" />

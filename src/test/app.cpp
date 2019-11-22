@@ -1,10 +1,10 @@
 #include <boxpp.hpp>
-#include <boxpp/utils/Function.hpp>
 #include <Windows.h>
 
 #pragma comment(lib, "boxpp.lib")
 #pragma comment(lib, "boxpp-rt.lib")
 
+/*
 void hello2() {
 	printf("hello2!\n");
 }
@@ -83,3 +83,4 @@ boxpp::s32 run(boxpp::IBox* Box)
 
 	return 0;
 }
+*/

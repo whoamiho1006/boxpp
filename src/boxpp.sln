@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boxpp-rt", "boxpp-rt\boxpp-rt.vcxproj", "{2AC37ACF-49BA-411C-83D1-037A43D9AEFB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boxpp", "boxpp\boxpp.vcxproj", "{58B187AF-52F3-4421-94C8-342A5846F64D}"
-	ProjectSection(ProjectDependencies) = postProject
-		{93ADF291-65EB-4F80-A538-D5016D177F05} = {93ADF291-65EB-4F80-A538-D5016D177F05}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{93B4715F-4CF3-484E-A449-48BA97CFFCE9}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -23,8 +20,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test-w32", "test-w32\test-w
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boxpp-drt", "boxpp-drt\boxpp-drt.vcxproj", "{D7518C90-6B44-48ED-83AA-2A82581349DD}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boxpp-iconv", "boxpp-iconv\boxpp-iconv.vcxproj", "{93ADF291-65EB-4F80-A538-D5016D177F05}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boxpp-tpl", "boxpp-tpl\boxpp-tpl.vcxproj", "{66B478BC-FC7B-45DC-9865-7477B4A11247}"
 EndProject
@@ -76,14 +71,6 @@ Global
 		{D7518C90-6B44-48ED-83AA-2A82581349DD}.Release|x64.Build.0 = Release|x64
 		{D7518C90-6B44-48ED-83AA-2A82581349DD}.Release|x86.ActiveCfg = Release|Win32
 		{D7518C90-6B44-48ED-83AA-2A82581349DD}.Release|x86.Build.0 = Release|Win32
-		{93ADF291-65EB-4F80-A538-D5016D177F05}.Debug|x64.ActiveCfg = Debug|x64
-		{93ADF291-65EB-4F80-A538-D5016D177F05}.Debug|x64.Build.0 = Debug|x64
-		{93ADF291-65EB-4F80-A538-D5016D177F05}.Debug|x86.ActiveCfg = Debug|Win32
-		{93ADF291-65EB-4F80-A538-D5016D177F05}.Debug|x86.Build.0 = Debug|Win32
-		{93ADF291-65EB-4F80-A538-D5016D177F05}.Release|x64.ActiveCfg = Release|x64
-		{93ADF291-65EB-4F80-A538-D5016D177F05}.Release|x64.Build.0 = Release|x64
-		{93ADF291-65EB-4F80-A538-D5016D177F05}.Release|x86.ActiveCfg = Release|Win32
-		{93ADF291-65EB-4F80-A538-D5016D177F05}.Release|x86.Build.0 = Release|Win32
 		{66B478BC-FC7B-45DC-9865-7477B4A11247}.Debug|x64.ActiveCfg = Debug|x64
 		{66B478BC-FC7B-45DC-9865-7477B4A11247}.Debug|x64.Build.0 = Debug|x64
 		{66B478BC-FC7B-45DC-9865-7477B4A11247}.Debug|x86.ActiveCfg = Debug|Win32
