@@ -1,37 +1,21 @@
 #include "boilerplate.hpp"
+#include <boxpp/core/Logging.hpp>
 
 #if PLATFORM_WINDOWS
 #include <Windows.h>
 
+using namespace boxpp;
 using namespace boxpp::boilerplates;
+
+extern int commonMain();
 
 int APIENTRY WinMain(
 	HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpszCmdParam, int nCmdShow)
 {
-	int RetVal = 0;
 	FBoilerplate::Set(FBoxBoilerplate::Get());
-
-	/*
-	FBoxRuntimeExeW32 Runtime(hInstance);
-
-	if (bxEnterRuntime(&Runtime))
-	{
-		bxExecRuntime(&Runtime);
-
-		if (bxLeaveRuntime(&Runtime))
-			RetVal = Runtime.ExitCode;
-
-		else {
-			MessageBoxA(NULL, "Box couldn't be finalized correctly.", "Box", 0);
-			RetVal = -1;
-		}
-	}
-	else {
-		MessageBoxA(NULL, "Box couldn't be initialized correctly.", "Box", 0);
-		RetVal = -1;
-	}*/
-
+	FLogging::Get().SetUnderCLI(false);
+	int RetVal = commonMain();
 	FBoilerplate::Set(nullptr);
 	return RetVal;
 }

@@ -6,7 +6,7 @@
 #include <boxpp/core/Threaded.hpp>
 
 #include <boxpp/hints/windows.hpp>
-#include <boxpp/hints/pthread.hpp>
+#include <boxpp/hints/posix.hpp>
 
 namespace boxpp {
 

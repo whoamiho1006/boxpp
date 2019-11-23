@@ -54,7 +54,7 @@ namespace boxpp
 			FASTINLINE static ssize_t Measure(const wide_t* Src) {
 #if PLATFORM_WINDOWS
 				size_t V = w32_compat::WideCharToMultiByte(
-					w32_compat::COMPAT_CP_ACP, 0, (w32_compat::LPCWSTR) Src, -1, nullptr, 0,
+					w32_compat::COMPAT_CP_ACP, 0, Src, -1, nullptr, 0,
 					nullptr, nullptr);
 #endif
 #if PLATFORM_POSIX
@@ -68,13 +68,13 @@ namespace boxpp
 			FASTINLINE static ssize_t Convert(ansi_t* Dst, const wide_t* Src) {
 #if PLATFORM_WINDOWS
 				size_t R = w32_compat::WideCharToMultiByte(
-					w32_compat::COMPAT_CP_ACP, 0, (w32_compat::LPCWSTR) Src, -1, nullptr, 0,
+					w32_compat::COMPAT_CP_ACP, 0, Src, -1, nullptr, 0,
 					nullptr, nullptr);
 
 				size_t V = w32_compat::WideCharToMultiByte(
-					w32_compat::COMPAT_CP_ACP, 0, (w32_compat::LPCWSTR) Src,
+					w32_compat::COMPAT_CP_ACP, 0, Src,
 					TOperations<wide_t>::Strlen(Src),
-					(w32_compat::LPSTR)Dst, R, nullptr, nullptr);
+					Dst, R, nullptr, nullptr);
 #endif
 #if PLATFORM_POSIX
 				size_t V = wcstombs(Dst, Src, TOperations<wide_t>::Strlen(Src));
@@ -91,7 +91,7 @@ namespace boxpp
 			FASTINLINE static ssize_t Measure(const ansi_t* Src) {
 #if PLATFORM_WINDOWS
 				size_t V = w32_compat::MultiByteToWideChar(
-					w32_compat::COMPAT_CP_ACP, 0, (w32_compat::LPCSTR) Src, -1, nullptr, 0);
+					w32_compat::COMPAT_CP_ACP, 0, Src, -1, nullptr, 0);
 #endif
 #if PLATFORM_POSIX
 				size_t V = mbstowcs(nullptr, Src, 0);
@@ -103,11 +103,10 @@ namespace boxpp
 			FASTINLINE static ssize_t Convert(wide_t* Dst, const ansi_t* Src) {
 #if PLATFORM_WINDOWS
 				size_t R = w32_compat::MultiByteToWideChar(
-					w32_compat::COMPAT_CP_ACP, 0, (w32_compat::LPCSTR) Src, -1, nullptr, 0);
+					w32_compat::COMPAT_CP_ACP, 0, Src, -1, nullptr, 0);
 
 				size_t V = w32_compat::MultiByteToWideChar(
-					w32_compat::COMPAT_CP_ACP, 0, (w32_compat::LPCSTR) Src, -1,
-					(w32_compat::LPCWSTR)Dst, R);
+					w32_compat::COMPAT_CP_ACP, 0, Src, -1, Dst, R);
 #endif
 #if PLATFORM_POSIX
 				size_t V = mbstowcs(nullptr, Src, 0);

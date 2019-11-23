@@ -1,13 +1,15 @@
-#ifndef __BOXPP_HINTS_PTHREAD_HPP__
-#define __BOXPP_HINTS_PTHREAD_HPP__
+#pragma once
+#include <boxpp/Base.hpp>
+#include <boxpp/BaseTypes.hpp>
 
-/* 
+/*
 	Auto-completion support for pthread_* series.
 */
 
 #if PLATFORM_POSIX
 #	if !BOX_NOT_COMPILED
 #		include <pthread.h>
+#		include <signal.h>
 #	else
 
 typedef void* pthread_t;
@@ -43,7 +45,20 @@ boxpp::s32 pthread_yield(void);
 void sleep(boxpp::u32 useconds);
 void usleep(boxpp::u32 useconds);
 
+struct sig_t
+{
+	boxpp::s32 this_is_only_for_IDE;
+};
+
+boxpp::s32 raise(sig_t sig);
+
+constexpr sig_t SIGABRT = { 1 };
+constexpr sig_t SIGFPE = { 2 };
+constexpr sig_t SIGILL = { 3 };
+constexpr sig_t SIGINT = { 4 };
+constexpr sig_t SIGSEGV = { 5 };
+constexpr sig_t SIGTERM = { 6 };
+
+FASTINLINE void __builtin_trap() { }
 #	endif
 #endif
-
-#endif // !__BOXPP_HINTS_PTHREAD_HPP__

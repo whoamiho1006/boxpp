@@ -336,3 +336,6 @@ typedef PLATFORM_SIZE_TYPE size_t;
 #pragma warning(disable: 4251)
 #pragma warning(disable: 4275)
 #endif
+
+#define BOX_CONCAT_2ND(Front, Back)	Front ## Back
+#define BOX_CONCAT(Front, Back)		BOX_CONCAT_2ND(Front, Back)

@@ -15,5 +15,4 @@ public:
 	virtual void* Alloc(size_t Size);
 	virtual void* Realloc(void* Block, size_t NewSize);
 	virtual void Free(void* Block);
-
 };

@@ -3,7 +3,7 @@
 #include <boxpp/BaseTypes.hpp>
 
 #include <boxpp/hints/windows.hpp>
-#include <boxpp/hints/pthread.hpp>
+#include <boxpp/hints/posix.hpp>
 
 namespace boxpp {
 	/*	Barrior is for guarding specific blocks. */

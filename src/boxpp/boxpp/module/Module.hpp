@@ -10,14 +10,6 @@ namespace boxpp
 
 	namespace modules
 	{
-		enum class EModuleType
-		{
-			Exe,
-			ExeCLI,
-			Dynamic,
-			Static
-		};
-
 		/*
 			Module Interface that manages self-initialization.
 		*/
@@ -26,7 +18,7 @@ namespace boxpp
 		{
 		public:
 			virtual ~IModule() { }
-			
+
 		public:
 			virtual bool Startup() = 0;
 			virtual void Shutdown() = 0;

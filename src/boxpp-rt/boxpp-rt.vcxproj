@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="boilerplate.cpp" />
+    <ClCompile Include="main-common.cpp" />
     <ClCompile Include="main-w32.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

@@ -151,6 +151,29 @@ namespace boxpp
 			return false;
 		}
 
+		FASTINLINE bool Dequeue()
+		{
+			if (First)
+			{
+				NodeType* Temp = First;
+				First = First->GetNext();
+				--CachedLength;
+
+				if (CachedLast == Temp)
+					CachedLast = First;
+
+				if (Temp->GetRaw()) {
+					delete Temp;
+					return true;
+				}
+
+				delete Temp;
+				return false;
+			}
+
+			return false;
+		}
+
 		FASTINLINE ElemType* Peek() const 
 		{
 			return First ? First->GetRaw() : nullptr;

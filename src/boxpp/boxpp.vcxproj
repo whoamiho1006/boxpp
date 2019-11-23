@@ -23,23 +23,32 @@
     <ClInclude Include="boxpp\Base.hpp" />
     <ClInclude Include="boxpp\BaseTypes.hpp" />
     <ClInclude Include="boxpp\core\Barrior.hpp" />
+    <ClInclude Include="boxpp\core\Debugger.hpp" />
+    <ClInclude Include="boxpp\core\Engine.hpp" />
+    <ClInclude Include="boxpp\core\EngineLoop.hpp" />
+    <ClInclude Include="boxpp\core\Logging.hpp" />
     <ClInclude Include="boxpp\core\RawEvent.hpp" />
     <ClInclude Include="boxpp\core\Threaded.hpp" />
     <ClInclude Include="boxpp\core\Threading.hpp" />
+    <ClInclude Include="boxpp\hints\vsprintf.hpp" />
     <ClInclude Include="boxpp\module\ModuleManager.hpp" />
     <ClInclude Include="boxpp\Normalize.hpp" />
     <ClInclude Include="boxpp\Boilerplate.hpp" />
     <ClInclude Include="boxpp\core\Name.hpp" />
-    <ClInclude Include="boxpp\hints\pthread.hpp" />
+    <ClInclude Include="boxpp\hints\posix.hpp" />
     <ClInclude Include="boxpp\hints\windows.hpp" />
     <ClInclude Include="boxpp\module\Module.hpp" />
     <ClInclude Include="boxpp\Version.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\Boilerplate.cpp" />
+    <ClCompile Include="boxpp\core\Debugger.cpp" />
+    <ClCompile Include="boxpp\core\Engine.cpp" />
+    <ClCompile Include="boxpp\core\Logging.cpp" />
     <ClCompile Include="boxpp\core\Threaded.cpp" />
     <ClCompile Include="boxpp\core\Threading.cpp" />
     <ClCompile Include="boxpp\module\ModuleManager.cpp" />
+    <ClCompile Include="Modules.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
@@ -100,7 +109,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(SolutionDir)boxpp-engine;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -114,7 +123,7 @@
     <LinkIncremental>false</LinkIncremental>
     <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(SolutionDir)boxpp-engine;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

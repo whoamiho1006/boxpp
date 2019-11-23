@@ -162,5 +162,11 @@
     <ClInclude Include="boxpp\memory\PooledObject.hpp">
       <Filter>boxpp\memory</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\containers\Delegate.hpp">
+      <Filter>boxpp\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\containers\DelegateBase.h">
+      <Filter>boxpp\containers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

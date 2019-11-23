@@ -1,32 +1,19 @@
 #include "boilerplate.hpp"
-#include <stdio.h>
+#include <boxpp/core/Engine.hpp>
+#include <boxpp/core/Logging.hpp>
 
+using namespace boxpp;
 using namespace boxpp::boilerplates;
+
+extern int commonMain();
 
 int main(int argc, char** argv)
 {
 	FBoilerplate::Set(FBoxBoilerplate::Get());
-	int RetVal = 0;
-
-	/*
-	if (bxEnterRuntime(&Runtime))
-	{
-		bxExecRuntime(&Runtime);
-
-		if (bxLeaveRuntime(&Runtime))
-			RetVal = Runtime.ExitCode;
-
-		else {
-			fprintf(stderr, "Box couldn't be finalized correctly.\n");
-			RetVal = -1;
-		}
-	}
-	else {
-		fprintf(stderr, "Box couldn't be loaded.\n");
-		RetVal = -1;
-	}
-	*/
-
+	FLogging::Get().SetUnderCLI(true);
+	int RetVal = commonMain();
 	FBoilerplate::Set(nullptr);
 	return RetVal;
 }
+
+

@@ -22,9 +22,6 @@
     <ClInclude Include="boxpp\Version.hpp">
       <Filter>boxpp</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\hints\pthread.hpp">
-      <Filter>boxpp\hints</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\hints\windows.hpp">
       <Filter>boxpp\hints</Filter>
     </ClInclude>
@@ -58,6 +55,24 @@
     <ClInclude Include="boxpp\core\Name.hpp">
       <Filter>boxpp\core</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\core\Engine.hpp">
+      <Filter>boxpp\core</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\core\Logging.hpp">
+      <Filter>boxpp\core</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\hints\vsprintf.hpp">
+      <Filter>boxpp\hints</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\core\Debugger.hpp">
+      <Filter>boxpp\core</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\hints\posix.hpp">
+      <Filter>boxpp\hints</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\core\EngineLoop.hpp">
+      <Filter>boxpp\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\Boilerplate.cpp">
@@ -71,6 +86,16 @@
     </ClCompile>
     <ClCompile Include="boxpp\module\ModuleManager.cpp">
       <Filter>boxpp\module</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\core\Logging.cpp">
+      <Filter>boxpp\core</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\core\Debugger.cpp">
+      <Filter>boxpp\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules.cpp" />
+    <ClCompile Include="boxpp\core\Engine.cpp">
+      <Filter>boxpp\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -27,7 +27,7 @@ namespace boxpp {
 		BOX_COMPAT_WIN32_TYPE(WORD, u16);
 		BOX_COMPAT_WIN32_TYPE(DWORD, u32);
 
-		BOX_COMPAT_WIN32_TYPE(CHAR, s16);
+		BOX_COMPAT_WIN32_TYPE(CHAR, s8);
 		BOX_COMPAT_WIN32_TYPE(SHORT, s16);
 		BOX_COMPAT_WIN32_TYPE(INT, s32);
 
@@ -35,11 +35,11 @@ namespace boxpp {
 
 		typedef DWORD UINT, *LPUINT;
 
-		typedef LPCHAR			LPSTR;
-		typedef const LPCHAR	LPCSTR;
+		typedef CHAR*			LPSTR;
+		typedef const CHAR*		LPCSTR;
 
 		typedef WCHAR*			LPWSTR;
-		typedef const LPWSTR	LPCWSTR;
+		typedef const WCHAR*	LPCWSTR;
 
 		typedef LPVOID HANDLE;
 		typedef HANDLE HGLOBAL;
@@ -106,6 +106,22 @@ namespace boxpp {
 
 		NO_MANGLED BOXIMPORT INT BOX_STDCALL MultiByteToWideChar(UINT, DWORD, LPCSTR, INT, LPWSTR, INT);
 		NO_MANGLED BOXIMPORT INT BOX_STDCALL WideCharToMultiByte(UINT, DWORD, LPCWSTR, INT, LPSTR, INT, LPCSTR, LPBOOL);
+
+		NO_MANGLED BOXIMPORT BOOL BOX_STDCALL IsDebuggerPresent(void);
+		NO_MANGLED BOXIMPORT void BOX_STDCALL DebugBreak(void);
+
+		NO_MANGLED BOXIMPORT int BOX_STDCALL MessageBoxA(HWND, LPCSTR, LPCSTR, UINT);
+		NO_MANGLED BOXIMPORT int BOX_STDCALL MessageBoxW(HWND, LPCWSTR, LPCWSTR, UINT);
+
+		FASTINLINE int MessageBox(HWND a, LPCSTR b, LPCSTR c, UINT d)
+		{
+			return MessageBoxA(a, b, c, d);
+		}
+
+		FASTINLINE int MessageBox(HWND a, LPCWSTR b, LPCWSTR c, UINT d)
+		{
+			return MessageBoxW(a, b, c, d);
+		}
 	}
 }
 #endif
