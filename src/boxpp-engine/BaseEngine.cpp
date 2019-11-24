@@ -3,7 +3,8 @@
 namespace boxpp {
 	FBaseEngine::FBaseEngine()
 		: bPreInitialized(false), bPreConfigured(false),
-		bPostInitialized(false), bPostConfigured(false)
+		bPostInitialized(false), bPostConfigured(false),
+		bKeepRunningLoop(false)
 	{
 	}
 
@@ -77,6 +78,21 @@ namespace boxpp {
 			return &Modules;
 
 		return nullptr;
+	}
+
+	void FBaseEngine::RegisterLoop(const TSharedPtr<IEngineLoop>& Loop) {
+		FBarriorScope Guard(Barrior);
+		EngineLoops.Add(Loop);
+	}
+
+	void FBaseEngine::UnregisterLoop(const TSharedPtr<IEngineLoop>& Loop) {
+		FBarriorScope Guard(Barrior);
+		EngineLoops.Remove(Loop);
+	}
+
+	void FBaseEngine::TerminateLoop() {
+		FBarriorScope Guard(Barrior);
+		bKeepRunningLoop = false;
 	}
 
 }

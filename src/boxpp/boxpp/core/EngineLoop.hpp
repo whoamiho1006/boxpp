@@ -16,9 +16,12 @@ namespace boxpp
 	public:
 		/* Determines the engine can step or not. */
 		virtual bool CanStep() const = 0;
-
+		
 		/* Step forward. */
 		virtual void Step() = 0;
+
+		/* Exit engine loop. */
+		virtual void Exit() = 0;
 	};
 
 }

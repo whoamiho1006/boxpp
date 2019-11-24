@@ -15,6 +15,7 @@ namespace boxpp
 		Ready
 	};
 
+	class IEngineLoop;
 	class IEngine
 	{
 	public:
@@ -46,7 +47,18 @@ namespace boxpp
 		virtual modules::FModuleManager* GetModuleManager() const = 0;
 
 	public:
-		
+		/* Register engine loop. */
+		virtual void RegisterLoop(const TSharedPtr<IEngineLoop>& Loop) = 0;
+
+		/* Unregister engine loop. */
+		virtual void UnregisterLoop(const TSharedPtr<IEngineLoop>& Loop) = 0;
+
+	public:
+		/* Keep the loop running or not. */
+		virtual bool KeepRunningLoop() const = 0;
+
+		/* Terminate engine loop. (after termination, engine will be finalized ) */
+		virtual void TerminateLoop() = 0;
 	};
 
 }

@@ -1,4 +1,6 @@
 #include "Engine.hpp"
+#include <boxpp/core/Threading.hpp>
+#include <boxpp/core/EngineLoop.hpp>
 
 namespace boxpp {
 
@@ -8,6 +10,44 @@ namespace boxpp {
 
 	void FEngine::Launch()
 	{
+		TArray<TSharedPtr<IEngineLoop>> Loops;
+
+		while (KeepRunningLoop())
+		{
+			s32 Counts = 0;
+
+			if (true) {
+				FBarriorScope Guard(Barrior);
+				EngineLoops.Clear(true);
+				Loops.Append(EngineLoops);
+			}
+
+			for (TSharedPtr<IEngineLoop>& Loop : Loops) {
+				if (Loop && Loop->CanStep())
+				{
+					++Counts;
+					Loop->Step();
+				}
+			}
+
+			if (!Counts)
+			{
+				FThreading::YieldOnce();
+			}
+		}
+
+		if (true) {
+			FBarriorScope Guard(Barrior);
+			EngineLoops.Clear(true);
+			Loops.Append(EngineLoops);
+		}
+
+		for (TSharedPtr<IEngineLoop>& Loop : Loops) {
+			if (Loop)
+			{
+				Loop->Exit();
+			}
+		}
 	}
 
 	bool FEngine::PreInitialize()

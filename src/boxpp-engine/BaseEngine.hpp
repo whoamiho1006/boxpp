@@ -17,8 +17,13 @@ namespace boxpp
 		bool bPostInitialized;
 		bool bPostConfigured;
 
+	private:
+		bool bKeepRunningLoop;
+
 	protected:
+		FBarrior Barrior;
 		mutable modules::FModuleManager Modules;
+		TArray<TSharedPtr<IEngineLoop>> EngineLoops;
 
 	public:
 		/* Initialize engine instance. (INTERNAL USE ONLY) */
@@ -36,7 +41,21 @@ namespace boxpp
 
 	public:
 		/* Get module manager. */
-		virtual modules::FModuleManager* GetModuleManager() const;
+		virtual modules::FModuleManager* GetModuleManager() const override;
+
+	public:
+		/* Register engine loop. */
+		virtual void RegisterLoop(const TSharedPtr<IEngineLoop>& Loop) override;
+
+		/* Unregister engine loop. */
+		virtual void UnregisterLoop(const TSharedPtr<IEngineLoop>& Loop) override;
+
+	public:
+		/* Keep the loop running or not. */
+		virtual bool KeepRunningLoop() const override { return bKeepRunningLoop; }
+
+		/* Terminate engine loop. (after termination, engine will be finalized ) */
+		virtual void TerminateLoop() override;
 
 	public:
 		/* Pre-Initialize minimal environment. */

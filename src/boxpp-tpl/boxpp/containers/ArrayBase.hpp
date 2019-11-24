@@ -149,21 +149,30 @@ namespace boxpp
 		/*
 			Clear this array and release all memory.
 		*/
-		FASTINLINE void Clear() {
+		FASTINLINE void Clear(bool bKeepSlack = false) {
 			if (Storage) {
-				ElemType* Storage = nullptr;
-				u32 Capacity = 0;
-				u32 Length = 0;
+				if (bKeepSlack) {
+					for (u32 i = 0; i < Length; i++) {
+						Storage[i].~ElemType();
+					}
 
-				Swap(this->Storage, Storage);
-				Swap(this->Capacity, Capacity);
-				Swap(this->Length, Length);
-
-				for (u32 i = 0; i < Length; i++) {
-					Storage[i].~ElemType();
+					this->Length = 0;
 				}
+				else {
+					ElemType* Storage = nullptr;
+					u32 Capacity = 0;
+					u32 Length = 0;
 
-				delete[]((u8*)Storage);
+					Swap(this->Storage, Storage);
+					Swap(this->Capacity, Capacity);
+					Swap(this->Length, Length);
+
+					for (u32 i = 0; i < Length; i++) {
+						Storage[i].~ElemType();
+					}
+
+					delete[]((u8*)Storage);
+				}
 			}
 		}
 
