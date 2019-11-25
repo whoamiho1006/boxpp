@@ -122,6 +122,19 @@ namespace boxpp {
 		{
 			return MessageBoxW(a, b, c, d);
 		}
+
+		NO_MANGLED BOXIMPORT DWORD BOX_STDCALL GetModuleFileNameA(HMODULE, LPSTR, DWORD);
+		NO_MANGLED BOXIMPORT DWORD BOX_STDCALL GetModuleFileNameW(HMODULE, LPWSTR, DWORD);
+
+		FASTINLINE DWORD GetModuleFileName(HMODULE a, LPSTR b, DWORD c)
+		{
+			GetModuleFileNameA(a, b, c);
+		}
+
+		FASTINLINE DWORD GetModuleFileName(HMODULE a, LPWSTR b, DWORD c)
+		{
+			return GetModuleFileNameW(a, b, c);
+		}
 	}
 }
 #endif

@@ -2,6 +2,7 @@
 
 #include <boxpp/module/Module.hpp>
 #include <boxpp/module/ModuleManager.hpp>
+#include <boxpp/core/Path.hpp>
 
 #include <boxpp/containers/Delegate.hpp>
 
@@ -13,7 +14,7 @@ class FAppModule : public boxpp::modules::IModule
 public:
 	virtual bool Startup()
 	{
-		printf("Hello!");
+		printf("Hello! %S\n", *boxpp::FPath::Binaries());
 		return true;
 	}
 

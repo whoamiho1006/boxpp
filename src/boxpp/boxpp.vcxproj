@@ -22,11 +22,14 @@
     <ClInclude Include="boxpp.hpp" />
     <ClInclude Include="boxpp\Base.hpp" />
     <ClInclude Include="boxpp\BaseTypes.hpp" />
+    <ClInclude Include="boxpp\configs\Config.hpp" />
+    <ClInclude Include="boxpp\configs\Section.hpp" />
     <ClInclude Include="boxpp\core\Barrior.hpp" />
     <ClInclude Include="boxpp\core\Debugger.hpp" />
     <ClInclude Include="boxpp\core\Application.hpp" />
     <ClInclude Include="boxpp\core\ApplicationLoop.hpp" />
     <ClInclude Include="boxpp\core\Logging.hpp" />
+    <ClInclude Include="boxpp\core\Path.hpp" />
     <ClInclude Include="boxpp\core\RawEvent.hpp" />
     <ClInclude Include="boxpp\core\Threaded.hpp" />
     <ClInclude Include="boxpp\core\Threading.hpp" />
@@ -42,10 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\Boilerplate.cpp" />
+    <ClCompile Include="boxpp\configs\Config.cpp" />
     <ClCompile Include="boxpp\core\Debugger.cpp" />
     <ClCompile Include="boxpp\core\Application.cpp" />
     <ClCompile Include="boxpp\core\ApplicationLoop.cpp" />
     <ClCompile Include="boxpp\core\Logging.cpp" />
+    <ClCompile Include="boxpp\core\Path.cpp" />
     <ClCompile Include="boxpp\core\Threaded.cpp" />
     <ClCompile Include="boxpp\core\Threading.cpp" />
     <ClCompile Include="boxpp\module\ModuleManager.cpp" />

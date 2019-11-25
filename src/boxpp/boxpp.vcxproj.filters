@@ -13,6 +13,9 @@
     <Filter Include="boxpp\core">
       <UniqueIdentifier>{7a348f04-b377-4251-9d62-3463a12fd253}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\configs">
+      <UniqueIdentifier>{33377015-c633-4432-858b-58b4a9174f86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\Base.hpp">
@@ -73,6 +76,15 @@
     <ClInclude Include="boxpp\core\ApplicationLoop.hpp">
       <Filter>boxpp\core</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\configs\Section.hpp">
+      <Filter>boxpp\configs</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\configs\Config.hpp">
+      <Filter>boxpp\configs</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\core\Path.hpp">
+      <Filter>boxpp\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\Boilerplate.cpp">
@@ -99,6 +111,12 @@
     </ClCompile>
     <ClCompile Include="boxpp\core\ApplicationLoop.cpp">
       <Filter>boxpp\core</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\core\Path.cpp">
+      <Filter>boxpp\core</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\configs\Config.cpp">
+      <Filter>boxpp\configs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

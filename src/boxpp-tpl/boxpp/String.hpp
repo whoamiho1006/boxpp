@@ -36,12 +36,12 @@ namespace boxpp
 		}
 
 		template<typename OtherType>
-		TString(const OtherType* InString)
+		TString(const OtherType* InString, ssize_t Max = -1)
 		{
 			TStringConverter<OtherType, CharType> Converter(InString);
 
 			if (Converter.GetConvertedString())
-				Append(Converter.GetConvertedString());
+				Append(Converter.GetConvertedString(), Max);
 		}
 
 		TString(const TString<CharType>& Other)
@@ -62,8 +62,13 @@ namespace boxpp
 	public:
 		FASTINLINE operator bool() const { return Storage.GetSize() > 1; }
 		FASTINLINE bool operator !() const { return Storage.GetSize() <= 1; }
+		FASTINLINE CharType* operator *() const { return GetRaw(); }
 		FASTINLINE size_t GetSize() const { return *this ? Storage.GetSize() - 1 : 0; }
 		FASTINLINE CharType* GetRaw() const { return *this ? Storage.GetRaw() : nullptr; }
+
+	public:
+		FASTINLINE CharType& operator [](s32 Index) { return Storage[Index]; }
+		FASTINLINE const CharType& operator [](s32 Index) const { return Storage[Index]; }
 
 	public:
 		FASTINLINE TString<CharType>& operator =(const TString<CharType>& Other) { Storage = Other.Storage; return *this; }
@@ -192,7 +197,7 @@ namespace boxpp
 		}
 
 	public:
-		FASTINLINE bool Substring(TString<CharType>& OutString, size_t Offset, ssize_t Count = -1)
+		FASTINLINE bool Substring(TString<CharType>& OutString, size_t Offset, ssize_t Count = -1) const
 		{
 			OutString.Clear();
 
@@ -209,7 +214,7 @@ namespace boxpp
 			return false;
 		}
 
-		FASTINLINE TString<CharType>& Substring(size_t Offset, ssize_t Count = -1)
+		FASTINLINE const TString<CharType>& Substring(size_t Offset, ssize_t Count = -1) const
 		{
 			TString<CharType> RetVal;
 			Substring(RetVal, Offset, Count);

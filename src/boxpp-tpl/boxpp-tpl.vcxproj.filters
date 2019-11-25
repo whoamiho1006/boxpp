@@ -22,6 +22,9 @@
     <Filter Include="boxpp\memory">
       <UniqueIdentifier>{375792bf-7f34-4de5-b9ab-6e09e816655d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\tuple">
+      <UniqueIdentifier>{a93d529f-2a3e-445c-b0b0-184d43ec0142}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt" />
@@ -168,5 +171,13 @@
     <ClInclude Include="boxpp\containers\DelegateBase.h">
       <Filter>boxpp\containers</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\tuple\Tuple.hpp">
+      <Filter>boxpp\tuple</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="boxpp\traits\BypassType.hpp">
+      <Filter>boxpp\traits</Filter>
+    </None>
   </ItemGroup>
 </Project>

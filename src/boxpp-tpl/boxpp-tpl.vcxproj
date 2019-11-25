@@ -206,9 +206,13 @@
     <ClInclude Include="boxpp\traits\Forward.hpp" />
     <ClInclude Include="boxpp\traits\Movable.hpp" />
     <ClInclude Include="boxpp\traits\PickType.hpp" />
+    <ClInclude Include="boxpp\tuple\Tuple.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="boxpp\traits\BypassType.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
