@@ -1,40 +1,10 @@
-#ifndef __BOXPP_HPP__
-#define __BOXPP_HPP__
-
+#pragma once
 #include <boxpp/Base.hpp>
-#include <boxpp/utf/UtfCommon.hpp>
-
 #include <boxpp/Version.hpp>
 
-/* -- Containers -- */
-#include <boxpp/containers/Array.hpp>
-#include <boxpp/containers/SortedArray.hpp>
+#include <boxpp/Traits.hpp>
+#include <boxpp/Containers.hpp>
+#include <boxpp/String.hpp>
+#include <boxpp/SharedPtr.hpp>
 
-#include <boxpp/containers/Node.hpp>
-#include <boxpp/containers/SingleNode.hpp>
-#include <boxpp/containers/LinkedList.hpp>
-#include <boxpp/containers/Queue.hpp>
-
-/* -- Native string supports. -- */
-#include <boxpp/utils/NativeStrings.hpp>
-#include <boxpp/utils/StringConvert.hpp>
-
-/* -- Name. -- */
-#include <boxpp/core/Name.h>
-
-/* -- String. -- */
-
-/* -- Shared pointers. -- */
-#include <boxpp/sharedptr/SharedPtr.hpp>
-#include <boxpp/sharedptr/BroadcastedObject.hpp>
-
-/* -- IRunnable interface -- */
-#include <boxpp/async/IRunnable.hpp>
-
-#include <boxpp/async/Task.hpp>
-#include <boxpp/async/TaskSource.hpp>
-
-/* -- IBox interface -- */
-#include <boxpp/IBox.hpp>
-
-#endif // !__BOXPP_HPP__
+#include <boxpp/core/Name.hpp>

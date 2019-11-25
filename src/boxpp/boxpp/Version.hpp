@@ -1,6 +1,4 @@
-#ifdef __BOXPP_VERSION_MACRO_ONLY
-#undef __BOXPP_VERSION_MACRO_ONLY
-#define __BOXPP_VERSION_NOT_HERE
+#pragma once
 
 #define BOXPP_VERSION_MAJOR		1
 #define BOXPP_VERSION_MINOR		0
@@ -16,13 +14,6 @@
 	BOX_TOSTR(BOXPP_VERSION_BUILD)
 
 constexpr const char* pp = BOXPP_VERSION_STRING;
-#endif
-
-#if !defined(__BOXPP_VERSION_MACRO_ONLY) && \
-	!defined(__BOXPP_VERSION_HPP__) && \
-	!defined(__BOXPP_VERSION_NOT_HERE)
-
-#define __BOXPP_VERSION_HPP__
 
 namespace boxpp
 {
@@ -71,9 +62,3 @@ namespace boxpp
 		constexpr bool operator > (const SVersion& Other) const { return Compare(Other) > 0; }
 	};
 }
-
-#endif // !__BOXPP_VERSION_HPP__
-
-#ifdef __BOXPP_VERSION_NOT_HERE
-#undef __BOXPP_VERSION_NOT_HERE
-#endif

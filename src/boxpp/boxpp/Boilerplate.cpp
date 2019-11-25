@@ -5,52 +5,52 @@ BOXPP_DECLARE_BOILERPLATE();
 
 namespace boxpp {
 	namespace boilerplates {
-		IBoilerplate* FBoilerplate::Plate = nullptr;
-
 		struct MetaData
 		{
-			IBoilerplate* Allocator;
+			size_t Size;
 		};
-
-		IBoilerplate* FBoilerplate::Get() { return Plate; }
-		void FBoilerplate::Set(IBoilerplate * Boilerplate) { Plate = Boilerplate; }
 
 		/*
 			TODO: replace alloc method to more suitable implementation.
 		*/
 		void* FBoilerplate::Alloc(size_t Size)
 		{
-			MetaData* Block = nullptr;
-			
-			(Block = (MetaData*)(Plate ? 
-				Plate->Alloc(sizeof(MetaData) + Size) : 
-				malloc(sizeof(MetaData) + Size)))
-				->Allocator = Plate;
+			if (MetaData* Block = (MetaData*)(malloc(sizeof(MetaData) + Size))) {
+				Block->Size = Size;
+				return Block + 1;
+			}
 
-			return Block + 1;
+			return nullptr;
+		}
+
+		size_t FBoilerplate::SizeOf(void* _Block)
+		{
+			if (_Block) {
+				return ((MetaData*)_Block - 1)->Size;
+			}
+
+			return 0;
 		}
 
 		void* FBoilerplate::Realloc(void* _Block, size_t NewSize)
 		{
-			MetaData* Block = ((MetaData*)_Block - 1);
-			IBoilerplate* Plate = Block->Allocator;
+			if (MetaData* Block = (MetaData*)(realloc(
+				((MetaData*)_Block - 1), sizeof(MetaData) + NewSize))) 
+			{
+				Block->Size = NewSize;
+				return Block + 1;
+			}
 
-			Block = (MetaData*)(Plate ?
-				Plate->Realloc(Block, sizeof(MetaData) + NewSize) :
-				realloc(Block, sizeof(MetaData) + NewSize));
-
-			return Block + 1;
+			return nullptr;
 		}
 
 		void FBoilerplate::Free(void* _Block)
 		{
-			MetaData* Block = ((MetaData*)_Block - 1);
-			IBoilerplate* Plate = Block->Allocator;
+			if (_Block) {
+				MetaData* Block = ((MetaData*)_Block - 1);
 
-			if (Plate)
-				Plate->Free(Block);
-
-			else ::free(Block);
+				::free(Block);
+			}
 		}
 	}
 }
