@@ -1,5 +1,7 @@
 #include <boxpp.hpp>
+
 #include <boxpp/module/Module.hpp>
+#include <boxpp/module/ModuleManager.hpp>
 
 #include <boxpp/containers/Delegate.hpp>
 
@@ -11,8 +13,7 @@ class FAppModule : public boxpp::modules::IModule
 public:
 	virtual bool Startup()
 	{
-		boxpp::TDelegate<int, short> dd;
-
+		printf("Hello!");
 		return true;
 	}
 
@@ -21,3 +22,5 @@ public:
 
 	}
 };
+
+BOX_IMPLEMENT_MODULE(FAppModule, AppModule);

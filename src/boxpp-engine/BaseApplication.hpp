@@ -1,15 +1,16 @@
 #pragma once
 #include <boxpp.hpp>
-#include <boxpp/core/Engine.hpp>
+#include <boxpp/core/Application.hpp>
+#include <boxpp/core/ApplicationLoop.hpp>
 #include <boxpp/module/ModuleManager.hpp>
 
 namespace boxpp
 {
-	class FBaseEngine : public IEngine
+	class FBaseApplication : public IApplication
 	{
 	public:
-		FBaseEngine();
-		virtual ~FBaseEngine();
+		FBaseApplication();
+		virtual ~FBaseApplication();
 
 	private:
 		bool bPreInitialized;
@@ -22,8 +23,9 @@ namespace boxpp
 
 	protected:
 		FBarrior Barrior;
+		mutable FApplicationLoop Loop;
 		mutable modules::FModuleManager Modules;
-		TArray<TSharedPtr<IEngineLoop>> EngineLoops;
+		TArray<TSharedPtr<IApplicationLoop>> EngineLoops;
 
 	public:
 		/* Initialize engine instance. (INTERNAL USE ONLY) */
@@ -43,19 +45,8 @@ namespace boxpp
 		/* Get module manager. */
 		virtual modules::FModuleManager* GetModuleManager() const override;
 
-	public:
-		/* Register engine loop. */
-		virtual void RegisterLoop(const TSharedPtr<IEngineLoop>& Loop) override;
-
-		/* Unregister engine loop. */
-		virtual void UnregisterLoop(const TSharedPtr<IEngineLoop>& Loop) override;
-
-	public:
-		/* Keep the loop running or not. */
-		virtual bool KeepRunningLoop() const override { return bKeepRunningLoop; }
-
-		/* Terminate engine loop. (after termination, engine will be finalized ) */
-		virtual void TerminateLoop() override;
+		/* Get engine loop. */
+		virtual FApplicationLoop* GetEngineLoop() const override;
 
 	public:
 		/* Pre-Initialize minimal environment. */

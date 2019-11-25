@@ -1,4 +1,4 @@
-﻿  BaseEngine.cpp
-  Engine.cpp
+﻿  BaseApplication.cpp
+  Application.cpp
   코드를 생성하고 있습니다...
-  boxpp-engine.vcxproj -> D:\Github\boxpp\src\binaries\Win32-Debug\boxpp-engine.lib
+  boxpp-engine.vcxproj -> C:\Users\user\Documents\GitHub\boxpp\src\binaries\Win32-Debug\boxpp-engine.lib

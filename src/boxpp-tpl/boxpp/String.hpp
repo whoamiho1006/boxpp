@@ -175,6 +175,15 @@ namespace boxpp
 			}
 		}
 
+		FASTINLINE s32 IndexOf(const CharType InChar, u32 Offset = 0) {
+			for (u32 i = Offset; i < GetSize(); ++i) {
+				if (*this[i] == InChar)
+					return i;
+			}
+
+			return -1;
+		}
+
 		FASTINLINE void RemoveAt(size_t Offset, ssize_t Count = -1)
 		{
 			if (*this && Offset < Storage.GetSize() - 1) {

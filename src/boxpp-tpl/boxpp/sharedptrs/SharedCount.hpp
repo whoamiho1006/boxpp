@@ -2,7 +2,6 @@
 #include <boxpp/Base.hpp>
 #include <boxpp/BaseTypes.hpp>
 
-#include <boxpp/memory/PooledObject.hpp>
 #include <atomic>
 
 namespace boxpp {
@@ -112,8 +111,7 @@ namespace boxpp {
 		};
 
 		template<typename ObjectType, typename DeleterType = TDefaultDeleter<ObjectType>>
-		class TSharedCount : DeleterType, public ISharedCount,
-			public TPooledObject<TSharedCount<ObjectType, DeleterType>>
+		class TSharedCount : DeleterType, public ISharedCount
 		{
 		public:
 			TSharedCount(ObjectType* Object)

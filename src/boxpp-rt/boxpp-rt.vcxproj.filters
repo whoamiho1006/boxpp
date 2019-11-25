@@ -3,10 +3,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main-w32.cpp" />
-    <ClCompile Include="boilerplate.cpp" />
     <ClCompile Include="main-common.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="boilerplate.hpp" />
   </ItemGroup>
 </Project>

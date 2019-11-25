@@ -1,18 +1,19 @@
-#include "BaseEngine.hpp"
+#include "BaseApplication.hpp"
 
 namespace boxpp {
-	FBaseEngine::FBaseEngine()
+	FBaseApplication::FBaseApplication()
 		: bPreInitialized(false), bPreConfigured(false),
 		bPostInitialized(false), bPostConfigured(false),
 		bKeepRunningLoop(false)
 	{
+		Loop.SetEngine(this);
 	}
 
-	FBaseEngine::~FBaseEngine()
+	FBaseApplication::~FBaseApplication()
 	{
 	}
 
-	bool FBaseEngine::Initialize() {
+	bool FBaseApplication::Initialize() {
 		if (!bPreInitialized) {
 			bPreInitialized = PreInitialize();
 		}
@@ -37,7 +38,7 @@ namespace boxpp {
 		return bPostConfigured;
 	}
 
-	bool FBaseEngine::Finalize() {
+	bool FBaseApplication::Finalize() {
 		if (bPostConfigured) {
 			Modules.Shutdown();
 		}
@@ -58,12 +59,12 @@ namespace boxpp {
 		return !bPreInitialized;
 	}
 
-	bool FBaseEngine::ShouldFinalize() const {
+	bool FBaseApplication::ShouldFinalize() const {
 		return bPreInitialized || bPreConfigured ||
 			bPostInitialized || bPostConfigured;
 	}
 
-	EEngineReady FBaseEngine::GetReadyState() const {
+	EEngineReady FBaseApplication::GetReadyState() const {
 		if (bPostConfigured)
 			return EEngineReady::Ready;
 
@@ -73,26 +74,18 @@ namespace boxpp {
 		return EEngineReady::NotReady;
 	}
 
-	modules::FModuleManager* FBaseEngine::GetModuleManager() const {
+	modules::FModuleManager* FBaseApplication::GetModuleManager() const {
 		if (bPreInitialized)
 			return &Modules;
 
 		return nullptr;
 	}
 
-	void FBaseEngine::RegisterLoop(const TSharedPtr<IEngineLoop>& Loop) {
-		FBarriorScope Guard(Barrior);
-		EngineLoops.Add(Loop);
-	}
+	FApplicationLoop* FBaseApplication::GetEngineLoop() const {
+		if (bPostInitialized)
+			return &Loop;
 
-	void FBaseEngine::UnregisterLoop(const TSharedPtr<IEngineLoop>& Loop) {
-		FBarriorScope Guard(Barrior);
-		EngineLoops.Remove(Loop);
-	}
-
-	void FBaseEngine::TerminateLoop() {
-		FBarriorScope Guard(Barrior);
-		bKeepRunningLoop = false;
+		return nullptr;
 	}
 
 }

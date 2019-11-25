@@ -1,5 +1,6 @@
 #pragma once
 #include <boxpp/BaseTraits.hpp>
+#include <boxpp/traits/IsSameType.hpp>
 
 namespace boxpp
 {

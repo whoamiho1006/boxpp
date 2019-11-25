@@ -15,15 +15,17 @@ namespace boxpp
 		Ready
 	};
 
-	class IEngineLoop;
-	class IEngine
+	class IApplicationLoop;
+	class FApplicationLoop;
+
+	class IApplication
 	{
 	public:
-		virtual ~IEngine() { }
+		virtual ~IApplication() { }
 
 	public:
 		/* Acquire engine instance. */
-		BOXPP static IEngine* Get();
+		BOXPP static IApplication* Get();
 
 	public:
 		/* Initialize engine instance. (INTERNAL USE ONLY) */
@@ -31,9 +33,6 @@ namespace boxpp
 
 		/* Finalize engine instance. (INTERNAL USE ONLY) */
 		virtual bool Finalize() = 0;
-
-		/* Launch engine instance. (INTERNAL USE ONLY) */
-		virtual void Launch() = 0;
 
 		/* Determines the finalization is required or not. (INTERNAL USE ONLY) */
 		virtual bool ShouldFinalize() const = 0;
@@ -46,19 +45,8 @@ namespace boxpp
 		/* Get module manager. */
 		virtual modules::FModuleManager* GetModuleManager() const = 0;
 
-	public:
-		/* Register engine loop. */
-		virtual void RegisterLoop(const TSharedPtr<IEngineLoop>& Loop) = 0;
-
-		/* Unregister engine loop. */
-		virtual void UnregisterLoop(const TSharedPtr<IEngineLoop>& Loop) = 0;
-
-	public:
-		/* Keep the loop running or not. */
-		virtual bool KeepRunningLoop() const = 0;
-
-		/* Terminate engine loop. (after termination, engine will be finalized ) */
-		virtual void TerminateLoop() = 0;
+		/* Get engine loop. */
+		virtual FApplicationLoop* GetEngineLoop() const = 0;
 	};
 
 }

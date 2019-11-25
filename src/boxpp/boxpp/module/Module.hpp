@@ -6,7 +6,7 @@
 
 namespace boxpp
 {
-	class IEngine;
+	class IApplication;
 
 	namespace modules
 	{
@@ -24,5 +24,17 @@ namespace boxpp
 			virtual void Shutdown() = 0;
 		};
 
+		/*
+			Default module implementation.
+		*/
+		class FDefaultModule : public IModule
+		{
+		public:
+			virtual ~FDefaultModule() { }
+
+		public:
+			virtual bool Startup() override { return true;  }
+			virtual void Shutdown() override { }
+		};
 	}
 }

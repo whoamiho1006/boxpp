@@ -55,9 +55,6 @@
     <ClInclude Include="boxpp\core\Name.hpp">
       <Filter>boxpp\core</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\core\Engine.hpp">
-      <Filter>boxpp\core</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\core\Logging.hpp">
       <Filter>boxpp\core</Filter>
     </ClInclude>
@@ -70,7 +67,10 @@
     <ClInclude Include="boxpp\hints\posix.hpp">
       <Filter>boxpp\hints</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\core\EngineLoop.hpp">
+    <ClInclude Include="boxpp\core\Application.hpp">
+      <Filter>boxpp\core</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\core\ApplicationLoop.hpp">
       <Filter>boxpp\core</Filter>
     </ClInclude>
   </ItemGroup>
@@ -94,7 +94,10 @@
       <Filter>boxpp\core</Filter>
     </ClCompile>
     <ClCompile Include="Modules.cpp" />
-    <ClCompile Include="boxpp\core\Engine.cpp">
+    <ClCompile Include="boxpp\core\Application.cpp">
+      <Filter>boxpp\core</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\core\ApplicationLoop.cpp">
       <Filter>boxpp\core</Filter>
     </ClCompile>
   </ItemGroup>

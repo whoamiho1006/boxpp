@@ -3,6 +3,7 @@
 #include <boxpp/BaseTypes.hpp>
 
 #include <boxpp/traits/Movable.hpp>
+#include <boxpp/traits/Forward.hpp>
 #include <boxpp/traits/EnableIf.hpp>
 #include <boxpp/traits/IsDerivedType.hpp>
 

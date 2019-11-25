@@ -31,7 +31,7 @@ namespace boxpp
 			return nullptr;
 		}
 
-		void FModuleManager::Initialize(IEngine* Engine)
+		void FModuleManager::Initialize(IApplication* Engine)
 		{
 			this->Engine = Engine;
 		}

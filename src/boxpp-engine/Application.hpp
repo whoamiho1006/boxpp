@@ -1,17 +1,13 @@
 #pragma once
 #include <boxpp.hpp>
-#include "BaseEngine.hpp"
+#include "BaseApplication.hpp"
 
 namespace boxpp
 {
-	class FEngine : public FBaseEngine
+	class FApplication : public FBaseApplication
 	{
 	public:
-		~FEngine();
-
-	public:
-		/* Launch engine instance. (INTERNAL USE ONLY) */
-		virtual void Launch() override;
+		~FApplication();
 
 	public:
 		/* Pre-Initialize minimal environment. */
