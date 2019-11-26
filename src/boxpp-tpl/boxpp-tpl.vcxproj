@@ -165,6 +165,7 @@
     <ClInclude Include="boxpp\containers\algorithms\HeapSort.hpp" />
     <ClInclude Include="boxpp\containers\Array.hpp" />
     <ClInclude Include="boxpp\containers\ArrayBase.hpp" />
+    <ClInclude Include="boxpp\containers\Callback.hpp" />
     <ClInclude Include="boxpp\containers\Comparator.hpp" />
     <ClInclude Include="boxpp\containers\Delegate.hpp" />
     <ClInclude Include="boxpp\containers\DelegateBase.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="boxpp\containers\Iterator.hpp" />
     <ClInclude Include="boxpp\containers\LinkedList.hpp" />
     <ClInclude Include="boxpp\containers\Map.hpp" />
+    <ClInclude Include="boxpp\containers\Method.hpp" />
     <ClInclude Include="boxpp\containers\Node.hpp" />
     <ClInclude Include="boxpp\containers\Queue.hpp" />
     <ClInclude Include="boxpp\containers\SingleNode.hpp" />

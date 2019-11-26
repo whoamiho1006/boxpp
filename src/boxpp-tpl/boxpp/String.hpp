@@ -38,7 +38,7 @@ namespace boxpp
 		template<typename OtherType>
 		TString(const OtherType* InString, ssize_t Max = -1)
 		{
-			TStringConverter<OtherType, CharType> Converter(InString);
+			TStringConverter<CharType, OtherType> Converter(InString);
 
 			if (Converter.GetConvertedString())
 				Append(Converter.GetConvertedString(), Max);
