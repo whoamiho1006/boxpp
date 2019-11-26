@@ -13,9 +13,13 @@ public:
 	FContext();
 	~FContext();
 
+
 public:
 	void Evaluate(const char* Scripts);
-	int Execute();
+	int Execute(int Argc, char** Argv);
+
+public:
+	void AddFunction(const char* Name, duk_ret_t(*Func)(duk_context*), int Argc);
 
 private:
 	void OnFatalError(const char* Msg);
