@@ -173,3 +173,8 @@ src/immediates/Win32-Debug/boxpp-engine/boxpp-engine.idb
 src/immediates/Win32-Debug/boxpp-engine/boxpp-engine.log
 *.idb
 *.log
+tools/boxjs/.vs/boxjs/v15/Browse.VC.opendb
+tools/boxjs/.vs/boxjs/v15/Browse.VC.db
+tools/boxjs/Debug/boxjs.exe
+tools/boxjs/Debug/boxjs.ilk
+tools/boxjs/.vs/boxjs/v15/.suo
