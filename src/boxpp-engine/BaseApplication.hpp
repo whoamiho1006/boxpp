@@ -26,6 +26,7 @@ namespace boxpp
 		mutable FApplicationLoop Loop;
 		mutable modules::FModuleManager Modules;
 		TArray<TSharedPtr<IApplicationLoop>> EngineLoops;
+		TArray<FString> Arguments;
 
 	public:
 		/* Initialize engine instance. (INTERNAL USE ONLY) */
@@ -37,16 +38,21 @@ namespace boxpp
 		/* Determines the finalization is required or not. (INTERNAL USE ONLY) */
 		virtual bool ShouldFinalize() const override;
 
+		/* Get command-line arguments. */
+		virtual const TArray<FString>& GetArguments() const override {
+			return Arguments;
+		}
+
 	public:
 		/* Get ready state of engine instance. */
-		virtual EEngineReady GetReadyState() const override;
+		virtual EReadyState GetReadyState() const override;
 
 	public:
 		/* Get module manager. */
 		virtual modules::FModuleManager* GetModuleManager() const override;
 
 		/* Get engine loop. */
-		virtual FApplicationLoop* GetEngineLoop() const override;
+		virtual FApplicationLoop* GetApplicationLoop() const override;
 
 	public:
 		/* Pre-Initialize minimal environment. */

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -18,76 +18,35 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="boxpp.hpp" />
-    <ClInclude Include="boxpp\Base.hpp" />
-    <ClInclude Include="boxpp\BaseTypes.hpp" />
-    <ClInclude Include="boxpp\configs\Config.hpp" />
-    <ClInclude Include="boxpp\configs\Section.hpp" />
-    <ClInclude Include="boxpp\core\Barrior.hpp" />
-    <ClInclude Include="boxpp\core\Debugger.hpp" />
-    <ClInclude Include="boxpp\core\Application.hpp" />
-    <ClInclude Include="boxpp\core\ApplicationLoop.hpp" />
-    <ClInclude Include="boxpp\core\Logging.hpp" />
-    <ClInclude Include="boxpp\core\Path.hpp" />
-    <ClInclude Include="boxpp\core\RawEvent.hpp" />
-    <ClInclude Include="boxpp\core\Threaded.hpp" />
-    <ClInclude Include="boxpp\core\Threading.hpp" />
-    <ClInclude Include="boxpp\hints\vsprintf.hpp" />
-    <ClInclude Include="boxpp\module\ModuleManager.hpp" />
-    <ClInclude Include="boxpp\Normalize.hpp" />
-    <ClInclude Include="boxpp\Boilerplate.hpp" />
-    <ClInclude Include="boxpp\core\Name.hpp" />
-    <ClInclude Include="boxpp\hints\posix.hpp" />
-    <ClInclude Include="boxpp\hints\windows.hpp" />
-    <ClInclude Include="boxpp\module\Module.hpp" />
-    <ClInclude Include="boxpp\Version.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="boxpp\Boilerplate.cpp" />
-    <ClCompile Include="boxpp\configs\Config.cpp" />
-    <ClCompile Include="boxpp\core\Debugger.cpp" />
-    <ClCompile Include="boxpp\core\Application.cpp" />
-    <ClCompile Include="boxpp\core\ApplicationLoop.cpp" />
-    <ClCompile Include="boxpp\core\Logging.cpp" />
-    <ClCompile Include="boxpp\core\Path.cpp" />
-    <ClCompile Include="boxpp\core\Threaded.cpp" />
-    <ClCompile Include="boxpp\core\Threading.cpp" />
-    <ClCompile Include="boxpp\module\ModuleManager.cpp" />
-    <ClCompile Include="Modules.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cpp.hint" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{58B187AF-52F3-4421-94C8-342A5846F64D}</ProjectGuid>
+    <ProjectGuid>{C043ED19-67BB-49FA-9C44-6B393AD39FE2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>boxpp</RootNamespace>
+    <RootNamespace>boxjs</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -113,54 +72,54 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(SolutionDir)boxpp-duktape;$(SolutionDir)boxpp-engine;$(SolutionDir)boxpp-tpl;$(SolutionDir)boxpp-engine;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(SolutionDir)boxpp-duktape;$(SolutionDir)boxpp-engine;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(SolutionDir)boxpp-duktape;$(SolutionDir)boxpp-engine;$(SolutionDir)boxpp-tpl;$(SolutionDir)boxpp-engine;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)binaries\$(Platform)-$(Configuration)\</OutDir>
-    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(SolutionDir)boxpp-duktape;$(SolutionDir)boxpp-engine;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)immediates\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
+    <IncludePath>$(SolutionDir)boxpp;$(SolutionDir)boxpp-tpl;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)binaries\$(Platform)-$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>__BOX_BODY__;WIN32;_DEBUG;BOXPP_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>__BOX_BODY__;_DEBUG;BOXPP_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -169,14 +128,14 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>__BOX_BODY__;WIN32;NDEBUG;BOXPP_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -185,16 +144,22 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>__BOX_BODY__;NDEBUG;BOXPP_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="boxjs.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Boxjs.hpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

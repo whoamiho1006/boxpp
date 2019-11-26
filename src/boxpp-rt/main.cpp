@@ -3,12 +3,12 @@
 
 using namespace boxpp;
 
-extern int commonMain();
+extern int commonMain(int argc, char** argv);
 
 int main(int argc, char** argv)
 {
 	FLogging::Get().SetUnderCLI(true);
-	int RetVal = commonMain();
+	int RetVal = commonMain(argc, argv);
 	return RetVal;
 }
 

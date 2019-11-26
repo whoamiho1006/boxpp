@@ -16,6 +16,9 @@
     <Filter Include="boxpp\configs">
       <UniqueIdentifier>{33377015-c633-4432-858b-58b4a9174f86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\scripting">
+      <UniqueIdentifier>{f5215eae-f557-4d69-95b7-7041cd5b5973}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\Base.hpp">

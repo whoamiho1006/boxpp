@@ -64,14 +64,14 @@ namespace boxpp {
 			bPostInitialized || bPostConfigured;
 	}
 
-	EEngineReady FBaseApplication::GetReadyState() const {
+	EReadyState FBaseApplication::GetReadyState() const {
 		if (bPostConfigured)
-			return EEngineReady::Ready;
+			return EReadyState::Ready;
 
 		else if (bPreConfigured || bPreInitialized)
-			return EEngineReady::PreReady;
+			return EReadyState::PreReady;
 
-		return EEngineReady::NotReady;
+		return EReadyState::NotReady;
 	}
 
 	modules::FModuleManager* FBaseApplication::GetModuleManager() const {
@@ -81,7 +81,7 @@ namespace boxpp {
 		return nullptr;
 	}
 
-	FApplicationLoop* FBaseApplication::GetEngineLoop() const {
+	FApplicationLoop* FBaseApplication::GetApplicationLoop() const {
 		if (bPostInitialized)
 			return &Loop;
 

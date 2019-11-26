@@ -30,8 +30,12 @@ namespace boxpp {
 
 		public:
 			TSmartPtr(nullptr_t = nullptr) { }
-			TSmartPtr(const SelfType& Other) : Holder(Other.Holder) { }
-			TSmartPtr(SelfType&& Other) : Holder(TMovable<HolderType>::Movable(Other.Holder)) { }
+			TSmartPtr(const SelfType& Other) : Holder(Other.Holder), Object(Other.Object) { }
+			TSmartPtr(SelfType&& Other) 
+				: Holder(TMovable<HolderType>::Movable(Other.Holder)), Object(nullptr)
+			{
+				Swap(Object, Other.Object);
+			}
 
 			/* up/down casting supports */
 			template<typename OtherType, ESharedMode OtherMode, bool OtherHolds,
@@ -48,12 +52,12 @@ namespace boxpp {
 			}
 
 			/* up/down casting supports */
-			template<typename OtherType, typename = EnableIf<
-				IsDerivedType<ObjectType, OtherType> || 
-				IsDerivedType<OtherType, ObjectType>>>
+			template<typename OtherType>
 			TSmartPtr(const TSmartProxy<OtherType>& Proxy)
 				: Holder(Proxy.Counter), Object(Proxy.Object)
 			{
+				static_assert(IsDerivedType<ObjectType, OtherType> ||
+					IsDerivedType<OtherType, ObjectType>, "");
 			}
 
 		public:

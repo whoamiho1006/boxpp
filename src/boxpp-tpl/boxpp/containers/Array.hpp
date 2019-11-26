@@ -2,6 +2,7 @@
 #include <boxpp/Base.hpp>
 #include <boxpp/BaseTypes.hpp>
 
+#include <boxpp/traits/Forward.hpp>
 #include <boxpp/containers/ArrayBase.hpp>
 #include <boxpp/containers/algorithms/BinarySearch.hpp>
 #include <boxpp/containers/algorithms/HeapSort.hpp>
@@ -38,7 +39,9 @@ namespace boxpp {
 		/*
 			Shifts all resources from given array.
 		*/
-		TArray(TArrayBase<ElemType>&& InArray) {
+		TArray(TArrayBase<ElemType>&& InArray)
+			: TArrayBase<ElemType>(0)
+		{
 			Swap(this->Multiplier, InArray.Multiplier);
 			Swap(this->Capacity, InArray.Capacity);
 			Swap(this->Length, InArray.Length);
@@ -100,7 +103,7 @@ namespace boxpp {
 		*/
 		FASTINLINE s32 Add(ElemType&& Item) {
 			if (this->Requires(1)) {
-				new (this->Storage + this->Length) ElemType(Item);
+				new (this->Storage + this->Length) ElemType(Forward<ElemType>(Item));
 				this->Length++;
 
 				return s32(this->Length - 1);

@@ -2,13 +2,15 @@
 #include <boxpp/Base.hpp>
 #include <boxpp/BaseTypes.hpp>
 
+#include <boxpp/String.hpp>
+
 namespace boxpp
 {
 	namespace modules {
 		class FModuleManager;
 	}
 
-	enum class EEngineReady
+	enum class EReadyState
 	{
 		NotReady = 0,
 		PreReady,
@@ -36,17 +38,20 @@ namespace boxpp
 
 		/* Determines the finalization is required or not. (INTERNAL USE ONLY) */
 		virtual bool ShouldFinalize() const = 0;
+
+		/* Get command-line arguments. */
+		virtual const TArray<FString>& GetArguments() const = 0;
 		
 	public:
 		/* Get ready state of engine instance. */
-		virtual EEngineReady GetReadyState() const = 0;
+		virtual EReadyState GetReadyState() const = 0;
 
 	public:
 		/* Get module manager. */
 		virtual modules::FModuleManager* GetModuleManager() const = 0;
 
 		/* Get engine loop. */
-		virtual FApplicationLoop* GetEngineLoop() const = 0;
+		virtual FApplicationLoop* GetApplicationLoop() const = 0;
 	};
 
 }
