@@ -11,6 +11,7 @@
     <ClInclude Include="3rd-parties\Duktape.hpp">
       <Filter>3rd-parties</Filter>
     </ClInclude>
+    <ClInclude Include="Console.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="3rd-parties">
@@ -23,5 +24,6 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Context.cpp" />
+    <ClCompile Include="Console.cpp" />
   </ItemGroup>
 </Project>

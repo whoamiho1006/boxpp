@@ -142,10 +142,12 @@
     <ClInclude Include="3rd-parties\duktape.h" />
     <ClInclude Include="3rd-parties\Duktape.hpp" />
     <ClInclude Include="3rd-parties\duk_config.h" />
+    <ClInclude Include="Console.hpp" />
     <ClInclude Include="Context.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3rd-parties\duktape.c" />
+    <ClCompile Include="Console.cpp" />
     <ClCompile Include="Context.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

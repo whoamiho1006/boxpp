@@ -178,3 +178,5 @@ tools/boxjs/.vs/boxjs/v15/Browse.VC.db
 tools/boxjs/Debug/boxjs.exe
 tools/boxjs/Debug/boxjs.ilk
 tools/boxjs/.vs/boxjs/v15/.suo
+*.exe
+*.ilk
