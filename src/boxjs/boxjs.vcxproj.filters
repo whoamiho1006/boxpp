@@ -7,6 +7,12 @@
     </ClCompile>
     <ClCompile Include="DukContext.cpp" />
     <ClCompile Include="DukFunction.cpp" />
+    <ClCompile Include="commands\api_console.cpp">
+      <Filter>commands</Filter>
+    </ClCompile>
+    <ClCompile Include="commands\api_require.cpp">
+      <Filter>commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Boxjs.hpp" />
@@ -22,6 +28,9 @@
   <ItemGroup>
     <Filter Include="duktape">
       <UniqueIdentifier>{9fe62c1c-4f7a-4c52-b819-9a4db6f7f1d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="commands">
+      <UniqueIdentifier>{08f3368e-6866-4817-97c7-9cfdbf047a05}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

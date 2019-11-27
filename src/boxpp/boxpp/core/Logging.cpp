@@ -61,8 +61,14 @@ namespace boxpp
 		}
 
 		if (IsUnderCLI()) {
-			TVsprintf<char_t>::Fprintf(stderr, BOXTEXT("%s(%d): %s: %s: %s\n"),
-				File, Line, LogLevel_Text, Category, Message);
+			//if (LogLevel == ELog::Note) {
+				TVsprintf<char_t>::Fprintf(stderr, BOXTEXT("%s: %s: %s\n"),
+					LogLevel_Text, Category, Message);
+			/*}
+			else {
+				TVsprintf<char_t>::Fprintf(stderr, BOXTEXT("%s(%d): %s: %s: %s\n"),
+					File, Line, LogLevel_Text, Category, Message);
+			}*/
 		}
 
 		if (LogLevel == ELog::Fatal)

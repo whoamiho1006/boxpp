@@ -128,7 +128,7 @@ namespace boxpp {
 
 		FASTINLINE DWORD GetModuleFileName(HMODULE a, LPSTR b, DWORD c)
 		{
-			GetModuleFileNameA(a, b, c);
+			return GetModuleFileNameA(a, b, c);
 		}
 
 		FASTINLINE DWORD GetModuleFileName(HMODULE a, LPWSTR b, DWORD c)

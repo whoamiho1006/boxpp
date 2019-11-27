@@ -31,7 +31,6 @@ class FAppModule : public boxpp::modules::IModule
 public:
 	virtual bool Startup()
 	{
-		printf("Hello! %S\n", *boxpp::FPath::Binaries());
 		h();
 		return true;
 	}

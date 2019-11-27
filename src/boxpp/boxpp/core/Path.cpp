@@ -43,7 +43,7 @@ FASTINLINE int __r_mkdir(const boxpp::wide_t* InPath, int _2) {
 }
 
 namespace boxpp {
-	FString FPath::DirectoryName(const char_t* InPath)
+	FString FPath::DirectoryName(const wide_t* InPath)
 	{
 		s32 Seperator = -1;
 
@@ -61,7 +61,7 @@ namespace boxpp {
 		return InPath;
 	}
 
-	FString FPath::FileName(const char_t* InPath)
+	FString FPath::FileName(const wide_t* InPath)
 	{
 		s32 Seperator = -1;
 
@@ -79,25 +79,61 @@ namespace boxpp {
 		return InPath;
 	}
 
-	bool FPath::MakeDirectory(const char_t* InPath, bool bRecursive)
+	FAnsiString FPath::DirectoryName(const ansi_t* InPath)
+	{
+		s32 Seperator = -1;
+
+		if (InPath) {
+			for (s32 i = 0; InPath[i]; i++) {
+				if (InPath[i] == '/' || InPath[i] == '\\') {
+					Seperator = i;
+				}
+			}
+
+			if (Seperator >= 0)
+				return FAnsiString(InPath, Seperator);
+		}
+
+		return InPath;
+	}
+
+	FAnsiString FPath::FileName(const ansi_t* InPath)
+	{
+		s32 Seperator = -1;
+
+		if (InPath) {
+			for (s32 i = 0; InPath[i]; i++) {
+				if (InPath[i] == '/' || InPath[i] == '\\') {
+					Seperator = i;
+				}
+			}
+
+			if (Seperator >= 0)
+				return FAnsiString(InPath + Seperator + 1);
+		}
+
+		return InPath;
+	}
+
+	bool FPath::MakeDirectory(const ansi_t* InPath, bool bRecursive)
 	{
 		if (!bRecursive) {
 			__r_mkdir(InPath, 0777);
 		}
 
 		else {
-			char_t Temp[512] = { 0, };
-			size_t Length = TNativeString<char_t>::Strlen(InPath);
+			wide_t Temp[512] = { 0, };
+			size_t Length = TNativeString<ansi_t>::Strlen(InPath);
 
 			if (Length) {
-				::memcpy(Temp, InPath, sizeof(char_t) * Length);
-				
+				::memcpy(Temp, InPath, sizeof(ansi_t) * Length);
+
 				if (Temp[Length - 1] == '/')
 					Temp[Length - 1] = 0;
 
 				for (size_t i = 0; i < Length; i++) {
 					if (Temp[i] == '/' || Temp[i] == '\\') {
-						char_t Bkp = Temp[i];
+						ansi_t Bkp = Temp[i];
 						Temp[i] = 0;
 
 						if (!DirectoryExists(Temp)) {
@@ -114,31 +150,48 @@ namespace boxpp {
 		return DirectoryExists(InPath);
 	}
 
-	bool FPath::DirectoryExists(const char_t* InPath)
+	bool FPath::DirectoryExists(const ansi_t* InPath)
 	{
-		TString<ansi_t> AnsiPath = InPath;
 		struct stat Info;
 
-		if (stat(*AnsiPath, &Info) == 0 &&
+		if (stat(InPath, &Info) == 0 &&
 			(Info.st_mode & S_IFDIR) == S_IFDIR)
 			return true;
 
 		return false;
 	}
 
-	bool FPath::FileExists(const char_t* InPath)
+	bool FPath::FileExists(const ansi_t* InPath)
 	{
-		TString<ansi_t> AnsiPath = InPath;
 		struct stat Info;
 
-		if (stat(*AnsiPath, &Info) == 0 &&
+		if (stat(InPath, &Info) == 0 &&
 			(Info.st_mode & S_IFDIR) != S_IFDIR)
 			return true;
 
 		return false;
 	}
 
-	FString FPath::Binaries()
+	void FPath::GetCwd(FString& OutString)
+	{
+		char Buffer[512] = { 0, };
+		getcwd(Buffer, sizeof(Buffer));
+		OutString = Buffer;
+	}
+
+	void FPath::GetCwd(FAnsiString& OutString)
+	{
+		char Buffer[512] = { 0, };
+		getcwd(Buffer, sizeof(Buffer));
+		OutString = Buffer;
+	}
+
+	void FPath::SetCwd(const FAnsiString & Cwd)
+	{
+		::chdir(*Cwd);
+	}
+
+	void FPath::Binaries(FString & OutPath)
 	{
 #if !PLATFORM_APPLE
 		using ch_t = char_t;
@@ -160,7 +213,7 @@ namespace boxpp {
 #endif
 			s32 Seperator = -1, Temp = 0;
 
-			while (PathName[Temp] && 
+			while (PathName[Temp] &&
 				Temp < (sizeof(PathName) / sizeof(ch_t)))
 			{
 				if (PathName[Temp] == '/' ||
@@ -176,20 +229,41 @@ namespace boxpp {
 				PathName[Seperator] = 0;
 		}
 
-		return PathName;
+		OutPath = PathName;
 	}
 
-	FString FPath::Configs()
+	void FPath::Binaries(FAnsiString & OutPath)
 	{
-		FString Path = DirectoryName(*Binaries());
+		static char PathName[1024] = { 0, };
 
-		Path.Append("/../configs");
+		if (PathName[0] == 0) {
+#if PLATFORM_WINDOWS
+			w32_compat::GetModuleFileName(nullptr, PathName, sizeof(PathName));
+#endif
+#if PLATFORM_APPLE
+			size_t Size = sizeof(PathName);
+			_NSGetExecutablePath(PathName, &Size);
+#endif
+#if PLATFORM_POSIX
+#endif
+			s32 Seperator = -1, Temp = 0;
 
-		if (!DirectoryExists(*Path)) {
+			while (PathName[Temp] &&
+				Temp < sizeof(PathName))
+			{
+				if (PathName[Temp] == '/' ||
+					PathName[Temp] == '\\')
+				{
+					Seperator = Temp;
+				}
+
+				++Temp;
+			}
+
+			if (Seperator >= 0)
+				PathName[Seperator] = 0;
 		}
-		
 
-		return *Path;
+		OutPath = PathName;
 	}
-
 }

@@ -30,7 +30,7 @@ namespace boxpp {
 		/*
 			Clones an array from original array.
 		*/
-		TArray(const TArrayBase<ElemType>& InArray)
+		TArray(const TArray<ElemType>& InArray)
 			: TArrayBase<ElemType>(InArray.GetSize())
 		{
 			Append(InArray);
@@ -39,7 +39,7 @@ namespace boxpp {
 		/*
 			Shifts all resources from given array.
 		*/
-		TArray(TArrayBase<ElemType>&& InArray)
+		TArray(TArray<ElemType>&& InArray)
 			: TArrayBase<ElemType>(0)
 		{
 			Swap(this->Multiplier, InArray.Multiplier);
@@ -49,7 +49,7 @@ namespace boxpp {
 		}
 
 	public:
-		FASTINLINE TArray<ElemType>& operator =(const TArrayBase<ElemType>& Other) {
+		FASTINLINE TArray<ElemType>& operator =(const TArray<ElemType>& Other) {
 			if (*this != Other) {
 				this->Clear();
 				this->SetMultiplier(1);
@@ -70,7 +70,7 @@ namespace boxpp {
 			return *this;
 		}
 
-		FASTINLINE TArray<ElemType>& operator =(TArrayBase<ElemType>&& Other) {
+		FASTINLINE TArray<ElemType>& operator =(TArray<ElemType>&& Other) {
 			if (*this != Other) {
 				Swap(this->Multiplier, Other.Multiplier);
 				Swap(this->Capacity, Other.Capacity);
@@ -137,7 +137,7 @@ namespace boxpp {
 		/*
 			Append all items in given array into this array.
 		*/
-		FASTINLINE s32 Append(const TArrayBase<ElemType>& InArray) {
+		FASTINLINE s32 Append(const TArray<ElemType>& InArray) {
 			return Append(InArray, 0, InArray.GetSize());
 		}
 
@@ -169,7 +169,7 @@ namespace boxpp {
 		/*
 			Append all items in given array into this array.
 		*/
-		FASTINLINE s32 Append(const TArrayBase<ElemType>& InArray, s32 Offset, u32 Count) {
+		FASTINLINE s32 Append(const TArray<ElemType>& InArray, s32 Offset, u32 Count) {
 			if (InArray.GetSize()) {
 				if (InArray.GetSize() <= u32(Offset)) {
 					return -1;
@@ -201,8 +201,8 @@ namespace boxpp {
 		/*
 			Append all items in given array into this array.
 		*/
-		FASTINLINE s32 Append(TArrayBase<ElemType>&& InArray) {
-			if (InArray.GetSize() && Requires(InArray.GetSize())) {
+		FASTINLINE s32 Append(TArray<ElemType>&& InArray) {
+			if (InArray.GetSize() && this->Requires(InArray.GetSize())) {
 				s32 Offset = s32(this->Length);
 
 				if (IsPodType<ElemType>) {
@@ -287,7 +287,7 @@ namespace boxpp {
 		/*
 			Insert an item into this array and returns its offset.
 		*/
-		FASTINLINE s32 Insert(s32 Offset, const TArrayBase<ElemType>& InArray) {
+		FASTINLINE s32 Insert(s32 Offset, const TArray<ElemType>& InArray) {
 			if (Offset >= 0 && InArray.GetSize()) {
 				return Insert(Offset, InArray.GetRaw(), InArray.GetSize());
 			}

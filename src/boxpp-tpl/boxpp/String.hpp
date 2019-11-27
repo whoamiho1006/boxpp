@@ -45,8 +45,8 @@ namespace boxpp
 		}
 
 		TString(const TString<CharType>& Other)
-			: Storage(Other.Storage)
 		{
+			Storage = Other.Storage;
 		}
 
 		TString(TString<CharType>&& Other)
@@ -183,7 +183,7 @@ namespace boxpp
 
 		FASTINLINE s32 IndexOf(const CharType InChar, u32 Offset = 0) {
 			for (u32 i = Offset; i < GetSize(); ++i) {
-				if (*this[i] == InChar)
+				if ((*this)[i] == InChar)
 					return i;
 			}
 
@@ -221,12 +221,41 @@ namespace boxpp
 			Substring(RetVal, Offset, Count);
 			return RetVal;
 		}
+
+	public:
+		FASTINLINE bool StartsWith(const TString<CharType>& Other) const {
+			return TNativeString<CharType>::Strncmp(GetRaw(), Other.GetRaw(), Other.GetSize());
+		}
+
+		FASTINLINE bool StartsWith(const CharType* Other) const {
+			return TNativeString<CharType>::Strncmp(GetRaw(), Other, TNativeString<CharType>::Strlen(Other));
+		}
+
+		FASTINLINE bool EndsWith(const TString<CharType>& Other) const {
+			if (GetSize() >= Other.GetSize()) {
+				return !TNativeString<CharType>::Strcmp(
+					GetRaw() + (GetSize() - Other.GetSize()),
+					Other.GetRaw());
+			}
+
+			return false;
+		}
+
+		FASTINLINE bool EndsWith(const CharType* Other) const {
+			size_t Length = TNativeString<CharType>::Strlen(Other);
+			if (GetSize() >= Length) {
+				return !TNativeString<CharType>::Strcmp(
+					GetRaw() + (GetSize() - Length), Other);
+			}
+
+			return false;
+		}
 	};
 
 #if PLATFORM_NATIVE_WCHAR
-	typedef TString<char_t> FString;
+	typedef TString<wide_t> FString;
 #else
-	typedef TString<ansi_t> FString;
+	typedef TString<utf16_t> FString;
 #endif
 
 	typedef TString<ansi_t> FAnsiString;
