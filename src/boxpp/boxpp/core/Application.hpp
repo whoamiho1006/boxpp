@@ -40,7 +40,7 @@ namespace boxpp
 		virtual bool ShouldFinalize() const = 0;
 
 		/* Get command-line arguments. */
-		virtual const TArray<FString>& GetArguments() const = 0;
+		virtual const TArray<FAnsiString>& GetArguments() const = 0;
 		
 	public:
 		/* Get ready state of engine instance. */

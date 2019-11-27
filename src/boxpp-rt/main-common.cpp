@@ -15,8 +15,8 @@ NO_MANGLED BOXEXPORT void BOX_ModuleMain(IApplication* App);
 int commonMain(int argc, char** argv)
 {
 	if (IApplication* Engine = IApplication::Get()) {
-		TArray<FString>& Arguments = *const_cast<
-			TArray<FString>*>(&Engine->GetArguments());
+		TArray<FAnsiString>& Arguments = *const_cast<
+			TArray<FAnsiString>*>(&Engine->GetArguments());
 
 		for (int i = 0; i < argc; i++) {
 			Arguments.Add(argv[i]);

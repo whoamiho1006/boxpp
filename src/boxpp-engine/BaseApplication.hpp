@@ -26,7 +26,7 @@ namespace boxpp
 		mutable FApplicationLoop Loop;
 		mutable modules::FModuleManager Modules;
 		TArray<TSharedPtr<IApplicationLoop>> EngineLoops;
-		TArray<FString> Arguments;
+		TArray<FAnsiString> Arguments;
 
 	public:
 		/* Initialize engine instance. (INTERNAL USE ONLY) */
@@ -39,7 +39,7 @@ namespace boxpp
 		virtual bool ShouldFinalize() const override;
 
 		/* Get command-line arguments. */
-		virtual const TArray<FString>& GetArguments() const override {
+		virtual const TArray<FAnsiString>& GetArguments() const override {
 			return Arguments;
 		}
 

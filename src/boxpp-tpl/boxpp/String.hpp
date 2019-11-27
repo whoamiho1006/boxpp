@@ -228,4 +228,6 @@ namespace boxpp
 #else
 	typedef TString<ansi_t> FString;
 #endif
+
+	typedef TString<ansi_t> FAnsiString;
 }

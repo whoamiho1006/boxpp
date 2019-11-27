@@ -156,9 +156,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="boxjs.cpp" />
+    <ClCompile Include="DukContext.cpp" />
+    <ClCompile Include="DukFunction.cpp" />
+    <ClCompile Include="duktape\duktape.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Boxjs.hpp" />
+    <ClInclude Include="DukContext.hpp" />
+    <ClInclude Include="DukFunction.hpp" />
+    <ClInclude Include="duktape\duktape.h" />
+    <ClInclude Include="duktape\duk_config.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
