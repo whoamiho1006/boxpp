@@ -16,7 +16,7 @@ namespace boxpp
 	/*
 		Declare boilerplate operator overloads.
 	*/
-#define BOXPP_DECLARE_BOILERPLATE() \
+#define BOXPP_DECLARE_MEMORY_BOILERPLATE() \
 	void* operator new (boxpp::size_t Size) { return boxpp::FMemory::Malloc(Size); } \
 	void* operator new[] (boxpp::size_t Size) { return boxpp::FMemory::Malloc(Size); } \
 	void operator delete(void* Block) { boxpp::FMemory::Free(Block); } \

@@ -2,7 +2,7 @@
 
 #include <malloc.h>
 
-BOXPP_DECLARE_BOILERPLATE();
+BOXPP_DECLARE_MEMORY_BOILERPLATE();
 
 namespace boxpp {
 
