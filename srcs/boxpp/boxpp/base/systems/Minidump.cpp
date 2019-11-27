@@ -16,7 +16,6 @@ void MinidumpInstall() {
 		::SetUnhandledExceptionFilter(MinidumpReportCallback);
 }
 
-
 LONG WINAPI MinidumpReportCallback(struct _EXCEPTION_POINTERS* ExceptionInfo) {
 	CHAR FileName[FILENAME_MAX] = { 0, };
 	MINIDUMP_EXCEPTION_INFORMATION Minidump;
