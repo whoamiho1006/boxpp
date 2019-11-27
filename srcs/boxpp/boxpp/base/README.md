@@ -1,5 +1,6 @@
 # Base library for entire framework.
 ### DO NOT make any reference to outside on BASE library.
+Base-library can be uniquely included by other pure-utilities also.
 
 ## 1. BaseMacros.hpp
 This header stabilize the preprocessor environment for framework codes and, 
