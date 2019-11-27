@@ -118,4 +118,4 @@ type_db::TSizedInt<Size>::{Signed, Unsigned}.
 	* opacities/vsprintf.hpp : vsprintf series template specializations.
 
 # 5. Boilerplate.
-Documentation ..... hmmmmmmmmmm...
+Allocation boilerplate. (for unifying the heap where memory is allocated)
