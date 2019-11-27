@@ -13,6 +13,9 @@
     <ClCompile Include="commands\api_require.cpp">
       <Filter>commands</Filter>
     </ClCompile>
+    <ClCompile Include="commands\api_files.cpp">
+      <Filter>commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Boxjs.hpp" />
