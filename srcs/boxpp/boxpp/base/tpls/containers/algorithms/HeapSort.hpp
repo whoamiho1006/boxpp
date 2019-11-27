@@ -1,9 +1,7 @@
 #pragma once
-#include <boxpp/Base.hpp>
-#include <boxpp/BaseTypes.hpp>
-
-#include <boxpp/traits/Movable.hpp>
-#include <boxpp/containers/Comparator.hpp>
+#include <boxpp/base/tpls/BaseTraits.hpp>
+#include <boxpp/base/tpls/traits/Movable.hpp>
+#include <boxpp/base/tpls/containers/Comparator.hpp>
 
 namespace boxpp {
 	

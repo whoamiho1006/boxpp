@@ -4,6 +4,10 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
+#ifndef _CRT_NON_CONFORMING_SWPRINTFS
+#define _CRT_NON_CONFORMING_SWPRINTFS
+#endif
+
 #ifdef PLATFORM_WINDOWS
 #undef PLATFORM_WINDOWS
 #endif
@@ -135,11 +139,6 @@
 #	define PLATFORM_UNICODE		0
 #endif
 
-// ---------------------- PLATFORM_USE_STRING_BY_CRT
-#ifndef PLATFORM_USE_STRING_BY_CRT
-#define PLATFORM_USE_STRING_BY_CRT 1
-#endif
-
 // ---------------------- PLATFORM_NATIVE_WCHAR
 
 #if defined(_NATIVE_WCHAR_T_DEFINED) || defined(_WCHAR_T_DEFINED) || \
@@ -219,10 +218,10 @@ typedef PLATFORM_SIZE_TYPE size_t;
 #if PLATFORM_WINDOWS
 #	ifdef _MSC_VER
 #		define	BOXEXPORT		__declspec(dllexport)
-#		define	BOXIMPORT		__declspec(dllexport)
+#		define	BOXIMPORT		__declspec(dllimport)
 #	elif defined(__MINGW32__) || defined(__MINGW64__) || defined(__CYGWIN__)
 #		define	BOXEXPORT		__attribute__ ((dllexport))
-#		define	BOXIMPORT		__attribute__ ((dllexport))
+#		define	BOXIMPORT		__attribute__ ((dllimport))
 #	else
 #		define	BOXEXPORT
 #		define	BOXIMPORT
@@ -233,19 +232,13 @@ typedef PLATFORM_SIZE_TYPE size_t;
 #endif
 
 // --------------------- BOX_COMPILE_RUNTIME, BOX_COMPILE_BODY, BOX_COMPILE_EXECUTABLE
-#ifdef __BOX_RT__ /* when compiling boxpp runtime library. */
-#	define BOX_COMPILE_RUNTIME		1
-#else
-#	define BOX_COMPILE_RUNTIME		0
-#endif
-
 #ifdef __BOX_BODY__ /* when compiling boxpp.dll (or .so) */
 #	define BOX_COMPILE_BODY			1
 #else
 #	define BOX_COMPILE_BODY			0
 #endif
 
-#if !BOX_COMPILE_RUNTIME && !BOX_COMPILE_BODY /* when compiling box'ed app. */
+#if !BOX_COMPILE_BODY /* when compiling box'ed app. */
 #	define BOX_COMPILE_EXECUTABLE	1
 #else
 #	define BOX_COMPILE_EXECUTABLE	0

@@ -1,6 +1,6 @@
 #pragma once
 #include <boxpp/base/tpls/BaseTraits.hpp>
-#include <boxpp/base/tpls/IsPodType.hpp>
+#include <boxpp/base/tpls/traits/IsPodType.hpp>
 
 namespace boxpp
 {

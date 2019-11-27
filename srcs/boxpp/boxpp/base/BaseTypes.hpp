@@ -144,8 +144,8 @@ namespace boxpp
 
 		/* Compile-time system platform. */
 		System = (PLATFORM_WINDOWS ? Windows : (PLATFORM_ANDROID ? Android :
-		(PLATFORM_LINUX ? Linux : (PLATFORM_APPLE ? Apple :
-		(PLATFORM_UNIX ? Unix : Undefined)))))
+				(PLATFORM_LINUX ? Linux : (PLATFORM_APPLE ? Apple :
+				(PLATFORM_UNIX ? Unix : Undefined)))))
 	};
 
 	enum class EPlatformBitness {

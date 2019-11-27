@@ -180,3 +180,7 @@ tools/boxjs/Debug/boxjs.ilk
 tools/boxjs/.vs/boxjs/v15/.suo
 *.exe
 *.ilk
+*.db
+srcs/.vs/boxpp/v15/.suo
+*.opendb
+*.dll

@@ -77,8 +77,8 @@ namespace boxpp
 
 				size_t V = w32_compat::WideCharToMultiByte(
 					w32_compat::COMPAT_CP_ACP, 0, Src,
-					TOperations<wide_t>::Strlen(Src),
-					Dst, R, nullptr, nullptr);
+					w32_compat::INT(TOperations<wide_t>::Strlen(Src)),
+					Dst, w32_compat::INT(R), nullptr, nullptr);
 #endif
 #if PLATFORM_POSIX
 				size_t V = wcstombs(Dst, Src, TOperations<wide_t>::Strlen(Src));
@@ -110,7 +110,7 @@ namespace boxpp
 					w32_compat::COMPAT_CP_ACP, 0, Src, -1, nullptr, 0);
 
 				size_t V = w32_compat::MultiByteToWideChar(
-					w32_compat::COMPAT_CP_ACP, 0, Src, -1, Dst, R);
+					w32_compat::COMPAT_CP_ACP, 0, Src, -1, Dst, w32_compat::INT(R));
 #endif
 #if PLATFORM_POSIX
 				size_t V = mbstowcs(nullptr, Src, 0);

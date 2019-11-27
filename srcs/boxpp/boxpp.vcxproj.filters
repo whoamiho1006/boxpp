@@ -28,6 +28,9 @@
     <Filter Include="boxpp\base\tpls\strings">
       <UniqueIdentifier>{574fd315-14ef-401e-8e7e-cc74a42134ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\base\boilerplates">
+      <UniqueIdentifier>{ae87e76f-6894-42de-8d7d-a27ff323ab2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\base\BaseTypes.hpp">
@@ -171,5 +174,13 @@
     <ClInclude Include="boxpp\base\Base.hpp">
       <Filter>boxpp\base</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\base\boilerplates\Boilerplate.hpp">
+      <Filter>boxpp\base\boilerplates</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="boxpp\base\boilerplates\Boilerplate.cpp">
+      <Filter>boxpp\base\boilerplates</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
