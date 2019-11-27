@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="boxpp">
+      <UniqueIdentifier>{914f95b9-d2e5-4c96-8c7c-c708328b3638}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\base">
+      <UniqueIdentifier>{c8cd4f7b-4cca-49d1-a33b-59720a8a8fea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\base\tpls">
+      <UniqueIdentifier>{dd57262f-0aaa-413b-9fcd-9dc8affc1d50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\base\tpls\traits">
+      <UniqueIdentifier>{3fc48930-a2e5-418c-b4f3-297e50d7d679}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\base\tpls\shareds">
+      <UniqueIdentifier>{c97adb18-e6d9-4090-9ee2-ecc0c15b33a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\base\tpls\containers">
+      <UniqueIdentifier>{1876d1f0-aa6c-4b66-a033-45da4a2b81cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\base\tpls\containers\algorithms">
+      <UniqueIdentifier>{e79155ab-2125-4223-bf6b-cd38d9dd0a13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\base\opacities">
+      <UniqueIdentifier>{cd0b4be2-c75b-4310-83d2-b1d062bbf973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\base\tpls\strings">
+      <UniqueIdentifier>{574fd315-14ef-401e-8e7e-cc74a42134ad}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="boxpp\base\BaseTypes.hpp">
+      <Filter>boxpp\base</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\BaseMacros.hpp">
+      <Filter>boxpp\base</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\BaseTraits.hpp">
+      <Filter>boxpp\base\tpls</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\traits\AbstractedOperators.hpp">
+      <Filter>boxpp\base\tpls\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\traits\BypassType.hpp">
+      <Filter>boxpp\base\tpls\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\traits\DecayConst.hpp">
+      <Filter>boxpp\base\tpls\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\traits\DecayRef.hpp">
+      <Filter>boxpp\base\tpls\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\traits\EnableIf.hpp">
+      <Filter>boxpp\base\tpls\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\traits\Forward.hpp">
+      <Filter>boxpp\base\tpls\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\traits\IsCallableType.hpp">
+      <Filter>boxpp\base\tpls\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\traits\IsConstructibleType.hpp">
+      <Filter>boxpp\base\tpls\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\traits\IsConvertibleType.hpp">
+      <Filter>boxpp\base\tpls\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\traits\IsDerivedType.hpp">
+      <Filter>boxpp\base\tpls\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\traits\IsPodType.hpp">
+      <Filter>boxpp\base\tpls\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\traits\IsReferenceType.hpp">
+      <Filter>boxpp\base\tpls\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\traits\IsSameType.hpp">
+      <Filter>boxpp\base\tpls\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\traits\Movable.hpp">
+      <Filter>boxpp\base\tpls\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\traits\PickType.hpp">
+      <Filter>boxpp\base\tpls\traits</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\sharedptrs\SharedCount.hpp">
+      <Filter>boxpp\base\tpls\shareds</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\sharedptrs\SharedHolder.hpp">
+      <Filter>boxpp\base\tpls\shareds</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\sharedptrs\SharedPtr.hpp">
+      <Filter>boxpp\base\tpls\shareds</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\Array.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\ArrayBase.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\Callback.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\Comparator.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\EdgeBase.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\Function.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\Instrusive.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\Iterator.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\LinkedList.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\Map.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\Method.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\Node.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\Queue.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\SingleNode.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\SortedArray.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\Stack.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\algorithms\BinarySearch.hpp">
+      <Filter>boxpp\base\tpls\containers\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\algorithms\HeapSort.hpp">
+      <Filter>boxpp\base\tpls\containers\algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\opacities\posix.hpp">
+      <Filter>boxpp\base\opacities</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\opacities\vsprintf.hpp">
+      <Filter>boxpp\base\opacities</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\opacities\windows.hpp">
+      <Filter>boxpp\base\opacities</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\strings\Constants.hpp">
+      <Filter>boxpp\base\tpls\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\strings\Converter.hpp">
+      <Filter>boxpp\base\tpls\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\strings\Operations.hpp">
+      <Filter>boxpp\base\tpls\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\strings\String.hpp">
+      <Filter>boxpp\base\tpls\strings</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\Base.hpp">
+      <Filter>boxpp\base</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
