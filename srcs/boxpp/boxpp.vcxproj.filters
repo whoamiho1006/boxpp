@@ -37,6 +37,9 @@
     <Filter Include="boxpp\base\systems">
       <UniqueIdentifier>{e177227d-9970-4a23-9f92-90447062d6da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\base\utilities">
+      <UniqueIdentifier>{ce3ab985-46f7-4c47-a27a-eecfb6a481f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\base\BaseTypes.hpp">
@@ -185,6 +188,9 @@
     </ClInclude>
     <ClInclude Include="boxpp\base\systems\Debugger.hpp">
       <Filter>boxpp\base\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\utilities\DateTime.hpp">
+      <Filter>boxpp\base\utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

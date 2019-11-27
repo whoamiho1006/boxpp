@@ -200,6 +200,7 @@
     <ClInclude Include="boxpp\base\tpls\traits\IsSameType.hpp" />
     <ClInclude Include="boxpp\base\tpls\traits\Movable.hpp" />
     <ClInclude Include="boxpp\base\tpls\traits\PickType.hpp" />
+    <ClInclude Include="boxpp\base\utilities\DateTime.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\base\boilerplates\Memory.cpp" />
