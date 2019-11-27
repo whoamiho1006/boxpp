@@ -21,3 +21,8 @@ namespace boxpp {
 		::free(Block);
 	}
 }
+
+#include <Windows.h>
+void test() {
+
+}

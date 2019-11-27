@@ -31,6 +31,12 @@
     <Filter Include="boxpp\base\boilerplates">
       <UniqueIdentifier>{ae87e76f-6894-42de-8d7d-a27ff323ab2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\core">
+      <UniqueIdentifier>{45bf295d-3c5b-42e2-bb74-52878f718706}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\base\systems">
+      <UniqueIdentifier>{e177227d-9970-4a23-9f92-90447062d6da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\base\BaseTypes.hpp">
@@ -177,6 +183,9 @@
     <ClInclude Include="boxpp\base\boilerplates\Memory.hpp">
       <Filter>boxpp\base\boilerplates</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\base\systems\Debugger.hpp">
+      <Filter>boxpp\base\systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">
@@ -186,6 +195,12 @@
   <ItemGroup>
     <ClCompile Include="boxpp\base\boilerplates\Memory.cpp">
       <Filter>boxpp\base\boilerplates</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\systems\Debugger.cpp">
+      <Filter>boxpp\base\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\systems\Minidump.cpp">
+      <Filter>boxpp\base\systems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

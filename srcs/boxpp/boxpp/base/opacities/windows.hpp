@@ -101,15 +101,40 @@ namespace boxpp {
 		NO_MANGLED BOXIMPORT BOOL BOX_STDCALL	TerminateThread(HANDLE, DWORD);
 		NO_MANGLED BOXIMPORT void BOX_STDCALL	ExitThread(DWORD);
 
+		NO_MANGLED BOXIMPORT DWORD BOX_STDCALL	GetCurrentProcessId(void);
+		NO_MANGLED BOXIMPORT DWORD BOX_STDCALL	GetWindowThreadProcessId(HWND, LPDWORD);
+		NO_MANGLED BOXIMPORT HWND BOX_STDCALL	GetConsoleWindow(void);
+
+		NO_MANGLED BOXIMPORT BOOL BOX_STDCALL IsDebuggerPresent(void);
+		NO_MANGLED BOXIMPORT void BOX_STDCALL DebugBreak(void);
+
+		NO_MANGLED BOXIMPORT DWORD BOX_STDCALL GetModuleFileNameA(HMODULE, LPSTR, DWORD);
+		NO_MANGLED BOXIMPORT DWORD BOX_STDCALL GetModuleFileNameW(HMODULE, LPWSTR, DWORD);
+
+		FASTINLINE DWORD GetModuleFileName(HMODULE a, LPSTR b, DWORD c)
+		{
+			return GetModuleFileNameA(a, b, c);
+		}
+
+		FASTINLINE DWORD GetModuleFileName(HMODULE a, LPWSTR b, DWORD c)
+		{
+			return GetModuleFileNameW(a, b, c);
+		}
+
+		NO_MANGLED BOXIMPORT HMODULE BOX_STDCALL LoadLibraryA(LPCSTR);
+		NO_MANGLED BOXIMPORT HMODULE BOX_STDCALL LoadLibraryW(LPCWSTR);
+
+		typedef INT_PTR(BOX_STDCALL *FARPROC)();
+		NO_MANGLED BOXIMPORT FARPROC BOX_STDCALL GetProcAddress(HMODULE, LPCSTR);
+
+		NO_MANGLED BOXIMPORT BOOL BOX_STDCALL FreeLibrary(HMODULE);
+
 		/* -- Windows String Conversion API -- */
 		static constexpr UINT COMPAT_CP_ACP = 0;
 		static constexpr UINT COMPAT_CP_UTF8 = 0;
 
 		NO_MANGLED BOXIMPORT INT BOX_STDCALL MultiByteToWideChar(UINT, DWORD, LPCSTR, INT, LPWSTR, INT);
 		NO_MANGLED BOXIMPORT INT BOX_STDCALL WideCharToMultiByte(UINT, DWORD, LPCWSTR, INT, LPSTR, INT, LPCSTR, LPBOOL);
-
-		NO_MANGLED BOXIMPORT BOOL BOX_STDCALL IsDebuggerPresent(void);
-		NO_MANGLED BOXIMPORT void BOX_STDCALL DebugBreak(void);
 
 		NO_MANGLED BOXIMPORT int BOX_STDCALL MessageBoxA(HWND, LPCSTR, LPCSTR, UINT);
 		NO_MANGLED BOXIMPORT int BOX_STDCALL MessageBoxW(HWND, LPCWSTR, LPCWSTR, UINT);
@@ -124,18 +149,48 @@ namespace boxpp {
 			return MessageBoxW(a, b, c, d);
 		}
 
-		NO_MANGLED BOXIMPORT DWORD BOX_STDCALL GetModuleFileNameA(HMODULE, LPSTR, DWORD);
-		NO_MANGLED BOXIMPORT DWORD BOX_STDCALL GetModuleFileNameW(HMODULE, LPWSTR, DWORD);
+		NO_MANGLED BOXIMPORT BOOL BOX_STDCALL GetConsoleMode(HANDLE, LPDWORD);
+		NO_MANGLED BOXIMPORT HANDLE BOX_STDCALL GetStdHandle(DWORD);
 
-		FASTINLINE DWORD GetModuleFileName(HMODULE a, LPSTR b, DWORD c)
-		{
-			return GetModuleFileNameA(a, b, c);
-		}
+		static constexpr DWORD COMPAT_STD_INPUT_HANDLE = 0xFFFFFFF6;
+		static constexpr DWORD COMPAT_STD_OUTPUT_HANDLE = 0xFFFFFFF5;
+		static constexpr DWORD COMPAT_STD_ERROR_HANDLE = 0xFFFFFFF4;
 
-		FASTINLINE DWORD GetModuleFileName(HMODULE a, LPWSTR b, DWORD c)
-		{
-			return GetModuleFileNameW(a, b, c);
-		}
+		typedef struct _COORD {
+			SHORT X;
+			SHORT Y;
+		} COORD, *PCOORD;
+
+		typedef struct _SMALL_RECT {
+			SHORT Left;
+			SHORT Top;
+			SHORT Right;
+			SHORT Bottom;
+		} SMALL_RECT;
+
+		typedef struct _CONSOLE_SCREEN_BUFFER_INFO {
+			COORD      dwSize;
+			COORD      dwCursorPosition;
+			WORD       wAttributes;
+			SMALL_RECT srWindow;
+			COORD      dwMaximumWindowSize;
+		} CONSOLE_SCREEN_BUFFER_INFO, *PCONSOLE_SCREEN_BUFFER_INFO;
+
+		NO_MANGLED BOXIMPORT BOOL BOX_STDCALL GetConsoleScreenBufferInfo(
+			HANDLE, PCONSOLE_SCREEN_BUFFER_INFO);
+
+		typedef struct _SYSTEMTIME {
+			WORD wYear;
+			WORD wMonth;
+			WORD wDayOfWeek;
+			WORD wDay;
+			WORD wHour;
+			WORD wMinute;
+			WORD wSecond;
+			WORD wMilliseconds;
+		} SYSTEMTIME, *PSYSTEMTIME, *LPSYSTEMTIME;
+
+		NO_MANGLED BOXIMPORT void BOX_STDCALL GetLocalTime(LPSYSTEMTIME lpSystemTime);
 	}
 }
 #endif
