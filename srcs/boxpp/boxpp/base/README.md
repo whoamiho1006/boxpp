@@ -104,3 +104,18 @@ type_db::TSizedInt<Size>::{Signed, Unsigned}.
 				(PLATFORM_UNIX ? Unix : Undefined)))))
 	};
 ```
+
+# 3. Template library (tpls directory)
+	* tpls/BaseTraits.hpp : Base-types for type trait.
+	* tpls/traits/*.hpp : Type-trait related templates.
+	* tpls/shareds/*.hpp : Smart-pointer.
+	* tpls/strings/*.hpp : String templates.
+	* tpls/containers/*.hpp : Container templates.
+
+# 4. Opacity wrappers for windows and posix.
+	* opacities/posix.hpp : POSIX API autocompletion support for MSVC.
+	* opacities/windows.hpp : Windows API Opacity declarations.
+	* opacities/vsprintf.hpp : vsprintf series template specializations.
+
+# 5. Boilerplate.
+Documentation ..... hmmmmmmmmmm...
