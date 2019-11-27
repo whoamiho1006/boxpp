@@ -174,12 +174,17 @@
     <ClInclude Include="boxpp\base\Base.hpp">
       <Filter>boxpp\base</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\base\boilerplates\Boilerplate.hpp">
+    <ClInclude Include="boxpp\base\boilerplates\Memory.hpp">
       <Filter>boxpp\base\boilerplates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="boxpp\base\boilerplates\Boilerplate.cpp">
+    <Text Include="boxpp\base\README.md">
+      <Filter>boxpp\base</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="boxpp\base\boilerplates\Memory.cpp">
       <Filter>boxpp\base\boilerplates</Filter>
     </ClCompile>
   </ItemGroup>

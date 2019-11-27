@@ -4,8 +4,8 @@
 
 namespace boxpp
 {
-	/* Boilerplate implementation. */
-	class BOXPP FBoilerplate
+	/* Memory. */
+	class BOXPP FMemory
 	{
 	public:
 		static void* Malloc(size_t Size);
@@ -17,8 +17,8 @@ namespace boxpp
 		Declare boilerplate operator overloads.
 	*/
 #define BOXPP_DECLARE_BOILERPLATE() \
-	void* operator new (boxpp::size_t Size) { return boxpp::FBoilerplate::Malloc(Size); } \
-	void* operator new[] (boxpp::size_t Size) { return boxpp::FBoilerplate::Malloc(Size); } \
-	void operator delete(void* Block) { boxpp::FBoilerplate::Free(Block); } \
-	void operator delete[](void* Block) { boxpp::FBoilerplate::Free(Block); }
+	void* operator new (boxpp::size_t Size) { return boxpp::FMemory::Malloc(Size); } \
+	void* operator new[] (boxpp::size_t Size) { return boxpp::FMemory::Malloc(Size); } \
+	void operator delete(void* Block) { boxpp::FMemory::Free(Block); } \
+	void operator delete[](void* Block) { boxpp::FMemory::Free(Block); }
 }

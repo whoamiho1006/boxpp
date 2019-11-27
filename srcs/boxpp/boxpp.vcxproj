@@ -154,7 +154,7 @@
     <ClInclude Include="boxpp\base\BaseMacros.hpp" />
     <ClInclude Include="boxpp\base\Base.hpp" />
     <ClInclude Include="boxpp\base\BaseTypes.hpp" />
-    <ClInclude Include="boxpp\base\boilerplates\Boilerplate.hpp" />
+    <ClInclude Include="boxpp\base\boilerplates\Memory.hpp" />
     <ClInclude Include="boxpp\base\opacities\posix.hpp" />
     <ClInclude Include="boxpp\base\opacities\vsprintf.hpp" />
     <ClInclude Include="boxpp\base\opacities\windows.hpp" />
@@ -201,7 +201,10 @@
     <ClInclude Include="boxpp\base\tpls\traits\PickType.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="boxpp\base\boilerplates\Boilerplate.cpp" />
+    <ClCompile Include="boxpp\base\boilerplates\Memory.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="boxpp\base\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

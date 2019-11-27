@@ -1,4 +1,4 @@
-#include "Boilerplate.hpp"
+#include "Memory.hpp"
 
 #include <malloc.h>
 
@@ -6,17 +6,17 @@ BOXPP_DECLARE_BOILERPLATE();
 
 namespace boxpp {
 
-	void* FBoilerplate::Malloc(size_t Size)
+	void* FMemory::Malloc(size_t Size)
 	{
 		return ::malloc(Size);
 	}
 
-	void* FBoilerplate::Realloc(void* Block, size_t Size)
+	void* FMemory::Realloc(void* Block, size_t Size)
 	{
 		return ::realloc(Block, Size);
 	}
 
-	void FBoilerplate::Free(void* Block)
+	void FMemory::Free(void* Block)
 	{
 		::free(Block);
 	}
