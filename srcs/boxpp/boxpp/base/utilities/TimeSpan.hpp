@@ -68,6 +68,7 @@ namespace boxpp
 
 	public:
 		FASTINLINE struct tm* GetRaw() const { return &Time; }
+		FASTINLINE time_t GetRawTime() const { return mktime(&Time); }
 
 		FASTINLINE s32 GetYears() const { return Time.tm_year; }
 		FASTINLINE s32 GetMonths() const { return Time.tm_mon; }

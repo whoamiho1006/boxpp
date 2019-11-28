@@ -129,3 +129,6 @@ type_db::TSizedInt<Size>::{Signed, Unsigned}.
 		- BOX_BREAK(): Break debugger.
 
 	* systems/Minidump.cpp: (currently works only for windows) Creates a DMP file when exception occurred.
+
+# 7. Utilities.
+	* FDateTime, FTimeSpan - standard wrapper.

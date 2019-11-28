@@ -60,6 +60,62 @@ namespace boxpp
 		FDateTime& operator =(const FDateTime&) = default;
 		FDateTime& operator =(FDateTime&&) = default;
 
+	public:
+		FASTINLINE FDateTime operator +(const FTimeSpan& Span) const {
+			FDateTime Time = *this;
+
+			struct tm& Left = Time.Time;
+			struct tm& Right = *Span.GetRaw();
+
+			Left.tm_hour += Right.tm_hour;
+			Left.tm_min += Right.tm_min;
+			Left.tm_sec += Right.tm_sec;
+			Left.tm_yday += Right.tm_yday;
+			Left.tm_mon += Right.tm_mon;
+			Left.tm_year += Right.tm_year;
+
+			Time.SetYear(Left.tm_year);
+			return Time;
+		}
+
+		FASTINLINE FDateTime operator -(const FTimeSpan& Span) const {
+			FDateTime Time = *this;
+
+			struct tm& Left = Time.Time;
+			struct tm& Right = *Span.GetRaw();
+
+			Left.tm_hour -= Right.tm_hour;
+			Left.tm_min -= Right.tm_min;
+			Left.tm_sec -= Right.tm_sec;
+			Left.tm_yday -= Right.tm_yday;
+			Left.tm_mon -= Right.tm_mon;
+			Left.tm_year -= Right.tm_year;
+
+			Time.SetYear(Left.tm_year);
+			return Time;
+		}
+
+		FASTINLINE FTimeSpan operator -(const FDateTime& Right) const {
+			FTimeSpan Span;
+
+			Span.SetYears(GetYear() - Right.GetYear());
+			Span.SetMonths(GetMonth() - Right.GetMonth());
+			Span.SetDays(GetDay() - Right.GetDay());
+			Span.SetHours(GetHour() - Right.GetHour());
+			Span.SetMinutes(GetMinutes() - Right.GetMinutes());
+			Span.SetSeconds(GetSeconds() - Right.GetSeconds());
+
+			return Span;
+		}
+
+		FASTINLINE FDateTime& operator +=(const FTimeSpan& Span) {
+			return (*this = (*this + Span));
+		}
+
+		FASTINLINE FDateTime& operator -=(const FTimeSpan& Span) {
+			return (*this = (*this - Span));
+		}
+
 	private:
 		mutable struct tm Time;
 
