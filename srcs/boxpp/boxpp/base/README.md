@@ -126,13 +126,19 @@ type_db::TSizedInt<Size>::{Signed, Unsigned}.
 # 5. Boilerplate.
 	* boilerplates/Memory.hpp : Memory boilerplate. (for unifying the heap where memory is allocated)
 
-# 6. Debugging support and Minidump.
+# 6. Debugging support and Minidump, barrior (mutex like), tls, event object, threaded.
 	* systems/Debugger{.hpp, .cpp}:
 		- BOX_ASSERT(Expr, Msg): Test expression and abort execution.
 		- BOX_ENSURE(Expr): Test expression and break debugger.
 		- BOX_BREAK(): Break debugger.
 
 	* systems/Minidump.cpp: (currently works only for windows) Creates a DMP file when exception occurred.
+	* systems/Barrior.hpp
+	* systems/RawEvent.hpp
+	* systems/RawTls.hpp
+	* systems/Threaded.hpp
 
 # 7. Utilities.
 	* FDateTime, FTimeSpan - standard wrapper.
+	* FName
+

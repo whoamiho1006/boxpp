@@ -76,4 +76,6 @@
 #include <boxpp/base/boilerplates/Memory.hpp>
 
 /* utilities. */
+#include <boxpp/base/utilities/TimeSpan.hpp>
 #include <boxpp/base/utilities/DateTime.hpp>
+#include <boxpp/base/utilities/Name.hpp>
