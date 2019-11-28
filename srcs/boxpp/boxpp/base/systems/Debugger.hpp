@@ -26,18 +26,15 @@ namespace boxpp
 			const ansi_t* Expression, const ansi_t* Message);
 	};
 
-#if BOX_DEBUG
 #define BOX_ASSERT(Expression, Message)	\
 	((Expression) || (boxpp::FDebugger::Failure(__FILE__, __LINE__, #Expression, Message)))
 
+#if BOX_DEBUG
 #define BOX_ENSURE(Expression) \
 	((Expression) || (boxpp::FDebugger::Break()))
 
 #define BOX_BREAK()	(boxpp::FDebugger::Break() || true)
 #else
-#define BOX_ASSERT(Expression, Message)	\
-	((Expression) || (boxpp::FDebugger::Abort()))
-
 #define BOX_ENSURE(Expression) \
 	(Expression)
 
