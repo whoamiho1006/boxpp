@@ -43,6 +43,13 @@
 #	define BOX_NOT_COMPILED 0
 #endif
 
+// ---------------------- BOX_DEBUG
+#if defined(_DEBUG)
+#	define BOX_DEBUG		1
+#else
+#	define BOX_DEBUG		0
+#endif
+
 // ---------------------- PLATFORM_*
 #if defined(_WIN64) || defined(_WIN32) || defined(__MINGW32__) \
 	|| defined(__MINGW64__) || defined(__CYGWIN__)

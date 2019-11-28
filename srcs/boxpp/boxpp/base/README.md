@@ -25,8 +25,9 @@ provides preprocessor branches for multi-platforming.
 	* PLATFORM_UNICODE (0/1) - Automatically intergrated if on MSVC. (WANNA_UNICODE required for others)
 	* PLATFORM_NATIVE_WCHAR (0/1) - about native wchar_t support.
 
-### For identifying IDE.
+### For identifying IDE and debug-mode build.
 	* BOX_NOT_COMPILED - this will indicate under IDE or not. (like intellisense on MSVC)
+	* BOX_DEBUG - Controlled by _DEBUG preprocessor that defined by command-line.
 
 ### Exposure of API.
 	* BOXEXPORT - __declspec(dllexport) for windows, empty for others.
@@ -120,3 +121,11 @@ type_db::TSizedInt<Size>::{Signed, Unsigned}.
 
 # 5. Boilerplate.
 	* boilerplates/Memory.hpp : Memory boilerplate. (for unifying the heap where memory is allocated)
+
+# 6. Debugging support and Minidump.
+	* systems/Debugger{.hpp, .cpp}:
+		- BOX_ASSERT(Expr, Msg): Test expression and abort execution.
+		- BOX_ENSURE(Expr): Test expression and break debugger.
+		- BOX_BREAK(): Break debugger.
+
+	* systems/Minidump.cpp: (currently works only for windows) Creates a DMP file when exception occurred.

@@ -184,3 +184,8 @@ tools/boxjs/.vs/boxjs/v15/.suo
 srcs/.vs/boxpp/v15/.suo
 *.opendb
 *.dll
+*.ipdb
+*.iobj
+*.db-wal
+*.db-shm
+*.config

@@ -5,6 +5,7 @@
 #include <boxpp/base/tpls/traits/Movable.hpp>
 #include <boxpp/base/tpls/containers/Instrusive.hpp>
 #include <boxpp/base/tpls/containers/SortedArray.hpp>
+#include <boxpp/base/systems/Debugger.hpp>
 
 namespace boxpp
 {
@@ -96,15 +97,21 @@ namespace boxpp
 
 		FASTINLINE ValueType& operator [](const KeyType& Key) {
 			SortablePair HalfPair(Key);
-			const SortablePair& FoundPair = Pairs[Pairs.Search(HalfPair)];
+			s32 Index = Pairs.Search(HalfPair);
 
+			BOX_ASSERT(Index >= 0 && Index < Pairs.GetSize(), "No key exists");
+
+			const SortablePair& FoundPair = Pairs[Index];
 			return *(FoundPair.Value.GetRaw());
 		}
 
 		FASTINLINE const ValueType& operator [](const KeyType& Key) const {
 			SortablePair HalfPair(Key);
-			const SortablePair& FoundPair = Pairs[Pairs.Search(HalfPair)];
+			s32 Index = Pairs.Search(HalfPair);
 
+			BOX_ASSERT(Index >= 0 && Index < Pairs.GetSize(), "No key exists");
+
+			const SortablePair& FoundPair = Pairs[Index];
 			return *(FoundPair.Value.GetRaw());
 		}
 

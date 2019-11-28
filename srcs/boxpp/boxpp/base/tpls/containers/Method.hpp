@@ -3,6 +3,7 @@
 #include <boxpp/base/BaseTypes.hpp>
 
 #include <boxpp/base/tpls/traits/BypassType.hpp>
+#include <boxpp/base/systems/Debugger.hpp>
 
 namespace boxpp
 {
@@ -32,6 +33,7 @@ namespace boxpp
 		template<typename ContextType>
 		FASTINLINE RetType operator ()(ContextType* Context, BypassType<ArgTypes> ... Args) const
 		{
+			BOX_ASSERT(Callable != nullptr, "Invalid method!");
 			return Callable((StorageType*)this, Context, Args ...);
 		}
 	};
@@ -56,6 +58,7 @@ namespace boxpp
 		template<typename ContextType>
 		FASTINLINE void operator ()(ContextType* Context, BypassType<ArgTypes> ... Args) const
 		{
+			BOX_ASSERT(Callable != nullptr, "Invalid method!");
 			Callable((StorageType*)this, Context, Args ...);
 		}
 	};

@@ -6,6 +6,8 @@
 #include <boxpp/base/tpls/traits/Movable.hpp>
 #include <boxpp/base/tpls/containers/Iterator.hpp>
 
+#include <boxpp/base/systems/Debugger.hpp>
+
 namespace boxpp
 {
 	template<typename ElemType>
@@ -69,8 +71,16 @@ namespace boxpp
 		FASTINLINE ElemType* GetRaw() const { return Storage; }
 
 	public:
-		FASTINLINE ElemType& operator[](s32 Offset) { return Storage[Offset]; }
-		FASTINLINE const ElemType& operator[](s32 Offset) const { return Storage[Offset]; }
+		FASTINLINE ElemType& operator[](s32 Offset) { 
+			BOX_ASSERT(Offset >= 0 && Offset < s32(Length), "Out of range");
+			return Storage[Offset]; 
+		}
+
+		FASTINLINE const ElemType& operator[](s32 Offset) const {
+			BOX_ASSERT(Offset >= 0 && Offset < s32(Length), "Out of range");
+			return Storage[Offset]; 
+		}
+
 		FASTINLINE bool IsValid(s32 Offset) const { return Offset >= 0 && Offset < s32(Length); }
 
 	public:
@@ -87,9 +97,7 @@ namespace boxpp
 				ElemType* Storage = (ElemType*) new u8[
 					(Length + Size) * Multiplier * sizeof(ElemType)];
 
-				if (!Storage) {
-					return false;
-				}
+				BOX_ASSERT(Storage != nullptr, "Out of memory.");
 
 				if (IsPodType<ElemType>) {
 					::memcpy(Storage, this->Storage, sizeof(ElemType) * Length);
@@ -123,9 +131,7 @@ namespace boxpp
 				ElemType* Storage = (ElemType*) new u8[
 					Length * Multiplier * sizeof(ElemType)];
 
-				if (!Storage) {
-					return;
-				}
+				BOX_ASSERT(Storage != nullptr, "Out of memory.");
 
 				if (IsPodType<ElemType>) {
 					::memcpy(Storage, this->Storage, sizeof(ElemType) * Length);
@@ -180,7 +186,7 @@ namespace boxpp
 			Remove an item (or items) from this array.
 		*/
 		FASTINLINE bool RemoveAt(s32 Offset, u32 Count = 1, bool bOptimize = true) {
-			if (Offset >= 0 && Offset < s32(Length)) {
+			if (BOX_ENSURE(Offset >= 0 && Offset < s32(Length))) {
 				u32 FinalLength = u32(Length < Count ? 0 : Length - Count);
 
 				if (IsPodType<ElemType>) {

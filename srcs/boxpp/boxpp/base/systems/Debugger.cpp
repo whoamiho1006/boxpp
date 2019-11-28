@@ -113,8 +113,9 @@ namespace boxpp {
 		return false;
 	}
 
-	void FDebugger::Abort() {
+	bool FDebugger::Abort() {
 		exit(EXIT_FAILURE);
+		return false;
 	}
 
 	bool FDebugger::Failure(const ansi_t* File, s32 Line,

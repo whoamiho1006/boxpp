@@ -19,13 +19,14 @@ namespace boxpp
 
 	public:
 		static bool Break();
-		static void Abort();
+		static bool Abort();
 
 	public:
 		static bool Failure(const ansi_t* File, s32 Line, 
 			const ansi_t* Expression, const ansi_t* Message);
 	};
 
+#if BOX_DEBUG
 #define BOX_ASSERT(Expression, Message)	\
 	((Expression) || (boxpp::FDebugger::Failure(__FILE__, __LINE__, #Expression, Message)))
 
@@ -33,4 +34,13 @@ namespace boxpp
 	((Expression) || (boxpp::FDebugger::Break()))
 
 #define BOX_BREAK()	(boxpp::FDebugger::Break() || true)
+#else
+#define BOX_ASSERT(Expression, Message)	\
+	((Expression) || (boxpp::FDebugger::Abort()))
+
+#define BOX_ENSURE(Expression) \
+	(Expression)
+
+#define BOX_BREAK()	true
+#endif
 }

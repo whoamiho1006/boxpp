@@ -3,6 +3,7 @@
 #include <boxpp/base/BaseTypes.hpp>
 
 #include <boxpp/base/tpls/traits/BypassType.hpp>
+#include <boxpp/base/systems/Debugger.hpp>
 
 namespace boxpp {
 
@@ -26,6 +27,7 @@ namespace boxpp {
 
 	public:
 		FASTINLINE RetType operator ()(BypassType<ArgTypes> ... Args) const {
+			BOX_ASSERT(Callable != nullptr, "Callback was nullptr!");
 			return Callable(Args ...);
 		}
 	};
@@ -44,6 +46,7 @@ namespace boxpp {
 
 	public:
 		FASTINLINE void operator ()(BypassType<ArgTypes> ... Args) const {
+			BOX_ASSERT(Callable != nullptr, "Callback was nullptr!");
 			Callable(Args ...);
 		}
 	};

@@ -4,6 +4,7 @@
 
 #include <boxpp/base/tpls/containers/Node.hpp>
 #include <boxpp/base/tpls/containers/Iterator.hpp>
+#include <boxpp/base/systems/Debugger.hpp>
 
 namespace boxpp
 {
@@ -61,8 +62,14 @@ namespace boxpp
 		FASTINLINE NodeType* GetRaw() const { return First; }
 
 	public:
-		FASTINLINE ElemType& operator[](const OffsetType& Offset) { return *Offset->GetRaw(); }
-		FASTINLINE const ElemType& operator[](const OffsetType& Offset) const { return *Offset->GetRaw(); }
+		FASTINLINE ElemType& operator[](const OffsetType& Offset) {
+			BOX_ASSERT(Offset && Offset->GetRaw(), "Invalid Node offset!");
+			return *Offset->GetRaw();
+		}
+		FASTINLINE const ElemType& operator[](const OffsetType& Offset) const {
+			BOX_ASSERT(Offset && Offset->GetRaw(), "Invalid Node offset!");
+			return *Offset->GetRaw(); 
+		}
 
 	public:
 		FASTINLINE bool IsValid(const OffsetType& Offset) const { return *Offset != nullptr; }

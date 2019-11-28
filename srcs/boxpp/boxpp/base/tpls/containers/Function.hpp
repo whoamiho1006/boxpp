@@ -3,6 +3,7 @@
 #include <boxpp/base/BaseTypes.hpp>
 
 #include <boxpp/base/tpls/traits/Forward.hpp>
+#include <boxpp/base/systems/Debugger.hpp>
 
 namespace boxpp {
 
@@ -21,6 +22,7 @@ namespace boxpp {
 			FASTINLINE static CallType<RetType, LambdaType, ArgTypes ...> MakeCallType()
 			{
 				return [](void* InLambda, ArgTypes ... Args) {
+					BOX_ASSERT(InLambda != nullptr, "Invalid Lambda");
 					return (*((LambdaType*)InLambda))(Args ...);
 				};
 			}
@@ -31,6 +33,7 @@ namespace boxpp {
 			FASTINLINE static CallType<void, LambdaType, ArgTypes ...> MakeCallType()
 			{
 				return [](void* InLambda, ArgTypes ... Args) {
+					BOX_ASSERT(InLambda != nullptr, "Invalid Lambda");
 					(*((LambdaType*)InLambda))(Args ...);
 				};
 			}
@@ -41,6 +44,7 @@ namespace boxpp {
 			FASTINLINE static CallType<RetType, CallbackType, ArgTypes ...> MakeCallType()
 			{
 				return [](void* InLambda, ArgTypes ... Args) {
+					BOX_ASSERT(InLambda != nullptr, "Invalid Lambda");
 					return ((CallbackType)InLambda)(Args ...);
 				};
 			}
@@ -51,6 +55,7 @@ namespace boxpp {
 			FASTINLINE static CallType<void, CallbackType, ArgTypes ...> MakeCallType()
 			{
 				return [](void* InLambda, ArgTypes ... Args) {
+					BOX_ASSERT(InLambda != nullptr, "Invalid Lambda");
 					((CallbackType)InLambda)(Args ...);
 				};
 			}
@@ -92,6 +97,7 @@ namespace boxpp {
 				using WrapperType = TFunctionByMethod<ClassType, RetType, ArgTypes ...>;
 				return [](void* InLambda, ArgTypes ... Args) {
 					WrapperType* Wrapper = (WrapperType*)InLambda;
+					BOX_ASSERT(InLambda != nullptr, "Invalid method!");
 
 					RetType(ClassType::* Callback)(ArgTypes ...) = Wrapper->Callback;
 					ClassType* Object = Wrapper->Object;
@@ -108,6 +114,7 @@ namespace boxpp {
 				using WrapperType = TFunctionByMethod<ClassType, void, ArgTypes ...>;
 				return [](void* InLambda, ArgTypes ... Args) {
 					WrapperType* Wrapper = (WrapperType*)InLambda;
+					BOX_ASSERT(InLambda != nullptr, "Invalid method!");
 
 					void(ClassType::* Callback)(ArgTypes ...) = Wrapper->Callback;
 					ClassType* Object = Wrapper->Object;
@@ -124,6 +131,7 @@ namespace boxpp {
 				using WrapperType = TFunctionByMethodConst<ClassType, RetType, ArgTypes ...>;
 				return [](void* InLambda, ArgTypes ... Args) {
 					WrapperType* Wrapper = (WrapperType*)InLambda;
+					BOX_ASSERT(InLambda != nullptr, "Invalid method!");
 
 					RetType(ClassType::* Callback)(ArgTypes ...) const = Wrapper->Callback;
 					const ClassType* Object = Wrapper->Object;
@@ -140,6 +148,7 @@ namespace boxpp {
 				using WrapperType = TFunctionByMethodConst<ClassType, void, ArgTypes ...>;
 				return [](void* InLambda, ArgTypes ... Args) {
 					WrapperType* Wrapper = (WrapperType*)InLambda;
+					BOX_ASSERT(InLambda != nullptr, "Invalid method!");
 
 					void(ClassType::* Callback)(ArgTypes ...) const = Wrapper->Callback;
 					const ClassType* Object = Wrapper->Object;
