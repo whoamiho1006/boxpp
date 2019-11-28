@@ -138,7 +138,7 @@ namespace boxpp
 					(Name = (NameData*)Intergrated)
 						->References = 1;
 
-					Name->Length = Length;
+					Name->Length = u32(Length);
 
 					::memcpy(Name + 1, InString, Length * sizeof(char_t));
 					*((char_t*)(Name + 1) + Length) = 0;
@@ -158,7 +158,7 @@ namespace boxpp
 					(Name = (NameData*)Intergrated)
 						->References = 1;
 
-					Name->Length = Converter.GetConvertedLength();
+					Name->Length = u32(Converter.GetConvertedLength());
 					::memcpy(Name + 1, Converter.GetConvertedString(),
 						(Converter.GetConvertedLength() + 1) * sizeof(char_t)
 					/* including termination character. */);

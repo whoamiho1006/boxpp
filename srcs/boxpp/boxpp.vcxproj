@@ -155,6 +155,9 @@
     <ClInclude Include="boxpp\base\Base.hpp" />
     <ClInclude Include="boxpp\base\BaseTypes.hpp" />
     <ClInclude Include="boxpp\base\boilerplates\Memory.hpp" />
+    <ClInclude Include="boxpp\base\mathematics\BaseMath.hpp" />
+    <ClInclude Include="boxpp\base\mathematics\Rectangle.hpp" />
+    <ClInclude Include="boxpp\base\mathematics\Vector.hpp" />
     <ClInclude Include="boxpp\base\opacities\posix.hpp" />
     <ClInclude Include="boxpp\base\opacities\vsprintf.hpp" />
     <ClInclude Include="boxpp\base\opacities\windows.hpp" />
@@ -200,12 +203,14 @@
     <ClInclude Include="boxpp\base\tpls\traits\IsConstructibleType.hpp" />
     <ClInclude Include="boxpp\base\tpls\traits\IsConvertibleType.hpp" />
     <ClInclude Include="boxpp\base\tpls\traits\IsDerivedType.hpp" />
+    <ClInclude Include="boxpp\base\tpls\traits\IsNumericType.hpp" />
     <ClInclude Include="boxpp\base\tpls\traits\IsPodType.hpp" />
     <ClInclude Include="boxpp\base\tpls\traits\IsReferenceType.hpp" />
     <ClInclude Include="boxpp\base\tpls\traits\IsSameType.hpp" />
     <ClInclude Include="boxpp\base\tpls\traits\Movable.hpp" />
     <ClInclude Include="boxpp\base\tpls\traits\PickType.hpp" />
     <ClInclude Include="boxpp\base\utilities\DateTime.hpp" />
+    <ClInclude Include="boxpp\base\utilities\Name.hpp" />
     <ClInclude Include="boxpp\base\utilities\TimeSpan.hpp" />
   </ItemGroup>
   <ItemGroup>

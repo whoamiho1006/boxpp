@@ -167,7 +167,7 @@ namespace boxpp
 					Storage.RemoveAt(Storage.GetSize() - 1, 1, false);
 				}
 
-				Storage.Append(InString, MaxSize >= 0 && ssize_t(Size) > MaxSize ? MaxSize : Size);
+				Storage.Append(InString, u32(MaxSize >= 0 && ssize_t(Size) > MaxSize ? MaxSize : Size));
 				Storage.Add(strings::TConstants<CharType>::Null);
 			}
 		}

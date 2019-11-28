@@ -33,6 +33,16 @@ namespace boxpp
 		template<s8 size> using SignedInt = typename TSizedInt<size>::Signed;
 		template<s8 size> using UnignedInt = typename TSizedInt<size>::Unsigned;
 
+		template<s8 size> struct TSizedFloat;
+		template<> struct TSizedFloat<1> { using Type = f32; };
+		template<> struct TSizedFloat<2> { using Type = f32; };
+		template<> struct TSizedFloat<3> { using Type = f32; };
+		template<> struct TSizedFloat<4> { using Type = f32; };
+		template<> struct TSizedFloat<5> { using Type = f64; };
+		template<> struct TSizedFloat<6> { using Type = f64; };
+		template<> struct TSizedFloat<7> { using Type = f64; };
+		template<> struct TSizedFloat<8> { using Type = f64; };
+
 		template<typename Type>
 		struct TNumberLimits
 		{

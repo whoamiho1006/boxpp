@@ -26,6 +26,7 @@
 #include <boxpp/base/tpls/traits/IsConstructibleType.hpp>
 #include <boxpp/base/tpls/traits/IsConvertibleType.hpp>
 #include <boxpp/base/tpls/traits/IsReferenceType.hpp>
+#include <boxpp/base/tpls/traits/IsNumericType.hpp>
 
 #include <boxpp/base/tpls/traits/BypassType.hpp>
 #include <boxpp/base/tpls/traits/PickType.hpp>
@@ -79,3 +80,8 @@
 #include <boxpp/base/utilities/TimeSpan.hpp>
 #include <boxpp/base/utilities/DateTime.hpp>
 #include <boxpp/base/utilities/Name.hpp>
+
+/* mathematics. */
+#include <boxpp/base/mathematics/BaseMath.hpp>
+#include <boxpp/base/mathematics/Vector.hpp>
+#include <boxpp/base/mathematics/Rectangle.hpp>
