@@ -96,18 +96,20 @@ namespace boxpp {
 
 	bool FDebugger::Break()
 	{
-#if PLATFORM_WINDOWS
+#if BOX_DEBUG
+#	if PLATFORM_WINDOWS
 		if (w32_compat::IsDebuggerPresent())
 			w32_compat::DebugBreak();
-#endif
-#if PLATFORM_POSIX
+#	endif
+#	if PLATFORM_POSIX
 		if (IsPresent()) {
-#if !defined(SIGTRAP)
+#	if !defined(SIGTRAP)
 			__builtin_trap();
-#else
+#	else
 			raise(SIGTRAP);
-#endif
+#	endif
 		}
+#	endif
 #endif
 
 		return false;
@@ -141,7 +143,7 @@ namespace boxpp {
 		}
 #endif
 
-		Break();
+		BOX_BREAK();
 		throw 0;
 		//Abort();
 
