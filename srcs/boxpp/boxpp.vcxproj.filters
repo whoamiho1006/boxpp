@@ -40,6 +40,12 @@
     <Filter Include="boxpp\base\mathematics">
       <UniqueIdentifier>{f58fa12b-9a77-40fc-80fd-9380890219cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\core">
+      <UniqueIdentifier>{e8d39c79-dafc-4948-883a-66a53483d30c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\core\gc">
+      <UniqueIdentifier>{9128b770-4210-4d48-b975-99ba23f11869}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\base\BaseTypes.hpp">
@@ -225,6 +231,12 @@
     <ClInclude Include="boxpp\base\mathematics\Rectangle.hpp">
       <Filter>boxpp\base\mathematics</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\core\gc\GCRoot.hpp">
+      <Filter>boxpp\core\gc</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\core\gc\GCObject.hpp">
+      <Filter>boxpp\core\gc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">
@@ -244,5 +256,16 @@
     <ClCompile Include="boxpp\base\systems\Threaded.cpp">
       <Filter>boxpp\base\systems</Filter>
     </ClCompile>
+    <ClCompile Include="boxpp\core\gc\GCRoot.cpp">
+      <Filter>boxpp\core\gc</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\core\gc\GCObject.cpp">
+      <Filter>boxpp\core\gc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="boxpp\core\README.md">
+      <Filter>boxpp\core</Filter>
+    </None>
   </ItemGroup>
 </Project>

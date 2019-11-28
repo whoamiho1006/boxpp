@@ -212,15 +212,22 @@
     <ClInclude Include="boxpp\base\utilities\DateTime.hpp" />
     <ClInclude Include="boxpp\base\utilities\Name.hpp" />
     <ClInclude Include="boxpp\base\utilities\TimeSpan.hpp" />
+    <ClInclude Include="boxpp\core\gc\GCObject.hpp" />
+    <ClInclude Include="boxpp\core\gc\GCRoot.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\base\boilerplates\Memory.cpp" />
     <ClCompile Include="boxpp\base\systems\Debugger.cpp" />
     <ClCompile Include="boxpp\base\systems\Minidump.cpp" />
     <ClCompile Include="boxpp\base\systems\Threaded.cpp" />
+    <ClCompile Include="boxpp\core\gc\GCObject.cpp" />
+    <ClCompile Include="boxpp\core\gc\GCRoot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="boxpp\core\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

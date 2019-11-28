@@ -140,7 +140,7 @@ namespace boxpp
 		FASTINLINE s32 Add(const ElemType& Item, u32 Count = 1) {
 			if (this->Requires(Count)) {
 				if (this->Length) {
-					s32 Offset = TBinarySearch<ElemType, bAscend>::SearchNear(Item, this->Storage, this->Length);
+					s32 Offset = s32(TBinarySearch<ElemType, bAscend>::SearchNear(Item, this->Storage, this->Length));
 
 					if (Offset >= 0) {
 						return Add(Offset, Item, Count);
@@ -335,8 +335,8 @@ namespace boxpp
 			Find the index of given item.
 		*/
 		FASTINLINE s32 IndexOf(const ElemType& Item, u32 Offset = 0) const {
-			return TBinarySearch<ElemType, bAscend>::Search(Item, 
-				this->Storage + Offset, this->Length - Offset);
+			return s32(TBinarySearch<ElemType, bAscend>::Search(Item,
+				this->Storage + Offset, this->Length - Offset));
 		}
 
 		/*

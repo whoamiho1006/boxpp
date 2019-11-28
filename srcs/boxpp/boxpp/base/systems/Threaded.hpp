@@ -49,6 +49,11 @@ namespace boxpp {
 		/* Run this threaded object. */
 		bool Run();
 
+		/* Determines this threaded object was ran or not. */
+		FASTINLINE bool HasRan() const {
+			return RawHandle;
+		}
+
 		/* Determines this threaded object is alive or not. */
 		FASTINLINE bool IsAlive() const {
 			return RawHandle && !Completion.Wait(0);
