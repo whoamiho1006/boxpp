@@ -69,7 +69,9 @@ namespace boxpp
 #endif
 		}
 
+		/* Disable copy constructor/operator. */ 
 		FLibrary(const FLibrary&) = delete;
+		FLibrary& operator =(const FLibrary&) = delete;
 
 	public:
 		FASTINLINE operator bool() const {
@@ -88,7 +90,22 @@ namespace boxpp
 		FASTINLINE bool operator !() const { return !((bool)*this); }
 
 	public:
-		FLibrary& operator =(const FLibrary&) = delete;
+		FASTINLINE bool operator == (const FLibrary& Other) const {
+			bool RetVal = false;
+
+#if PLATFORM_WINDOWS
+			RetVal = (hLibrary == Other.hLibrary);
+#endif
+#if PLATFORM_POSIX
+			RetVal = (DlHandle == Other.DlHandle);
+#endif
+
+			return RetVal;
+		}
+
+		FASTINLINE bool operator != (const FLibrary& Other) const { return !(*this == Other); }
+
+	public:
 		FASTINLINE FLibrary& operator =(FLibrary&& Other) {
 #if PLATFORM_WINDOWS
 			Swap(hLibrary, Other.hLibrary);
