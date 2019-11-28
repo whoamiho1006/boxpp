@@ -191,6 +191,12 @@ namespace boxpp {
 		} SYSTEMTIME, *PSYSTEMTIME, *LPSYSTEMTIME;
 
 		NO_MANGLED BOXIMPORT void BOX_STDCALL GetLocalTime(LPSYSTEMTIME lpSystemTime);
+
+		/* Thread Locals. */
+		NO_MANGLED BOXIMPORT DWORD TlsAlloc();
+		NO_MANGLED BOXIMPORT BOOL TlsFree(DWORD);
+		NO_MANGLED BOXIMPORT void* TlsGetValue(DWORD);
+		NO_MANGLED BOXIMPORT BOOL TlsSetValue(DWORD, void*);
 	}
 }
 #endif

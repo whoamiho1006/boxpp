@@ -10,8 +10,12 @@
 /* placement new from std. */
 #include <new>
 
-/* debugging supports. */
+/* debugging supports and library loader. */
 #include <boxpp/base/systems/Debugger.hpp>
+#include <boxpp/base/systems/RawEvent.hpp>
+#include <boxpp/base/systems/Barrior.hpp>
+#include <boxpp/base/systems/RawTls.hpp>
+#include <boxpp/base/systems/Threaded.hpp>
 
 /* type traits. */
 #include <boxpp/base/tpls/BaseTraits.hpp>
@@ -64,6 +68,9 @@
 #include <boxpp/base/tpls/strings/Converter.hpp>
 
 #include <boxpp/base/tpls/strings/String.hpp>
+
+/* dynamic library loading supports. */
+#include <boxpp/base/systems/Library.hpp>
 
 /* boilerplates. */
 #include <boxpp/base/boilerplates/Memory.hpp>

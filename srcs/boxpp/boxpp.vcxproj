@@ -158,7 +158,12 @@
     <ClInclude Include="boxpp\base\opacities\posix.hpp" />
     <ClInclude Include="boxpp\base\opacities\vsprintf.hpp" />
     <ClInclude Include="boxpp\base\opacities\windows.hpp" />
+    <ClInclude Include="boxpp\base\systems\Barrior.hpp" />
     <ClInclude Include="boxpp\base\systems\Debugger.hpp" />
+    <ClInclude Include="boxpp\base\systems\Library.hpp" />
+    <ClInclude Include="boxpp\base\systems\RawEvent.hpp" />
+    <ClInclude Include="boxpp\base\systems\RawTls.hpp" />
+    <ClInclude Include="boxpp\base\systems\Threaded.hpp" />
     <ClInclude Include="boxpp\base\tpls\BaseTraits.hpp" />
     <ClInclude Include="boxpp\base\tpls\containers\algorithms\BinarySearch.hpp" />
     <ClInclude Include="boxpp\base\tpls\containers\algorithms\HeapSort.hpp" />
@@ -207,6 +212,7 @@
     <ClCompile Include="boxpp\base\boilerplates\Memory.cpp" />
     <ClCompile Include="boxpp\base\systems\Debugger.cpp" />
     <ClCompile Include="boxpp\base\systems\Minidump.cpp" />
+    <ClCompile Include="boxpp\base\systems\Threaded.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md" />

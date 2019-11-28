@@ -2,6 +2,10 @@
 ### DO NOT make any reference to outside on BASE library.
 Base-library can be uniquely included by other pure-utilities also.
 
+	Library Dependencies:
+		1. Windows: Nothing yet.
+		2. Linux: link with -lpthread -ldl.
+
 ## 1. BaseMacros.hpp
 This header stabilize the preprocessor environment for framework codes and, 
 provides preprocessor branches for multi-platforming.
