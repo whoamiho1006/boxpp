@@ -192,6 +192,9 @@
     <ClInclude Include="boxpp\base\utilities\DateTime.hpp">
       <Filter>boxpp\base\utilities</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\base\utilities\TimeSpan.hpp">
+      <Filter>boxpp\base\utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">

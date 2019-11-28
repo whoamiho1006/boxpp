@@ -201,6 +201,7 @@
     <ClInclude Include="boxpp\base\tpls\traits\Movable.hpp" />
     <ClInclude Include="boxpp\base\tpls\traits\PickType.hpp" />
     <ClInclude Include="boxpp\base\utilities\DateTime.hpp" />
+    <ClInclude Include="boxpp\base\utilities\TimeSpan.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\base\boilerplates\Memory.cpp" />

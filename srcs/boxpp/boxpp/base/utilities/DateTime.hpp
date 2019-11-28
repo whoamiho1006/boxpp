@@ -13,10 +13,15 @@ namespace boxpp
 	{
 	private:
 		struct NowType { };
+		struct TodayType { };
 
 	public:
 		FASTINLINE static FDateTime Now() {
 			return FDateTime(NowType());
+		}
+
+		FASTINLINE static FDateTime Today() {
+			return FDateTime(TodayType());
 		}
 
 		FASTINLINE static FDateTime Make(s32 Hour, s32 Minutes, s32 Seconds, s32 Day, s32 Month, s32 Year)
@@ -55,10 +60,27 @@ namespace boxpp
 			Time = *localtime(&Timestamp);
 		}
 
+		FASTINLINE FDateTime(TodayType)
+		{
+			time_t Timestamp = time(0);
+			Time = *localtime(&Timestamp);
+
+			// Set HMS to zero for today.
+			Time.tm_hour = Time.tm_min = Time.tm_sec = 0;
+		}
+
 	public:
 		/* use default operations for. */
 		FDateTime& operator =(const FDateTime&) = default;
 		FDateTime& operator =(FDateTime&&) = default;
+
+	public:
+		FASTINLINE bool operator ==(const FDateTime& Right) const { return GetRawTime() - Right.GetRawTime() == 0; }
+		FASTINLINE bool operator !=(const FDateTime& Right) const { return GetRawTime() - Right.GetRawTime() != 0; }
+		FASTINLINE bool operator >=(const FDateTime& Right) const { return GetRawTime() - Right.GetRawTime() >= 0; }
+		FASTINLINE bool operator > (const FDateTime& Right) const { return GetRawTime() - Right.GetRawTime() >  0; }
+		FASTINLINE bool operator <=(const FDateTime& Right) const { return GetRawTime() - Right.GetRawTime() <= 0; }
+		FASTINLINE bool operator < (const FDateTime& Right) const { return GetRawTime() - Right.GetRawTime() <  0; }
 
 	public:
 		FASTINLINE FDateTime operator +(const FTimeSpan& Span) const {

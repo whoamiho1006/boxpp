@@ -31,6 +31,14 @@ namespace boxpp
 		/* use default operations for. */
 		FTimeSpan& operator =(const FTimeSpan&) = default;
 		FTimeSpan& operator =(FTimeSpan&&) = default;
+		
+	public:
+		FASTINLINE bool operator ==(const FTimeSpan& Right) const { return GetRawTime() - Right.GetRawTime() == 0; }
+		FASTINLINE bool operator !=(const FTimeSpan& Right) const { return GetRawTime() - Right.GetRawTime() != 0; }
+		FASTINLINE bool operator >=(const FTimeSpan& Right) const { return GetRawTime() - Right.GetRawTime() >= 0; }
+		FASTINLINE bool operator > (const FTimeSpan& Right) const { return GetRawTime() - Right.GetRawTime() >  0; }
+		FASTINLINE bool operator <=(const FTimeSpan& Right) const { return GetRawTime() - Right.GetRawTime() <= 0; }
+		FASTINLINE bool operator < (const FTimeSpan& Right) const { return GetRawTime() - Right.GetRawTime() <  0; }
 
 	public:
 		FASTINLINE FTimeSpan operator +(const FTimeSpan& Other) const {
