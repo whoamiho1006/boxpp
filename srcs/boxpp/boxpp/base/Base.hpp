@@ -13,6 +13,7 @@
 /* debugging supports and library loader. */
 #include <boxpp/base/systems/Debugger.hpp>
 #include <boxpp/base/systems/RawEvent.hpp>
+#include <boxpp/base/systems/AtomicBarrior.hpp>
 #include <boxpp/base/systems/Barrior.hpp>
 #include <boxpp/base/systems/RawTls.hpp>
 #include <boxpp/base/systems/Threaded.hpp>
