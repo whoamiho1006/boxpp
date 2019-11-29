@@ -3,32 +3,64 @@
 
 namespace boxpp
 {
-	class XObject;
+	class XClass;
+
+	enum EObjectFlags
+	{
+		EOFLAG_DynamicObject		= 0x0001,
+		EOFLAG_ClassDefaultObject	= 0x0002,
+		EOFLAG_RootSet				= 0x0004
+	};
+
+	struct FObjectBaseHelper;
 
 	/*
-		XObject.
-		boX Object.
+		Object Base.
+		
 	*/
 	class BOXPP XObjectBase
 	{
-		friend class XObject;
+		friend struct FObjectBaseHelper;
 
 	public:
-		virtual ~XObjectBase() { }
+		/* Internal Constructor. */
+		XObjectBase();
 
 	protected:
+		virtual ~XObjectBase();
+
+	protected:
+		u32 Flags;
 		XObjectBase* Upper;
-		TSortedArray<XObjectBase*> Children;
+
+	public:
+		/* Get class type of this object. */
+		virtual XClass* GetClass() const = 0;
+
+	public:
+		FASTINLINE bool HasFlags(u32 Flags) {
+			return (this->Flags & Flags) == Flags;
+		}
+
+		FASTINLINE bool HasAnyFlags(u32 Flags) {
+			return (this->Flags & Flags) != 0;
+		}
 
 	protected:
-		/* Get upper object. */
-		FASTINLINE XObjectBase* GetUpper() const { return Upper; }
+		FASTINLINE void SetFlags(u32 Flags) {
+			this->Flags |= Flags;
+		}
 
-		/* Set upper object. */
-		void SetUpper(XObjectBase* Object);
+		FASTINLINE void UnsetFlags(u32 Flags) {
+			this->Flags = this->Flags & (~Flags);
+		}
 
-	protected:
-		virtual void OnAttachChild(XObjectBase* Child);
-		virtual void OnDetachChild(XObjectBase* Child);
+	};
+
+	struct FObjectBaseHelper
+	{
+		FASTINLINE static void MarkDynamicObject(XObjectBase* Object) {
+			Object->SetFlags(EOFLAG_DynamicObject);
+		}
 	};
 }

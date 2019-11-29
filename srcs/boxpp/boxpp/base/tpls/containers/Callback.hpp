@@ -44,6 +44,9 @@ namespace boxpp {
 		{
 		}
 
+	protected:
+		CallableType Callable;
+
 	public:
 		FASTINLINE void operator ()(BypassType<ArgTypes> ... Args) const {
 			BOX_ASSERT(Callable != nullptr, "Callback was nullptr!");
@@ -57,6 +60,7 @@ namespace boxpp {
 	{
 	public:
 		using CallbackStorage = TCallbackStorage<RetType, ArgTypes ...>;
+		typedef RetType(*CallableType)(ArgTypes ...);
 		typedef TCallback<RetType(ArgTypes ...)> SelfType;
 
 	public:

@@ -65,6 +65,8 @@
 #include <boxpp/base/tpls/containers/Queue.hpp>
 #include <boxpp/base/tpls/containers/Stack.hpp>
 
+#include <boxpp/base/tpls/containers/Callback.hpp>
+
 #include <boxpp/base/tpls/strings/Constants.hpp>
 #include <boxpp/base/tpls/strings/Operations.hpp>
 #include <boxpp/base/tpls/strings/Converter.hpp>
