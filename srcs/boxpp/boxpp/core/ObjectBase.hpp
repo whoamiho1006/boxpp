@@ -9,7 +9,8 @@ namespace boxpp
 	{
 		EOFLAG_DynamicObject		= 0x0001,
 		EOFLAG_ClassDefaultObject	= 0x0002,
-		EOFLAG_RootSet				= 0x0004
+		EOFLAG_RootSet				= 0x0004,
+		EOFLAG_MarkPendingKill		= 0x0008
 	};
 
 	struct FObjectBaseHelper;
@@ -54,7 +55,6 @@ namespace boxpp
 		FASTINLINE void UnsetFlags(u32 Flags) {
 			this->Flags = this->Flags & (~Flags);
 		}
-
 	};
 
 	struct FObjectBaseHelper

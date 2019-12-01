@@ -75,4 +75,22 @@ namespace boxpp
 
 		return Instance;
 	}
+
+	template<typename ObjectType>
+	FASTINLINE ObjectType* Cast(XObject* InObject)
+	{
+		static_assert(IsDerivedType<XObject, ObjectType>,
+			"Cast can cast only XObject based classes!");
+
+		XClass* SrcType = InObject->GetClass();
+		XClass* DestType = ObjectType::StaticClass();
+
+		if (SrcType->IsSubclassOf(DestType) ||
+			DestType->IsSubclassOf(SrcType))
+		{
+			return dynamic_cast<ObjectType*>(InObject);
+		}
+
+		return nullptr;
+	}
 }
