@@ -158,6 +158,8 @@
     <ClInclude Include="boxpp\base\mathematics\BaseMath.hpp" />
     <ClInclude Include="boxpp\base\mathematics\Rectangle.hpp" />
     <ClInclude Include="boxpp\base\mathematics\Vector.hpp" />
+    <ClInclude Include="boxpp\base\network\IPAddress.hpp" />
+    <ClInclude Include="boxpp\base\network\Socket.hpp" />
     <ClInclude Include="boxpp\base\opacities\posix.hpp" />
     <ClInclude Include="boxpp\base\opacities\vsprintf.hpp" />
     <ClInclude Include="boxpp\base\opacities\windows.hpp" />
@@ -220,6 +222,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\base\boilerplates\Memory.cpp" />
+    <ClCompile Include="boxpp\base\network\IPAddress.cpp" />
+    <ClCompile Include="boxpp\base\network\Socket.cpp" />
     <ClCompile Include="boxpp\base\systems\Debugger.cpp" />
     <ClCompile Include="boxpp\base\systems\Minidump.cpp" />
     <ClCompile Include="boxpp\base\systems\Threaded.cpp" />

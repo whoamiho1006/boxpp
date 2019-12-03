@@ -47,7 +47,7 @@ namespace boxpp
 		FASTINLINE static void Initialize(XObject* Object) { Object->OnInitialize(); }
 	}; }
 	// ---------------------------------
-
+	/*
 	template<typename ObjectType>
 	FASTINLINE ObjectType* NewObject(XClass* Class, XObject* Upper)
 	{
@@ -92,5 +92,5 @@ namespace boxpp
 		}
 
 		return nullptr;
-	}
+	}*/
 }

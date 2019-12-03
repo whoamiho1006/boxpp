@@ -1,5 +1,6 @@
 #pragma once
 
+#define PLATFORM_USE_STRING_BY_CRT 1
 #ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
 #endif

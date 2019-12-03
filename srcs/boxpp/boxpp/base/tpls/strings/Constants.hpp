@@ -12,6 +12,7 @@ namespace boxpp
 			static constexpr const CharType Null = '\0';
 
 			static constexpr const CharType Space = ' ';
+			static constexpr const CharType Dot = '.';
 			static constexpr const CharType Tab = '\t';
 			static constexpr const CharType Backspace = '\b';
 			static constexpr const CharType LineFeed = '\n';

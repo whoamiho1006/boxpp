@@ -49,6 +49,9 @@
     <Filter Include="boxpp\core\gc">
       <UniqueIdentifier>{94debebf-f34d-418e-ae97-6a2f4c6da6e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\base\network">
+      <UniqueIdentifier>{22f0ce57-d1f5-49a8-9d6f-7cfab4fa1925}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\base\BaseTypes.hpp">
@@ -249,6 +252,12 @@
     <ClInclude Include="boxpp\core\ObjectInitializer.hpp">
       <Filter>boxpp\core</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\base\network\IPAddress.hpp">
+      <Filter>boxpp\base\network</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\network\Socket.hpp">
+      <Filter>boxpp\base\network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">
@@ -279,6 +288,12 @@
     </ClCompile>
     <ClCompile Include="boxpp\core\ObjectInitializer.cpp">
       <Filter>boxpp\core</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\network\IPAddress.cpp">
+      <Filter>boxpp\base\network</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\network\Socket.cpp">
+      <Filter>boxpp\base\network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

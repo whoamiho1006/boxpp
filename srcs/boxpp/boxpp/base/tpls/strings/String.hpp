@@ -16,7 +16,8 @@ namespace boxpp
 	template<typename CharType>
 	struct TNativeString
 		: strings::TConstants<CharType>,
-		strings::TOperations<CharType>
+		strings::TOperations<CharType>,
+		strings::TCommonOperations<CharType>
 	{
 	};
 

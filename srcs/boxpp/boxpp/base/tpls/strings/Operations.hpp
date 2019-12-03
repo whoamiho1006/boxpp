@@ -12,6 +12,7 @@
 namespace boxpp
 {
 	namespace strings {
+
 		template<typename CharType>
 		struct TOperations
 		{
@@ -86,38 +87,131 @@ namespace boxpp
 			}
 
 			static constexpr bool IsAlphabet(const CharType Char) {
-				return (Consts::Alphabet(0) <= Char && Consts::Alphabet(25) >= Char) ||
-					(Consts::AlphabetUpper(0) <= Char && Consts::AlphabetUpper(25) >= Char);
+				return (Consts::Alphabet(0) <= Char && Consts::Alphabet(24) >= Char) ||
+					(Consts::AlphabetUpper(0) <= Char && Consts::AlphabetUpper(24) >= Char);
+			}
+
+		};
+
+		template<typename CharType>
+		struct TCommonOperations
+		{
+			using Consts = TConstants<CharType>;
+			using Ops = TOperations<CharType>;
+
+			static constexpr bool IsDigit(const CharType Char)
+			{
+				return (Consts::Number(0) <= Char && Consts::Number(9) >= Char) ||
+					(Consts::Alphabet(0) <= Char && Consts::Alphabet(5) >= Char) ||
+					(Consts::AlphabetUpper(0) <= Char && Consts::AlphabetUpper(5) >= Char);
+			}
+
+			static constexpr s32 HexVal(const CharType Char)
+			{
+				if (Ops::IsNumber(Char))
+					return Char - Consts::Number(0);
+
+				else if (Consts::Alphabet(0) <= Char && Consts::Alphabet(5) >= Char)
+					return Char - Consts::Alphabet(0) + 10;
+
+				else if (Consts::AlphabetUpper(0) <= Char && Consts::AlphabetUpper(5) >= Char)
+					return Char - Consts::AlphabetUpper(0) + 10;
+
+				return 0;
+			}
+
+			static constexpr s32 NumVal(const CharType Char)
+			{
+				if (Ops::IsNumber(Char))
+					return Char - Consts::Number(0);
+
+				return 0;
+			}
+
+			static constexpr s64 Atol(const CharType* Char)
+			{
+				s64 Value = 0;
+				s32 Neg = 1;
+
+				// Hex: 0x...
+				if (Char[0] == Consts::Number(0) &&
+					Char[1] == Consts::Alphabet(22))
+				{
+					Char += 2;
+
+					while (*Char && IsDigit(*Char))
+						Value = Value * 16 + HexVal(*Char++);
+				}
+
+				// Dec: ...
+				else
+				{
+					if (Char[0] == Consts::Hipen) {
+						Neg = -1; ++Char;
+					}
+
+					while (*Char && Ops::IsNumber(*Char))
+						Value = Value * 10 + NumVal(*Char++);
+				}
+
+				return Value * Neg;
+			}
+
+			static constexpr u64 Atoul(const CharType* Char)
+			{
+				using Consts = TConstants<CharType>;
+
+				u64 Value = 0;
+
+				// Hex: 0x...
+				if (Char[0] == Consts::Number(0) &&
+					Char[1] == Consts::Alphabet(22))
+				{
+					Char += 2;
+
+					while (*Char && IsDigit(*Char))
+						Value = Value * 16 + HexVal(*Char++);
+				}
+
+				// Dec: ...
+				else
+				{
+					while (*Char &&Ops::IsNumber(*Char))
+						Value = Value * 10 + NumVal(*Char++);
+				}
+
+				return Value;
 			}
 		};
 
 #if defined(PLATFORM_USE_STRING_BY_CRT) && PLATFORM_USE_STRING_BY_CRT
 		/* MBS implementation. */
 		template<> struct TOperations<ansi_t> {
-			FASTINLINE static size_t Strlen(const c8* String) { return ::strlen(String); }
-			FASTINLINE static s32 Strcmp(const c8* Left, const c8* Right) { return ::strcmp(Left, Right); }
-			FASTINLINE static s32 Strncmp(const c8* Left, const c8* Right,
+			using Consts = TConstants<ansi_t>;
+			FASTINLINE static size_t Strlen(const ansi_t* String) { return ::strlen(String); }
+			FASTINLINE static s32 Strcmp(const ansi_t* Left, const ansi_t* Right) { return ::strcmp(Left, Right); }
+			FASTINLINE static s32 Strncmp(const ansi_t* Left, const ansi_t* Right,
 				size_t Max = type_db::TNumberLimits<size_t>::Max)
 			{
 				return ::strncmp(Left, Right, Max);
 			}
 
-			FASTINLINE static void Strcpy(c8* Left, const c8* Right) { ::strcpy(Left, Right); }
-			FASTINLINE static void Strncpy(c8* Left, const c8* Right,
+			FASTINLINE static void Strcpy(ansi_t* Left, const ansi_t* Right) { ::strcpy(Left, Right); }
+			FASTINLINE static void Strncpy(ansi_t* Left, const ansi_t* Right,
 				size_t Max = type_db::TNumberLimits<size_t>::Max)
 			{
 				::strncpy(Left, Right, Max);
 			}
 
-			static constexpr bool IsNumber(const c8 Char) {
+			static constexpr bool IsNumber(const ansi_t Char) {
 				return Char >= '0' && Char <= '9';
 			}
 
-			static constexpr bool IsWhitespace(const c8 Char) {
+			static constexpr bool IsWhitespace(const ansi_t Char) {
 				return Char == ' ' || Char == '\t';
 			}
 
-			static constexpr bool IsAlphabet(const c8 Char) {
+			static constexpr bool IsAlphabet(const ansi_t Char) {
 				return (Char >= 'a' && Char <= 'z') || (Char >= 'A' && Char <= 'Z');
 			}
 		};
@@ -125,6 +219,8 @@ namespace boxpp
 		/* WCS implementation. */
 #if PLATFORM_NATIVE_WCHAR
 		template<> struct TOperations<wide_t> {
+			using Consts = TConstants<wide_t>;
+
 			FASTINLINE static size_t Strlen(const wide_t* String) { return ::wcslen(String); }
 			FASTINLINE static s32 Strcmp(const wide_t* Left, const wide_t* Right) { return ::wcscmp(Left, Right); }
 			FASTINLINE static s32 Strncmp(const wide_t* Left, const wide_t* Right,
