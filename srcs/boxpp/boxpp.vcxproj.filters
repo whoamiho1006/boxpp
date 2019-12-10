@@ -52,6 +52,9 @@
     <Filter Include="boxpp\base\network">
       <UniqueIdentifier>{22f0ce57-d1f5-49a8-9d6f-7cfab4fa1925}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\base\network\privates">
+      <UniqueIdentifier>{daa7c364-626c-483a-9358-e08933487088}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\base\BaseTypes.hpp">
@@ -258,6 +261,9 @@
     <ClInclude Include="boxpp\base\network\Socket.hpp">
       <Filter>boxpp\base\network</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\base\network\SocketLayer.hpp">
+      <Filter>boxpp\base\network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">
@@ -293,6 +299,9 @@
       <Filter>boxpp\base\network</Filter>
     </ClCompile>
     <ClCompile Include="boxpp\base\network\Socket.cpp">
+      <Filter>boxpp\base\network</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\network\SocketLayer.cpp">
       <Filter>boxpp\base\network</Filter>
     </ClCompile>
   </ItemGroup>

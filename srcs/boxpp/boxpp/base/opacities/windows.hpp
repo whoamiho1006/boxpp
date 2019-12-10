@@ -197,21 +197,6 @@ namespace boxpp {
 		NO_MANGLED BOXIMPORT BOOL BOX_STDCALL TlsFree(DWORD);
 		NO_MANGLED BOXIMPORT void* BOX_STDCALL TlsGetValue(DWORD);
 		NO_MANGLED BOXIMPORT BOOL BOX_STDCALL TlsSetValue(DWORD, void*);
-
-		/* WinSock API. */
-		typedef struct WSAData {
-			WORD                    _1;
-			WORD                    _2;
-			unsigned short          _3;
-			unsigned short          _4;
-			char *					_5;
-			char                    _6[256 + 1];
-			char                    _7[128 + 1];
-		} WSADATA, *LPWSADATA;
-
-		NO_MANGLED BOXIMPORT s32 BOX_STDCALL WSAStartup(WORD, LPWSADATA);
-		NO_MANGLED BOXIMPORT s32 BOX_STDCALL WSACleanup(void);
-		NO_MANGLED BOXIMPORT s32 BOX_STDCALL WSAGetLastError(void);
 	}
 }
 #endif

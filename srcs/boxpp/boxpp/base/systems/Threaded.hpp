@@ -42,7 +42,7 @@ namespace boxpp {
 	public:
 		/* Get current threaded object.*/
 		FASTINLINE static IThreaded* GetCurrent() {
-			return (IThreaded*)Tls().Get();
+			return (IThreaded*)Tls().Init();
 		}
 
 	public:

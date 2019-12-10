@@ -35,6 +35,9 @@ namespace boxpp
 
 	private:
 		s32 Socket;
+
+	public:
+		bool Close();
 	};
 
 }

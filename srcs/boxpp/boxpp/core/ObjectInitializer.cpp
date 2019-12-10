@@ -10,7 +10,7 @@ namespace boxpp{
 	FObjectInitializer::FObjectInitializer(EObjectInitType InitType)
 		: InitType(InitType), Object(nullptr), ObjectUpper(nullptr)
 	{
-		UpperInit = (FObjectInitializer*)Tls().Get();
+		UpperInit = (FObjectInitializer*)Tls().Init();
 		ObjectUpper = UpperInit ? UpperInit->GetObject() : nullptr;
 
 		Tls().Set(this);

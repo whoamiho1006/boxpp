@@ -1,63 +1,71 @@
 #include "Socket.hpp"
+#include <boxpp/base/network/SocketLayer.hpp>
 
 #if PLATFORM_WINDOWS
+#include <WinSock2.h>
 #pragma comment(lib, "ws2_32.lib")
 #endif
 
-namespace boxpp {
-#if PLATFORM_WINDOWS
-	class FWSAInitialize
-	{
-	public:
-		static FWSAInitialize& Get() {
-			static FWSAInitialize _Obj;
-			return _Obj;
-		}
+#if PLATFORM_POSIX
+#if !BOX_NOT_COMPILED
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
 
-	private:
-		w32_compat::WSADATA wsaData;
-		
-	private:
-		FWSAInitialize() {
-			w32_compat::WSAStartup(2 | (2 << 8), &wsaData);
-		}
+#include <string.h>
+#include <unistd.h>
 
-		~FWSAInitialize() {
-			w32_compat::WSACleanup();
-		}
-	};
+#define closesocket(x) close(x)
+#endif
 #endif
 
+namespace boxpp {
 	FSocket::FSocket()
 		: Socket(-1)
 	{
-		FWSAInitialize::Get();
+		SOCKET s;
 	}
 
 	FSocket::FSocket(__TcpType)
 		: Socket(-1)
 	{
-		FWSAInitialize::Get();
 	}
 
 	FSocket::FSocket(__UdpType)
 		: Socket(-1)
 	{
-		FWSAInitialize::Get();
 	}
 
 	FSocket::FSocket(FSocket&& Other)
-		: Socket(-1)
+		: Socket(Other.Socket)
 	{
-		FWSAInitialize::Get();
+		Other.Socket = -1;
 	}
 
 	FSocket::~FSocket()
 	{
+		if (Socket >= 0) {
+			closesocket(Socket);
+		}
+
+		Socket = -1;
 	}
 
 	FSocket& FSocket::operator=(FSocket&& Other)
 	{
+
 		return *this;
+	}
+
+	bool FSocket::Close()
+	{
+		if (Socket >= 0) {
+			closesocket(Socket);
+			Socket = -1;
+
+			return true;
+		}
+
+		return false;
 	}
 }

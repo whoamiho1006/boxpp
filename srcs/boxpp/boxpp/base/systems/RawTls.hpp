@@ -51,7 +51,7 @@ namespace boxpp {
 			return false;
 		}
 
-		FASTINLINE void* Get() {
+		FASTINLINE void* Init() {
 			void* RetVal = nullptr;
 
 			if (bValid) {
