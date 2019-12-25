@@ -1,5 +1,6 @@
 #include "SocketLayer.hpp"
 #include <boxpp/base/systems/AtomicBarrior.hpp>
+#include <boxpp/base/tpls/pools/Mempool.h>
 
 #if PLATFORM_WINDOWS
 #include <WinSock2.h>
@@ -852,6 +853,145 @@ namespace boxpp {
 
 		Socket.err = ESocketError::BadSocket;
 		return -1;
+	}
+
+	ssize_t FSocketLayer::RecvFrom(const FRawSocket& Socket, FIPAddress& From, u16& LocalPort, void* Buffer, size_t Size)
+	{
+		if (IsValid(Socket)) {
+			sockaddr_in SockAddr = { 0, };
+			socklen_t SockLen = sizeof(SockAddr);
+
+			ssize_t S = ::recvfrom(Socket.s, (char*) Buffer,
+				Size, 0, (sockaddr*) &SockAddr, &SockLen);
+
+			const u8* AddrBytes = (const u8*)(&SockAddr.sin_addr);
+
+			if (S <= 0) {
+				Socket.err = SOCKET_GetErrorCode(&Socket.err_raw);
+			}
+
+			LocalPort = ntohs(SockAddr.sin_port);
+
+			From.SetByteAt(0, AddrBytes[0]);
+			From.SetByteAt(1, AddrBytes[1]);
+			From.SetByteAt(2, AddrBytes[2]);
+			From.SetByteAt(3, AddrBytes[3]);
+
+			return S;
+		}
+
+		return -1;
+	}
+
+	ssize_t FSocketLayer::SendTo(const FRawSocket& Socket, const FIPAddress& To, const u16& LocalPort, const void* Buffer, size_t Size)
+	{
+		if (IsValid(Socket)) {
+			sockaddr_in SockAddr = { 0, };
+			socklen_t SockLen = sizeof(SockAddr);
+
+			u8* AddrBytes = (u8*)(&SockAddr.sin_addr);
+			ssize_t S = -1;
+
+			SockAddr.sin_port = htons(LocalPort);
+
+			AddrBytes[0] = To.GetByteAt(0);
+			AddrBytes[1] = To.GetByteAt(1);
+			AddrBytes[2] = To.GetByteAt(2);
+			AddrBytes[3] = To.GetByteAt(3);
+
+			S = ::sendto(Socket.s, (const char*)Buffer, Size, 
+				0, (const sockaddr*)&SockAddr, SockLen);
+
+			if (S <= 0) {
+				Socket.err = SOCKET_GetErrorCode(&Socket.err_raw);
+			}
+
+			return S;
+		}
+
+		return -1;
+	}
+
+	FASTINLINE u32 SOCKET_TranslatePollFlags(const ESocketChannel Channels) {
+		u32 Translated = 0;
+
+		if (Channels & ESOCK_INPUT) {
+			Translated |= POLLIN;
+		}
+
+		if (Channels & ESOCK_OUTPUT) {
+			Translated |= POLLOUT;
+		}
+
+		if (Channels & ESOCK_ERROR) {
+			Translated |= POLLERR;
+		}
+
+		if (Channels & ESOCK_HANGUP) {
+			Translated |= POLLHUP;
+		}
+
+		return Translated;
+	}
+
+	ssize_t FSocketLayer::Poll(FSocketPoll* Targets, size_t Count, const u32 Timeout)
+	{
+		static TMempool<pollfd, 8> Pool;
+
+		if (Count) {
+			pollfd* fds = Pool.Alloc(Count);
+			ssize_t S = -1;
+
+			for (size_t i = 0; i < Count; ++i) {
+				fds[i].fd = Targets[i].Socket.s;
+				fds[i].events = SOCKET_TranslatePollFlags(Targets[i].Events);
+				fds[i].revents = 0;
+
+				Targets[i].Channels = ESOCK_NONE;
+			}
+			
+#if PLATFORM_WINDOWS
+			S = WSAPoll(fds, Count, Timeout);
+#else
+			S = poll(fds, Count, Timeout);
+#endif
+
+			if (S < 0) {
+				Pool.Free(fds);
+				return -1;
+			}
+
+			else if (S) {
+				for (size_t i = 0; i < Count; ++i) {
+					u32 flags = fds[i].revents;
+
+					if (flags & POLLIN) {
+						Targets[i].Channels = (ESocketChannel)(
+							Targets[i].Channels | ESOCK_INPUT);
+					}
+
+					if (flags & POLLOUT) {
+						Targets[i].Channels = (ESocketChannel)(
+							Targets[i].Channels | ESOCK_OUTPUT);
+					}
+
+					if (flags & POLLERR) {
+						Targets[i].Channels = (ESocketChannel)(
+							Targets[i].Channels | ESOCK_ERROR);
+					}
+
+					if (flags & POLLHUP) {
+						Targets[i].Channels = (ESocketChannel)(
+							Targets[i].Channels | ESOCK_HANGUP);
+					}
+				}
+			}
+
+			Pool.Free(fds);
+			return S;
+		}
+
+		return 0;
 	}
 
 }

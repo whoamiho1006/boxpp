@@ -190,6 +190,7 @@
     <ClInclude Include="boxpp\base\tpls\containers\SingleNode.hpp" />
     <ClInclude Include="boxpp\base\tpls\containers\SortedArray.hpp" />
     <ClInclude Include="boxpp\base\tpls\containers\Stack.hpp" />
+    <ClInclude Include="boxpp\base\tpls\pools\Mempool.h" />
     <ClInclude Include="boxpp\base\tpls\sharedptrs\SharedCount.hpp" />
     <ClInclude Include="boxpp\base\tpls\sharedptrs\SharedHolder.hpp" />
     <ClInclude Include="boxpp\base\tpls\sharedptrs\SharedPtr.hpp" />

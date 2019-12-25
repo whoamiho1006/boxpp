@@ -32,7 +32,7 @@ namespace boxpp
 		/* Non-blocking response codes. */
 		Pending,
 
-#if PLATFORM_WINDOWS
+#if PLATFORM_WINDOWS || (PLATFORM_POSIX && EAGAIN != EWOULDBLOCK)
 		WouldBlock,
 #else
 		WouldBlock = Pending,
@@ -97,11 +97,27 @@ namespace boxpp
 		ConnectedAlready,
 	};
 
+	enum ESocketChannel : u32
+	{
+		ESOCK_NONE = 0,
+		ESOCK_INPUT = 1,
+		ESOCK_OUTPUT = 2,
+		ESOCK_ERROR = 4,
+		ESOCK_HANGUP = 8
+	};
+
 	/* Raw socket container. */
 	struct FRawSocket { 
 		s32 s, type, family;
 		mutable s32 err_raw;
 		mutable ESocketError err;
+	};
+
+	/* Socket Poll. */
+	struct FSocketPoll {
+		FRawSocket Socket;
+		ESocketChannel Channels;
+		ESocketChannel Events;
 	};
 
 	/*
@@ -192,5 +208,11 @@ namespace boxpp
 	public:
 		static ssize_t Recv(const FRawSocket& Socket, void* Buffer, size_t Size);
 		static ssize_t Send(const FRawSocket& Socket, const void* Buffer, size_t Size);
+
+		static ssize_t RecvFrom(const FRawSocket& Socket, FIPAddress& From, u16& LocalPort, void* Buffer, size_t Size);
+		static ssize_t SendTo(const FRawSocket& Socket, const FIPAddress& To, const u16& LocalPort, const void* Buffer, size_t Size);
+
+	public:
+		static ssize_t Poll(FSocketPoll* Targets, size_t Count, const u32 Timeout = 0);
 	};
 }

@@ -49,6 +49,9 @@
     <Filter Include="boxpp\base\network\privates">
       <UniqueIdentifier>{daa7c364-626c-483a-9358-e08933487088}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\base\tpls\pools">
+      <UniqueIdentifier>{4a325e24-78de-4069-b9e5-6f1867a94f70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\base\BaseTypes.hpp">
@@ -245,6 +248,9 @@
     </ClInclude>
     <ClInclude Include="boxpp\base\network\SocketLayer.hpp">
       <Filter>boxpp\base\network</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\pools\Mempool.h">
+      <Filter>boxpp\base\tpls\pools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
