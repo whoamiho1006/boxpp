@@ -216,10 +216,6 @@
     <ClInclude Include="boxpp\base\utilities\DateTime.hpp" />
     <ClInclude Include="boxpp\base\utilities\Name.hpp" />
     <ClInclude Include="boxpp\base\utilities\TimeSpan.hpp" />
-    <ClInclude Include="boxpp\core\Object.hpp" />
-    <ClInclude Include="boxpp\core\ObjectBase.hpp" />
-    <ClInclude Include="boxpp\core\ObjectInitializer.hpp" />
-    <ClInclude Include="boxpp\core\rtti\Class.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\base\boilerplates\Memory.cpp" />
@@ -229,10 +225,6 @@
     <ClCompile Include="boxpp\base\systems\Debugger.cpp" />
     <ClCompile Include="boxpp\base\systems\Minidump.cpp" />
     <ClCompile Include="boxpp\base\systems\Threaded.cpp" />
-    <ClCompile Include="boxpp\core\Object.cpp" />
-    <ClCompile Include="boxpp\core\ObjectBase.cpp" />
-    <ClCompile Include="boxpp\core\ObjectInitializer.cpp" />
-    <ClCompile Include="boxpp\core\rtti\Class.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md" />
