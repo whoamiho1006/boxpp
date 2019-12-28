@@ -503,6 +503,56 @@ namespace boxpp {
 	using ioctl_bool_t = s32;
 #endif
 
+	bool FSocketLayer::GetSockName(const FRawSocket& Socket, FIPAddress& Address, s32& Port)
+	{
+		sockaddr_storage SASt;
+		socklen_t SASLen = sizeof(SASt);
+
+		if (!getsockname(Socket.s, (sockaddr*)&SASt, &SASLen)) {
+			if (SASt.ss_family == AF_INET) {
+				sockaddr_in* SA = (sockaddr_in*)&SASt;
+
+				u8* AddrBytes = (u8*)(&(SA->sin_addr));
+
+				Address.SetByteAt(0, AddrBytes[0]);
+				Address.SetByteAt(1, AddrBytes[1]);
+				Address.SetByteAt(2, AddrBytes[2]);
+				Address.SetByteAt(3, AddrBytes[3]);
+
+				Port = ntohs(SA->sin_port);
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	bool FSocketLayer::GetSockName(const FRawSocket& Socket, FIPAddressV6& Address, s32& Port)
+	{
+		sockaddr_storage SASt;
+		socklen_t SASLen = sizeof(SASt);
+
+		if (!getsockname(Socket.s, (sockaddr*)&SASt, &SASLen)) {
+			if (SASt.ss_family == AF_INET6) {
+				sockaddr_in6* SA = (sockaddr_in6*)&SASt;
+
+				u8* AddrBytes = (u8*)(&(SA->sin6_addr));
+
+				for (s8 i = 0; i < 4; ++i) {
+					Address.SetByteAt(i * 4 + 0, AddrBytes[i * 4 + 0]);
+					Address.SetByteAt(i * 4 + 1, AddrBytes[i * 4 + 1]);
+					Address.SetByteAt(i * 4 + 2, AddrBytes[i * 4 + 2]);
+					Address.SetByteAt(i * 4 + 3, AddrBytes[i * 4 + 3]);
+				}
+
+				Port = ntohs(SA->sin6_port);
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	bool FSocketLayer::IsNonblock(const FRawSocket& Socket)
 	{
 		if (IsValid(Socket)) {

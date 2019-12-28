@@ -152,8 +152,10 @@ namespace boxpp
 		FASTINLINE void Append(const TString<CharType>& Other)
 		{
 			if (*this) {
-				Storage.RemoveAt(Storage.GetSize() - 1, 1, false);
-				Storage.Insert(Storage.GetSize() - 1, Other);
+				if (Other.Storage.GetSize()) {
+					Storage.Insert(Storage.GetSize() - 1, Other.Storage);
+					Storage.RemoveAt(Storage.GetSize() - 1, 1, false);
+				}
 			}
 
 			else Storage.Append(Other.Storage);
@@ -162,8 +164,10 @@ namespace boxpp
 		FASTINLINE void Append(TString<CharType>&& Other)
 		{
 			if (*this) {
-				Storage.RemoveAt(Storage.GetSize() - 1, 1, false);
-				Storage.Insert(Storage.GetSize() - 1, Forward<TArray<CharType>>(Other.Storage));
+				if (Other.Storage.GetSize()) {
+					Storage.Insert(Storage.GetSize() - 1, Forward<TArray<CharType>>(Other.Storage));
+					Storage.RemoveAt(Storage.GetSize() - 1, 1, false);
+				}
 			}
 
 			else Storage.Append(Forward<TArray<CharType>>(Other.Storage));
@@ -189,6 +193,30 @@ namespace boxpp
 			if (InString) {
 				TStringConverter<CharType, OtherType> Converter(InString);
 				Append(Converter.GetConvertedString(), MaxSize);
+			}
+		}
+
+		FASTINLINE void Append(const CharType& InChar)
+		{
+			CharType Txt[2] = { InChar, 0 };
+			return Append(Txt);
+		}
+
+		template<typename OtherType>
+		FASTINLINE void Append(const OtherType& InChar)
+		{
+			OtherType Txt[2] = { InChar, 0 };
+			Append(Txt, 1);
+		}
+
+		FASTINLINE void Insert(size_t Offset, const CharType& InChar) {
+			if (InChar) {
+				if (*this) {
+					Storage.RemoveAt(Storage.GetSize() - 1, 1, false);
+				}
+
+				Storage.Insert(Offset, &InChar, 1);
+				Storage.Add(strings::TConstants<CharType>::Null);
 			}
 		}
 

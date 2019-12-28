@@ -189,6 +189,24 @@ namespace boxpp
 		}
 
 	public:
+		static bool GetSockName(const FRawSocket& Socket, FIPAddress& Address, s32& Port);
+		static bool GetSockName(const FRawSocket& Socket, FIPAddressV6& Address, s32& Port);
+
+		template<typename AddressType>
+		FASTINLINE static bool GetSockName(const FRawSocket& Socket, TIPEndpoint<AddressType>& Endpoint) {
+			AddressType Address;
+			s32 Port = 0;
+
+			if (GetSockName(Socket, Address, Port)) {
+				Endpoint.SetAddress(Forward<AddressType>(Address));
+				Endpoint.SetPort(Port);
+				return true;
+			}
+			
+			return false;
+		}
+
+	public:
 		static bool IsNonblock(const FRawSocket& Socket);
 		static ssize_t SetNonblock(const FRawSocket& Socket, bool Value);
 
@@ -248,7 +266,7 @@ namespace boxpp
 		template<typename AddressType>
 		FASTINLINE static ssize_t RecvFrom(const FRawSocket& Socket, TIPEndpoint<AddressType>& Endpoint, void* Buffer, size_t Size) {
 			AddressType Address;
-			u32 Port = 0;
+			u16 Port = 0;
 
 			ssize_t R = RecvFrom(Socket, Address, Port, Buffer, Size);
 

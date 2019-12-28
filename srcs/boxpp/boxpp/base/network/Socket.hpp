@@ -33,6 +33,19 @@ namespace boxpp
 		FASTINLINE ESocketError GetError() const { return Socket.err; }
 		FASTINLINE bool ShouldAgain() const { return FSocketLayer::ShouldAgain(Socket); }
 
+		FASTINLINE bool GetSockName(FIPAddress& Address, s32& Port) const {
+			return FSocketLayer::GetSockName(Socket, Address, Port);
+		}
+
+		FASTINLINE bool GetSockName(FIPAddressV6& Address, s32& Port) const {
+			return FSocketLayer::GetSockName(Socket, Address, Port);
+		}
+
+		template<typename AddressType>
+		FASTINLINE bool GetSockName(TIPEndpoint<AddressType>& Endpoint) const {
+			return FSocketLayer::GetSockName(Socket, Endpoint);
+		}
+
 		FASTINLINE bool IsNonblock() const { return FSocketLayer::IsNonblock(Socket); }
 		FASTINLINE bool IsNoDelay() const { return FSocketLayer::IsNoDelay(Socket); }
 

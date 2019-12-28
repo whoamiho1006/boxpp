@@ -123,8 +123,9 @@ namespace boxpp
 
 				if (Address.ToString(OutString)) {
 					if (Port > 0) {
-						OutString.Insert(Offset, L"[");
-						OutString.Append(L"]:");
+						OutString.Insert(Offset, '[');
+						OutString.Append(']');
+						OutString.Append(':');
 						OutString.Append(TString<CharType>::FromInt(Port));
 					}
 
@@ -135,7 +136,7 @@ namespace boxpp
 			else if (IsSameType<AddressType, FIPAddress>) {
 				if (Address.ToString(OutString)) {
 					if (Port > 0) {
-						OutString.Append(L":");
+						OutString.Append(':');
 						OutString.Append(TString<CharType>::FromInt(Port));
 					}
 

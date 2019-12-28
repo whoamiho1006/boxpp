@@ -13,10 +13,15 @@ int main(int argc, char** argv) {
 		FSocket Newbie;
 
 		if (Test.Accept(Newbie)) {
+			FIPEndpoint Endpoint;
 			const char* Packet = "HTTP/1.1 200 OK\r\n"
 				"Content-Type: text/html; charset=utf-8\r\n"
 				"Content-Length: 20\r\n\r\n"
 				"abcdabcdabcdabcdabcd\r\n";
+
+			if (Newbie.GetSockName(Endpoint)) {
+				printf("%S\n", Endpoint.ToString().GetRaw());
+			}
 
 			Newbie.Send(Packet, TNativeString<char>::Strlen(Packet));
 			Newbie.Shutdown();
