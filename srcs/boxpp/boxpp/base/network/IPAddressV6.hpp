@@ -83,8 +83,16 @@ namespace boxpp
 		}
 
 	public:
-		bool ToString(FWideString& OutString);
-		bool ToString(FAnsiString& OutString);
+		bool ToString(FWideString& OutString) const;
+		bool ToString(FAnsiString& OutString) const;
+
+		FASTINLINE FString ToString() const {
+			FString String;
+
+			ToString(String);
+
+			return String;
+		}
 
 	public:
 		FASTINLINE u64 GetQword(u32 Index) const { return AddressQwords[Index % 2]; }

@@ -93,7 +93,7 @@ namespace boxpp {
 		}
 	}
 
-	bool FIPAddressV6::ToString(FWideString& OutString) {
+	bool FIPAddressV6::ToString(FWideString& OutString) const {
 		ansi_t Buffer[INET6_ADDRSTRLEN] = { 0, };
 		sockaddr_in6 SA = { 0, };
 
@@ -109,7 +109,7 @@ namespace boxpp {
 		return false;
 	}
 
-	bool FIPAddressV6::ToString(FAnsiString& OutString) {
+	bool FIPAddressV6::ToString(FAnsiString& OutString) const {
 		ansi_t Buffer[INET6_ADDRSTRLEN] = { 0, };
 		sockaddr_in6 SA = { 0, };
 

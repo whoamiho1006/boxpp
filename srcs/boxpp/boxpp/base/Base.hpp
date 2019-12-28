@@ -80,6 +80,9 @@
 /* boilerplates. */
 #include <boxpp/base/boilerplates/Memory.hpp>
 
+/* networking (socket) support. */
+#include <boxpp/base/network/Socket.hpp>
+
 /* utilities. */
 #include <boxpp/base/utilities/TimeSpan.hpp>
 #include <boxpp/base/utilities/DateTime.hpp>

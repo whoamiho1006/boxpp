@@ -255,6 +255,9 @@
     <ClInclude Include="boxpp\base\network\IPAddressV6.hpp">
       <Filter>boxpp\base\network</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\base\network\IPEndpoint.hpp">
+      <Filter>boxpp\base\network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">

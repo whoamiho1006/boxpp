@@ -48,6 +48,10 @@ namespace boxpp
 		FIPAddress(const ansi_t* Address);
 		FIPAddress(const wide_t* Address);
 
+		/* Stringified address to parsed IPAddress. */
+		FASTINLINE FIPAddress(const ansi_t* Address, bool bToListen) : FIPAddress(Address) { }
+		FASTINLINE FIPAddress(const wide_t* Address, bool bToListen) : FIPAddress(Address) { }
+
 		FIPAddress(const FIPAddress&) = default;
 		FIPAddress(FIPAddress&&) = default;
 
@@ -85,8 +89,16 @@ namespace boxpp
 		FASTINLINE u8 GetWidth() const { return AddressWidth; }
 
 	public:
-		bool ToString(FWideString& OutString);
-		bool ToString(FAnsiString& OutString);
+		bool ToString(FWideString& OutString) const;
+		bool ToString(FAnsiString& OutString) const;
+
+		FASTINLINE FString ToString() const {
+			FString String;
+			
+			ToString(String);
+
+			return String;
+		}
 
 	public:
 		FASTINLINE u32 GetDword() const { return AddressDword; }

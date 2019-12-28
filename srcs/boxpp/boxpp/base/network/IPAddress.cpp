@@ -67,7 +67,7 @@ namespace boxpp {
 		FIPAddress_ParseString(Address, AddressDword, AddressWidth);
 	}
 
-	bool FIPAddress::ToString(FWideString& OutString)
+	bool FIPAddress::ToString(FWideString& OutString) const
 	{
 		if (AddressWidth >= 0) {
 			wide_t Buffer[24] = { 0, };
@@ -77,14 +77,14 @@ namespace boxpp {
 				AddressBytes[0], AddressBytes[1],
 				AddressBytes[2], AddressBytes[3]);
 
-			OutString = Buffer;
+			OutString.Append(Buffer);
 			return true;
 		}
 
 		return false;
 	}
 
-	bool FIPAddress::ToString(FAnsiString& OutString)
+	bool FIPAddress::ToString(FAnsiString& OutString) const
 	{
 		if (AddressWidth >= 0) {
 			ansi_t Buffer[24] = { 0, };
@@ -94,7 +94,7 @@ namespace boxpp {
 				AddressBytes[0], AddressBytes[1],
 				AddressBytes[2], AddressBytes[3]);
 
-			OutString = Buffer;
+			OutString.Append(Buffer);
 			return true;
 		}
 

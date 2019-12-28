@@ -158,6 +158,7 @@
     <ClInclude Include="boxpp\base\mathematics\BaseMath.hpp" />
     <ClInclude Include="boxpp\base\mathematics\Rectangle.hpp" />
     <ClInclude Include="boxpp\base\mathematics\Vector.hpp" />
+    <ClInclude Include="boxpp\base\network\IPEndpoint.hpp" />
     <ClInclude Include="boxpp\base\network\IPAddress.hpp" />
     <ClInclude Include="boxpp\base\network\IPAddressV6.hpp" />
     <ClInclude Include="boxpp\base\network\Socket.hpp" />

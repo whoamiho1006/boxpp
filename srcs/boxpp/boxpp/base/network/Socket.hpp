@@ -9,7 +9,7 @@ namespace boxpp
 {
 	class BOXPP FSocket
 	{
-	protected:
+	public:
 		FSocket();
 		FSocket(EProtocolType Protocol, ESocketType SocketType);
 
@@ -43,6 +43,12 @@ namespace boxpp
 	public:
 		FASTINLINE bool Bind(const FIPAddress& Address, s32 Port) { return !FSocketLayer::Bind(Socket, Address, Port); }
 		FASTINLINE bool Bind(const FIPAddressV6& Address, s32 Port) { return !FSocketLayer::Bind(Socket, Address, Port); }
+
+		template<typename AddressType>
+		FASTINLINE ssize_t Bind(const TIPEndpoint<AddressType>& Endpoint) {
+			return Bind(Endpoint.GetAddress(), Endpoint.GetPort());
+		}
+
 		FASTINLINE bool Listen(s32 Backlog) { return !FSocketLayer::Listen(Socket, Backlog); }
 
 		FASTINLINE bool Pending() {
@@ -60,7 +66,12 @@ namespace boxpp
 			return FSocketLayer::Connect(Socket, Address, Port, Timeout);
 		}
 
-		FASTINLINE bool Shutdown(bool Rd, bool Wr) {
+		template<typename AddressType>
+		FASTINLINE ssize_t Connect(const TIPEndpoint<AddressType>& Endpoint, s32 Timeout = -1) {
+			return Connect(Endpoint.GetAddress(), Endpoint.GetPort(), Timeout);
+		}
+
+		FASTINLINE bool Shutdown(bool Rd = true, bool Wr = true) {
 			if (Rd && Wr) {
 				return !FSocketLayer::Shutdown(Socket);
 			}
@@ -98,6 +109,16 @@ namespace boxpp
 
 		FASTINLINE ssize_t SendTo(const FIPAddressV6& To, const u16& LocalPort, const void* Buffer, size_t Size) {
 			return FSocketLayer::SendTo(Socket, To, LocalPort, Buffer, Size);
+		}
+
+		template<typename AddressType>
+		FASTINLINE ssize_t RecvFrom(TIPEndpoint<AddressType>& Endpoint, void* Buffer, size_t Size) {
+			return FSocketLayer::RecvFrom(Socket, Endpoint, Buffer, Size);
+		}
+
+		template<typename AddressType>
+		FASTINLINE ssize_t SendTo(const TIPEndpoint<AddressType>& Endpoint, const void* Buffer, size_t Size) {
+			return FSocketLayer::SendTo(Socket, Endpoint, Buffer, Size);
 		}
 
 	public:

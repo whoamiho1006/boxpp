@@ -128,7 +128,96 @@ namespace boxpp
 				return 0;
 			}
 
-			static constexpr s64 Atol(const CharType* Char)
+			FASTINLINE static bool Ltoa(s64 Val, CharType* Buffer, u32 Radix = 10, ssize_t MaxSize = -1) {
+				if (CharType* Current = Buffer) {
+					bool Neg = Val < 0;
+					size_t Len = 0;
+					u64 UVal = 0;
+
+					if (Radix == 10) {
+						Val = Neg ? -Val : Val;
+
+						if (Neg && (MaxSize < 0 || MaxSize)) {
+							*(Current++) = Consts::Hipen;
+							--MaxSize; ++Buffer;
+						}
+					}
+
+					UVal = *((u64*)&Val);
+					while (MaxSize < 0 || MaxSize) {
+						u32 Digit = UVal % Radix;
+						UVal = UVal / Radix;
+
+						if (Digit < 10) {
+							*(Current++) = Consts::Number(Digit);
+							--MaxSize;
+						}
+						else {
+							*(Current++) = Consts::Alphabet(Digit - 10);
+							--MaxSize;
+						}
+
+						++Len;
+
+						if (!UVal) {
+							break;
+						}
+					}
+
+					for (size_t i = 0; i < Len / 2; ++i) {
+						Swap(Buffer[i], Buffer[Len - i - 1]);
+					}
+
+					if (MaxSize < 0 || MaxSize) {
+						*(Current++) = 0;
+					}
+
+					return true;
+				}
+
+				return false;
+			}
+
+			FASTINLINE static bool Ultoa(u64 Val, CharType* Buffer, u32 Radix = 10, ssize_t MaxSize = -1) {
+				if (CharType* Current = Buffer) {
+					bool Neg = Val < 0;
+					size_t Len = 0;
+
+					while (MaxSize < 0 || MaxSize) {
+						u32 Digit = Val % Radix;
+						Val = Val / Radix;
+
+						if (Digit < 10) {
+							*(Current++) = Consts::Number(Digit);
+							--MaxSize;
+						}
+						else {
+							*(Current++) = Consts::Alphabet(Digit - 10);
+							--MaxSize;
+						}
+
+						++Len;
+
+						if (!Val) {
+							break;
+						}
+					}
+
+					for (size_t i = 0; i < Len / 2; ++i) {
+						Swap(Buffer[i], Buffer[Len - i - 1]);
+					}
+
+					if (MaxSize < 0 || MaxSize) {
+						*(Current++) = 0;
+					}
+
+					return true;
+				}
+
+				return false;
+			}
+
+			FASTINLINE static s64 Atol(const CharType* Char)
 			{
 				s64 Value = 0;
 				s32 Neg = 1;
@@ -157,7 +246,7 @@ namespace boxpp
 				return Value * Neg;
 			}
 
-			static constexpr u64 Atoul(const CharType* Char)
+			FASTINLINE static u64 Atoul(const CharType* Char)
 			{
 				using Consts = TConstants<CharType>;
 

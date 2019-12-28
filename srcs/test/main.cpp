@@ -4,15 +4,24 @@
 using namespace boxpp;
 
 int main(int argc, char** argv) {
+	FSocket Test(EProtocolType::Inet, ESocketType::Tcp);
 
-	FVector3 X = FVector3::Up;
+	BOX_ASSERT(Test.Bind(FIPAddress::Any, 8000), "Bind() failed");
+	BOX_ASSERT(Test.Listen(30), "Listen() failed");
 
-	TSortedArray<int> d;
+	while (!Test.HasError()) {
+		FSocket Newbie;
 
-	d.Add(4);
-	d.Add(4);
-	d.Add(4);
-	X *= 15;
+		if (Test.Accept(Newbie)) {
+			const char* Packet = "HTTP/1.1 200 OK\r\n"
+				"Content-Type: text/html; charset=utf-8\r\n"
+				"Content-Length: 20\r\n\r\n"
+				"abcdabcdabcdabcdabcd\r\n";
+
+			Newbie.Send(Packet, TNativeString<char>::Strlen(Packet));
+			Newbie.Shutdown();
+		}
+	}
 
 	BOX_ASSERT(false, "hello!");
 }

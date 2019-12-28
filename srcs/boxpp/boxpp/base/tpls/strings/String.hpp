@@ -134,6 +134,16 @@ namespace boxpp
 		FASTINLINE bool operator > (const wide_t* Other) const { return Compare(Other) > 0; }
 
 	public:
+		FASTINLINE static TString<CharType> FromInt(s64 IntVal) {
+			CharType Temp[24] = { 0, };
+
+			strings::TCommonOperations<CharType>::Ltoa(IntVal,
+				Temp, 10, sizeof(Temp) / sizeof(CharType) - 1);
+
+			return Temp;
+		}
+
+	public:
 		FASTINLINE void Clear()
 		{
 			Storage.Clear();
@@ -179,6 +189,20 @@ namespace boxpp
 			if (InString) {
 				TStringConverter<CharType, OtherType> Converter(InString);
 				Append(Converter.GetConvertedString(), MaxSize);
+			}
+		}
+
+		FASTINLINE void Insert(size_t Offset, const CharType* InString, ssize_t MaxSize = -1) {
+
+			if (InString) {
+				size_t Size = strings::TOperations<CharType>::Strlen(InString);
+
+				if (*this) {
+					Storage.RemoveAt(Storage.GetSize() - 1, 1, false);
+				}
+
+				Storage.Insert(Offset, InString, u32(MaxSize >= 0 && ssize_t(Size) > MaxSize ? MaxSize : Size));
+				Storage.Add(strings::TConstants<CharType>::Null);
 			}
 		}
 

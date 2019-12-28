@@ -5,6 +5,7 @@
 #include <boxpp/base/opacities/posix.hpp>
 #include <boxpp/base/network/IPAddress.hpp>
 #include <boxpp/base/network/IPAddressV6.hpp>
+#include <boxpp/base/network/IPEndpoint.hpp>
 
 namespace boxpp
 {
@@ -204,6 +205,12 @@ namespace boxpp
 	public:
 		static ssize_t Bind(const FRawSocket& Socket, const FIPAddress& Address, s32 Port);
 		static ssize_t Bind(const FRawSocket& Socket, const FIPAddressV6& Address, s32 Port);
+
+		template<typename AddressType>
+		FASTINLINE static ssize_t Bind(const FRawSocket& Socket, const TIPEndpoint<AddressType>& Endpoint) {
+			return Bind(Socket, Endpoint.GetAddress(), Endpoint.GetPort());
+		}
+
 		static ssize_t Listen(const FRawSocket& Socket, s32 Backlog);
 		static ssize_t Accept(const FRawSocket& Socket, FRawSocket& Newbie);
 
@@ -212,6 +219,16 @@ namespace boxpp
 		static ssize_t Connect(const FRawSocket& Socket, const FIPAddressV6& Address, s32 Port);
 		static ssize_t Connect(const FRawSocket& Socket, const FIPAddress& Address, s32 Port, s32 Timeout);
 		static ssize_t Connect(const FRawSocket& Socket, const FIPAddressV6& Address, s32 Port, s32 Timeout);
+
+		template<typename AddressType>
+		FASTINLINE static ssize_t Connect(const FRawSocket& Socket, const TIPEndpoint<AddressType>& Endpoint) {
+			return Connect(Socket, Endpoint.GetAddress(), Endpoint.GetPort());
+		}
+
+		template<typename AddressType>
+		FASTINLINE static ssize_t Connect(const FRawSocket& Socket, const TIPEndpoint<AddressType>& Endpoint, s32 Timeout) {
+			return Connect(Socket, Endpoint.GetAddress(), Endpoint.GetPort(), Timeout);
+		}
 
 	public:
 		static ssize_t Shutdown(const FRawSocket& Socket);
@@ -227,6 +244,26 @@ namespace boxpp
 
 		static ssize_t RecvFrom(const FRawSocket& Socket, FIPAddressV6& From, u16& LocalPort, void* Buffer, size_t Size);
 		static ssize_t SendTo(const FRawSocket& Socket, const FIPAddressV6& To, const u16& LocalPort, const void* Buffer, size_t Size);
+
+		template<typename AddressType>
+		FASTINLINE static ssize_t RecvFrom(const FRawSocket& Socket, TIPEndpoint<AddressType>& Endpoint, void* Buffer, size_t Size) {
+			AddressType Address;
+			u32 Port = 0;
+
+			ssize_t R = RecvFrom(Socket, Address, Port, Buffer, Size);
+
+			if (R >= 0) {
+				Endpoint.SetAddress(Forward<AddressType>(Address));
+				Endpoint.SetPort(Port);
+			}
+
+			return R;
+		}
+
+		template<typename AddressType>
+		FASTINLINE static ssize_t SendTo(const FRawSocket& Socket, const TIPEndpoint<AddressType>& Endpoint, const void* Buffer, size_t Size) {
+			return SendTo(Socket, Endpoint.GetAddress(), Endpoint.GetPort(), Buffer, Size);
+		}
 
 	public:
 		static ssize_t Poll(FSocketPoll* Targets, size_t Count, const u32 Timeout = 0);
