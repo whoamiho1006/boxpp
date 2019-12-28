@@ -49,7 +49,9 @@ namespace boxpp
 						Mem = Temp;
 					}
 					
-					Queue.Enqueue(Temp);
+					else {
+						Queue.Enqueue(Temp);
+					}
 				}
 
 				if (!Mem) {
@@ -58,6 +60,13 @@ namespace boxpp
 
 					if (Mem) {
 						Mem->Size = Size;
+					}
+
+					if (Queue.GetSize() >= _Maxholds) {
+						if (Queue.Dequeue(Temp)) {
+							delete[]((uint8_t*)Temp);
+							++Maxholds;
+						}
 					}
 				}
 
