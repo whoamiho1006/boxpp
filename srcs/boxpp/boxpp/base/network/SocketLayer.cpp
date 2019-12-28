@@ -4,6 +4,8 @@
 
 #if PLATFORM_WINDOWS
 #include <WinSock2.h>
+#include <ws2ipdef.h>
+#include <Ws2tcpip.h>
 #pragma comment(lib, "ws2_32.lib")
 #define SHUT_RD SD_RECEIVE
 #define SHUT_WR SD_SEND
@@ -17,6 +19,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 #include <fcntl.h>
 
 #include <string.h>
@@ -50,13 +53,21 @@ namespace boxpp {
 	};
 #endif
 
-	FORCEINLINE ESocketError SOCKET_GetErrorCode(s32* OutRawError) {
+#if PLATFORM_WINDOWS
+	void FSocketLayer::CheckAndInit()
+	{
+		WSAInit::Init();
+	}
+#endif
+
+#if PLATFORM_WINDOWS
+	FASTINLINE ESocketError SOCKET_GetErrorCode_Windows(s32* OutRawError) {
 		ESocketError Error = ESocketError::Success;
 		s32 RawError = -1;
 
-#if PLATFORM_WINDOWS
 		if (!(!(RawError = WSAGetLastError()))) {
 			switch (RawError) {
+#if PLATFORM_WINDOWS
 			case WSA_IO_PENDING:
 				Error = ESocketError::Pending;
 				break;
@@ -111,7 +122,7 @@ namespace boxpp {
 			case WSAEADDRNOTAVAIL:
 				Error = ESocketError::AddressNotAvailable;
 				break;
-				
+
 			case WSAEPROTOTYPE:
 				Error = ESocketError::InvalidProtocol;
 				break;
@@ -197,17 +208,28 @@ namespace boxpp {
 			case WSAEISCONN:
 				Error = ESocketError::ConnectedAlready;
 				break;
-
+#endif
 			default:
 				Error = ESocketError::NotWrapped;
 				break;
 			}
 		}
+
+		if (OutRawError) {
+			*OutRawError = RawError;
+		}
+
+		return Error;
+	}
 #endif
-#if PLATFORM_POSIX
-		if (!(!(RawError = errno))) {
-			switch (RawError) {
-#if EAGAIN != EWOULDBLOCK
+
+	FASTINLINE ESocketError SOCKET_GetErrorCodeFromRaw(s32* RawError) {
+		ESocketError Error = ESocketError::Success;
+		s32 RawErr = *RawError;
+
+		if (!(!(RawErr))) {
+			switch (RawErr) {
+#if defined(EAGAIN) && EAGAIN != EWOULDBLOCK
 			case EAGAIN:
 #endif
 			case EWOULDBLOCK:
@@ -231,7 +253,9 @@ namespace boxpp {
 				break;
 
 			case EBADF:
+#if defined (EBADFD)
 			case EBADFD:
+#endif
 			case ENOTSOCK:
 				Error = ESocketError::BadSocket;
 				break;
@@ -242,7 +266,9 @@ namespace boxpp {
 			case EMFILE:
 			case EBUSY:
 			case ENOENT:
+#if defined (ETOOMANYREFS)
 			case ETOOMANYREFS:
+#endif
 				Error = ESocketError::NoResources;
 				break;
 
@@ -275,27 +301,35 @@ namespace boxpp {
 				break;
 
 			case EPROTONOSUPPORT:
+#if defined (EUNATCH)
 			case EUNATCH:
+#endif
 				Error = ESocketError::NotSupportedProtocol;
 				break;
 
+#if defined (ESOCKTNOSUPPORT)
 			case ESOCKTNOSUPPORT:
 				Error = ESocketError::NotSupportedSocket;
 				break;
+#endif
 
 			case ENOTSUP:
 			case EOPNOTSUPP:
 				Error = ESocketError::NotSupportedOperation;
 				break;
 
+#if defined(EPFNOSUPPORT) && (EPFNOSUPPORT != EAFNOSUPPORT)
 			case EPFNOSUPPORT:
+#endif
 			case EAFNOSUPPORT:
 				Error = ESocketError::NotSupportedFamily;
 				break;
 
+#if defined(EHOSTDOWN)
 			case EHOSTDOWN:
 				Error = ESocketError::HostDown;
 				break;
+#endif
 
 			case EHOSTUNREACH:
 				Error = ESocketError::HostUnreachable;
@@ -329,9 +363,11 @@ namespace boxpp {
 				Error = ESocketError::Timedout;
 				break;
 
+#if defined(ESHUTDOWN)
 			case ESHUTDOWN:
 				Error = ESocketError::Shutdown;
 				break;
+#endif
 
 			case ECONNRESET:
 				Error = ESocketError::ResetByPeer;
@@ -346,17 +382,35 @@ namespace boxpp {
 				break;
 
 			default:
+#if PLATFORM_WINDOWS
+				Error = SOCKET_GetErrorCode_Windows(RawError);
+#else
 				Error = ESocketError::NotWrapped;
+#endif
 				break;
 			}
 		}
-#endif
-
-		if (OutRawError) {
-			*OutRawError = RawError;
-		}
 
 		return Error;
+	}
+
+	FASTINLINE ESocketError SOCKET_GetErrorCode(s32 s, s32* OutRawError) {
+		s32 Err = 0;
+		socklen_t ErrLen = sizeof(Err);
+
+		if (::getsockopt(s, SOL_SOCKET, SO_ERROR,
+			(char*)&Err, (int*)&ErrLen) == 0)
+		{
+			ESocketError Error = SOCKET_GetErrorCodeFromRaw(&Err);
+
+			if (OutRawError) {
+				*OutRawError = Err;
+			}
+
+			return Error;
+		}
+
+		return ESocketError::BadSocket;
 	}
 
 	FRawSocket FSocketLayer::Create(EProtocolType ProtocolType, ESocketType SocketType) {
@@ -407,7 +461,7 @@ namespace boxpp {
 #endif
 
 		if (Socket.s <= 0) {
-			Socket.err = SOCKET_GetErrorCode(&Socket.err_raw);
+			Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
 		}
 
 		return Socket;
@@ -422,19 +476,42 @@ namespace boxpp {
 		Socket.s = -1;
 	}
 
+	ESocketError FSocketLayer::ResolveErrorCode(const FRawSocket& Socket) {
+		return SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
+	}
+
+	void FSocketLayer::CleanErrorCode(const FRawSocket& Socket)
+	{
+		s32 Err = 0;
+
+		if (IsValid(Socket)) {
+			Socket.err = ESocketError::Success;
+			Socket.err_raw = 0;
+
+			::setsockopt(Socket.s, SOL_SOCKET, 
+				SO_ERROR, (char*)&Err, sizeof(Err));
+
+#if PLATFORM_WINDOWS
+			WSASetLastError(0);
+#endif
+		}
+	}
+
 #if PLATFORM_WINDOWS
 	using ioctl_bool_t = u_long;
 #else
 	using ioctl_bool_t = s32;
 #endif
 
-	bool FSocketLayer::IsNonblock(const FRawSocket & Socket)
+	bool FSocketLayer::IsNonblock(const FRawSocket& Socket)
 	{
 		if (IsValid(Socket)) {
 			s32 R = 0;
 
 #if PLATFORM_WINDOWS
 			char b = 0;
+
+			CleanErrorCode(Socket);
 			R = ::recv(Socket.s, &b, 0, 0);
 
 			/*
@@ -595,7 +672,7 @@ namespace boxpp {
 #endif
 
 			SockAddr.sin_family = Socket.family;
-			SockAddr.sin_port = htons(Port);
+			SockAddr.sin_port = htons(u16(Port));
 
 #ifdef _MSC_VER
 #pragma warning(pop)
@@ -606,8 +683,54 @@ namespace boxpp {
 			AddrBytes[2] = Address.GetByteAt(2);
 			AddrBytes[3] = Address.GetByteAt(3);
 
+			CleanErrorCode(Socket);
+
 			if ((R = ::bind(Socket.s, (sockaddr*)&SockAddr, sizeof(SockAddr))) != 0) {
-				Socket.err = SOCKET_GetErrorCode(&Socket.err_raw);
+				Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
+			}
+
+			return R;
+		}
+
+		Socket.err = ESocketError::BadSocket;
+		return -1;
+	}
+
+	FASTINLINE void SOCKET_IPv6ToSA6(sockaddr_in6& OutSA, const FIPAddressV6& Address) {
+		u8* AddrBytes = (u8*)(&OutSA.sin6_addr);
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4244)
+#endif
+
+		OutSA.sin6_family = AF_INET6;
+		OutSA.sin6_scope_id = Address.GetScopeId();
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+		for (s8 i = 0; i < 4; ++i) {
+			AddrBytes[i * 4 + 0] = Address.GetByteAt(i * 4 + 0);
+			AddrBytes[i * 4 + 1] = Address.GetByteAt(i * 4 + 1);
+			AddrBytes[i * 4 + 2] = Address.GetByteAt(i * 4 + 2);
+			AddrBytes[i * 4 + 3] = Address.GetByteAt(i * 4 + 3);
+		}
+	}
+
+	ssize_t FSocketLayer::Bind(const FRawSocket& Socket, const FIPAddressV6& Address, s32 Port)
+	{
+		if (IsValid(Socket)) {
+			sockaddr_in6 SockAddr = { 0, };
+			ssize_t R = -1;
+
+			SOCKET_IPv6ToSA6(SockAddr, Address);
+			SockAddr.sin6_port = htons(u16(Port));
+
+			CleanErrorCode(Socket);
+
+			if ((R = ::bind(Socket.s, (sockaddr*)&SockAddr, sizeof(SockAddr))) != 0) {
+				Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
 			}
 
 			return R;
@@ -622,8 +745,10 @@ namespace boxpp {
 		if (IsValid(Socket) && Socket.type == SOCK_STREAM) {
 			ssize_t R = -1;
 
+			CleanErrorCode(Socket);
+
 			if ((R = ::listen(Socket.s, Backlog)) != 0) {
-				Socket.err = SOCKET_GetErrorCode(&Socket.err_raw);
+				Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
 			}
 
 			return R;
@@ -644,12 +769,18 @@ namespace boxpp {
 			Newbie.s = -1;
 			Newbie.err = ESocketError::WouldBlock;
 
+			CleanErrorCode(Socket);
+
 			if ((R = ::accept(Socket.s, (sockaddr*)&SockAddr, &SockLen)) >= 0) {
 				Newbie.s = s32(R);
 				Newbie.err = ESocketError::Success;
 				Newbie.err_raw = 0;
 				Newbie.type = Socket.type;
 				Newbie.family = Socket.family;
+			}
+
+			else {
+				Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
 			}
 			
 			return R;
@@ -689,8 +820,42 @@ namespace boxpp {
 				SetNonblock(Socket, false);
 			}
 
+			CleanErrorCode(Socket);
+
 			if ((R = ::connect(Socket.s, (sockaddr*)&SockAddr, sizeof(SockAddr))) != 0) {
-				Socket.err = SOCKET_GetErrorCode(&Socket.err_raw);
+				Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
+			}
+
+			if (RNonBlk) {
+				SetNonblock(Socket, true);
+			}
+
+			return R;
+		}
+
+		Socket.err = ESocketError::BadSocket;
+		return -1;
+	}
+
+	ssize_t FSocketLayer::Connect(const FRawSocket & Socket, const FIPAddressV6 & Address, s32 Port)
+	{
+		if (IsValid(Socket)) {
+			sockaddr_in6 SockAddr = { 0, };
+			bool RNonBlk = false;
+			ssize_t R = -1;
+
+			SOCKET_IPv6ToSA6(SockAddr, Address);
+			SockAddr.sin6_port = htons(u16(Port));
+
+			if (IsNonblock(Socket)) {
+				RNonBlk = true;
+				SetNonblock(Socket, false);
+			}
+
+			CleanErrorCode(Socket);
+
+			if ((R = ::connect(Socket.s, (sockaddr*)&SockAddr, sizeof(SockAddr))) != 0) {
+				Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
 			}
 
 			if (RNonBlk) {
@@ -736,8 +901,10 @@ namespace boxpp {
 				SetNonblock(Socket, true);
 			}
 
+			CleanErrorCode(Socket);
+
 			if ((R = ::connect(Socket.s, (sockaddr*)&SockAddr, sizeof(SockAddr))) != 0) {
-				Socket.err = SOCKET_GetErrorCode(&Socket.err_raw);
+				Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
 
 				if (Socket.err != ESocketError::InProgress &&
 					Socket.err != ESocketError::WouldBlock &&
@@ -760,28 +927,87 @@ namespace boxpp {
 				FD_SET(Socket.s, &WriteFDSet);
 				FD_SET(Socket.s, &ErrorFDSet);
 
-				Socket.err = ESocketError::Success;
-				Socket.err_raw = 0;
+				CleanErrorCode(Socket);
 
 				if (::select(1, nullptr, &WriteFDSet, &ErrorFDSet, &tv) <= 0) {
-					Socket.err = SOCKET_GetErrorCode(&Socket.err_raw);
+					Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
 					R = -1;
 				}
 
 				else if (FD_ISSET(Socket.s, &ErrorFDSet)) {
-					s32 Err = 0, ErrLen = sizeof(s32);
+					//s32 Err = 0, ErrLen = sizeof(s32);
 
-					Socket.err = ESocketError::Timedout;
+					//Socket.err = ESocketError::Timedout;
+					Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
+				}
 
-					if (::getsockopt(Socket.s, SOL_SOCKET, SO_ERROR,
-						(char*)&Err, (int*)&ErrLen) == 0)
-					{
-#if PLATFORM_WINDOWS
-						WSASetLastError(Err);
-#endif
+			}
 
-						Socket.err = SOCKET_GetErrorCode(&Socket.err_raw);
-					}
+			if (!RNonblk) {
+				SetNonblock(Socket, false);
+			}
+
+			return R;
+		}
+
+		return -1;
+	}
+
+	ssize_t FSocketLayer::Connect(const FRawSocket & Socket, const FIPAddressV6 & Address, s32 Port, s32 Timeout)
+	{
+		if (Timeout < 0)
+			return Connect(Socket, Address, Port);
+
+		if (IsValid(Socket) && Socket.type == SOCK_STREAM) {
+			bool RNonblk = IsNonblock(Socket);
+			sockaddr_in6 SockAddr = { 0, };
+			ssize_t R = -1, TrySelect = 1;
+
+			SOCKET_IPv6ToSA6(SockAddr, Address);
+			SockAddr.sin6_port = htons(u16(Port));
+
+			if (!RNonblk) {
+				SetNonblock(Socket, true);
+			}
+
+			CleanErrorCode(Socket);
+
+			if ((R = ::connect(Socket.s, (sockaddr*)&SockAddr, sizeof(SockAddr))) != 0) {
+				Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
+
+				if (Socket.err != ESocketError::InProgress &&
+					Socket.err != ESocketError::WouldBlock &&
+					Socket.err != ESocketError::Pending)
+				{
+					TrySelect = 0;
+				}
+			}
+
+			if (TrySelect) {
+				fd_set WriteFDSet, ErrorFDSet;
+				timeval tv;
+
+				tv.tv_sec = Timeout / 1000;
+				tv.tv_usec = (Timeout % 1000) * 1000;
+
+				FD_ZERO(&WriteFDSet);
+				FD_ZERO(&ErrorFDSet);
+
+				FD_SET(Socket.s, &WriteFDSet);
+				FD_SET(Socket.s, &ErrorFDSet);
+
+				CleanErrorCode(Socket);
+
+				if (::select(1, nullptr, &WriteFDSet, &ErrorFDSet, &tv) <= 0) {
+					Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
+					R = -1;
+				}
+
+				else if (FD_ISSET(Socket.s, &ErrorFDSet)) {
+					//s32 Err = 0, ErrLen = sizeof(s32);
+
+					//Socket.err = ESocketError::Timedout;
+					Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
 				}
 
 			}
@@ -826,10 +1052,13 @@ namespace boxpp {
 	ssize_t FSocketLayer::Recv(const FRawSocket& Socket, void* Buffer, size_t Size)
 	{
 		if (IsValid(Socket)) {
-			ssize_t R = ::recv(Socket.s, (char*)Buffer, s32(Size), 0);
+			ssize_t R = 0;
+
+			CleanErrorCode(Socket);
+			R = ::recv(Socket.s, (char*)Buffer, s32(Size), 0);
 
 			if (R <= 0) {
-				Socket.err = SOCKET_GetErrorCode(&Socket.err_raw);
+				Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
 			}
 
 			return R;
@@ -842,10 +1071,13 @@ namespace boxpp {
 	ssize_t FSocketLayer::Send(const FRawSocket& Socket, const void* Buffer, size_t Size)
 	{
 		if (IsValid(Socket)) {
-			ssize_t S = ::send(Socket.s, (const char*)Buffer, s32(Size), 0);
+			ssize_t S = 0;
+
+			CleanErrorCode(Socket);
+			S = ::send(Socket.s, (const char*)Buffer, s32(Size), 0);
 
 			if (S <= 0) {
-				Socket.err = SOCKET_GetErrorCode(&Socket.err_raw);
+				Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
 			}
 
 			return S;
@@ -861,13 +1093,16 @@ namespace boxpp {
 			sockaddr_in SockAddr = { 0, };
 			socklen_t SockLen = sizeof(SockAddr);
 
-			ssize_t S = ::recvfrom(Socket.s, (char*) Buffer,
-				Size, 0, (sockaddr*) &SockAddr, &SockLen);
+			ssize_t S = 0;
 
 			const u8* AddrBytes = (const u8*)(&SockAddr.sin_addr);
 
+			CleanErrorCode(Socket);
+			S = ::recvfrom(Socket.s, (char*)Buffer,
+				s32(Size), 0, (sockaddr*)&SockAddr, &SockLen);
+
 			if (S <= 0) {
-				Socket.err = SOCKET_GetErrorCode(&Socket.err_raw);
+				Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
 			}
 
 			LocalPort = ntohs(SockAddr.sin_port);
@@ -899,11 +1134,69 @@ namespace boxpp {
 			AddrBytes[2] = To.GetByteAt(2);
 			AddrBytes[3] = To.GetByteAt(3);
 
-			S = ::sendto(Socket.s, (const char*)Buffer, Size, 
+			CleanErrorCode(Socket);
+			S = ::sendto(Socket.s, (const char*)Buffer, s32(Size),
 				0, (const sockaddr*)&SockAddr, SockLen);
 
 			if (S <= 0) {
-				Socket.err = SOCKET_GetErrorCode(&Socket.err_raw);
+				Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
+			}
+
+			return S;
+		}
+
+		return -1;
+	}
+
+	ssize_t FSocketLayer::RecvFrom(const FRawSocket & Socket, FIPAddressV6& From, u16& LocalPort, void * Buffer, size_t Size)
+	{
+		if (IsValid(Socket)) {
+			sockaddr_in6 SockAddr = { 0, };
+			socklen_t SockLen = sizeof(SockAddr);
+
+			ssize_t S = 0;
+
+			const u8* AddrBytes = (const u8*)(&SockAddr.sin6_addr);
+
+			CleanErrorCode(Socket);
+			S = ::recvfrom(Socket.s, (char*)Buffer,
+				s32(Size), 0, (sockaddr*)&SockAddr, &SockLen);
+
+			if (S <= 0) {
+				Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
+			}
+
+			LocalPort = ntohs(SockAddr.sin6_port);
+
+			for (s8 i = 0; i < 4; ++i) {
+				From.SetByteAt(i * 4 + 0, AddrBytes[i * 4 + 0]);
+				From.SetByteAt(i * 4 + 1, AddrBytes[i * 4 + 1]);
+				From.SetByteAt(i * 4 + 2, AddrBytes[i * 4 + 2]);
+				From.SetByteAt(i * 4 + 3, AddrBytes[i * 4 + 3]);
+			}
+
+			return S;
+		}
+
+		return -1;
+	}
+
+	ssize_t FSocketLayer::SendTo(const FRawSocket & Socket, const FIPAddressV6 & To, const u16 & LocalPort, const void * Buffer, size_t Size)
+	{
+		if (IsValid(Socket)) {
+			sockaddr_in6 SockAddr = { 0, };
+			socklen_t SockLen = sizeof(SockAddr);
+			ssize_t S = -1;
+
+			SOCKET_IPv6ToSA6(SockAddr, To);
+			SockAddr.sin6_port = htons(LocalPort);
+
+			CleanErrorCode(Socket);
+			S = ::sendto(Socket.s, (const char*)Buffer, s32(Size),
+				0, (const sockaddr*)&SockAddr, SockLen);
+
+			if (S <= 0) {
+				Socket.err = SOCKET_GetErrorCode(Socket.s, &Socket.err_raw);
 			}
 
 			return S;
@@ -944,20 +1237,21 @@ namespace boxpp {
 
 			for (size_t i = 0; i < Count; ++i) {
 				fds[i].fd = Targets[i].Socket.s;
-				fds[i].events = SOCKET_TranslatePollFlags(Targets[i].Events);
+				fds[i].events = u16(SOCKET_TranslatePollFlags(Targets[i].Events));
 				fds[i].revents = 0;
 
 				Targets[i].Channels = ESOCK_NONE;
+				CleanErrorCode(Targets[i].Socket);
 			}
-			
+
 #if PLATFORM_WINDOWS
-			S = WSAPoll(fds, Count, Timeout);
+			S = WSAPoll(fds, u32(Count), Timeout);
 #else
-			S = poll(fds, Count, Timeout);
+			S = poll(fds, u32(Count), Timeout);
 #endif
 
 			if (S < 0) {
-				Pool.Free(fds);
+				Pool.Free(fds); // ERROR.
 				return -1;
 			}
 
@@ -984,6 +1278,15 @@ namespace boxpp {
 						Targets[i].Channels = (ESocketChannel)(
 							Targets[i].Channels | ESOCK_HANGUP);
 					}
+
+					Targets[i].Socket.err = SOCKET_GetErrorCode(
+						Targets[i].Socket.s, &Targets[i].Socket.err_raw);
+				}
+			}
+			else {
+				for (size_t i = 0; i < Count; ++i) {
+					Targets[i].Socket.err = SOCKET_GetErrorCode(
+						Targets[i].Socket.s, &Targets[i].Socket.err_raw);
 				}
 			}
 

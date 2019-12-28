@@ -4,6 +4,7 @@
 
 #include <boxpp/base/opacities/posix.hpp>
 #include <boxpp/base/network/IPAddress.hpp>
+#include <boxpp/base/network/IPAddressV6.hpp>
 
 namespace boxpp
 {
@@ -126,6 +127,13 @@ namespace boxpp
 	*/
 	class BOXPP FSocketLayer
 	{
+	protected:
+		friend class FIPAddressV6;
+#if PLATFORM_WINDOWS
+		static void CheckAndInit();
+#else
+		FASTINLINE static void CheckAndInit() { }
+#endif
 	public:
 		static FRawSocket Create(EProtocolType ProtocolType, ESocketType SocketType);
 		static void Close(FRawSocket& Socket);
@@ -133,6 +141,8 @@ namespace boxpp
 	public:
 		FASTINLINE static bool IsValid(const FRawSocket& Socket) { return Socket.s >= 0; }
 		FASTINLINE static ESocketError GetErrorCode(const FRawSocket& Socket) { return Socket.err; }
+		static ESocketError ResolveErrorCode(const FRawSocket& Socket);
+		static void CleanErrorCode(const FRawSocket& Socket);
 
 		/* Determines the socket is corrupted and dead, so unusable or not. */
 		FASTINLINE static bool IsSocketCorrupted(const FRawSocket& Socket) {
@@ -193,12 +203,15 @@ namespace boxpp
 
 	public:
 		static ssize_t Bind(const FRawSocket& Socket, const FIPAddress& Address, s32 Port);
+		static ssize_t Bind(const FRawSocket& Socket, const FIPAddressV6& Address, s32 Port);
 		static ssize_t Listen(const FRawSocket& Socket, s32 Backlog);
 		static ssize_t Accept(const FRawSocket& Socket, FRawSocket& Newbie);
 
 	public:
 		static ssize_t Connect(const FRawSocket& Socket, const FIPAddress& Address, s32 Port);
+		static ssize_t Connect(const FRawSocket& Socket, const FIPAddressV6& Address, s32 Port);
 		static ssize_t Connect(const FRawSocket& Socket, const FIPAddress& Address, s32 Port, s32 Timeout);
+		static ssize_t Connect(const FRawSocket& Socket, const FIPAddressV6& Address, s32 Port, s32 Timeout);
 
 	public:
 		static ssize_t Shutdown(const FRawSocket& Socket);
@@ -211,6 +224,9 @@ namespace boxpp
 
 		static ssize_t RecvFrom(const FRawSocket& Socket, FIPAddress& From, u16& LocalPort, void* Buffer, size_t Size);
 		static ssize_t SendTo(const FRawSocket& Socket, const FIPAddress& To, const u16& LocalPort, const void* Buffer, size_t Size);
+
+		static ssize_t RecvFrom(const FRawSocket& Socket, FIPAddressV6& From, u16& LocalPort, void* Buffer, size_t Size);
+		static ssize_t SendTo(const FRawSocket& Socket, const FIPAddressV6& To, const u16& LocalPort, const void* Buffer, size_t Size);
 
 	public:
 		static ssize_t Poll(FSocketPoll* Targets, size_t Count, const u32 Timeout = 0);

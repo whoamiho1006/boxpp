@@ -17,7 +17,7 @@ namespace boxpp
 		template<typename> friend class TArrayBase;
 
 	public:
-		TSortedArray(u32 InitialCapacity = 0) 
+		TSortedArray(size_t InitialCapacity = 0) 
 			: TArrayBase<ElemType>(InitialCapacity)
 		{
 
@@ -56,7 +56,7 @@ namespace boxpp
 				}
 
 				else {
-					for (u32 i = 0; i < Other.GetSize(); i++) {
+					for (size_t i = 0; i < Other.GetSize(); i++) {
 						new (&this->Storage[i]) ElemType(Other.Storage[i]);
 					}
 				}
@@ -80,14 +80,14 @@ namespace boxpp
 		/*
 			Insert an item into this array and returns its offset.
 		*/
-		FASTINLINE s32 Add(s32 Offset, const ElemType& Item, u32 Count = 1) {
+		FASTINLINE ssize_t Add(ssize_t Offset, const ElemType& Item, size_t Count = 1) {
 			if (Offset >= 0 && this->Requires(Count)) {
 				if (IsPodType<ElemType>) {
 					::memmove(this->Storage + Offset + Count, this->Storage + Offset,
 						sizeof(ElemType) * (this->Length - Offset));
 				}
 				else {
-					for (u32 i = this->Length; i > u32(Offset); i--) {
+					for (size_t i = this->Length; i > size_t(Offset); i--) {
 						new (this->Storage + i) ElemType(
 							TMovable<ElemType>::Movable(this->Storage[i - Count])
 						);
@@ -96,7 +96,7 @@ namespace boxpp
 					}
 				}
 
-				for (u32 i = 0; i < Count; i++)
+				for (size_t i = 0; i < Count; i++)
 					new (this->Storage + Offset + i) ElemType(Item);
 
 				this->Length += Count;
@@ -109,14 +109,14 @@ namespace boxpp
 		/*
 			Insert an item into this array and returns its offset.
 		*/
-		FASTINLINE s32 Add(s32 Offset, ElemType&& Item) {
+		FASTINLINE ssize_t Add(ssize_t Offset, ElemType&& Item) {
 			if (Offset >= 0 && this->Requires(1)) {
 				if (IsPodType<ElemType>) {
 					::memmove(this->Storage + Offset + 1, this->Storage + Offset,
 						sizeof(ElemType) * (this->Length - Offset));
 				}
 				else {
-					for (u32 i = this->Length; i > u32(Offset); i--) {
+					for (size_t i = this->Length; i > size_t(Offset); i--) {
 						new (this->Storage + i) ElemType(
 							TMovable<ElemType>::Movable(this->Storage[i - 1])
 						);
@@ -137,22 +137,22 @@ namespace boxpp
 		/*
 			Add an item into this array and returns its offset.
 		*/
-		FASTINLINE s32 Add(const ElemType& Item, u32 Count = 1) {
+		FASTINLINE ssize_t Add(const ElemType& Item, size_t Count = 1) {
 			if (this->Requires(Count)) {
 				if (this->Length) {
-					s32 Offset = s32(TBinarySearch<ElemType, bAscend>::SearchNear(Item, this->Storage, this->Length));
+					ssize_t Offset = ssize_t(TBinarySearch<ElemType, bAscend>::SearchNear(Item, this->Storage, this->Length));
 
 					if (Offset >= 0) {
 						return Add(Offset, Item, Count);
 					}
 				}
 
-				for (u32 i = 0; i < Count; i++) {
+				for (size_t i = 0; i < Count; i++) {
 					new (this->Storage + this->Length + i) ElemType(Item);
 				}
 
 				this->Length += Count;
-				return s32(this->Length - Count);
+				return ssize_t(this->Length - Count);
 			}
 
 			return -1;
@@ -161,10 +161,10 @@ namespace boxpp
 		/*
 			Add an item into this array and returns its offset.
 		*/
-		FASTINLINE s32 Add(ElemType&& Item) {
+		FASTINLINE ssize_t Add(ElemType&& Item) {
 			if (this->Requires(1)) {
 				if (this->Length) {
-					s32 Offset = TBinarySearch<ElemType, bAscend>::SearchNear(Item, this->Storage, this->Length);
+					ssize_t Offset = TBinarySearch<ElemType, bAscend>::SearchNear(Item, this->Storage, this->Length);
 
 					if (Offset >= 0) {
 						return Add(Offset, Forward<ElemType>(Item));
@@ -172,7 +172,7 @@ namespace boxpp
 				}
 
 				new (this->Storage + this->Length++) ElemType(Forward<ElemType>(Item));
-				return s32(this->Length - 1);
+				return ssize_t(this->Length - 1);
 			}
 
 			return -1;
@@ -181,7 +181,7 @@ namespace boxpp
 		/*
 			Add an item uniquely into this array and returns its offset.
 		*/
-		FASTINLINE s32 AddUnique(const ElemType& Item) {
+		FASTINLINE ssize_t AddUnique(const ElemType& Item) {
 			if (!Contains(Item)) {
 				return Add(Item);
 			}
@@ -192,7 +192,7 @@ namespace boxpp
 		/*
 			Add an item uniquely into this array and returns its offset.
 		*/
-		FASTINLINE s32 AddUnique(ElemType&& Item) {
+		FASTINLINE ssize_t AddUnique(ElemType&& Item) {
 			if (!Contains(Item)) {
 				return Add(Forward<ElemType>(Item));
 			}
@@ -203,22 +203,22 @@ namespace boxpp
 		/*
 			Append all items in given array into this array.
 		*/
-		FASTINLINE s32 Append(const TArrayBase<ElemType>& InArray) {
+		FASTINLINE ssize_t Append(const TArrayBase<ElemType>& InArray) {
 			return Append(InArray, 0, InArray.GetSize());
 		}
 
 		/*
 			Append all items in given array into this array.
 		*/
-		FASTINLINE s32 AppendUnique(const TArrayBase<ElemType>& InArray) {
+		FASTINLINE ssize_t AppendUnique(const TArrayBase<ElemType>& InArray) {
 			return AppendUnique(InArray, 0, InArray.GetSize());
 		}
 
 		/*
 			Append all items in given array into this array.
 		*/
-		FASTINLINE s32 Append(const ElemType* Items, u32 Count) {
-			s32 Affected = 0;
+		FASTINLINE ssize_t Append(const ElemType* Items, size_t Count) {
+			ssize_t Affected = 0;
 
 			if (Items && Count) {
 
@@ -238,8 +238,8 @@ namespace boxpp
 		/*
 			Append all items in given array into this array.
 		*/
-		FASTINLINE s32 AppendUnique(const ElemType* Items, u32 Count) {
-			s32 Affected = 0;
+		FASTINLINE ssize_t AppendUnique(const ElemType* Items, size_t Count) {
+			ssize_t Affected = 0;
 
 			if (Items && Count) {
 
@@ -259,10 +259,10 @@ namespace boxpp
 		/*
 			Append all items in given array into this array.
 		*/
-		FASTINLINE s32 Append(const TArrayBase<ElemType>& InArray, s32 Offset, u32 Count) {
-			s32 Items = 0;
+		FASTINLINE ssize_t Append(const TArrayBase<ElemType>& InArray, ssize_t Offset, size_t Count) {
+			ssize_t Items = 0;
 
-			for (s32 i = Offset; i < s32(Count); i++) {
+			for (ssize_t i = Offset; i < ssize_t(Count); i++) {
 				if (Add(InArray[i]) >= 0)
 					Items++;
 			}
@@ -273,10 +273,10 @@ namespace boxpp
 		/*
 			Append all items in given array into this array.
 		*/
-		FASTINLINE s32 AppendUnique(const TArrayBase<ElemType>& InArray, s32 Offset, u32 Count) {
-			s32 Items = 0;
+		FASTINLINE ssize_t AppendUnique(const TArrayBase<ElemType>& InArray, ssize_t Offset, size_t Count) {
+			ssize_t Items = 0;
 
-			for (s32 i = Offset; i < Count; i++) {
+			for (ssize_t i = Offset; i < Count; i++) {
 				if (AddUnique(InArray[i]) >= 0)
 					Items++;
 			}
@@ -287,10 +287,10 @@ namespace boxpp
 		/*
 			Append all items in given array into this array.
 		*/
-		FASTINLINE s32 Append(TArrayBase<ElemType>&& InArray) {
-			s32 Items = 0;
+		FASTINLINE ssize_t Append(TArrayBase<ElemType>&& InArray) {
+			ssize_t Items = 0;
 
-			for (s32 i = 0; i < InArray.GetSize(); i++) {
+			for (ssize_t i = 0; i < InArray.GetSize(); i++) {
 				if (Emplace(TMovable<ElemType>::Movable(InArray[i])) >= 0)
 					Items++;
 			}
@@ -303,7 +303,7 @@ namespace boxpp
 			Remove an item from this array.
 		*/
 		FASTINLINE bool Remove(const ElemType& Item, bool bOptimize = true) {
-			s32 Offset = IndexOf(Item);
+			ssize_t Offset = IndexOf(Item);
 
 			if (Offset >= 0) {
 				return this->RemoveAt(Offset, 1, bOptimize);
@@ -315,13 +315,13 @@ namespace boxpp
 		/*
 			Remove all item (or items) from this array.
 		*/
-		FASTINLINE s32 RemoveAll(const ElemType& Item, bool bOptimize = true) {
-			u32 Count = 0;
-			s32 Offset = IndexOf(Item);
+		FASTINLINE ssize_t RemoveAll(const ElemType& Item, bool bOptimize = true) {
+			size_t Count = 0;
+			ssize_t Offset = IndexOf(Item);
 
 			while (Offset >= 0) {
 				Count += this->RemoveAt(Offset, 1, false) ? 1 : 0;
-				Offset = IndexOf(Item, u32(Offset));
+				Offset = IndexOf(Item, size_t(Offset));
 			}
 
 			if (bOptimize)
@@ -334,8 +334,8 @@ namespace boxpp
 		/*
 			Find the index of given item.
 		*/
-		FASTINLINE s32 IndexOf(const ElemType& Item, u32 Offset = 0) const {
-			return s32(TBinarySearch<ElemType, bAscend>::Search(Item,
+		FASTINLINE ssize_t IndexOf(const ElemType& Item, size_t Offset = 0) const {
+			return ssize_t(TBinarySearch<ElemType, bAscend>::Search(Item,
 				this->Storage + Offset, this->Length - Offset));
 		}
 
@@ -350,7 +350,7 @@ namespace boxpp
 			Search an item from this array using binary search.
 			In this case, This array should be sorted in ascend order.
 		*/
-		FASTINLINE s32 Search(const ElemType& Item) const {
+		FASTINLINE ssize_t Search(const ElemType& Item) const {
 			return TBinarySearch<ElemType, bAscend>::Search(Item, this->Storage, this->Length);
 		}
 	};

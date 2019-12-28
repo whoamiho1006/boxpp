@@ -8,8 +8,8 @@ namespace boxpp {
 	template<typename T, typename Comparator>
 	struct TNormalizedHeapSort
 	{
-		FASTINLINE static void DownHeap(T* Items, s32 Cursor, s32 Offset) {
-			s32 LeftOffset, RightOffset, Root;
+		FASTINLINE static void DownHeap(T* Items, ssize_t Cursor, ssize_t Offset) {
+			ssize_t LeftOffset, RightOffset, Root;
 
 			while (Cursor < Offset) {
 				LeftOffset = Cursor * 2 + 1;
@@ -40,16 +40,16 @@ namespace boxpp {
 			}
 		}
 
-		FASTINLINE static void Sort(T* Items, s32 Size)
+		FASTINLINE static void Sort(T* Items, ssize_t Size)
 		{
 			if (!Size)
 				return;
 
-			for (s32 i = (Size - 1) / 2; i >= 0; i--) {
+			for (ssize_t i = (Size - 1) / 2; i >= 0; i--) {
 				DownHeap(Items, i, Size);
 			}
 
-			for (s32 i = (Size - 1); i > 0; i--) {
+			for (ssize_t i = (Size - 1); i > 0; i--) {
 				Swap(Items[0], Items[i]);
 				DownHeap(Items, 0, i);
 			}
@@ -65,7 +65,7 @@ namespace boxpp {
 	template<typename T>
 	struct THeapSort
 	{
-		FASTINLINE static void Sort(T* Items, s32 Size, bool bDescend = false)
+		FASTINLINE static void Sort(T* Items, ssize_t Size, bool bDescend = false)
 		{
 			if (bDescend)
 				THeapSortDescend<T>::Sort(Items, Size);

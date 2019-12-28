@@ -25,14 +25,14 @@ namespace boxpp
 		template<typename, bool> friend class TSortedArray;
 
 	public:
-		typedef s32 OffsetType;
+		typedef ssize_t OffsetType;
 		typedef TIterator<TArrayBase<ElemType>> Iterator;
 		typedef TIterator<const TArrayBase<ElemType>> ConstIterator;
 		typedef TReverseIterator<TArrayBase<ElemType>> ReverseIterator;
 		typedef TReverseIterator<const TArrayBase<ElemType>> ConstReverseIterator;
 
 	protected:
-		TArrayBase(u32 InitialCapacity = 0)
+		TArrayBase(size_t InitialCapacity = 0)
 			: Multiplier(1), Capacity(0), Length(0), Storage(nullptr) 
 		{
 			if (InitialCapacity) {
@@ -45,9 +45,9 @@ namespace boxpp
 		}
 
 	protected:
-		u32 Multiplier;
-		u32 Capacity;
-		u32 Length;
+		size_t Multiplier;
+		size_t Capacity;
+		size_t Length;
 
 	protected:
 		ElemType* Storage;
@@ -62,26 +62,26 @@ namespace boxpp
 		FASTINLINE bool operator !=(const TArrayBase<ElemType>& Other) const { return this != &Other; }
 
 	public:
-		FASTINLINE u32 GetMultiplier() const { return Multiplier; }
-		FASTINLINE u32 GetCapacity() const { return Capacity; }
-		FASTINLINE u32 GetSize() const { return Length; }
+		FASTINLINE size_t GetMultiplier() const { return Multiplier; }
+		FASTINLINE size_t GetCapacity() const { return Capacity; }
+		FASTINLINE size_t GetSize() const { return Length; }
 
 	public:
-		FASTINLINE void SetMultiplier(u32 Value) { Multiplier = Value; }
+		FASTINLINE void SetMultiplier(size_t Value) { Multiplier = Value; }
 		FASTINLINE ElemType* GetRaw() const { return Storage; }
 
 	public:
-		FASTINLINE ElemType& operator[](s32 Offset) { 
-			BOX_ASSERT(Offset >= 0 && Offset < s32(Length), "Out of range");
+		FASTINLINE ElemType& operator[](ssize_t Offset) {
+			BOX_ASSERT(Offset >= 0 && Offset < ssize_t(Length), "Out of range");
 			return Storage[Offset]; 
 		}
 
-		FASTINLINE const ElemType& operator[](s32 Offset) const {
-			BOX_ASSERT(Offset >= 0 && Offset < s32(Length), "Out of range");
+		FASTINLINE const ElemType& operator[](ssize_t Offset) const {
+			BOX_ASSERT(Offset >= 0 && Offset < ssize_t(Length), "Out of range");
 			return Storage[Offset]; 
 		}
 
-		FASTINLINE bool IsValid(s32 Offset) const { return Offset >= 0 && Offset < s32(Length); }
+		FASTINLINE bool IsValid(ssize_t Offset) const { return Offset >= 0 && Offset < ssize_t(Length); }
 
 	public:
 		FASTINLINE Iterator Begin() const { return Iterator(*this, 0); }
@@ -92,7 +92,7 @@ namespace boxpp
 			Try to hold required size.
 			Finally, this array will have (m_Uses + Size) capacity in minimal.
 		*/
-		FASTINLINE bool Requires(u32 Size) {
+		FASTINLINE bool Requires(size_t Size) {
 			if (Length + Size > Capacity) {
 				ElemType* Storage = (ElemType*) new u8[
 					(Length + Size) * Multiplier * sizeof(ElemType)];
@@ -104,7 +104,7 @@ namespace boxpp
 				}
 
 				else {
-					for (u32 i = 0; i < Length; i++) {
+					for (size_t i = 0; i < Length; i++) {
 						new (Storage + i) ElemType(TMovable<ElemType>::Movable(this->Storage[i]));
 						this->Storage[i].~ElemType();
 					}
@@ -137,7 +137,7 @@ namespace boxpp
 					::memcpy(Storage, this->Storage, sizeof(ElemType) * Length);
 				}
 				else {
-					for (u32 i = 0; i < Length; i++) {
+					for (size_t i = 0; i < Length; i++) {
 						new (Storage + i) ElemType(TMovable<ElemType>::Movable(this->Storage[i]));
 						this->Storage[i].~ElemType();
 					}
@@ -158,7 +158,7 @@ namespace boxpp
 		FASTINLINE void Clear(bool bKeepSlack = false) {
 			if (Storage) {
 				if (bKeepSlack) {
-					for (u32 i = 0; i < Length; i++) {
+					for (size_t i = 0; i < Length; i++) {
 						Storage[i].~ElemType();
 					}
 
@@ -166,14 +166,14 @@ namespace boxpp
 				}
 				else {
 					ElemType* Storage = nullptr;
-					u32 Capacity = 0;
-					u32 Length = 0;
+					size_t Capacity = 0;
+					size_t Length = 0;
 
 					Swap(this->Storage, Storage);
 					Swap(this->Capacity, Capacity);
 					Swap(this->Length, Length);
 
-					for (u32 i = 0; i < Length; i++) {
+					for (size_t i = 0; i < Length; i++) {
 						Storage[i].~ElemType();
 					}
 
@@ -185,16 +185,16 @@ namespace boxpp
 		/*
 			Remove an item (or items) from this array.
 		*/
-		FASTINLINE bool RemoveAt(s32 Offset, u32 Count = 1, bool bOptimize = true) {
-			if (BOX_ENSURE(Offset >= 0 && Offset < s32(Length))) {
-				u32 FinalLength = u32(Length < Count ? 0 : Length - Count);
+		FASTINLINE bool RemoveAt(ssize_t Offset, size_t Count = 1, bool bOptimize = true) {
+			if (BOX_ENSURE(Offset >= 0 && Offset < ssize_t(Length))) {
+				size_t FinalLength = size_t(Length < Count ? 0 : Length - Count);
 
 				if (IsPodType<ElemType>) {
 					::memmove(Storage + Offset, Storage + Offset + Count,
 						sizeof(ElemType) * (Length - (Offset + Count)));
 				}
 				else {
-					for (u32 i = u32(Offset); i < FinalLength; i++) {
+					for (size_t i = size_t(Offset); i < FinalLength; i++) {
 						Storage[i].~ElemType();
 
 						new (Storage + i) ElemType(
@@ -202,7 +202,7 @@ namespace boxpp
 						);
 					}
 
-					for (u32 i = FinalLength; i < Length; i++) {
+					for (size_t i = FinalLength; i < Length; i++) {
 						Storage[i].~ElemType();
 					}
 				}
@@ -224,13 +224,15 @@ namespace boxpp
 			Find item index using predicate.
 		*/
 		template<typename PredicateType>
-		FASTINLINE s32 RemoveLike(PredicateType&& Predicate, u32 Offset = 0, bool bOptimize = true) {
-			u32 Count = 0;
-			u32 i = Offset;
+		FASTINLINE ssize_t RemoveLike(PredicateType&& Predicate, size_t Offset = 0, bool bOptimize = true) {
+			size_t Count = 0;
+			size_t i = Offset;
 
 			while (i < Length) {
-				if (Predicate(Storage[i]))
+				if (Predicate(Storage[i])) {
 					RemoveAt(i, 1, false);
+					++Count;
+				}
 
 				else ++i;
 			}
@@ -238,17 +240,17 @@ namespace boxpp
 			if (bOptimize)
 				Optimize();
 
-			return Count;
+			return ssize_t(Count);
 		}
 
 		/*
 			Find item index using predicate.
 		*/
 		template<typename PredicateType>
-		FASTINLINE s32 Find(PredicateType&& Predicate, u32 Offset = 0) const {
-			for (u32 i = Offset; i < Length; i++) {
+		FASTINLINE ssize_t Find(PredicateType&& Predicate, size_t Offset = 0) const {
+			for (size_t i = Offset; i < Length; i++) {
 				if (Predicate(Storage[i]))
-					return s32(i);
+					return ssize_t(i);
 			}
 
 			return -1;

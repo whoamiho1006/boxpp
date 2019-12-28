@@ -252,6 +252,9 @@
     <ClInclude Include="boxpp\base\tpls\pools\Mempool.h">
       <Filter>boxpp\base\tpls\pools</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\base\network\IPAddressV6.hpp">
+      <Filter>boxpp\base\network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">
@@ -278,6 +281,9 @@
       <Filter>boxpp\base\network</Filter>
     </ClCompile>
     <ClCompile Include="boxpp\base\network\SocketLayer.cpp">
+      <Filter>boxpp\base\network</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\network\IPAddressV6.cpp">
       <Filter>boxpp\base\network</Filter>
     </ClCompile>
   </ItemGroup>

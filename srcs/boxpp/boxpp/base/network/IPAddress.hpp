@@ -70,6 +70,15 @@ namespace boxpp
 		FASTINLINE bool operator !() const { return AddressWidth < 0; }
 
 	public:
+		FASTINLINE bool operator ==(const FIPAddress& Other) const {
+			return AddressDword == Other.AddressDword && AddressWidth == Other.AddressWidth;
+		}
+
+		FASTINLINE bool operator !=(const FIPAddress& Other) const {
+			return AddressDword != Other.AddressDword || AddressWidth != Other.AddressWidth;
+		}
+
+	public:
 		FASTINLINE bool IsAnycast() const { return (AddressDword == 0 && AddressWidth > 0) || AddressWidth == 0; }
 		FASTINLINE bool IsLoopback() const { return AddressBytes[0] == 127 && AddressWidth >= 8; }
 		FASTINLINE bool IsMasking() const { return AddressWidth >= 0 && AddressWidth < 32; }

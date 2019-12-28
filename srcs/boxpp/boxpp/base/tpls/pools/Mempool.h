@@ -36,7 +36,7 @@ namespace boxpp
 		uint32_t Maxholds;
 
 	public:
-		FASTINLINE Type* Alloc(size_t Size) {
+		FASTINLINE Type* Alloc(const size_t Size) {
 			FAtomicScope Guard(Barrior);
 
 			if (Size) {
