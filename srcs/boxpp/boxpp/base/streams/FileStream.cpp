@@ -110,6 +110,11 @@ namespace boxpp {
 		FAtomicScope Guard(Atomic);
 
 		if (File) {
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4244)
+#endif
+
 			switch (Origin) {
 			case EStreamSeek::Begin:
 				fseek(FSTREAM_ToFilePtr(File), Offset, SEEK_SET);
@@ -123,6 +128,10 @@ namespace boxpp {
 				fseek(FSTREAM_ToFilePtr(File), Offset, SEEK_END);
 				break;
 			}
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 			return ftell(FSTREAM_ToFilePtr(File));
 		}

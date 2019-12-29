@@ -116,7 +116,7 @@ namespace boxpp
 				return TNativeString<CharType>::Strcmp((const CharType*)(Name + 1), String);
 
 			else {
-				static FAtomicBarrior __BARRIOR;
+				static FAtomicBarrior __Barrior;
 				static TStringConverter<char_t, CharType> Converter;
 				FAtomicScope __Guard(__Barrior);
 
@@ -150,7 +150,7 @@ namespace boxpp
 				}
 			}
 			else {
-				static FAtomicBarrior __BARRIOR;
+				static FAtomicBarrior __Barrior;
 				static TStringConverter<char_t, CharType> Converter;
 
 				FAtomicScope __Guard(__Barrior);

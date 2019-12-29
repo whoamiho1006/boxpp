@@ -8,6 +8,8 @@
 #include <boxpp/base/opacities/windows.hpp>
 #include <boxpp/base/opacities/posix.hpp>
 
+#include <boxpp/base/tpls/containers/Array.hpp>
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -220,7 +222,7 @@ namespace boxpp
 		DestType* Converted;
 		size_t ConvertedLength;
 
-		SrcType* CacheKey;
+		const SrcType* CacheKey;
 		ssize_t CacheKeySz;
 
 	public:
@@ -230,6 +232,6 @@ namespace boxpp
 	public:
 		FASTINLINE operator bool() const { return Converted; }
 		FASTINLINE bool operator !() const { return !Converted; }
-		FASTINLINE operator DestType*() const { return GetConvertedString(); }
+		FASTINLINE operator const DestType*() const { return GetConvertedString(); }
 	};
 }
