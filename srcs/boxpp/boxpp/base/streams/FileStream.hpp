@@ -23,8 +23,13 @@ namespace boxpp
 		virtual bool IsValid() const { return File; }
 		virtual bool IsLocked() const { return File && bLocked > 0; }
 
+		virtual EStreamError GetErrorCode() const { return ErrorCode; }
+
 	public:
 		virtual bool HasCapability(EStreamCaps Capability) const { return File != nullptr; }
+
+	public:
+		virtual bool IsEndOfStream() const { return !File || bEndOfStream; }
 
 	public:
 		virtual ssize_t Tell() const;
@@ -37,8 +42,10 @@ namespace boxpp
 		virtual bool Close();
 
 	private:
+		bool bEndOfStream;
 		void* File; s32 bLocked;
 		FAtomicBarrior Atomic;
+		mutable EStreamError ErrorCode;
 		
 	private:
 		FASTINLINE void SetLocked() {

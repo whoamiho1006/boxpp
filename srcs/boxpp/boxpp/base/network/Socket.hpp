@@ -49,9 +49,15 @@ namespace boxpp
 		FASTINLINE bool IsNonblock() const { return FSocketLayer::IsNonblock(Socket); }
 		FASTINLINE bool IsNoDelay() const { return FSocketLayer::IsNoDelay(Socket); }
 
+		FASTINLINE s32 GetReceiveTimeout() const { return FSocketLayer::GetRecvTimeout(Socket); }
+		FASTINLINE s32 GetSendTimeout() const { return FSocketLayer::GetSendTimeout(Socket); }
+
 	public:
 		FASTINLINE bool SetNonblock(bool v) { return !FSocketLayer::SetNonblock(Socket, v); }
 		FASTINLINE bool SetNoDelay(bool v) { return !FSocketLayer::SetNoDelay(Socket, v); }
+
+		FASTINLINE bool SetReceiveTimeout(s32 Timeout) { return !FSocketLayer::SetRecvTimeout(Socket, Timeout); }
+		FASTINLINE bool SetSendTimeout(s32 Timeout) { return !FSocketLayer::SetSendTimeout(Socket, Timeout); }
 
 	public:
 		FASTINLINE bool Bind(const FIPAddress& Address, s32 Port) { return !FSocketLayer::Bind(Socket, Address, Port); }

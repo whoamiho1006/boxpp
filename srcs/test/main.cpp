@@ -1,4 +1,5 @@
 #include <boxpp/base/Base.hpp>
+#include <boxpp/base/BaseNetwork.hpp>
 #pragma comment(lib, "boxpp.lib")
 
 using namespace boxpp;

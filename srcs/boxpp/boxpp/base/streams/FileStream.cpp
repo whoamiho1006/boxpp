@@ -34,15 +34,18 @@ namespace boxpp {
 #endif
 
 	FFileStream::FFileStream()
-		: File(nullptr), bLocked(0)
+		: bEndOfStream(true), File(nullptr), bLocked(0),
+		  ErrorCode(EStreamError::NotFound)
 	{
 	}
 
 	FFileStream::FFileStream(const ansi_t* Path, EFileMode Mode)
-		: File(nullptr), bLocked(0)
+		: bEndOfStream(false), File(nullptr), bLocked(0)
 	{
 		static const ansi_t* NFM_Rw = "r+";
 		static const ansi_t* NFM_Trunc = "w+";
+
+		ErrorCode = EStreamError::Success;
 
 		switch (Mode) {
 		case EFileMode::ReadOnly:
@@ -59,13 +62,20 @@ namespace boxpp {
 			File = fopen(Path, NFM_Trunc);
 			break;
 		}
+
+		if (!File) {
+			ErrorCode = ToStreamError(errno);
+			bEndOfStream = true;
+		}
 	}
 
 	FFileStream::FFileStream(const wide_t* Path, EFileMode Mode)
-		: File(nullptr), bLocked(0)
+		: bEndOfStream(false), File(nullptr), bLocked(0)
 	{
 		static const wide_t* NFMW_Rw = L"r+";
 		static const wide_t* NFMW_Trunc = L"w+";
+		
+		ErrorCode = EStreamError::Success;
 
 		switch (Mode) {
 		case EFileMode::ReadOnly:
@@ -82,6 +92,11 @@ namespace boxpp {
 			File = FSTREAM_wfopen(Path, NFMW_Trunc);
 			break;
 		}
+
+		if (!File) {
+			ErrorCode = ToStreamError(errno);
+			bEndOfStream = true;
+		}
 	}
 
 	FFileStream::~FFileStream()
@@ -90,6 +105,8 @@ namespace boxpp {
 
 		if (File) {
 			fclose(FSTREAM_ToFilePtr(File));
+
+			bEndOfStream = true;
 			File = nullptr;
 		}
 	}
@@ -99,9 +116,17 @@ namespace boxpp {
 		FAtomicScope Guard(Atomic);
 
 		if (File) {
-			return ftell(FSTREAM_ToFilePtr(File));
+			ssize_t R = ftell(FSTREAM_ToFilePtr(File));
+
+			ErrorCode = EStreamError::Success;
+			if (R < 0) {
+				ErrorCode = ToStreamError(errno);
+			}
+
+			return R;
 		}
 
+		ErrorCode = EStreamError::NotOpened;
 		return -1;
 	}
 
@@ -110,6 +135,8 @@ namespace boxpp {
 		FAtomicScope Guard(Atomic);
 
 		if (File) {
+			size_t Current = ftell(FSTREAM_ToFilePtr(File)), Temp = 0;
+			EStreamError FinalError = EStreamError::Success;
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4244)
@@ -117,15 +144,28 @@ namespace boxpp {
 
 			switch (Origin) {
 			case EStreamSeek::Begin:
-				fseek(FSTREAM_ToFilePtr(File), Offset, SEEK_SET);
+				if (fseek(FSTREAM_ToFilePtr(File), Offset, SEEK_SET)) {
+					FinalError = ToStreamError(errno);
+				}
 				break;
 
 			case EStreamSeek::Current:
-				fseek(FSTREAM_ToFilePtr(File), Offset, SEEK_CUR);
+				if (fseek(FSTREAM_ToFilePtr(File), Offset, SEEK_CUR)) {
+					FinalError = ToStreamError(errno);
+				}
 				break;
 
 			case EStreamSeek::End:
-				fseek(FSTREAM_ToFilePtr(File), Offset, SEEK_END);
+				if (fseek(FSTREAM_ToFilePtr(File), Offset, SEEK_END)) {
+					FinalError = ToStreamError(errno);
+				}
+
+				if (Offset >= 0) {
+					bEndOfStream = true;
+				}
+				else {
+					bEndOfStream = false;
+				}
 				break;
 			}
 
@@ -133,9 +173,15 @@ namespace boxpp {
 #pragma warning(pop)
 #endif
 
-			return ftell(FSTREAM_ToFilePtr(File));
+			Temp = ftell(FSTREAM_ToFilePtr(File));
+			if (Current > Temp)
+				bEndOfStream = false;
+
+			ErrorCode = FinalError;
+			return Temp;
 		}
 
+		ErrorCode = EStreamError::NotOpened;
 		return -1;
 	}
 
@@ -148,9 +194,26 @@ namespace boxpp {
 
 			if (File) {
 				R = fread(Buffer, 1, Size, FSTREAM_ToFilePtr(File));
+
+				if (R >= 0) {
+					if (R < ssize_t(Size)) {
+						bEndOfStream = true;
+					}
+
+					else {
+						bEndOfStream = false;
+					}
+				}
+				else {
+					ErrorCode = ToStreamError(errno);
+				}
 			}
 
 			SetUnlocked();
+		}
+
+		else {
+			ErrorCode = EStreamError::NotOpened;
 		}
 
 		return R;
@@ -165,9 +228,23 @@ namespace boxpp {
 
 			if (File) {
 				R = fwrite(Buffer, 1, Size, FSTREAM_ToFilePtr(File));
+
+				if (R >= 0) {
+					if (R < ssize_t(Size))
+						bEndOfStream = true;
+
+					else bEndOfStream = false;
+				}
+				else {
+					ErrorCode = ToStreamError(errno);
+				}
 			}
 
 			SetUnlocked();
+		}
+
+		else {
+			ErrorCode = EStreamError::NotOpened;
 		}
 
 		return R;
@@ -178,10 +255,32 @@ namespace boxpp {
 		FAtomicScope Guard(Atomic);
 
 		if (File) {
-			fflush(FSTREAM_ToFilePtr(File));
+			size_t Cursor = ftell(FSTREAM_ToFilePtr(File)), Temp = 0;
+			EStreamError FinalError = EStreamError::Success;
+
+			if (fflush(FSTREAM_ToFilePtr(File))) {
+				FinalError = ToStreamError(errno);
+			}
+
+			fseek(FSTREAM_ToFilePtr(File), 0, SEEK_END);
+			Temp = ftell(FSTREAM_ToFilePtr(File));
+
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4244)
+#endif
+
+			fseek(FSTREAM_ToFilePtr(File), Cursor, SEEK_SET);
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+			bEndOfStream = Temp <= Cursor;
+			ErrorCode = FinalError;
 			return true;
 		}
 
+		ErrorCode = EStreamError::NotOpened;
 		return false;
 	}
 
@@ -193,11 +292,15 @@ namespace boxpp {
 			fflush(FSTREAM_ToFilePtr(File));
 			fclose(FSTREAM_ToFilePtr(File));
 
+			bEndOfStream = true;
 			File = nullptr;
 			bLocked = 0;
+
+			ErrorCode = EStreamError::Success;
 			return true;
 		}
 
+		ErrorCode = EStreamError::NotOpened;
 		return false;
 	}
 }

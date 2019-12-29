@@ -214,8 +214,8 @@ namespace boxpp
 		static bool IsNoDelay(const FRawSocket& Socket);
 		static ssize_t SetNoDelay(const FRawSocket& Socket, bool Value);
 
-		static s64 GetRecvTimeout(const FRawSocket& Socket);
-		static s64 GetSendTimeout(const FRawSocket& Socket);
+		static s32 GetRecvTimeout(const FRawSocket& Socket);
+		static s32 GetSendTimeout(const FRawSocket& Socket);
 
 		static ssize_t SetRecvTimeout(const FRawSocket& Socket, s32 Timeout); /* Time-unit: ms */
 		static ssize_t SetSendTimeout(const FRawSocket& Socket, s32 Timeout); /* Time-unit: ms */

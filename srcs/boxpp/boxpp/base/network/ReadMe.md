@@ -245,6 +245,12 @@ The names of methods are almost identical to the POSIX methods.
 	// Determines Nagle algorithm is enabled or not.
 	bool IsNoDelay() const;
 	bool SetNoDelay(bool v);
+
+	s32 GetReceiveTimeout() const;
+	bool SetReceiveTimeout(s32 Timeout);
+
+	s32 GetSendTimeout() const;
+	bool SetSendTimeout(s32 Timeout);
 	
 	bool Bind(const FIPAddress& Address, s32 Port);
 	bool Bind(const FIPAddressV6& Address, s32 Port);

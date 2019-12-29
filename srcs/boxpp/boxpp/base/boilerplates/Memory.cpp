@@ -1,6 +1,8 @@
 #include "Memory.hpp"
+#include <boxpp/base/systems/Debugger.hpp>
 
 #include <malloc.h>
+#include <errno.h>
 
 BOXPP_DECLARE_MEMORY_BOILERPLATE();
 
@@ -8,7 +10,11 @@ namespace boxpp {
 
 	void* FMemory::Malloc(size_t Size)
 	{
-		return ::malloc(Size);
+		void* p = ::malloc(Size);
+
+		BOX_ASSERT(errno == ENOMEM, "No Memory!");
+
+		return p;
 	}
 
 	void* FMemory::Realloc(void* Block, size_t Size)

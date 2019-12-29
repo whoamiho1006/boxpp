@@ -18,17 +18,61 @@ namespace boxpp
 		End
 	};
 
+	enum class EStreamError
+	{
+		Success = 0,
+		NotWrapped, // ?
+
+		InProgress,
+		Interrupted, 
+
+		NameTooLong,
+
+		Exists,
+		Busy,
+
+		NoPermission,
+		NoResources,
+		NoSpace,
+
+		NotOpened,
+		NotSupported,
+		NotFound,
+
+		InvalidArgument,
+		InvalidSeek,
+
+		BrokenPipe,
+		PipeError,
+
+		Overflow,
+		BufferFull,
+
+		Loop,
+		IOError,
+		TooBig,
+        
+	};
+
 	class IStream
 	{
 	public:
 		virtual ~IStream() { }
 
+	protected:
+		BOXPP static EStreamError ToStreamError(s32 StdErr);
+
 	public:
 		virtual bool IsValid() const = 0;
 		virtual bool IsLocked() const = 0;
 
+		virtual EStreamError GetErrorCode() const = 0;
+
 	public:
 		virtual bool HasCapability(EStreamCaps Capability) const = 0;
+
+	public:
+		virtual bool IsEndOfStream() const = 0;
 
 	public:
 		virtual ssize_t Tell() const = 0;

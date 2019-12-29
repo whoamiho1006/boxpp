@@ -648,7 +648,7 @@ namespace boxpp {
 		return -1;
 	}
 
-	s64 FSocketLayer::GetRecvTimeout(const FRawSocket & Socket)
+	s32 FSocketLayer::GetRecvTimeout(const FRawSocket & Socket)
 	{
 		if (IsValid(Socket)) {
 			timeval tv;
@@ -664,7 +664,7 @@ namespace boxpp {
 		return -1;
 	}
 
-	s64 FSocketLayer::GetSendTimeout(const FRawSocket & Socket)
+	s32 FSocketLayer::GetSendTimeout(const FRawSocket & Socket)
 	{
 		if (IsValid(Socket)) {
 			timeval tv;

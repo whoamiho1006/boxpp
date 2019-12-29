@@ -273,6 +273,12 @@
     <ClInclude Include="boxpp\base\BaseMath.hpp">
       <Filter>boxpp\base</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\base\streams\MemoryStream.hpp">
+      <Filter>boxpp\base\streams</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\streams\BufferedStream.hpp">
+      <Filter>boxpp\base\streams</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">
@@ -305,6 +311,15 @@
       <Filter>boxpp\base\network</Filter>
     </ClCompile>
     <ClCompile Include="boxpp\base\streams\FileStream.cpp">
+      <Filter>boxpp\base\streams</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\streams\MemoryStream.cpp">
+      <Filter>boxpp\base\streams</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\streams\Stream.cpp">
+      <Filter>boxpp\base\streams</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\streams\BufferedStream.cpp">
       <Filter>boxpp\base\streams</Filter>
     </ClCompile>
   </ItemGroup>
