@@ -166,6 +166,8 @@
     <ClInclude Include="boxpp\base\opacities\posix.hpp" />
     <ClInclude Include="boxpp\base\opacities\vsprintf.hpp" />
     <ClInclude Include="boxpp\base\opacities\windows.hpp" />
+    <ClInclude Include="boxpp\base\streams\FileStream.hpp" />
+    <ClInclude Include="boxpp\base\streams\Stream.hpp" />
     <ClInclude Include="boxpp\base\systems\AtomicBarrior.hpp" />
     <ClInclude Include="boxpp\base\systems\Barrior.hpp" />
     <ClInclude Include="boxpp\base\systems\Debugger.hpp" />
@@ -226,6 +228,7 @@
     <ClCompile Include="boxpp\base\network\IPAddressV6.cpp" />
     <ClCompile Include="boxpp\base\network\Socket.cpp" />
     <ClCompile Include="boxpp\base\network\SocketLayer.cpp" />
+    <ClCompile Include="boxpp\base\streams\FileStream.cpp" />
     <ClCompile Include="boxpp\base\systems\Debugger.cpp" />
     <ClCompile Include="boxpp\base\systems\Minidump.cpp" />
     <ClCompile Include="boxpp\base\systems\Threaded.cpp" />

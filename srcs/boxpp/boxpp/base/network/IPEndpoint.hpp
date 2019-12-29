@@ -119,13 +119,14 @@ namespace boxpp
 		template<typename CharType>
 		FASTINLINE bool ToString(TString<CharType>& OutString) const {
 			if (IsSameType<AddressType, FIPAddressV6>) {
+				static const CharType IPv6_Mid[3] = { ']', ':', 0 };
+
 				size_t Offset = OutString.GetSize();
 
 				if (Address.ToString(OutString)) {
 					if (Port > 0) {
 						OutString.Insert(Offset, '[');
-						OutString.Append(']');
-						OutString.Append(':');
+						OutString.Append(IPv6_Mid);
 						OutString.Append(TString<CharType>::FromInt(Port));
 					}
 

@@ -133,28 +133,17 @@ namespace boxpp
 		using Converter = strings::TConverter<DestType, SrcType>;
 
 	public:
-		TStringConverter(const SrcType* Src)
-			: Converted(nullptr), ConvertedLength(0)
+		TStringConverter()
+			: Converted(nullptr), ConvertedLength(0),
+			  CacheKey(nullptr), CacheKeySz(-1)
 		{
-			if (Src) {
-				ssize_t Length = Converter::Measure(Src);
+		}
 
-				if (Length > 0) {
-					Converted = new DestType[Length + 1];
-					Length = Converter::Convert(Converted, Src);
-
-					if (Length < 0) {
-						delete[](Converted);
-						ConvertedLength = 0;
-						Converted = nullptr;
-					}
-
-					else {
-						Converted[Length] = strings::TConstants<DestType>::Null;
-						ConvertedLength = size_t(Length);
-					}
-				}
-			}
+		TStringConverter(const SrcType* Src, ssize_t Srclen = -1)
+			: Converted(nullptr), ConvertedLength(0),
+			  CacheKey(nullptr), CacheKeySz(-1)
+		{
+			Reset(Src, Srclen);
 		}
 
 		~TStringConverter()
@@ -168,15 +157,79 @@ namespace boxpp
 			ConvertedLength = 0;
 		}
 
+	public:
+		FASTINLINE void Reset(const SrcType* Src, ssize_t Srclen = -1) {
+			if (CacheKey != Src ||
+				CacheKeySz != Srclen)
+			{
+				if (Converted)
+				{
+					delete[](Converted);
+
+					Converted = nullptr;
+					ConvertedLength = 0;
+
+					CacheKey = nullptr;
+					CacheKeySz = -1;
+				}
+
+				if (Srclen < 0) {
+					FillConv(Src);
+				}
+
+				else if (Srclen > 0) {
+					TArray<SrcType> Buffer;
+
+					Buffer.Add(0, Srclen + 1);
+					memcpy(Buffer.GetRaw(), Src, Srclen * sizeof(SrcType));
+
+					FillConv(Buffer.GetRaw());
+				}
+
+				if (Converted) {
+					CacheKey = Src;
+					CacheKeySz = Srclen;
+				}
+			}
+		}
+
+	private:
+		FASTINLINE void FillConv(const SrcType* Src) {
+			if (Src) {
+				ssize_t Length = Converter::Measure(Src);
+
+				if (Length > 0) {
+					Converted = new DestType[Length + 1];
+					Length = Converter::Convert(Converted, Src);
+
+					if (Length <= 0) {
+						delete[](Converted);
+						ConvertedLength = 0;
+						Converted = nullptr;
+					}
+
+					else {
+						Converted[Length] = strings::TConstants<DestType>::Null;
+						ConvertedLength = size_t(Length);
+					}
+				}
+			}
+		}
+
 	private:
 		DestType* Converted;
 		size_t ConvertedLength;
+
+		SrcType* CacheKey;
+		ssize_t CacheKeySz;
 
 	public:
 		FASTINLINE const DestType* GetConvertedString() const { return Converted; }
 		FASTINLINE const size_t GetConvertedLength() const { return ConvertedLength; }
 
 	public:
+		FASTINLINE operator bool() const { return Converted; }
+		FASTINLINE bool operator !() const { return !Converted; }
 		FASTINLINE operator DestType*() const { return GetConvertedString(); }
 	};
 }

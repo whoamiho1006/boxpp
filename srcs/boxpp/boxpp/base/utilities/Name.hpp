@@ -116,9 +116,14 @@ namespace boxpp
 				return TNativeString<CharType>::Strcmp((const CharType*)(Name + 1), String);
 
 			else {
-				TStringConverter<char_t, CharType> Converted(String);
+				static FAtomicBarrior __BARRIOR;
+				static TStringConverter<char_t, CharType> Converter;
+				FAtomicScope __Guard(__Barrior);
+
+				Converter.Reset(String);
+
 				return TNativeString<char_t>::Strcmp(
-					(const char_t*)(Name + 1), Converted.GetConvertedString());
+					(const char_t*)(Name + 1), Converter);
 			}
 		}
 
@@ -145,10 +150,13 @@ namespace boxpp
 				}
 			}
 			else {
-				TStringConverter<char_t, CharType> Converter(InString);
+				static FAtomicBarrior __BARRIOR;
+				static TStringConverter<char_t, CharType> Converter;
 
-				if (!Converter.GetConvertedString() ||
-					Converter.GetConvertedLength() <= 0)
+				FAtomicScope __Guard(__Barrior);
+				Converter.Reset(InString);
+
+				if (!Converter)
 					Name = nullptr;
 
 				else {

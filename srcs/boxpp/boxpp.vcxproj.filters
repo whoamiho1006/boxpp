@@ -52,6 +52,9 @@
     <Filter Include="boxpp\base\tpls\pools">
       <UniqueIdentifier>{4a325e24-78de-4069-b9e5-6f1867a94f70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\base\streams">
+      <UniqueIdentifier>{79e3b880-5c3d-4007-bea1-5db7f2d32e4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\base\BaseTypes.hpp">
@@ -258,6 +261,12 @@
     <ClInclude Include="boxpp\base\network\IPEndpoint.hpp">
       <Filter>boxpp\base\network</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\base\streams\Stream.hpp">
+      <Filter>boxpp\base\streams</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\streams\FileStream.hpp">
+      <Filter>boxpp\base\streams</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">
@@ -288,6 +297,9 @@
     </ClCompile>
     <ClCompile Include="boxpp\base\network\IPAddressV6.cpp">
       <Filter>boxpp\base\network</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\streams\FileStream.cpp">
+      <Filter>boxpp\base\streams</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
