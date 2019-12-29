@@ -51,8 +51,8 @@ namespace boxpp
 		FMemoryStream& operator =(const FMemoryStream& Other) = delete;
 		FASTINLINE FMemoryStream& operator =(FMemoryStream&& Other) {
 			if (this != &Other) {
-				FAtomicScope __Guard(Atomic);
-				FAtomicScope __Guard(Other.Atomic);
+				FAtomicScope __Guard1(Atomic);
+				FAtomicScope __Guard2(Other.Atomic);
 
 				Swap(Memory, Other.Memory);
 

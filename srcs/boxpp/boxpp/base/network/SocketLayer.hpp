@@ -189,6 +189,9 @@ namespace boxpp
 		}
 
 	public:
+		static bool SetReusable(const FRawSocket& Socket);
+
+	public:
 		static bool GetSockName(const FRawSocket& Socket, FIPAddress& Address, s32& Port);
 		static bool GetSockName(const FRawSocket& Socket, FIPAddressV6& Address, s32& Port);
 

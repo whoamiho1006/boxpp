@@ -33,6 +33,10 @@ namespace boxpp
 		FASTINLINE ESocketError GetError() const { return Socket.err; }
 		FASTINLINE bool ShouldAgain() const { return FSocketLayer::ShouldAgain(Socket); }
 
+		FASTINLINE bool SetReusable() const {
+			return FSocketLayer::SetReusable(Socket);
+		}
+
 		FASTINLINE bool GetSockName(FIPAddress& Address, s32& Port) const {
 			return FSocketLayer::GetSockName(Socket, Address, Port);
 		}

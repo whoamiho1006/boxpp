@@ -55,6 +55,12 @@
     <Filter Include="boxpp\base\streams">
       <UniqueIdentifier>{79e3b880-5c3d-4007-bea1-5db7f2d32e4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\base\ipc">
+      <UniqueIdentifier>{52df9165-1f70-44f6-8b1a-e2170e507f4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\base\network\wrappers">
+      <UniqueIdentifier>{19a6a15d-eb63-4cc0-8c6e-a232c52ff32f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\base\BaseTypes.hpp">
@@ -279,6 +285,21 @@
     <ClInclude Include="boxpp\base\streams\BufferedStream.hpp">
       <Filter>boxpp\base\streams</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\base\ipc\IpcServer.hpp">
+      <Filter>boxpp\base\ipc</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\ipc\IpcContext.hpp">
+      <Filter>boxpp\base\ipc</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\ipc\IpcClient.hpp">
+      <Filter>boxpp\base\ipc</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\network\wrappers\TcpListener.hpp">
+      <Filter>boxpp\base\network\wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\network\wrappers\TcpClient.hpp">
+      <Filter>boxpp\base\network\wrappers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">
@@ -321,6 +342,12 @@
     </ClCompile>
     <ClCompile Include="boxpp\base\streams\BufferedStream.cpp">
       <Filter>boxpp\base\streams</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\network\wrappers\TcpListener.cpp">
+      <Filter>boxpp\base\network\wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\network\wrappers\TcpClient.cpp">
+      <Filter>boxpp\base\network\wrappers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

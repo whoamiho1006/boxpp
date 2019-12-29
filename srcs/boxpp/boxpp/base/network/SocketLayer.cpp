@@ -503,6 +503,23 @@ namespace boxpp {
 	using ioctl_bool_t = s32;
 #endif
 
+	bool FSocketLayer::SetReusable(const FRawSocket& Socket)
+	{
+		if (IsValid(Socket)) {
+			s32 enable = 1;
+
+			if (setsockopt(Socket.s, SOL_SOCKET, SO_REUSEADDR,
+				(const char*)&enable, sizeof(int)))
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		return false;
+	}
+
 	bool FSocketLayer::GetSockName(const FRawSocket& Socket, FIPAddress& Address, s32& Port)
 	{
 		sockaddr_storage SASt;

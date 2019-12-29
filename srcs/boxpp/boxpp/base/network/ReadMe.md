@@ -380,6 +380,12 @@ refer details on SOCKET_GetErrorCodeFromRaw() function that declared at boxpp/ba
 	ConnectedAlready
 ```
 
+## 4-1. Wrappers.
+### FTcpListener
+
+
+### FTcpClient
+
 ## 5. Usage
 ### Server socket (simple http relay):
 ```

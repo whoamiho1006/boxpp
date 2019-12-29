@@ -157,6 +157,9 @@
     <ClInclude Include="boxpp\base\BaseNetwork.hpp" />
     <ClInclude Include="boxpp\base\BaseTypes.hpp" />
     <ClInclude Include="boxpp\base\boilerplates\Memory.hpp" />
+    <ClInclude Include="boxpp\base\ipc\IpcClient.hpp" />
+    <ClInclude Include="boxpp\base\ipc\IpcContext.hpp" />
+    <ClInclude Include="boxpp\base\ipc\IpcServer.hpp" />
     <ClInclude Include="boxpp\base\mathematics\BaseMath.hpp" />
     <ClInclude Include="boxpp\base\mathematics\Rectangle.hpp" />
     <ClInclude Include="boxpp\base\mathematics\Vector.hpp" />
@@ -165,6 +168,8 @@
     <ClInclude Include="boxpp\base\network\IPAddressV6.hpp" />
     <ClInclude Include="boxpp\base\network\Socket.hpp" />
     <ClInclude Include="boxpp\base\network\SocketLayer.hpp" />
+    <ClInclude Include="boxpp\base\network\wrappers\TcpClient.hpp" />
+    <ClInclude Include="boxpp\base\network\wrappers\TcpListener.hpp" />
     <ClInclude Include="boxpp\base\opacities\posix.hpp" />
     <ClInclude Include="boxpp\base\opacities\vsprintf.hpp" />
     <ClInclude Include="boxpp\base\opacities\windows.hpp" />
@@ -232,6 +237,8 @@
     <ClCompile Include="boxpp\base\network\IPAddressV6.cpp" />
     <ClCompile Include="boxpp\base\network\Socket.cpp" />
     <ClCompile Include="boxpp\base\network\SocketLayer.cpp" />
+    <ClCompile Include="boxpp\base\network\wrappers\TcpClient.cpp" />
+    <ClCompile Include="boxpp\base\network\wrappers\TcpListener.cpp" />
     <ClCompile Include="boxpp\base\streams\BufferedStream.cpp" />
     <ClCompile Include="boxpp\base\streams\FileStream.cpp" />
     <ClCompile Include="boxpp\base\streams\MemoryStream.cpp" />

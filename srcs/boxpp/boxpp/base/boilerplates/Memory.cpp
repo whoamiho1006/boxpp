@@ -12,8 +12,6 @@ namespace boxpp {
 	{
 		void* p = ::malloc(Size);
 
-		BOX_ASSERT(errno == ENOMEM, "No Memory!");
-
 		return p;
 	}
 

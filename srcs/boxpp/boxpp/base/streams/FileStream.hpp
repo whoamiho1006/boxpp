@@ -2,6 +2,8 @@
 #include <boxpp/base/streams/Stream.hpp>
 #include <boxpp/base/systems/AtomicBarrior.hpp>
 
+#include <boxpp/base/tpls/traits/Movable.hpp>
+
 namespace boxpp
 {
 	enum class EFileMode
@@ -36,8 +38,8 @@ namespace boxpp
 		FFileStream& operator =(const FFileStream& Other) = delete;
 		FASTINLINE FFileStream& operator =(FFileStream&& Other) {
 			if (this != &Other) {
-				FAtomicScope __Guard(Atomic);
-				FAtomicScope __Guard(Other.Atomic);
+				FAtomicScope __Guard1(Atomic);
+				FAtomicScope __Guard2(Other.Atomic);
 
 				Swap(bEndOfStream, Other.bEndOfStream);
 
