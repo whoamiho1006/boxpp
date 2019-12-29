@@ -16,6 +16,7 @@ FIPAddress represents IPv4 addresses including Masking address like 8.8.8.0/24.
 And, this class contains 4 bytes-- network-endian -- address and its width for masking purpose.
 
 * Constructors:
+```
 	// Anycast address (INADDR_IN)
 	FIPAddress(__AnyType = Any);
 
@@ -29,8 +30,10 @@ And, this class contains 4 bytes-- network-endian -- address and its width for m
 	// IP Parser, but masking address explicitly.
 	FIPAddress(__MaskType, const ansi_t* Address, s8 Width);
 	FIPAddress(__MaskType, const wide_t* Address, s8 Width);
+```
 
 * Conversions:
+```
 	/*
 		IP Address to boolean.
 		returns true for almost address excluding parsing error.
@@ -41,8 +44,10 @@ And, this class contains 4 bytes-- network-endian -- address and its width for m
 	bool ToString(FWideString& OutString) const;
 	bool ToString(FAnsiString& OutString) const;
 	FString ToString() const;
+```
 
 * Getters:
+```
 	bool IsAnycast() const;
 	bool IsLoopback() const;
 	bool IsMasking() const;
@@ -50,17 +55,21 @@ And, this class contains 4 bytes-- network-endian -- address and its width for m
 
 	u32 GetDword() const;
 	u8 GetByteAt(s8 Offset) const;
+```
 
 * Setters:
+```
 	void SetDword(u32 Value);
 	void SetByteAt(s8 Offset, u8 Value);
 	void SetWidth(u8 Width);
+```
 
 ### FIPAddressV6
 FIPAddress represents IPv6 addresses, but masking feature isn't implemented yet.
 And, this class contains 16 bytes-- network-endian -- address and 4 bytes scope-id.
 
 * Constructors:
+```
 	// Anycast address (INADDR_IN)
 	FIPAddressV6(__AnyType = Any);
 
@@ -73,8 +82,10 @@ And, this class contains 16 bytes-- network-endian -- address and 4 bytes scope-
 	*/
 	FIPAddressV6(const ansi_t* Address);
 	FIPAddressV6(const wide_t* Address);
+```
 	
 * Conversions:
+```
 	/*
 		IPv6 Address to boolean.
 		returns true for almost address excluding Anycast address.
@@ -85,26 +96,31 @@ And, this class contains 16 bytes-- network-endian -- address and 4 bytes scope-
 	bool ToString(FWideString& OutString) const;
 	bool ToString(FAnsiString& OutString) const;
 	FString ToString() const;
-
+```
 
 * Getters:
+```
 	bool IsAnycast() const;
 	bool IsLoopback() const;
 
 	u32 GetQword(u32 Index) const;
 	u8 GetByteAt(s8 Offset) const;
 	u32 GetScopeId() const;
+```
 
 * Setters:
+```
 	void SetQword(u32 Index, u32 Value);
 	void SetByteAt(s8 Offset, u8 Value);
 	void SetScopeId(u32 Value);
+```
 
 ### TIPEndpoint<ADDR_TYPE> and its aliases.
 TIPEndpoint<> template combines IP Address and port number for TCP/UDP.
 And, this template works only with IPv4 and IPv6 address.
 
 * Constructors:
+```
 	TIPEndpoint();
 
 	// Parse from string with listen-address option as parsing hint.
@@ -114,8 +130,10 @@ And, this template works only with IPv4 and IPv6 address.
 	// Wrapping constructor.
 	TIPEndpoint(const AddressType& Address, s32 Port);
 	TIPEndpoint(AddressType&& Address, s32 Port);
+```
 	
 * Conversions:
+```
 	/*
 		Simply, ( Address && Port ).
 		In almost case, returns true excluding parsing error and no-port.
@@ -147,31 +165,42 @@ And, this template works only with IPv4 and IPv6 address.
 	bool ToString(FWideString& OutString) const;
 	bool ToString(FAnsiString& OutString) const;
 	FString ToString() const;
+```
 	
 * Getters:
+```
 	const AddressType& GetAddress() const;
 	s32 GetPort() const;
+```
 
 * Setters:
+```
 	void SetAddress(const AddressType& Addr);
 	void SetAddress(AddressType&& Addr);
 	void SetPort(s32 Port);
+```
 	
 ## 4. Socket API
 ### EProtocolType
+```
 	Inet,
 	Inet6
+```
 
 ### ESocketType
+```
 	Tcp,
 	Udp
+```
 
 ### ESocketChannel
+```
 	ESOCK_NONE = 0,
 	ESOCK_INPUT = 1,
 	ESOCK_OUTPUT = 2,
 	ESOCK_ERROR = 4,
 	ESOCK_HANGUP = 8
+```
 
 ### FSocket
 FSocket is wrapper of FSocketLayer. (in detail, FSocketLayer is also wrapper)
@@ -179,14 +208,19 @@ and, FSocket instances are not copy-constrctible. move constructor only supporte
 The names of methods are almost identical to the POSIX methods.
 
 * Constructors:
+```
 	FSocket();
 	FSocket(EProtocolType Protocol, ESocketType SocketType);
+```
 	
 * Conversions:
+```
 	// returns false for invalid socket.
 	operator bool() const;
+```
 
 * Methods:
+```
 	// This method determines the latest operation was successful or not.
 	bool HasError() const;
 	ESocketError GetError() const;
@@ -266,9 +300,12 @@ The names of methods are almost identical to the POSIX methods.
 		This method performs polling for specified channel and removes not-evented sockets.
 	*/
 	static ssize_t Poll(TArray<FSocket*>& Sockets, ESocketChannel Channels, const u32 Timeout = 0);
+```
 
 ### FSocketLayer
+```
 This class contains only static methods. and they are samethings described above in FSocket.
+```
 
 ### ESocketError
 Some error-codes never used on crossing-env.
@@ -276,6 +313,7 @@ e.g. ESocketError::Pending is only for Windows.
 e.g. ESocketError::NotSupportedSocket and HostDown is only for POSIX Systems.
 refer details on SOCKET_GetErrorCodeFromRaw() function that declared at boxpp/base/network/SocketLayer.cpp.
 
+```
 	Success = 0,
 
 	/* Non-blocking response codes. */
@@ -334,9 +372,11 @@ refer details on SOCKET_GetErrorCodeFromRaw() function that declared at boxpp/ba
 	ResetByPeer,
 	ResetByNetwork,
 	ConnectedAlready
+```
 
 ## 5. Usage
 ### Server socket (simple http relay):
+```
 	FSocket Test(EProtocolType::Inet, ESocketType::Tcp);
 
 	BOX_ASSERT(Test.Bind(FIPAddress::Any, 8000), "Bind() failed");
@@ -360,5 +400,6 @@ refer details on SOCKET_GetErrorCodeFromRaw() function that declared at boxpp/ba
 			Newbie.Shutdown();
 		}
 	}
+```
 
 ### Client socket:
