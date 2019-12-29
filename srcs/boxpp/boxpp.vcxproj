@@ -153,6 +153,8 @@
   <ItemGroup>
     <ClInclude Include="boxpp\base\BaseMacros.hpp" />
     <ClInclude Include="boxpp\base\Base.hpp" />
+    <ClInclude Include="boxpp\base\BaseMath.hpp" />
+    <ClInclude Include="boxpp\base\BaseNetwork.hpp" />
     <ClInclude Include="boxpp\base\BaseTypes.hpp" />
     <ClInclude Include="boxpp\base\boilerplates\Memory.hpp" />
     <ClInclude Include="boxpp\base\mathematics\BaseMath.hpp" />
@@ -237,6 +239,7 @@
     <Text Include="boxpp\base\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="boxpp\base\network\ReadMe.md" />
     <None Include="boxpp\core\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

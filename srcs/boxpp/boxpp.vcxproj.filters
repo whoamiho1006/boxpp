@@ -267,6 +267,12 @@
     <ClInclude Include="boxpp\base\streams\FileStream.hpp">
       <Filter>boxpp\base\streams</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\base\BaseNetwork.hpp">
+      <Filter>boxpp\base</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\BaseMath.hpp">
+      <Filter>boxpp\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">
@@ -305,6 +311,9 @@
   <ItemGroup>
     <None Include="boxpp\core\README.md">
       <Filter>boxpp\core</Filter>
+    </None>
+    <None Include="boxpp\base\network\ReadMe.md">
+      <Filter>boxpp\base\network</Filter>
     </None>
   </ItemGroup>
 </Project>

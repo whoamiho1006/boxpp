@@ -10,7 +10,6 @@
 #include <boxpp/base/opacities/windows.hpp>
 #include <boxpp/base/opacities/vsprintf.hpp>
 
-
 /* debugging supports and library loader. */
 #include <boxpp/base/systems/Debugger.hpp>
 #include <boxpp/base/systems/RawEvent.hpp>
@@ -80,15 +79,7 @@
 /* boilerplates. */
 #include <boxpp/base/boilerplates/Memory.hpp>
 
-/* networking (socket) support. */
-#include <boxpp/base/network/Socket.hpp>
-
 /* utilities. */
 #include <boxpp/base/utilities/TimeSpan.hpp>
 #include <boxpp/base/utilities/DateTime.hpp>
 #include <boxpp/base/utilities/Name.hpp>
-
-/* mathematics. */
-#include <boxpp/base/mathematics/BaseMath.hpp>
-#include <boxpp/base/mathematics/Vector.hpp>
-#include <boxpp/base/mathematics/Rectangle.hpp>
