@@ -17,7 +17,38 @@ namespace boxpp
 		FFileStream();
 		FFileStream(const ansi_t* Path, EFileMode Mode);
 		FFileStream(const wide_t* Path, EFileMode Mode);
+
+		FASTINLINE FFileStream(FFileStream&& Other)
+			: bEndOfStream(true), File(0), bLocked(0), ErrorCode(EStreamError::Success)
+		{
+			FAtomicScope __Guard(Other.Atomic);
+			Swap(bEndOfStream, Other.bEndOfStream);
+
+			Swap(File, Other.File);
+
+			Swap(bLocked, Other.bLocked);
+			Swap(ErrorCode, Other.ErrorCode);
+		}
+
 		virtual ~FFileStream();
+
+	public:
+		FFileStream& operator =(const FFileStream& Other) = delete;
+		FASTINLINE FFileStream& operator =(FFileStream&& Other) {
+			if (this != &Other) {
+				FAtomicScope __Guard(Atomic);
+				FAtomicScope __Guard(Other.Atomic);
+
+				Swap(bEndOfStream, Other.bEndOfStream);
+
+				Swap(File, Other.File);
+
+				Swap(bLocked, Other.bLocked);
+				Swap(ErrorCode, Other.ErrorCode);
+			}
+
+			return *this;
+		}
 
 	public:
 		virtual bool IsValid() const { return File; }

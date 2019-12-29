@@ -12,6 +12,41 @@ namespace boxpp
 		FBufferedStream(IStream* Stream, size_t Buffer = 16 * 1024, bool bFlushAuto = true);
 		virtual ~FBufferedStream();
 
+		FASTINLINE FBufferedStream(FBufferedStream&& Other)
+			: Buffer(16 * 1024), Offset(0), bFlushAuto(false), 
+			bChanges(false), BaseStream(nullptr), ErrorCode(EStreamError::Success)
+		{
+			Swap(Buffer, Other.Buffer);
+			Swap(Offset, Other.Offset);
+
+			Swap(bFlushAuto, Other.bFlushAuto);
+			Swap(bChanges, Other.bChanges);
+
+			Swap(BaseStream, Other.BaseStream);
+			Swap(ErrorCode, Other.ErrorCode);
+
+			Swap(InternalBuffer, Other.InternalBuffer);
+		}
+
+	public:
+		FBufferedStream& operator =(const FBufferedStream& Other) = delete;
+		FASTINLINE FBufferedStream& operator =(FBufferedStream&& Other) {
+			if (this != &Other) {
+				Swap(Buffer, Other.Buffer);
+				Swap(Offset, Other.Offset);
+
+				Swap(bFlushAuto, Other.bFlushAuto);
+				Swap(bChanges, Other.bChanges);
+
+				Swap(BaseStream, Other.BaseStream);
+				Swap(ErrorCode, Other.ErrorCode);
+
+				Swap(InternalBuffer, Other.InternalBuffer);
+			}
+
+			return *this;
+		}
+
 	public:
 		virtual bool IsValid() const { return BaseStream; }
 		virtual bool IsLocked() const { return BaseStream && InternalBuffer.IsLocked(); }

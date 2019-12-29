@@ -2,6 +2,8 @@
 #include <boxpp/base/streams/Stream.hpp>
 #include <boxpp/base/systems/AtomicBarrior.hpp>
 
+#include <boxpp/base/tpls/traits/Movable.hpp>
+
 namespace boxpp
 {
 	class BOXPP FMemoryStream : public IStream
@@ -15,6 +17,23 @@ namespace boxpp
 	public:
 		FMemoryStream(size_t InitialCapacity = 0, ssize_t MaxSize = -1);
 		FMemoryStream(void* Memory, size_t Size, bool bReadOnly = false, bool bNoDelete = false);
+		FMemoryStream(const FMemoryStream& Other) = delete;
+
+		FASTINLINE FMemoryStream(FMemoryStream&& Other)
+			: Memory(nullptr), Capacity(0), Offset(0), MaxSize(0),
+			  Flags(0), bLocked(0), ErrorCode(EStreamError::Success)
+		{
+			FAtomicScope __Guard(Other.Atomic);
+			Swap(Memory, Other.Memory);
+
+			Swap(Capacity, Other.Capacity);
+			Swap(Offset, Other.Offset);
+			Swap(MaxSize, Other.MaxSize);
+
+			Swap(Flags, Other.Flags);
+			Swap(bLocked, Other.bLocked);
+			Swap(ErrorCode, Other.ErrorCode);
+		}
 
 		virtual ~FMemoryStream();
 
@@ -27,6 +46,27 @@ namespace boxpp
 		u8 Flags; s32 bLocked;
 		FAtomicBarrior Atomic;
 		mutable EStreamError ErrorCode;
+
+	public:
+		FMemoryStream& operator =(const FMemoryStream& Other) = delete;
+		FASTINLINE FMemoryStream& operator =(FMemoryStream&& Other) {
+			if (this != &Other) {
+				FAtomicScope __Guard(Atomic);
+				FAtomicScope __Guard(Other.Atomic);
+
+				Swap(Memory, Other.Memory);
+
+				Swap(Capacity, Other.Capacity);
+				Swap(Offset, Other.Offset);
+				Swap(MaxSize, Other.MaxSize);
+
+				Swap(Flags, Other.Flags);
+				Swap(bLocked, Other.bLocked);
+				Swap(ErrorCode, Other.ErrorCode);
+			}
+
+			return *this;
+		}
 
 	public:
 		virtual bool IsValid() const { return Memory; }
