@@ -65,7 +65,7 @@ namespace boxpp
 		FASTINLINE bool Listen(s32 Backlog) { return !FSocketLayer::Listen(Socket, Backlog); }
 
 		FASTINLINE bool Pending() {
-			return Poll(ESocketChannel::ESOCK_INPUT, 0) == ESOCK_INPUT;
+			return Poll(ESOCK_INPUT, 0) == ESOCK_INPUT;
 		}
 
 		bool Accept(FSocket& Newbie);
@@ -125,7 +125,7 @@ namespace boxpp
 		}
 
 		template<typename AddressType>
-		FASTINLINE ssize_t RecvFrom(TIPEndpoint<AddressType>& Endpoint, void* Buffer, size_t Size) {
+		FASTINLINE ssize_t ReceiveFrom(TIPEndpoint<AddressType>& Endpoint, void* Buffer, size_t Size) {
 			return FSocketLayer::RecvFrom(Socket, Endpoint, Buffer, Size);
 		}
 
