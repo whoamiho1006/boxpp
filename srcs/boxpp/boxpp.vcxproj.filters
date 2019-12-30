@@ -46,9 +46,6 @@
     <Filter Include="boxpp\base\network">
       <UniqueIdentifier>{22f0ce57-d1f5-49a8-9d6f-7cfab4fa1925}</UniqueIdentifier>
     </Filter>
-    <Filter Include="boxpp\base\network\privates">
-      <UniqueIdentifier>{daa7c364-626c-483a-9358-e08933487088}</UniqueIdentifier>
-    </Filter>
     <Filter Include="boxpp\base\tpls\pools">
       <UniqueIdentifier>{4a325e24-78de-4069-b9e5-6f1867a94f70}</UniqueIdentifier>
     </Filter>
@@ -60,6 +57,18 @@
     </Filter>
     <Filter Include="boxpp\base\network\wrappers">
       <UniqueIdentifier>{19a6a15d-eb63-4cc0-8c6e-a232c52ff32f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\base\ipc\windows">
+      <UniqueIdentifier>{0f6786da-29de-4904-9d2c-fcf0f16333db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\base\ipc\unix">
+      <UniqueIdentifier>{2d470b89-ef3a-4bbf-a78d-c370b48df878}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\base\cryptography">
+      <UniqueIdentifier>{88b6444b-125d-4b87-891c-e934eafd8189}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="boxpp\base\cryptography\internals">
+      <UniqueIdentifier>{e5eaa09d-1dee-4dc2-becd-79184e65c305}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -288,9 +297,6 @@
     <ClInclude Include="boxpp\base\ipc\IpcServer.hpp">
       <Filter>boxpp\base\ipc</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\base\ipc\IpcContext.hpp">
-      <Filter>boxpp\base\ipc</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\base\ipc\IpcClient.hpp">
       <Filter>boxpp\base\ipc</Filter>
     </ClInclude>
@@ -299,6 +305,18 @@
     </ClInclude>
     <ClInclude Include="boxpp\base\network\wrappers\TcpClient.hpp">
       <Filter>boxpp\base\network\wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\cryptography\internals\Djb-2.hpp">
+      <Filter>boxpp\base\cryptography\internals</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\ipc\windows\IpcServer_Windows.hpp">
+      <Filter>boxpp\base\ipc\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\ipc\windows\IpcMakePipeName.hpp">
+      <Filter>boxpp\base\ipc\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\ipc\windows\IpcClient_Windows.hpp">
+      <Filter>boxpp\base\ipc\windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -348,6 +366,18 @@
     </ClCompile>
     <ClCompile Include="boxpp\base\network\wrappers\TcpClient.cpp">
       <Filter>boxpp\base\network\wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\ipc\windows\IpcServer_Windows.cpp">
+      <Filter>boxpp\base\ipc\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\ipc\IpcServer.cpp">
+      <Filter>boxpp\base\ipc</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\ipc\windows\IpcClient_Windows.cpp">
+      <Filter>boxpp\base\ipc\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\ipc\IpcClient.cpp">
+      <Filter>boxpp\base\ipc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -297,11 +297,11 @@ namespace boxpp
 		/*
 			Remove an item from this array.
 		*/
-		FASTINLINE bool Remove(const ElemType& Item, bool bOptimize = true) {
+		FASTINLINE bool Remove(const ElemType& Item) {
 			OffsetType Offset = IndexOf(Item);
 
 			if (Offset) {
-				return this->RemoveAt(Offset, 1, bOptimize);
+				return this->RemoveAt(Offset, 1);
 			}
 
 			return false;
@@ -310,7 +310,7 @@ namespace boxpp
 		/*
 			Remove all item (or items) from this array.
 		*/
-		FASTINLINE s32 RemoveAll(const ElemType& Item, bool bOptimize = true) {
+		FASTINLINE s32 RemoveAll(const ElemType& Item) {
 			NodeType* Current = First, *Temp = nullptr;
 
 			while (Current)
@@ -361,15 +361,15 @@ namespace boxpp
 		/*
 			Find the index of given item.
 		*/
-		FASTINLINE OffsetType IndexOf(const ElemType& Item, const NodeType& Offset = nullptr) const {
-			NodeType* Current = Offset ? *Offset : First;
+		FASTINLINE OffsetType IndexOf(const ElemType& Item, const OffsetType& Offset = nullptr) const {
+			const NodeType* Current = Offset ? *Offset : First;
 
 			while (Current)
 			{
 				if (Current->GetRaw() && 
 					!Compare(*Current->GetRaw(), Item)) 
 				{
-					return Current;
+					return const_cast<NodeType*>(Current);
 				}
 
 				Current = Current->GetNext();

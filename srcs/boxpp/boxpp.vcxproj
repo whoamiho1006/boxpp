@@ -157,9 +157,12 @@
     <ClInclude Include="boxpp\base\BaseNetwork.hpp" />
     <ClInclude Include="boxpp\base\BaseTypes.hpp" />
     <ClInclude Include="boxpp\base\boilerplates\Memory.hpp" />
+    <ClInclude Include="boxpp\base\cryptography\internals\Djb-2.hpp" />
     <ClInclude Include="boxpp\base\ipc\IpcClient.hpp" />
-    <ClInclude Include="boxpp\base\ipc\IpcContext.hpp" />
     <ClInclude Include="boxpp\base\ipc\IpcServer.hpp" />
+    <ClInclude Include="boxpp\base\ipc\windows\IpcClient_Windows.hpp" />
+    <ClInclude Include="boxpp\base\ipc\windows\IpcMakePipeName.hpp" />
+    <ClInclude Include="boxpp\base\ipc\windows\IpcServer_Windows.hpp" />
     <ClInclude Include="boxpp\base\mathematics\BaseMath.hpp" />
     <ClInclude Include="boxpp\base\mathematics\Rectangle.hpp" />
     <ClInclude Include="boxpp\base\mathematics\Vector.hpp" />
@@ -233,6 +236,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\base\boilerplates\Memory.cpp" />
+    <ClCompile Include="boxpp\base\ipc\IpcClient.cpp" />
+    <ClCompile Include="boxpp\base\ipc\IpcServer.cpp" />
+    <ClCompile Include="boxpp\base\ipc\windows\IpcClient_Windows.cpp" />
+    <ClCompile Include="boxpp\base\ipc\windows\IpcServer_Windows.cpp" />
     <ClCompile Include="boxpp\base\network\IPAddress.cpp" />
     <ClCompile Include="boxpp\base\network\IPAddressV6.cpp" />
     <ClCompile Include="boxpp\base\network\Socket.cpp" />

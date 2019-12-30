@@ -3,6 +3,7 @@
 #include <boxpp/base/BaseTypes.hpp>
 
 #include <boxpp/base/tpls/strings/Constants.hpp>
+#include <boxpp/base/tpls/traits/Movable.hpp>
 
 #include <string.h>
 #if PLATFORM_NATIVE_WCHAR

@@ -3,6 +3,7 @@
 #include <boxpp/base/tpls/traits/IsSameType.hpp>
 #include <boxpp/base/tpls/traits/IsConvertibleType.hpp>
 #include <boxpp/base/tpls/traits/IsConstructibleType.hpp>
+#include <boxpp/base/tpls/traits/PickType.hpp>
 
 namespace boxpp
 {
