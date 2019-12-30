@@ -5,10 +5,16 @@
 #if PLATFORM_WINDOWS
 #include "windows/IpcServer_Windows.hpp"
 #include "windows/IpcClient_Windows.hpp"
-
 namespace boxpp {
 	using FIpcServer_Impl = ipc_internals::FIpcServer_Windows;
 	using FIpcClient_Impl = ipc_internals::FIpcClient_Windows;
+}
+#else
+#include "unix/IpcServer_Unix.hpp"
+#include "unix/IpcClient_Unix.hpp"
+namespace boxpp {
+	using FIpcServer_Impl = ipc_internals::FIpcServer_Unix;
+	using FIpcClient_Impl = ipc_internals::FIpcClient_Unix;
 }
 #endif
 
@@ -23,10 +29,10 @@ namespace boxpp {
 	template<typename CharType>
 	FASTINLINE FIpcServer_Impl* IPCSERVER_CreateImpl(const CharType* Name) {
 		if (FIpcServer_Impl* RImpl = IPCSERVER_ImplPool.Alloc(1)) {
-			new (RImpl) FIpcServer_Impl(Name, BOXPP_IPC_PIPEWIDTH);
+			new (RImpl) FIpcServer_Impl(Name);
 
 			if (RImpl->IsBusy() || RImpl->HasError()) {
-				(*RImpl).~FIpcServer_Windows();
+				(*RImpl).~FIpcServer_Impl();
 				IPCSERVER_ImplPool.Free(RImpl);
 				RImpl = nullptr;
 			}
@@ -58,7 +64,7 @@ namespace boxpp {
 	bool FIpcServer::Close()
 	{
 		if (FIpcServer_Impl* RImpl = (FIpcServer_Impl*)Impl) {
-			(*RImpl).~FIpcServer_Windows();
+			(*RImpl).~FIpcServer_Impl();
 			IPCSERVER_ImplPool.Free(RImpl);
 
 			Impl = nullptr;

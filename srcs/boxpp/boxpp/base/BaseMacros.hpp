@@ -322,12 +322,16 @@ typedef PLATFORM_SIZE_TYPE size_t;
 #undef PLATFORM_POSIX
 #undef PLATFORM_ANDROID
 
+#undef PLATFORM_UNIX_KIND
+
 #define PLATFORM_WINDOWS	1
 #define PLATFORM_LINUX		1
 #define PLATFORM_UNIX		1
 #define PLATFORM_APPLE		1
 #define PLATFORM_POSIX		1
 #define PLATFORM_ANDROID	1
+
+#define PLATFORM_UNIX_KIND	1
 
 	/* skip parsing __attribute__ specifiers for gcc on VisualStudio. */
 #define __attribute__(...)

@@ -3,6 +3,8 @@
 #include <boxpp/base/BaseTypes.hpp>
 
 #if PLATFORM_WINDOWS
+#define BOXPP_IPC_PIPEWIDTH		2048
+
 #include <boxpp/base/opacities/windows.hpp>
 #include <boxpp/base/systems/Barrior.hpp>
 #include <boxpp/base/systems/AtomicBarrior.hpp>
@@ -20,22 +22,13 @@ namespace boxpp
 			friend class FIpcContext_Windows;
 
 		public:
-			FIpcServer_Windows(const ansi_t* Name, size_t PipeWidth = 1024);
-			FIpcServer_Windows(const wide_t* Name, size_t PipeWidth = 1024);
+			FIpcServer_Windows(const ansi_t* Name, size_t PipeWidth = BOXPP_IPC_PIPEWIDTH);
+			FIpcServer_Windows(const wide_t* Name, size_t PipeWidth = BOXPP_IPC_PIPEWIDTH);
 			~FIpcServer_Windows();
-
-		private:
-			FBarrior Barrior;
-			FAtomicBarrior Atomic;
-			TLinkedList<FIpcContext_Windows*> Contexts;
 
 		public:
 			FASTINLINE bool IsBusy() const { return bPipeBusy; }
 			FASTINLINE bool HasError() const { return bPipeError; }
-
-		public:
-			FASTINLINE size_t GetPipeWidth() const { return PipeWidth; }
-			FASTINLINE void* GetCurrentPipe() const { return hCurrentPipe; }
 
 		private:
 			size_t PipeWidth;
@@ -54,8 +47,6 @@ namespace boxpp
 		private:
 			bool RearmPipe();
 
-		protected:
-			void OnContextLeave(FIpcContext_Windows* Context);
 		};
 	}
 

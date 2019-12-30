@@ -160,6 +160,9 @@
     <ClInclude Include="boxpp\base\cryptography\internals\Djb-2.hpp" />
     <ClInclude Include="boxpp\base\ipc\IpcClient.hpp" />
     <ClInclude Include="boxpp\base\ipc\IpcServer.hpp" />
+    <ClInclude Include="boxpp\base\ipc\unix\IpcClient_Unix.hpp" />
+    <ClInclude Include="boxpp\base\ipc\unix\IpcEnsureDirectory.hpp" />
+    <ClInclude Include="boxpp\base\ipc\unix\IpcServer_Unix.hpp" />
     <ClInclude Include="boxpp\base\ipc\windows\IpcClient_Windows.hpp" />
     <ClInclude Include="boxpp\base\ipc\windows\IpcMakePipeName.hpp" />
     <ClInclude Include="boxpp\base\ipc\windows\IpcServer_Windows.hpp" />
@@ -238,6 +241,8 @@
     <ClCompile Include="boxpp\base\boilerplates\Memory.cpp" />
     <ClCompile Include="boxpp\base\ipc\IpcClient.cpp" />
     <ClCompile Include="boxpp\base\ipc\IpcServer.cpp" />
+    <ClCompile Include="boxpp\base\ipc\unix\IpcClient_Unix.cpp" />
+    <ClCompile Include="boxpp\base\ipc\unix\IpcServer_Unix.cpp" />
     <ClCompile Include="boxpp\base\ipc\windows\IpcClient_Windows.cpp" />
     <ClCompile Include="boxpp\base\ipc\windows\IpcServer_Windows.cpp" />
     <ClCompile Include="boxpp\base\network\IPAddress.cpp" />

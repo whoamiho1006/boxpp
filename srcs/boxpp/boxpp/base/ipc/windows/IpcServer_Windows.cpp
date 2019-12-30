@@ -21,53 +21,24 @@ namespace boxpp {
 			friend class FIpcServer_Windows;
 
 		protected:
-			FIpcContext_Windows(FIpcServer_Windows* Server, void* hPipe)
-				: FIpcClient_Windows(hPipe), Server(Server)
+			FIpcContext_Windows(void* hPipe)
+				: FIpcClient_Windows(hPipe)
 			{
 			}
 
 		public:
-			~FIpcContext_Windows() {
-				OnPipeBroken();
+			virtual bool Close() override {
+				if (hPipe != INVALID_HANDLE_VALUE) {
+					DisconnectNamedPipe(hPipe);
+					CloseHandle(hPipe);
+					hPipe = INVALID_HANDLE_VALUE;
+					return true;
+				}
+
+				return false;
 			}
-
-		private:
-			FBarrior Barrior;
-			FIpcServer_Windows* Server;
-
-		protected:
-			void OnPipeBroken();
-
-		public:
-			virtual bool Close() override;
 		};
 
-		void FIpcContext_Windows::OnPipeBroken() {
-			FBarriorScope Guard2(Barrior);
-
-			if (Server) {
-				Server->OnContextLeave(this);
-				Server = nullptr;
-			}
-
-			if (hPipe != INVALID_HANDLE_VALUE) {
-				DisconnectNamedPipe(hPipe);
-				CloseHandle(hPipe);
-				hPipe = INVALID_HANDLE_VALUE;
-			}
-		}
-
-		bool FIpcContext_Windows::Close() {
-			FBarriorScope Guard2(Barrior);
-
-			if (Server) {
-				OnPipeBroken();
-				return true;
-			}
-
-			return false;
-		}
-		
 		FIpcServer_Windows::FIpcServer_Windows(const ansi_t* Name, size_t PipeWidth)
 			: hCurrentPipe(INVALID_HANDLE_VALUE), PipeWidth(PipeWidth), bAnsiName(true),
 			  bPipeBusy(false), bPipeError(false)
@@ -87,23 +58,6 @@ namespace boxpp {
 		}
 
 		FIpcServer_Windows::~FIpcServer_Windows() {
-			FBarriorScope Guard2(Barrior);
-
-			// Enforce error-state.
-			{
-				FAtomicScope Guard(Atomic);
-				bPipeBusy = bPipeError = true; 
-			}
-
-			while (!Contexts.IsEmpty()) {
-				FIpcContext_Windows* Context = *Contexts.Begin();
-				Contexts.RemoveAt(Contexts.Begin().Offset());
-
-				if (Context) {
-					Context->OnPipeBroken();
-				}
-			}
-
 			if (hCurrentPipe != INVALID_HANDLE_VALUE) {
 				CloseHandle(hCurrentPipe);
 			}
@@ -114,28 +68,20 @@ namespace boxpp {
 		FIpcClient_Windows* FIpcServer_Windows::Accept()
 		{
 			FIpcContext_Windows* RetVal = nullptr;
-			bool bProceed = false;
 
-			{
-				FAtomicScope Guard(Atomic);
-				bProceed = !bPipeBusy && !bPipeError; 
-			}
-
-			while (bProceed) {
+			while (!bPipeBusy && !bPipeError) {
 				bool bConnected = ConnectNamedPipe(hCurrentPipe, NULL) ||
 					(GetLastError() == ERROR_PIPE_CONNECTED);
 
 				if (!bConnected) {
 					CloseHandle(hCurrentPipe);
+					RearmPipe();
+					continue;
 				}
 
-				RetVal = new FIpcContext_Windows(this, hCurrentPipe);
-				bProceed = RearmPipe();
-			}
-
-			if (RetVal) {
-				FBarriorScope Guard2(Barrior);
-				Contexts.Add(RetVal);
+				RetVal = new FIpcContext_Windows(hCurrentPipe);
+				RearmPipe();
+				break;
 			}
 
 			return RetVal;
@@ -143,8 +89,6 @@ namespace boxpp {
 
 		bool FIpcServer_Windows::RearmPipe()
 		{
-			FAtomicScope Guard(Atomic);
-
 			if (!bPipeBusy && !bPipeError) {
 				if (bAnsiName) {
 					hCurrentPipe = CreateNamedPipeA(PipeNameA, PIPE_ACCESS_DUPLEX,
@@ -165,12 +109,6 @@ namespace boxpp {
 
 			return !bPipeBusy && !bPipeError;
 		}
-
-		void FIpcServer_Windows::OnContextLeave(FIpcContext_Windows* Context) {
-			FBarriorScope Guard(Barrior);
-			Contexts.Remove(Context);
-		}
-
 	}
 }
 #endif

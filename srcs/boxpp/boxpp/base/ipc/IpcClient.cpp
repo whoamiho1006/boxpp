@@ -8,6 +8,13 @@ namespace boxpp {
 	using FIpcServer_Impl = ipc_internals::FIpcServer_Windows;
 	using FIpcClient_Impl = ipc_internals::FIpcClient_Windows;
 }
+#else
+#include "unix/IpcServer_Unix.hpp"
+#include "unix/IpcClient_Unix.hpp"
+namespace boxpp {
+	using FIpcServer_Impl = ipc_internals::FIpcServer_Unix;
+	using FIpcClient_Impl = ipc_internals::FIpcClient_Unix;
+}
 #endif
 
 namespace boxpp {
@@ -86,7 +93,7 @@ namespace boxpp {
 				delete RImpl;
 			}
 			else {
-				(*RImpl).~FIpcClient_Windows();
+				(*RImpl).~FIpcClient_Impl();
 				IPCCLIENT_ImplPool.Free(RImpl);
 			}
 

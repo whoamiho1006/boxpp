@@ -318,6 +318,15 @@
     <ClInclude Include="boxpp\base\ipc\windows\IpcClient_Windows.hpp">
       <Filter>boxpp\base\ipc\windows</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\base\ipc\unix\IpcServer_Unix.hpp">
+      <Filter>boxpp\base\ipc\unix</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\ipc\unix\IpcClient_Unix.hpp">
+      <Filter>boxpp\base\ipc\unix</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\ipc\unix\IpcEnsureDirectory.hpp">
+      <Filter>boxpp\base\ipc\unix</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">
@@ -378,6 +387,12 @@
     </ClCompile>
     <ClCompile Include="boxpp\base\ipc\IpcClient.cpp">
       <Filter>boxpp\base\ipc</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\ipc\unix\IpcServer_Unix.cpp">
+      <Filter>boxpp\base\ipc\unix</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\ipc\unix\IpcClient_Unix.cpp">
+      <Filter>boxpp\base\ipc\unix</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

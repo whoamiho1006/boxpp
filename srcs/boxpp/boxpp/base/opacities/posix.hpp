@@ -75,69 +75,14 @@ char *dlerror(void);
 void *dlsym(void *handle, const char *symbol);
 int dlclose(void *handle);
 
+// -- unistd.h
+int mkdir(const char*, boxpp::u32);
+int unlink(const char*);
+int close(int);
+
 /* Below error codes are dummy. (just defined) */
 
-//#define EADDRINUSE	1
-//#define EADDRNOTAVAIL 2
-//#define EAGAIN 3
-//#define EWOULDBLOCK 4
-//#define EALREADY 5
-
-//#define EBADF 6
 #define EBADFD 7
-
-//#define EBUSY 8
-//#define ECANCELED 9
-
-//#define ECONNABORTED 10
-//#define ECONNREFUSED 11
-
-//#define ECONNRESET 12
-
-//#define EDESTADDRREQ 13
-//#define EFAULT 14
-
-//#define EHOSTDOWN 15
-//#define EHOSTUNREACH 16
-
-//#define EINPROGRESS 17
-//#define EINTR 18
-
-//#define EINVAL 19
-//#define EISCONN 20
-
-//#define EMFILE 21
-
-//#define ENETDOWN 22
-//#define ENETRESET 23
-//#define ENETUNREACH 24
-
-//#define ENFILE 25
-//#define ENOBUFS 26
-//#define ENODEV 27
-//#define ENOMEM 28
-
-//#define ENOPROTOOPT 29
-//#define ENOTCONN 30
-
-//#define ENOTSOCK 31
-//#define ENOTSUP 32
-//#define EOPNOTSUPP 33
-
-//#define EPFNOSUPPORT 34
-//#define EPROTONOSUPPORT 35
-//#define EPROTOTYPE 36
-
-//#define ESHUTDOWN 37
-//#define ESOCKTNOSUPPORT 38
-
-//#define ETIMEDOUT 39
-
-//#define ETOOMANYREFS 40
-//#define EUNATCH 41
-
-//#define EAFNOSUPPORT 42
-//#define ENOENT 43
 
 FASTINLINE boxpp::s32 fcntl(boxpp::s32 s, boxpp::s32 m, boxpp::s32 r) { return -1; }
 
@@ -146,5 +91,14 @@ FASTINLINE boxpp::s32 fcntl(boxpp::s32 s, boxpp::s32 m, boxpp::s32 r) { return -
 
 #define O_NONBLOCK 3
 
+struct sockaddr_un { 
+	boxpp::u32 sun_family; /* AF_UNIX */ 
+	char sun_path[256]; /* pathname */ 
+};
+
+#define AF_UNIX		0xfff
+
+boxpp::ssize_t read(int fd, void *buf, boxpp::size_t count);
+boxpp::ssize_t write(int fd, const void *buf, boxpp::size_t count);
 #	endif
 #endif

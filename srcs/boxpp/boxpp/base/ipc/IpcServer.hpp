@@ -4,8 +4,6 @@
 
 #include <boxpp/base/tpls/traits/Movable.hpp>
 
-#define BOXPP_IPC_PIPEWIDTH		2048
-
 namespace boxpp
 {
 	class FIpcClient;
