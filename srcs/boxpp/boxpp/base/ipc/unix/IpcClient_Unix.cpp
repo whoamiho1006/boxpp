@@ -119,6 +119,11 @@ namespace boxpp
 					if (errno == EINTR)
 						continue;
 
+					if (!(!Size && !SentBytes)) {
+						RetVal = RetVal < 0 ? 0 : RetVal;
+						break;
+					}
+
 					Close();
 
 					if (!SentBytes && RetVal > 0) {
@@ -129,7 +134,7 @@ namespace boxpp
 					break;
 				}
 
-				else if (Size >= SentBytes) {
+				if (Size >= SentBytes) {
 					if (RetVal < 0) {
 						RetVal = 0;
 					}
@@ -152,8 +157,11 @@ namespace boxpp
 					Size = 0;
 				}
 
-				if (!Size && RetVal <= 0) {
-					return 0;
+				if (!Size) {
+					if (RetVal <= 0)
+						return 0;
+
+					break;
 				}
 			}
 

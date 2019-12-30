@@ -186,6 +186,7 @@
     <ClInclude Include="boxpp\base\systems\AtomicBarrior.hpp" />
     <ClInclude Include="boxpp\base\systems\Barrior.hpp" />
     <ClInclude Include="boxpp\base\systems\Debugger.hpp" />
+    <ClInclude Include="boxpp\base\systems\Environment.hpp" />
     <ClInclude Include="boxpp\base\systems\Library.hpp" />
     <ClInclude Include="boxpp\base\systems\RawEvent.hpp" />
     <ClInclude Include="boxpp\base\systems\RawTls.hpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="boxpp\base\tpls\containers\Map.hpp" />
     <ClInclude Include="boxpp\base\tpls\containers\Method.hpp" />
     <ClInclude Include="boxpp\base\tpls\containers\Node.hpp" />
+    <ClInclude Include="boxpp\base\tpls\containers\Nullable.hpp" />
     <ClInclude Include="boxpp\base\tpls\containers\Queue.hpp" />
     <ClInclude Include="boxpp\base\tpls\containers\SingleNode.hpp" />
     <ClInclude Include="boxpp\base\tpls\containers\SortedArray.hpp" />
@@ -256,6 +258,7 @@
     <ClCompile Include="boxpp\base\streams\MemoryStream.cpp" />
     <ClCompile Include="boxpp\base\streams\Stream.cpp" />
     <ClCompile Include="boxpp\base\systems\Debugger.cpp" />
+    <ClCompile Include="boxpp\base\systems\Environment.cpp" />
     <ClCompile Include="boxpp\base\systems\Minidump.cpp" />
     <ClCompile Include="boxpp\base\systems\Threaded.cpp" />
   </ItemGroup>

@@ -8,7 +8,7 @@ namespace boxpp {
 	{
 		ErrorCode = EStreamError::Success;
 		if (InitialCapacity) {
-			if (MaxSize > 0 && InitialCapacity > MaxSize) {
+			if (MaxSize > 0 && InitialCapacity > size_t(MaxSize)) {
 				InitialCapacity = MaxSize;
 			}
 
@@ -171,9 +171,9 @@ namespace boxpp {
 				}
 			
 				else if (MaxSize >= 0 &&
-					Offset + Size > MaxSize) 
+					Offset + Size > size_t(MaxSize))
 				{
-					if (Offset < MaxSize) 
+					if (Offset < size_t(MaxSize))
 						Size = MaxSize - Offset; 
 					else Size = 0;
 				}

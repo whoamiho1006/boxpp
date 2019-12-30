@@ -7,3 +7,7 @@
 
 #include <boxpp/base/network/wrappers/TcpListener.hpp>
 #include <boxpp/base/network/wrappers/TcpClient.hpp>
+
+/* ipc */
+#include <boxpp/base/ipc/IpcServer.hpp>
+#include <boxpp/base/ipc/IpcClient.hpp>

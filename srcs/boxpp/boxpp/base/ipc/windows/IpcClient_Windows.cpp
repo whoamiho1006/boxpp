@@ -118,7 +118,7 @@ namespace boxpp
 				DWORD SentBytes = 0;
 
 				if (!WriteFile(hPipe, Buffer, DWORD(Size), &SentBytes, NULL) ||
-					(SentBytes == 0))
+					(SentBytes == 0 && Size))
 				{
 					Close();
 
@@ -155,8 +155,11 @@ namespace boxpp
 
 				//WriteFile
 				FlushFileBuffers(hPipe);
-				if (!Size && RetVal <= 0) {
-					return 0;
+				if (!Size) {
+					if (RetVal <= 0)
+						return 0;
+
+					break;
 				}
 			}
 

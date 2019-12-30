@@ -14,6 +14,6 @@ namespace boxpp
 	};
 
 	/* Pick type between A or B by boolean. */
-	template<bool Condition, typename Type>
+	template<bool Condition, typename Type = void>
 	using EnableIf = typename TEnableIf<Condition, Type>::Type;
 }

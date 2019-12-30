@@ -70,6 +70,9 @@
     <Filter Include="boxpp\base\cryptography\internals">
       <UniqueIdentifier>{e5eaa09d-1dee-4dc2-becd-79184e65c305}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\cli">
+      <UniqueIdentifier>{eaf85fea-df3a-43bb-8579-757543843588}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\base\BaseTypes.hpp">
@@ -327,6 +330,12 @@
     <ClInclude Include="boxpp\base\ipc\unix\IpcEnsureDirectory.hpp">
       <Filter>boxpp\base\ipc\unix</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\base\systems\Environment.hpp">
+      <Filter>boxpp\base\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\containers\Nullable.hpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">
@@ -393,6 +402,9 @@
     </ClCompile>
     <ClCompile Include="boxpp\base\ipc\unix\IpcClient_Unix.cpp">
       <Filter>boxpp\base\ipc\unix</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\systems\Environment.cpp">
+      <Filter>boxpp\base\systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

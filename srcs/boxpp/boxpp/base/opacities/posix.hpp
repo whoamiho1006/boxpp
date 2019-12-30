@@ -12,6 +12,7 @@
 #		include <signal.h>
 #		include <dlfcn.h>
 #		include <unistd.h>
+#		include <stdlib.h>
 #	else
 
 typedef void* pthread_t;

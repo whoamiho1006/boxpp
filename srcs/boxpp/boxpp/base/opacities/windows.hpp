@@ -197,6 +197,31 @@ namespace boxpp {
 		NO_MANGLED BOXIMPORT BOOL BOX_STDCALL TlsFree(DWORD);
 		NO_MANGLED BOXIMPORT void* BOX_STDCALL TlsGetValue(DWORD);
 		NO_MANGLED BOXIMPORT BOOL BOX_STDCALL TlsSetValue(DWORD, void*);
+
+		NO_MANGLED BOXIMPORT DWORD BOX_STDCALL GetLastError();
+		NO_MANGLED BOXIMPORT DWORD BOX_STDCALL GetEnvironmentVariableA(LPCSTR, LPSTR, DWORD);
+		NO_MANGLED BOXIMPORT DWORD BOX_STDCALL GetEnvironmentVariableW(LPCWSTR, LPWSTR, DWORD);
+		
+		NO_MANGLED BOXIMPORT BOOL BOX_STDCALL SetEnvironmentVariableA(LPCSTR, LPCSTR);
+		NO_MANGLED BOXIMPORT BOOL BOX_STDCALL SetEnvironmentVariableW(LPCWSTR, LPCWSTR);
+
+		constexpr DWORD COMPAT_ERROR_ENVVAR_NOT_FOUND = 203L;
+
+		FASTINLINE DWORD GetEnvironmentVariable(LPCSTR a, LPSTR b, DWORD c) {
+			return GetEnvironmentVariableA(a, b, c);
+		}
+
+		FASTINLINE DWORD GetEnvironmentVariable(LPCWSTR a, LPWSTR b, DWORD c) {
+			return GetEnvironmentVariableW(a, b, c);
+		}
+
+		FASTINLINE BOOL SetEnvironmentVariable(LPCSTR a, LPCSTR b) {
+			return SetEnvironmentVariableA(a, b);
+		}
+
+		FASTINLINE BOOL SetEnvironmentVariable(LPCWSTR a, LPCWSTR b) {
+			return SetEnvironmentVariableW(a, b);
+		}
 	}
 }
 #endif
