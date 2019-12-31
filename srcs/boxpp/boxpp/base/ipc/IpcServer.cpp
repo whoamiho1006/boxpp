@@ -1,6 +1,6 @@
 #include "IpcServer.hpp"
 #include <boxpp/base/ipc/IpcClient.hpp>
-#include <boxpp/base/tpls/pools/Mempool.h>
+#include <boxpp/base/tpls/pools/Objpool.hpp>
 
 #if PLATFORM_WINDOWS
 #include "windows/IpcServer_Windows.hpp"
@@ -19,7 +19,7 @@ namespace boxpp {
 #endif
 
 namespace boxpp {
-	static TMempool<FIpcServer_Impl, 2> IPCSERVER_ImplPool;
+	static TObjpool<FIpcServer_Impl> IPCSERVER_ImplPool;
 
 	FIpcServer::FIpcServer()
 		: Impl (nullptr)
@@ -28,7 +28,7 @@ namespace boxpp {
 
 	template<typename CharType>
 	FASTINLINE FIpcServer_Impl* IPCSERVER_CreateImpl(const CharType* Name) {
-		if (FIpcServer_Impl* RImpl = IPCSERVER_ImplPool.Alloc(1)) {
+		if (FIpcServer_Impl* RImpl = IPCSERVER_ImplPool.Alloc()) {
 			new (RImpl) FIpcServer_Impl(Name);
 
 			if (RImpl->IsBusy() || RImpl->HasError()) {

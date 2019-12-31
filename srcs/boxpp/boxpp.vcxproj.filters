@@ -270,9 +270,6 @@
     <ClInclude Include="boxpp\base\network\SocketLayer.hpp">
       <Filter>boxpp\base\network</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\base\tpls\pools\Mempool.h">
-      <Filter>boxpp\base\tpls\pools</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\base\network\IPAddressV6.hpp">
       <Filter>boxpp\base\network</Filter>
     </ClInclude>
@@ -335,6 +332,18 @@
     </ClInclude>
     <ClInclude Include="boxpp\base\tpls\containers\Nullable.hpp">
       <Filter>boxpp\base\tpls\containers</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\cli\ArgumentParser.hpp">
+      <Filter>boxpp\cli</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\pools\Objpool.hpp">
+      <Filter>boxpp\base\tpls\pools</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\pools\Mempool.hpp">
+      <Filter>boxpp\base\tpls\pools</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\base\tpls\pools\Fastpool.hpp">
+      <Filter>boxpp\base\tpls\pools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -405,6 +414,9 @@
     </ClCompile>
     <ClCompile Include="boxpp\base\systems\Environment.cpp">
       <Filter>boxpp\base\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\base\tpls\containers\ArrayBase.cpp">
+      <Filter>boxpp\base\tpls\containers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

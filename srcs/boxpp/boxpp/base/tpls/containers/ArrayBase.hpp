@@ -7,9 +7,14 @@
 #include <boxpp/base/tpls/containers/Iterator.hpp>
 
 #include <boxpp/base/systems/Debugger.hpp>
+#include <boxpp/base/tpls/pools/Fastpool.hpp>
 
 namespace boxpp
 {
+	namespace _ {
+		BOXPP FFastpool* GetArrayPool();
+	}
+
 	template<typename ElemType>
 	class TArray;
 
@@ -94,11 +99,11 @@ namespace boxpp
 		*/
 		FASTINLINE bool Requires(size_t Size) {
 			if (Length + Size > Capacity) {
-				ElemType* Storage = (ElemType*) new u8[
-					(Length + Size) * Multiplier * sizeof(ElemType)];
-
+				ElemType* Storage = (ElemType*) _::GetArrayPool()->Alloc(
+					(Length + Size) * Multiplier * sizeof(ElemType));
+				
 				BOX_ASSERT(Storage != nullptr, "Out of memory.");
-
+				
 				if (IsPodType<ElemType>) {
 					::memcpy(Storage, this->Storage, sizeof(ElemType) * Length);
 				}
@@ -114,7 +119,8 @@ namespace boxpp
 				Capacity = (Length + Size) * Multiplier;
 
 				if (Storage) {
-					delete[]((u8*)Storage);
+					_::GetArrayPool()->Free(Storage);
+					//delete[]((u8*)Storage);
 				}
 			}
 
@@ -128,8 +134,8 @@ namespace boxpp
 		*/
 		FASTINLINE void Optimize() {
 			if (Storage && Length * Multiplier < Capacity) {
-				ElemType* Storage = (ElemType*) new u8[
-					Length * Multiplier * sizeof(ElemType)];
+				ElemType* Storage = (ElemType*)_::GetArrayPool()->Alloc( //new u8[
+					Length * Multiplier * sizeof(ElemType)); // ];
 
 				BOX_ASSERT(Storage != nullptr, "Out of memory.");
 
@@ -147,7 +153,8 @@ namespace boxpp
 				Capacity = Length * Multiplier;
 
 				if (Storage) {
-					delete[]((u8*)Storage);
+					_::GetArrayPool()->Free(Storage);
+					//delete[]((u8*)Storage);
 				}
 			}
 		}
@@ -177,7 +184,8 @@ namespace boxpp
 						Storage[i].~ElemType();
 					}
 
-					delete[]((u8*)Storage);
+					_::GetArrayPool()->Free(Storage);
+					//delete[]((u8*)Storage);
 				}
 			}
 		}

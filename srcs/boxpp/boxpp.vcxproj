@@ -211,7 +211,9 @@
     <ClInclude Include="boxpp\base\tpls\containers\SingleNode.hpp" />
     <ClInclude Include="boxpp\base\tpls\containers\SortedArray.hpp" />
     <ClInclude Include="boxpp\base\tpls\containers\Stack.hpp" />
-    <ClInclude Include="boxpp\base\tpls\pools\Mempool.h" />
+    <ClInclude Include="boxpp\base\tpls\pools\Fastpool.hpp" />
+    <ClInclude Include="boxpp\base\tpls\pools\Mempool.hpp" />
+    <ClInclude Include="boxpp\base\tpls\pools\Objpool.hpp" />
     <ClInclude Include="boxpp\base\tpls\sharedptrs\SharedCount.hpp" />
     <ClInclude Include="boxpp\base\tpls\sharedptrs\SharedHolder.hpp" />
     <ClInclude Include="boxpp\base\tpls\sharedptrs\SharedPtr.hpp" />
@@ -238,6 +240,7 @@
     <ClInclude Include="boxpp\base\utilities\DateTime.hpp" />
     <ClInclude Include="boxpp\base\utilities\Name.hpp" />
     <ClInclude Include="boxpp\base\utilities\TimeSpan.hpp" />
+    <ClInclude Include="boxpp\cli\ArgumentParser.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\base\boilerplates\Memory.cpp" />
@@ -261,6 +264,7 @@
     <ClCompile Include="boxpp\base\systems\Environment.cpp" />
     <ClCompile Include="boxpp\base\systems\Minidump.cpp" />
     <ClCompile Include="boxpp\base\systems\Threaded.cpp" />
+    <ClCompile Include="boxpp\base\tpls\containers\ArrayBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md" />

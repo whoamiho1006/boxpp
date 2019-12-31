@@ -6,7 +6,6 @@ using namespace boxpp;
 
 int main(int argc, char** argv) {
 	FTcpListener Server(EProtocolType::Inet, 8000);
-
 	BOX_ASSERT(Server.Start(), "Start() failed");
 
 	while (true) {
