@@ -21,12 +21,12 @@ namespace boxpp
 
 	public:
 		TLinkedList()
-			: First(nullptr), Last(nullptr)
+			: First(nullptr), Last(nullptr), CachedLength(0)
 		{
 		}
 
 		TLinkedList(const TLinkedList<ElemType>& Other)
-			: First(nullptr), Last(nullptr)
+			: First(nullptr), Last(nullptr), CachedLength(0)
 		{
 			Append(Other);
 		}
@@ -312,6 +312,7 @@ namespace boxpp
 		*/
 		FASTINLINE s32 RemoveAll(const ElemType& Item) {
 			NodeType* Current = First, *Temp = nullptr;
+			s32 Count = 0;
 
 			while (Current)
 			{
@@ -321,10 +322,11 @@ namespace boxpp
 					!Compare(*Temp->GetRaw(), Item))
 				{
 					RemoveAt(Temp);
+					++Count;
 				}
 			}
 
-			return nullptr;
+			return Count;
 		}
 
 		/* Remove items from given offset. */

@@ -13,7 +13,7 @@ namespace boxpp {
 			}
 
 			if (InitialCapacity) {
-				Memory = (u8*)FMemory::Malloc(InitialCapacity);
+				Memory = (u8*)FMemory::PureMalloc(InitialCapacity);
 				Capacity = InitialCapacity;
 			}
 		}
@@ -30,7 +30,7 @@ namespace boxpp {
 		FAtomicScope Guard(Atomic);
 
 		if (Memory && !(Flags & MEMFL_NO_DELETE)) {
-			FMemory::Free(Memory);
+			FMemory::PureFree(Memory);
 		}
 	}
 
@@ -61,11 +61,11 @@ namespace boxpp {
 			}
 
 			if (!Memory) {
-				Memory = (u8*)FMemory::Malloc(Capacity = NewCapacity);
+				Memory = (u8*)FMemory::PureMalloc(Capacity = NewCapacity);
 			}
 
 			else {
-				Memory = (u8*)FMemory::Realloc(Memory, Capacity = NewCapacity);
+				Memory = (u8*)FMemory::PureRealloc(Memory, Capacity = NewCapacity);
 			}
 
 			if (Offset > Capacity) {
@@ -179,11 +179,11 @@ namespace boxpp {
 				}
 
 				else if (!Memory) {
-					Memory = (u8*)FMemory::Malloc(Capacity = Offset + Size);
+					Memory = (u8*)FMemory::PureMalloc(Capacity = Offset + Size);
 				}
 
 				else {
-					Memory = (u8*)FMemory::Realloc(Memory, Capacity = Offset + Size);
+					Memory = (u8*)FMemory::PureRealloc(Memory, Capacity = Offset + Size);
 				}
 
 				if (!Size) {
@@ -210,7 +210,7 @@ namespace boxpp {
 
 		if (Memory) {
 			if (!(Flags & MEMFL_NO_DELETE)) {
-				FMemory::Free(Memory);
+				FMemory::PureFree(Memory);
 			}
 
 			Memory = nullptr;

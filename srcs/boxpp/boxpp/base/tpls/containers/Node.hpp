@@ -3,12 +3,34 @@
 #include <boxpp/base/BaseTypes.hpp>
 
 #include <boxpp/base/tpls/containers/EdgeBase.hpp>
+#include <boxpp/base/tpls/pools/Fastpool.hpp>
 
 namespace boxpp
 {
 	template<typename ElemType>
 	class TNode : public TEdgeBase<ElemType>
 	{
+#if defined(BOX_CONTAINER_POOLD_NODES) && BOX_CONTAINER_POOLD_NODES
+	private:
+		static FFastpool& GetPool() {
+			static FFastpool _Pool(
+				(sizeof(TNode<ElemType>) / (BOX_NODE_POOL_ALIGNMENT) +
+				(sizeof(TNode<ElemType>) % (BOX_NODE_POOL_ALIGNMENT) > 0 ? 1: 0)) * 
+										   (BOX_NODE_POOL_ALIGNMENT));
+
+			return _Pool;
+		}
+
+	public:
+		static void* operator new (size_t s) {
+			return GetPool().Alloc(s);
+		}
+
+		static void operator delete (void* p) {
+			GetPool().Free(p);
+		}
+#endif
+
 	public:
 		TNode() : Previous(nullptr), Next(nullptr) { }
 		TNode(const ElemType& Item) : TEdgeBase<ElemType>(Item), Previous(nullptr), Next(nullptr) { }

@@ -1,6 +1,7 @@
 #include <boxpp/base/Base.hpp>
 #pragma comment(lib, "boxpp.lib")
 
+BOXPP_DECLARE_MEMORY_BOILERPLATE()
 using namespace boxpp;
 
 NO_MANGLED int BOX_STDCALL WinMain(w32_compat::HINSTANCE, 

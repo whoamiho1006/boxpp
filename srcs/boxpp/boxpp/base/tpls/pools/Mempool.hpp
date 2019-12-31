@@ -7,6 +7,10 @@
 
 namespace boxpp
 {
+	/*
+		Object pool, Memory pool and Fast pools.
+		These objects should be declared as static member or global field.
+	*/
 	template<typename Type, uint32_t _Maxholds = 8>
 	class TMempool
 	{
@@ -33,7 +37,7 @@ namespace boxpp
 	private:
 		FAtomicBarrior Barrior;
 		TQueue<Header*> Queue;
-		uint32_t Maxholds;
+		u32 Maxholds;
 
 	public:
 		FASTINLINE Type* Alloc(const size_t Size) {

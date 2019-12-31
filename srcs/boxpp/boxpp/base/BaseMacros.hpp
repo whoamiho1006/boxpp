@@ -312,6 +312,8 @@ typedef PLATFORM_SIZE_TYPE size_t;
 #	define PLATFORM_EXT_STATIC		"a"
 #endif
 
+#include <boxpp/base/BaseConfigs.hpp>
+
 /*	Auto-completion block for Visual-studio.
 	Auto-completion blocks will not be really compiled. */
 #if BOX_NOT_COMPILED
@@ -344,3 +346,18 @@ typedef PLATFORM_SIZE_TYPE size_t;
 
 #define BOX_CONCAT_2ND(Front, Back)	Front ## Back
 #define BOX_CONCAT(Front, Back)		BOX_CONCAT_2ND(Front, Back)
+
+// Validates configs.
+#if BOX_ENFORCE_GLOBAL_POOL
+#undef BOX_DISABLE_FASTPOOL
+#undef BOX_NOT_POOLED_NODES
+
+#define BOX_DISABLE_FASTPOOL 0
+#define BOX_NOT_POOLED_NODES 1
+
+#undef BOX_ARRAY_POOL_ALIGNMENT
+#undef BOX_NODE_POOL_ALIGNMENT
+
+#define BOX_ARRAY_POOL_ALIGNMENT	BOX_GLOBAL_POOL_ALIGNMENT
+#define BOX_NODE_POOL_ALIGNMENT		BOX_GLOBAL_POOL_ALIGNMENT
+#endif

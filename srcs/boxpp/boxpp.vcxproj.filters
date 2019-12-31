@@ -345,6 +345,9 @@
     <ClInclude Include="boxpp\base\tpls\pools\Fastpool.hpp">
       <Filter>boxpp\base\tpls\pools</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\base\BaseConfigs.hpp">
+      <Filter>boxpp\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">

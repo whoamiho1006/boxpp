@@ -7,16 +7,24 @@
 
 namespace boxpp
 {
+	/*
+		Object pool, Memory pool and Fast pools.
+		These objects should be declared as static member or global field.
+	*/
 	template<typename Type, u16 _Unitsize = 8>
 	class TObjpool
 	{
 	private:
 		class Pool;
+#if BOX_DEBUG
 		static constexpr u32 OBJ_Magic = 0xCAFEEFAC;
+#endif
 
 		struct Obj
 		{
+#if BOX_DEBUG
 			u32 Magic;
+#endif
 			Pool* Source;
 			u8 Storage[sizeof(Type)];
 		};
@@ -48,7 +56,9 @@ namespace boxpp
 					(Mem = Storage + Cursor)
 						->Source = this;
 
+#if BOX_DEBUG
 					Mem->Magic = OBJ_Magic;
+#endif
 					++Cursor;
 				}
 
@@ -78,21 +88,24 @@ namespace boxpp
 	private:
 		FAtomicBarrior Atomic;
 		Pool* CurrentPool;
+		bool bDestroying;
 
 	public:
 		TObjpool()
-			: CurrentPool(nullptr)
+			: CurrentPool(nullptr), bDestroying(false)
 		{
 		}
 
 		~TObjpool() {
-			if (CurrentPool && CurrentPool->IsEmpty()) {
-				delete CurrentPool;
+			FAtomicScope Guard(Atomic);
+			bDestroying = true;
+
+			if (CurrentPool) {
+				if (CurrentPool->IsEmpty())
+					delete CurrentPool;
+
 				CurrentPool = nullptr;
 			}
-
-			BOX_ASSERT(CurrentPool == nullptr,
-				"TObjpool: Memory leak detected.");
 		}
 
 	public:
@@ -122,7 +135,9 @@ namespace boxpp
 			if (Mem) {
 				Obj* Header = ((Obj*)Mem - 1);
 
+#if BOX_DEBUG
 				if (Header->Magic == OBJ_Magic)
+#endif
 				{
 					FAtomicScope Guard(Atomic);
 
@@ -132,7 +147,7 @@ namespace boxpp
 						if (Pool != CurrentPool &&
 							Pool->IsEmpty()) 
 						{
-							if (CurrentPool)
+							if (CurrentPool || bDestroying)
 								delete Pool;
 
 							else CurrentPool = Pool;
