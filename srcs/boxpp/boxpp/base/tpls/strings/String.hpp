@@ -4,6 +4,7 @@
 
 #include <boxpp/base/tpls/traits/IsSameType.hpp>
 #include <boxpp/base/tpls/traits/Forward.hpp>
+#include <boxpp/base/tpls/traits/PickType.hpp>
 
 #include <boxpp/base/tpls/strings/Constants.hpp>
 #include <boxpp/base/tpls/strings/Operations.hpp>
@@ -21,9 +22,12 @@ namespace boxpp
 	{
 	};
 
-	template<typename CharType>
+	template<typename _CharType>
 	class TString
 	{
+	public:
+		typedef _CharType CharType;
+
 	public:
 		TString(u32 InitialCapacity = 0)
 			: Storage(InitialCapacity)
@@ -39,8 +43,12 @@ namespace boxpp
 		template<typename OtherType>
 		TString(const OtherType* InString, ssize_t Max = -1)
 		{
-			TStringConverter<CharType, OtherType> Converter(InString);
+			static TStringConverter<CharType, OtherType> Converter;
+			static FAtomicBarrior Atomic;
 
+			FAtomicScope Guard(Atomic);
+
+			Converter.Reset(InString, Max);
 			if (Converter.GetConvertedString())
 				Append(Converter.GetConvertedString(), Max);
 		}
@@ -56,6 +64,19 @@ namespace boxpp
 			Swap(Storage, Other.Storage);
 		}
 
+		template<typename OtherType>
+		TString(const TString<OtherType>& Other)
+		{
+			static TStringConverter<CharType, OtherType> Converter;
+			static FAtomicBarrior Atomic;
+
+			FAtomicScope Guard(Atomic);
+
+			Converter.Reset(Other.GetRaw());
+			if (Converter.GetConvertedString())
+				Append(Converter.GetConvertedString());
+		}
+
 		~TString() { }
 
 	protected:
@@ -68,6 +89,9 @@ namespace boxpp
 		FASTINLINE size_t GetSize() const { return *this ? Storage.GetSize() - 1 : 0; }
 		FASTINLINE CharType* GetRaw() const { return *this ? Storage.GetRaw() : nullptr; }
 
+	public:
+		FASTINLINE size_t GetMultiplier() const { return Storage.GetMultiplier(); }
+		FASTINLINE void SetMultiplier(size_t Value) { Storage.SetMultiplier(Value); }
 	public:
 		FASTINLINE CharType& operator [](s32 Index) { return Storage[Index]; }
 		FASTINLINE const CharType& operator [](s32 Index) const { return Storage[Index]; }
@@ -85,11 +109,19 @@ namespace boxpp
 			return strings::TOperations<CharType>::Strncmp(GetRaw(), Other.GetRaw(), Max);
 		}
 
+		FASTINLINE ssize_t CompareInCase(const TString<CharType>& Other) const {
+			return TNativeString<CharType>::StrcmpCI(GetRaw(), Other.GetRaw());
+		}
+
+		FASTINLINE ssize_t CompareInCase(const TString<CharType>& Other, size_t Max) const {
+			return TNativeString<CharType>::StrncmpCI(GetRaw(), Other.GetRaw(), Max);
+		}
+
 		template<typename OtherType>
 		FASTINLINE s32 Compare(const OtherType* String) const {
 			if (IsSameType<CharType, OtherType>)
 				return strings::TOperations<CharType>::Strcmp(
-				(const CharType*)GetRaw(), (const OtherType*)String);
+				(const CharType*)GetRaw(), (const CharType*)String);
 
 			else {
 				TStringConverter<CharType, OtherType> Converted(String);
@@ -102,11 +134,37 @@ namespace boxpp
 		FASTINLINE s32 Compare(const OtherType* String, size_t Max) const {
 			if (IsSameType<CharType, OtherType>)
 				return strings::TOperations<CharType>::Strncmp(
-				(const CharType*)GetRaw(), (const OtherType*)String, Max);
+					(const CharType*)GetRaw(), (const CharType*)String, Max);
 
 			else {
 				TStringConverter<CharType, OtherType> Converted(String);
 				return strings::TOperations<CharType>::Strncmp(
+					(const CharType*)GetRaw(), Converted.GetConvertedString(), Max);
+			}
+		}
+
+		template<typename OtherType>
+		FASTINLINE s32 CompareInCase(const OtherType* String) const {
+			if (IsSameType<CharType, OtherType>)
+				return TNativeString<CharType>::StrcmpCI(
+					(const CharType*)GetRaw(), (const CharType*)String);
+
+			else {
+				TStringConverter<CharType, OtherType> Converted(String);
+				return TNativeString<CharType>::StrcmpCI(
+					(const CharType*)GetRaw(), Converted.GetConvertedString());
+			}
+		}
+
+		template<typename OtherType>
+		FASTINLINE s32 CompareInCase(const OtherType* String, size_t Max) const {
+			if (IsSameType<CharType, OtherType>)
+				return TNativeString<CharType>::StrncmpCI(
+				(const CharType*)GetRaw(), (const CharType*)String, Max);
+
+			else {
+				TStringConverter<CharType, OtherType> Converted(String);
+				return TNativeString<CharType>::StrncmpCI(
 					(const CharType*)GetRaw(), Converted.GetConvertedString(), Max);
 			}
 		}
@@ -268,11 +326,36 @@ namespace boxpp
 			return false;
 		}
 
-		FASTINLINE const TString<CharType>& Substring(size_t Offset, ssize_t Count = -1) const
+		FASTINLINE TString<CharType> Substring(size_t Offset, ssize_t Count = -1) const
 		{
 			TString<CharType> RetVal;
 			Substring(RetVal, Offset, Count);
 			return RetVal;
+		}
+
+		static constexpr CharType WHITESPACES[] = { ' ', '\t', '\r', '\n', 0 };
+
+		FASTINLINE void Trim(const CharType* Chars = WHITESPACES) {
+			TrimRight(Chars);
+			TrimLeft(Chars);
+		}
+
+		FASTINLINE void TrimRight(const CharType* Chars = WHITESPACES) {
+			while (GetSize() &&
+				TNativeString<CharType>::Contains(
+					Chars, (*this)[GetSize() - 1]))
+			{
+				this->RemoveAt(GetSize() - 1);
+			}
+		}
+
+		FASTINLINE void TrimLeft(const CharType* Chars = WHITESPACES) {
+			while (GetSize() &&
+				TNativeString<CharType>::Contains(
+					Chars, (*this)[0]))
+			{
+				this->RemoveAt(0);
+			}
 		}
 
 	public:

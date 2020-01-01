@@ -21,6 +21,7 @@ namespace boxpp
 			static constexpr const CharType Slash = '/';
 			static constexpr const CharType Backslash = '\\';
 
+			static constexpr const CharType Plus = '+';
 			static constexpr const CharType Hipen = '-';
 			static constexpr const CharType Underbar = '_';
 			static constexpr const CharType At = '@';

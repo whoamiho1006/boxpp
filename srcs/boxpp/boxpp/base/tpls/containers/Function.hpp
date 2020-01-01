@@ -3,6 +3,7 @@
 #include <boxpp/base/BaseTypes.hpp>
 
 #include <boxpp/base/tpls/traits/Forward.hpp>
+#include <boxpp/base/tpls/traits/Movable.hpp>
 #include <boxpp/base/systems/Debugger.hpp>
 
 namespace boxpp {
@@ -298,7 +299,7 @@ namespace boxpp {
 		FASTINLINE TFunction(LambdaType&& Lambda) : BaseType(Forward<LambdaType>(Lambda)) { }
 
 		FASTINLINE TFunction(const SelfType& Other) : BaseType(Other) { }
-		FASTINLINE TFunction(SelfType&& Other) : BaseType(Forward<SelfType>(Other)) { }
+		FASTINLINE TFunction(SelfType&& Other) : BaseType(Forward<BaseType>(*((BaseType*)&Other))) { }
 
 		template<typename ClassType>
 		FASTINLINE TFunction(ClassType* Object, RetType(ClassType::* Callback)(ArgTypes...))
@@ -377,7 +378,7 @@ namespace boxpp {
 		FASTINLINE TFunction(LambdaType&& Lambda) : BaseType(Forward<LambdaType>(Lambda)) { }
 
 		FASTINLINE TFunction(const SelfType& Other) : BaseType(Other) { }
-		FASTINLINE TFunction(SelfType&& Other) : BaseType(Forward<SelfType>(Other)) { }
+		FASTINLINE TFunction(SelfType&& Other) : BaseType(Forward<BaseType>(*((BaseType*)&Other))) { }
 
 		template<typename ClassType>
 		FASTINLINE TFunction(ClassType* Object, void(ClassType::* Callback)(ArgTypes...))

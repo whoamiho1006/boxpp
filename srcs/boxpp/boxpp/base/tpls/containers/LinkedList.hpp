@@ -2,6 +2,7 @@
 #include <boxpp/base/BaseMacros.hpp>
 #include <boxpp/base/BaseTypes.hpp>
 
+#include <boxpp/base/tpls/traits/Movable.hpp>
 #include <boxpp/base/tpls/containers/Node.hpp>
 #include <boxpp/base/tpls/containers/Iterator.hpp>
 #include <boxpp/base/systems/Debugger.hpp>
@@ -157,7 +158,7 @@ namespace boxpp
 
 			if (!Last) {
 				First = Last =
-					Checkpoint = new NodeType(Item);
+					Checkpoint = new NodeType(Forward<ElemType>(Item));
 
 				++CachedLength;
 			}
@@ -180,7 +181,7 @@ namespace boxpp
 			{
 				if (ElemType* ValuePtr = Current->GetRaw()) {
 					if (!Checkpoint)
-						Checkpoint = Add(*ValuePtr);
+						Checkpoint = *Add(*ValuePtr);
 
 					else Add(*ValuePtr);
 				}

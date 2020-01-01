@@ -178,5 +178,17 @@ namespace boxpp
 		{
 			return First ? First->GetRaw() : nullptr;
 		}
+
+		FASTINLINE ElemType* Peek(size_t N) const
+		{
+			const NodeType* Node = First;
+
+			while (Node && N) {
+				Node = Node->GetNext();
+				--N;
+			}
+
+			return Node && !N ? Node->GetRaw() : nullptr;
+		}
 	};
 }

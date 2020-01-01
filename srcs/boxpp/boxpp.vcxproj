@@ -241,7 +241,8 @@
     <ClInclude Include="boxpp\base\utilities\DateTime.hpp" />
     <ClInclude Include="boxpp\base\utilities\Name.hpp" />
     <ClInclude Include="boxpp\base\utilities\TimeSpan.hpp" />
-    <ClInclude Include="boxpp\cli\ArgumentParser.hpp" />
+    <ClInclude Include="boxpp\cli\Arguments.hpp" />
+    <ClInclude Include="boxpp\cli\CommandLine.hpp" />
     <ClInclude Include="boxpp\cli\TTY.hpp" />
     <ClInclude Include="boxpp\cli\TTYColor.hpp" />
     <ClInclude Include="boxpp\cli\ControlCharacter.hpp" />
@@ -269,6 +270,8 @@
     <ClCompile Include="boxpp\base\systems\Minidump.cpp" />
     <ClCompile Include="boxpp\base\systems\Threaded.cpp" />
     <ClCompile Include="boxpp\base\tpls\containers\ArrayBase.cpp" />
+    <ClCompile Include="boxpp\cli\Arguments.cpp" />
+    <ClCompile Include="boxpp\cli\CommandLine.cpp" />
     <ClCompile Include="boxpp\cli\TTY.cpp" />
   </ItemGroup>
   <ItemGroup>

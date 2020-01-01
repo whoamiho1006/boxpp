@@ -33,7 +33,7 @@ namespace boxpp
 
 	public:
 		static constexpr const UNNAMED Unnamed = { };
-
+		
 	public:
 		FASTINLINE operator bool() const { return Name; }
 		FASTINLINE bool operator !() const { return !Name; }

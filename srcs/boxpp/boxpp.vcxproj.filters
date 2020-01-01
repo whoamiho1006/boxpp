@@ -333,9 +333,6 @@
     <ClInclude Include="boxpp\base\tpls\containers\Nullable.hpp">
       <Filter>boxpp\base\tpls\containers</Filter>
     </ClInclude>
-    <ClInclude Include="boxpp\cli\ArgumentParser.hpp">
-      <Filter>boxpp\cli</Filter>
-    </ClInclude>
     <ClInclude Include="boxpp\base\tpls\pools\Objpool.hpp">
       <Filter>boxpp\base\tpls\pools</Filter>
     </ClInclude>
@@ -355,6 +352,12 @@
       <Filter>boxpp\cli</Filter>
     </ClInclude>
     <ClInclude Include="boxpp\cli\TTY.hpp">
+      <Filter>boxpp\cli</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\cli\CommandLine.hpp">
+      <Filter>boxpp\cli</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\cli\Arguments.hpp">
       <Filter>boxpp\cli</Filter>
     </ClInclude>
   </ItemGroup>
@@ -431,6 +434,12 @@
       <Filter>boxpp\base\tpls\containers</Filter>
     </ClCompile>
     <ClCompile Include="boxpp\cli\TTY.cpp">
+      <Filter>boxpp\cli</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\cli\Arguments.cpp">
+      <Filter>boxpp\cli</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\cli\CommandLine.cpp">
       <Filter>boxpp\cli</Filter>
     </ClCompile>
   </ItemGroup>
