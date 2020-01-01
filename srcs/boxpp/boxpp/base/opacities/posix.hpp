@@ -13,6 +13,7 @@
 #		include <dlfcn.h>
 #		include <unistd.h>
 #		include <stdlib.h>
+#		include <termios.h>
 #	else
 
 typedef void* pthread_t;
@@ -101,5 +102,25 @@ struct sockaddr_un {
 
 boxpp::ssize_t read(int fd, void *buf, boxpp::size_t count);
 boxpp::ssize_t write(int fd, const void *buf, boxpp::size_t count);
+
+struct termios
+{
+	boxpp::u32 c_iflag;    /* input flags */
+	boxpp::u32 c_oflag;    /* output flags */
+	boxpp::u32 c_cflag;    /* control flags */
+	boxpp::u32 c_lflag;    /* local flags */
+	boxpp::u8  c_cc[1]; /* control chars */
+	boxpp::u32 c_ispeed;   /* input speed */
+	boxpp::u32 c_ospeed;   /* output speed */
+};
+
+int tcgetattr(int fd, struct termios*);
+int tcsetattr(int fd,
+	int optional_actions,
+	const struct termios *termios_p);
+
+#define ICANON	1
+#define ECHO	2
+#define TCSANOW 3
 #	endif
 #endif

@@ -348,6 +348,15 @@
     <ClInclude Include="boxpp\base\BaseConfigs.hpp">
       <Filter>boxpp\base</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\cli\ControlCharacter.hpp">
+      <Filter>boxpp\cli</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\cli\TTYColor.hpp">
+      <Filter>boxpp\cli</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\cli\TTY.hpp">
+      <Filter>boxpp\cli</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">
@@ -420,6 +429,9 @@
     </ClCompile>
     <ClCompile Include="boxpp\base\tpls\containers\ArrayBase.cpp">
       <Filter>boxpp\base\tpls\containers</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\cli\TTY.cpp">
+      <Filter>boxpp\cli</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

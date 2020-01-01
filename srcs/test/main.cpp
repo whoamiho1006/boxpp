@@ -1,53 +1,29 @@
 #include <boxpp/base/Base.hpp>
 #include <boxpp/base/BaseNetwork.hpp>
+#include <boxpp/cli/TTY.hpp>
+
 #pragma comment(lib, "boxpp.lib")
 
 BOXPP_DECLARE_MEMORY_BOILERPLATE()
 using namespace boxpp;
+using namespace boxpp::cli;
 
 int main(int argc, char** argv) {
 	FTcpListener Server(EProtocolType::Inet, 8000);
 	TLinkedList<int> dd;
 	BOX_ASSERT(Server.Start(), "Start() failed");
 
-	int cnt = 0;
+	FTTY test;
+	FTTY test2 = FTTY::Error;
 
-	dd.Add(100);
-	dd.Add(100);
-	dd.Add(100);
-	dd.Add(100);
-	dd.Add(100);
-	dd.Add(100);
-	dd.Add(100);
-	dd.Add(100);
-	dd.Add(100);
-	dd.RemoveAll(100);
+	test << FTTYColor::Red << "hello!" << EOL;
+	test2 << Goto(0, 0) << "test" << EOL;
 
-	while (cnt < 10) {
-		FTcpClient Newbie;
+	FString test3;
+	
+	test << "Password: ";
+	test << NEC >> test3 << ECH;
 
-		if (!Server.IsPending()) {
-			
-			continue;
-		}
-
-		if (Server.Accept(Newbie)) {
-			FIPEndpoint Endpoint;
-			const char* Packet = "HTTP/1.1 200 OK\r\n"
-				"Content-Type: text/html; charset=utf-8\r\n"
-				"Content-Length: 20\r\n\r\n"
-				"abcdabcdabcdabcdabcd\r\n";
-
-			if (Newbie.GetSocket()->GetSockName(Endpoint)) {
-				printf("%S\n", Endpoint.ToString().GetRaw());
-			}
-
-			Newbie.Send(Packet, TNativeString<char>::Strlen(Packet));
-			Newbie.Disconnect();
-		}
-
-		++cnt;
-	}
-
+	test << *test3 << EOL;
 	//BOX_ASSERT(false, "hello!");
 }
