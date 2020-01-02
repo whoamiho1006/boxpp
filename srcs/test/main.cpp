@@ -23,14 +23,33 @@ int main(int argc, char** argv) {
 
 	arg.Requires(k, "name", "specifies name of !!...");
 
+	FString TestArg;
+	s32 Greeting;
+
+	FTTY test;
+
 	mm.PutArgs(argv, argc);
 	mm.PutLine("--test good hello");
 
-	FTTY test;
+	mm.On("t", "test", "test switch")
+		.Requires(TestArg, "name", "name of test arg")
+		.Requires(Greeting, "greeting", "greeting text")
+		.SetCallback([&](FArgumentSet* p) {
+			test << TestArg << EOL;
+			test << Greeting << EOL;
+
+			p->SetUserError();
+		});
+
+	mm.Invoke();
+
+	test << 33 << EOL;
+	test << 34.5 << EOL;
+
 	FTTY test2 = FTTY::Error;
 
 	test << FTTYColor::Red << "hello!" << EOL;
-	test2 << Goto(0, 0) << "test" << EOL;
+	//test2 << Goto(0, 0) << "test" << EOL;
 
 	FString test3;
 	

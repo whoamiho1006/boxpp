@@ -360,11 +360,11 @@ namespace boxpp
 
 	public:
 		FASTINLINE bool StartsWith(const TString<CharType>& Other) const {
-			return TNativeString<CharType>::Strncmp(GetRaw(), Other.GetRaw(), Other.GetSize());
+			return !TNativeString<CharType>::Strncmp(GetRaw(), Other.GetRaw(), Other.GetSize());
 		}
 
 		FASTINLINE bool StartsWith(const CharType* Other) const {
-			return TNativeString<CharType>::Strncmp(GetRaw(), Other, TNativeString<CharType>::Strlen(Other));
+			return !TNativeString<CharType>::Strncmp(GetRaw(), Other, TNativeString<CharType>::Strlen(Other));
 		}
 
 		FASTINLINE bool EndsWith(const TString<CharType>& Other) const {

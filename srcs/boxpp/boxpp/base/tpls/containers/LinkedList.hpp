@@ -164,7 +164,7 @@ namespace boxpp
 			}
 
 			else {
-				Last = Last->Emplace(Item);
+				Last = Checkpoint = Last->Emplace(Item);
 				++CachedLength;
 			}
 

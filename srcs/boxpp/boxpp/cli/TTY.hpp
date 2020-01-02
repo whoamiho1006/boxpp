@@ -96,6 +96,78 @@ namespace boxpp
 			FTTY& operator <<(const ansi_t* InString);
 			FTTY& operator <<(const wide_t* InString);
 
+			FASTINLINE FTTY& operator <<(const FAnsiString& InString) {
+				if (InString) {
+					return *this << InString.GetRaw();
+				}
+
+				return *this;
+			}
+
+			FASTINLINE FTTY& operator <<(const FWideString& InString) {
+				if (InString) {
+					return *this << InString.GetRaw();
+				}
+
+				return *this;
+			}
+
+			// inline constant trap back.
+			FASTINLINE FTTY& operator <<(s64&& Integer) {
+				char_t Buffer[32] = { 0, };
+				TNativeString<char_t>::Ltoa(Integer, Buffer);
+				return *this << Buffer;
+			}
+
+			// inline constant trap back.
+			FASTINLINE FTTY& operator <<(const f64& Number) {
+				char_t Buffer[48] = { 0, };
+				TNativeString<char_t>::Dtostr(Number, Buffer, 48);
+				return *this << Buffer;
+			}
+
+
+			// inline constant trap back.
+			FASTINLINE FTTY& operator <<(const f32& Number) {
+				char_t Buffer[48] = { 0, };
+				TNativeString<char_t>::Ftostr(Number, Buffer, 48);
+				return *this << Buffer;
+			}
+
+			/*
+				Integer to String.
+				Conversion buffer size: 2: 8, 4: 16, 8: 32
+					unsigned					signed
+				16: 0 ~ 65536					-32767 ~ 32768
+				32: 0 ~ 4294967296				-2147483647 ~ 2147483648
+				64: 0 ~ 18446744073709551614	-9223372036854775806 ~ 9223372036854775807
+			*/
+
+#define BOXPP_TTY_INTEGER_OUTPUT_OPERATOR___SIGNED(Type) \
+			FASTINLINE FTTY& operator <<(const Type& Integer) { \
+				char_t Buffer[sizeof(Type) * 4] = { 0, }; \
+				TNativeString<char_t>::Ltoa(Integer, Buffer); \
+				return *this << Buffer; \
+			}
+
+#define BOXPP_TTY_INTEGER_OUTPUT_OPERATOR_UNSIGNED(Type) \
+			FASTINLINE FTTY& operator <<(const Type& Integer) { \
+				char_t Buffer[sizeof(Type) * 4] = { 0, }; \
+				TNativeString<char_t>::Ultoa(Integer, Buffer); \
+				return *this << Buffer; \
+			}
+
+			// s8 and u8 cannot be supported because of ansi_t.
+			BOXPP_TTY_INTEGER_OUTPUT_OPERATOR___SIGNED(s64)
+			BOXPP_TTY_INTEGER_OUTPUT_OPERATOR___SIGNED(s32)
+			BOXPP_TTY_INTEGER_OUTPUT_OPERATOR___SIGNED(s16)
+			BOXPP_TTY_INTEGER_OUTPUT_OPERATOR_UNSIGNED(u64)
+			BOXPP_TTY_INTEGER_OUTPUT_OPERATOR_UNSIGNED(u32)
+			BOXPP_TTY_INTEGER_OUTPUT_OPERATOR_UNSIGNED(u16)
+
+#undef BOXPP_TTY_INTEGER_OUTPUT_OPERATOR___SIGNED
+#undef BOXPP_TTY_INTEGER_OUTPUT_OPERATOR_UNSIGNED
+
 		private:
 			FTTY& SetForeground(const FTTYColor& Color) { Foreground = Color; return *this; }
 			FTTY& SetBackground(const FTTYColor& Color) { Background = Color; return *this; }

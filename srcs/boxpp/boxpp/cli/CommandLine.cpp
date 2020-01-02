@@ -145,7 +145,83 @@ namespace boxpp {
 
 		bool FCommandLine::Invoke()
 		{
-			return false;
+			bool bKeepParsing = true;
+			bError = false;
+
+			while (!Arguments.IsEmpty() &&
+					bKeepParsing)
+			{
+				FString Arg = *Arguments.Peek();
+				Arguments.Dequeue();
+
+				LatestArgset = nullptr; LatestArg = nullptr;
+				LatestShortcut = LatestSwitch = FName::Unnamed;
+
+				if (Arg.StartsWith("--")) {
+					LatestSwitch = Arg.GetRaw() + 2;
+					bError = true;
+
+					for (FArgumentSet& ArgSet : ArgumentSets) {
+						LatestArgset = &ArgSet;
+
+						if (ArgSet.GetSwitch() == LatestSwitch) {
+							LatestShortcut = ArgSet.GetShortcut();
+							LatestArg = ArgSet.Invoke(Arguments);
+
+							bError = LatestArg != nullptr || ArgSet.HasUserError();
+							bUserError = ArgSet.HasUserError();
+
+							if (LatestArg || ArgSet.HasUserError())
+								bKeepParsing = false;
+
+							break;
+						}
+					}
+					
+					break;
+				}
+
+				else if (Arg.StartsWith("-")) {
+					LatestShortcut = Arg.GetRaw() + 2;
+					bError = true;
+
+					for (FArgumentSet& ArgSet : ArgumentSets) {
+						LatestArgset = &ArgSet;
+
+						if (ArgSet.GetShortcut() == LatestShortcut) {
+							LatestSwitch = ArgSet.GetSwitch();
+							LatestArg = ArgSet.Invoke(Arguments);
+
+							bError = LatestArg != nullptr || ArgSet.HasUserError();
+							bUserError = ArgSet.HasUserError();
+
+							if (LatestArg || ArgSet.HasUserError())
+								bKeepParsing = false;
+
+							break;
+						}
+					}
+
+					break;
+				}
+
+				else {
+					TextArguments.Enqueue(Arg);
+				}
+			}
+
+			if (!bError) {
+				LatestSwitch = FName::Unnamed;
+				LatestShortcut = FName::Unnamed;
+
+				LatestArgset = &DefaultSet;
+				LatestArg = DefaultSet.Invoke(TextArguments);
+
+				bError = LatestArg != nullptr || DefaultSet.HasUserError();
+				bUserError = DefaultSet.HasUserError();
+			}
+
+			return !bError;
 		}
 	}
 }

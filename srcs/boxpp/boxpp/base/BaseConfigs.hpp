@@ -1,7 +1,7 @@
 #pragma once
 
 #define BOX_DISABLE_FASTPOOL		0
-#define BOX_ENFORCE_GLOBAL_POOL		1
+#define BOX_ENFORCE_GLOBAL_POOL		0
 
 #define BOX_CONTAINER_POOLD_NODES	1
 

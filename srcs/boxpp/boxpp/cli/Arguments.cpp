@@ -35,31 +35,34 @@ namespace boxpp {
 
 				auto RIter = Requirements.Begin();
 
-				while (RIter && InArguments.GetSize() > N) {
-					const FString& SArg = *InArguments.Peek(N);
+				while (RIter) {
+					FString SArg = *InArguments.Peek();
+					InArguments.Dequeue();
 
 					if (IArgument* Arg = (*RIter).Argument) {
 						Arg->Parse(SArg);
-						InArguments.Dequeue();
 					}
 
-					++N;
+					++RIter;
+				}
+				
+				RIter = Requirements.Begin();
+
+				while (RIter) {
+					if ((*RIter).Callback) {
+						(*RIter).Callback((*RIter).Argument);
+					}
+
 					++RIter;
 				}
 
-				for (const Requirement& Req : Requirements) {
-					if (Req.Callback) {
-						Req.Callback(Req.Argument);
-					}
-				}
-
 				if (Callback) {
-					Callback(this);
+					Callback(const_cast<FArgumentSet*>(this));
 				}
 			}
 
 			else if (ErrorCallback) {
-				ErrorCallback(this, Impossible);
+				ErrorCallback(const_cast<FArgumentSet*>(this), Impossible);
 			}
 
 			return Impossible;

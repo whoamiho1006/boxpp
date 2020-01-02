@@ -94,7 +94,6 @@ namespace boxpp
 			}
 
 			FASTINLINE static f64 Strtod(const CharType* String);
-
 			FASTINLINE static f32 Strtof(const CharType* String) { return (f32)Strtod(String); }
 
 			FASTINLINE static f64 Strtod(const CharType* String, CharType*& StopedAt);
@@ -473,6 +472,118 @@ namespace boxpp
 				}
 
 				return !SizeMax || Left == Right ? 0 : (Left ? 1 : -1);
+			}
+
+#define __STRING_INT_MAX(a, b) ((a) > (b) ? (a) : (b))
+#define __STRING_INT_MIN(a, b) ((a) < (b) ? (a) : (b))
+
+			FASTINLINE static void Dtostr_CutZeroes(CharType* Buffer) {
+				CharType* Mark = nullptr;
+				bool bDotAppeared = false;
+
+				if (Buffer) {
+					while (*Buffer) {
+						if (*Buffer == '.' && !bDotAppeared) {
+							Mark = Buffer;
+							bDotAppeared = true;
+						}
+
+						else if (bDotAppeared) {
+							if (*Buffer == '0')
+								Mark = Mark ? Mark : Buffer;
+
+							else Mark = 0;
+						}
+
+						++Buffer;
+					}
+				}
+
+				if (Mark) {
+					*Mark = 0;
+				}
+			}
+
+			/* Buffer should be initiated zero. */
+			FASTINLINE static void Dtostr(f64 Value, CharType* Buffer, size_t MaxSize) {
+				s64 Number = (s64)Value;
+				s64 Primes = (s64)((Value - Number) * 1000000.0);
+				
+				CharType* Org = MaxSize ? Buffer : nullptr;
+
+				CharType NString[32] = { 0, };
+				CharType PString[16] = { 0, };
+				size_t NLen = 0, PLen = 0, Tmp = 0;
+
+				Ltoa(Number, NString);
+				for (; NString[NLen]; ++NLen);
+
+				if (Primes) {
+					Ltoa(Primes, PString);
+
+					for (; PString[PLen]; ++PLen);
+					if (PLen < 6) {
+						memmove(PString + (6 - PLen), PString, sizeof(CharType) * PLen);
+						for (size_t k = 0; k < 6 - PLen; ++k) PString[k] = '0';
+					}
+				}
+
+				Tmp = __STRING_INT_MIN(NLen, MaxSize);
+				if (Tmp) memcpy(Buffer, NString, Tmp * sizeof(CharType));
+
+				Buffer += Tmp;
+				MaxSize -= Tmp;
+
+				if (MaxSize && PLen) {
+					*(Buffer++) = '.';
+					--MaxSize;
+				}
+
+				Tmp = __STRING_INT_MIN(PLen, MaxSize);
+				if (Tmp) memcpy(Buffer, PString, Tmp * sizeof(CharType));
+
+				Dtostr_CutZeroes(Org);
+			}
+
+			/* Buffer should be initiated zero. */
+			FASTINLINE static void Ftostr(f32 Value, CharType* Buffer, size_t MaxSize) {
+				s64 Number = (s64)Value;
+				s64 Primes = (s64)((Value - Number) * 1000.0);
+
+				CharType* Org = MaxSize ? Buffer : nullptr;
+
+				CharType NString[32] = { 0, };
+				CharType PString[16] = { 0, };
+				size_t NLen = 0, PLen = 0, Tmp = 0;
+
+				Ltoa(Number, NString);
+				for (; NString[NLen]; ++NLen);
+
+				if (Primes) {
+					Ltoa(Primes, PString);
+
+					for (; PString[PLen]; ++PLen);
+					if (PLen < 4) {
+						memmove(PString + (4 - PLen), PString, sizeof(CharType) * PLen);
+						for (size_t k = 0; k < 4 - PLen; ++k) PString[k] = '0';
+					}
+				}
+
+				Tmp = __STRING_INT_MIN(NLen, MaxSize);
+				if (Tmp) memcpy(Buffer, NString, Tmp * sizeof(CharType));
+
+				Buffer += Tmp;
+				MaxSize -= Tmp;
+
+				if (MaxSize && PLen) {
+					*(Buffer++) = '.';
+					--MaxSize;
+				}
+
+				Tmp = __STRING_INT_MIN(PLen, MaxSize);
+				if (Tmp) memcpy(Buffer, PString, Tmp * sizeof(CharType));
+
+				Dtostr_CutZeroes(Org);
 			}
 		};
 

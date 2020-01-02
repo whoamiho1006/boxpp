@@ -272,7 +272,7 @@ namespace boxpp
 		{
 		public:
 			FArgumentSet(const FName& Shortcut, const FName& Switch, const FString& Usage = "")
-				: Shortcut(Shortcut), Switch(Switch), Usage(Usage)
+				: Shortcut(Shortcut), Switch(Switch), Usage(Usage), bUserError(false)
 			{
 			}
 
@@ -303,8 +303,10 @@ namespace boxpp
 
 			TLinkedList<Requirement> Requirements;
 			
-			TFunction<void(const FArgumentSet*)> Callback;
-			TFunction<void(const FArgumentSet*, IArgument*)> ErrorCallback;
+			TFunction<void(FArgumentSet*)> Callback;
+			TFunction<void(FArgumentSet*, IArgument*)> ErrorCallback;
+
+			bool bUserError;
 
 		public:
 			FASTINLINE const FName& GetShortcut() const { return Shortcut; }
@@ -312,13 +314,17 @@ namespace boxpp
 			FASTINLINE const FString& GetUsage() const { return Usage; }
 
 		public:
-			FASTINLINE FArgumentSet& SetCallback(TFunction<void(const FArgumentSet*)> Callback) {
-				this->Callback = Forward<TFunction<void(const FArgumentSet*)>>(Callback);
+			FASTINLINE bool HasUserError() const { return bUserError; }
+			FASTINLINE void SetUserError() { bUserError = true; }
+
+		public:
+			FASTINLINE FArgumentSet& SetCallback(TFunction<void(FArgumentSet*)> Callback) {
+				this->Callback = Forward<TFunction<void(FArgumentSet*)>>(Callback);
 				return *this;
 			}
 
-			FASTINLINE FArgumentSet& SetErrorCallback(TFunction<void(const FArgumentSet*, IArgument*)> Callback) {
-				this->ErrorCallback = Forward<TFunction<void(const FArgumentSet*, IArgument*)>>(Callback);
+			FASTINLINE FArgumentSet& SetErrorCallback(TFunction<void(FArgumentSet*, IArgument*)> Callback) {
+				this->ErrorCallback = Forward<TFunction<void(FArgumentSet*, IArgument*)>>(Callback);
 				return *this;
 			}
 			

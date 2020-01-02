@@ -377,7 +377,7 @@ namespace boxpp {
 		template<typename LambdaType>
 		FASTINLINE TFunction(LambdaType&& Lambda) : BaseType(Forward<LambdaType>(Lambda)) { }
 
-		FASTINLINE TFunction(const SelfType& Other) : BaseType(Other) { }
+		FASTINLINE TFunction(const SelfType& Other) : BaseType(*((const BaseType*)&Other)) { }
 		FASTINLINE TFunction(SelfType&& Other) : BaseType(Forward<BaseType>(*((BaseType*)&Other))) { }
 
 		template<typename ClassType>
