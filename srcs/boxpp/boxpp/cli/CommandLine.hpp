@@ -96,7 +96,7 @@ namespace boxpp {
 			FASTINLINE const FName& GetLatestShortcut() const { return LatestShortcut; }
 			FASTINLINE FArgumentSet* GetDefaultSet() const { return const_cast<FArgumentSet*>(&DefaultSet); }
 			FASTINLINE IArgument* GetLatestArgument() const { return LatestArg; }
-
+			FASTINLINE FArgumentSet* GetLatestArgumentSet() const { return LatestArgset; }
 		public:
 			FASTINLINE FArgumentSet& On() { return DefaultSet; }
 			FASTINLINE FArgumentSet& On(const FName& Shortcut, 

@@ -246,6 +246,8 @@
     <ClInclude Include="boxpp\cli\TTY.hpp" />
     <ClInclude Include="boxpp\cli\TTYColor.hpp" />
     <ClInclude Include="boxpp\cli\ControlCharacter.hpp" />
+    <ClInclude Include="boxpp\core\Application.hpp" />
+    <ClInclude Include="boxpp\daemonize\Daemon.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="boxpp\base\boilerplates\Memory.cpp" />
@@ -273,6 +275,7 @@
     <ClCompile Include="boxpp\cli\Arguments.cpp" />
     <ClCompile Include="boxpp\cli\CommandLine.cpp" />
     <ClCompile Include="boxpp\cli\TTY.cpp" />
+    <ClCompile Include="boxpp\daemonize\Daemon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md" />

@@ -73,6 +73,9 @@
     <Filter Include="boxpp\cli">
       <UniqueIdentifier>{eaf85fea-df3a-43bb-8579-757543843588}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boxpp\daemonize">
+      <UniqueIdentifier>{7a92104f-a813-4f9f-976a-fe475a52a992}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boxpp\base\BaseTypes.hpp">
@@ -360,6 +363,12 @@
     <ClInclude Include="boxpp\cli\Arguments.hpp">
       <Filter>boxpp\cli</Filter>
     </ClInclude>
+    <ClInclude Include="boxpp\daemonize\Daemon.hpp">
+      <Filter>boxpp\daemonize</Filter>
+    </ClInclude>
+    <ClInclude Include="boxpp\core\Application.hpp">
+      <Filter>boxpp\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="boxpp\base\README.md">
@@ -441,6 +450,9 @@
     </ClCompile>
     <ClCompile Include="boxpp\cli\CommandLine.cpp">
       <Filter>boxpp\cli</Filter>
+    </ClCompile>
+    <ClCompile Include="boxpp\daemonize\Daemon.cpp">
+      <Filter>boxpp\daemonize</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

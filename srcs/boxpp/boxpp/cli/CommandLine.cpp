@@ -67,6 +67,7 @@ namespace boxpp {
 				//const CharType* Mark = Line;
 				CharType EscapeState = '\0';
 				CharType QuatoState = '\0';
+				CharType LatestCharacter = '\0';
 
 				FString Buffer;
 				Buffer.SetMultiplier(4);
@@ -74,6 +75,7 @@ namespace boxpp {
 				while (*Line) {
 					if (!QuatoState) {
 						EscapeState = '\0';
+
 
 						switch (*Line) {
 						case '\"':
@@ -84,7 +86,9 @@ namespace boxpp {
 						case ' ':
 						case '=':
 							if (Buffer) {
-								Queue.Enqueue(Buffer);
+								if (LatestCharacter != *Line)
+									Queue.Enqueue(Buffer);
+
 								Buffer.Clear();
 							}
 
@@ -96,6 +100,7 @@ namespace boxpp {
 							Buffer.Append(*Line);
 							break;
 						}
+
 					}
 
 					else if (QuatoState == *Line) {
@@ -125,6 +130,7 @@ namespace boxpp {
 
 					else Buffer.Append(*Line);
 
+					*LatestCharacter = *Line;
 					++Line;
 				}
 

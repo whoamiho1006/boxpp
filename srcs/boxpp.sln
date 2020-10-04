@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test-w32", "test-w32\test-w
 		{8D4527B8-BBE6-4A45-8978-BE7DEE89D47C} = {8D4527B8-BBE6-4A45-8978-BE7DEE89D47C}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boxpp-rt", "boxpp-rt\boxpp-rt.vcxproj", "{53E7FEDC-8F80-4168-A84C-BFC62D72EFD9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -47,6 +49,14 @@ Global
 		{193B1EBD-8605-4EF4-A2CA-2DDCBEA3F2BA}.Release|x64.Build.0 = Release|x64
 		{193B1EBD-8605-4EF4-A2CA-2DDCBEA3F2BA}.Release|x86.ActiveCfg = Release|Win32
 		{193B1EBD-8605-4EF4-A2CA-2DDCBEA3F2BA}.Release|x86.Build.0 = Release|Win32
+		{53E7FEDC-8F80-4168-A84C-BFC62D72EFD9}.Debug|x64.ActiveCfg = Debug|x64
+		{53E7FEDC-8F80-4168-A84C-BFC62D72EFD9}.Debug|x64.Build.0 = Debug|x64
+		{53E7FEDC-8F80-4168-A84C-BFC62D72EFD9}.Debug|x86.ActiveCfg = Debug|Win32
+		{53E7FEDC-8F80-4168-A84C-BFC62D72EFD9}.Debug|x86.Build.0 = Debug|Win32
+		{53E7FEDC-8F80-4168-A84C-BFC62D72EFD9}.Release|x64.ActiveCfg = Release|x64
+		{53E7FEDC-8F80-4168-A84C-BFC62D72EFD9}.Release|x64.Build.0 = Release|x64
+		{53E7FEDC-8F80-4168-A84C-BFC62D72EFD9}.Release|x86.ActiveCfg = Release|Win32
+		{53E7FEDC-8F80-4168-A84C-BFC62D72EFD9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
